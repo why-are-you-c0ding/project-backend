@@ -2,7 +2,6 @@
 FROM --platform=linux/x86_64 openjdk:11-jre-slim
 
 #docker build 커맨드를 사용할 때 입력받을 수 있는 인자를 선언한다.
-#ARG JAR_FILE=build/*.jar
 ARG JAR_FILE=build/libs/\*.jar
 
 #이미지에 파일이나 폴더를 추가. ${JAR_FILE} -> (이미지 파일로 복사) app.jar
