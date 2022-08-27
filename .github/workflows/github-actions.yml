@@ -8,8 +8,8 @@
 name: Java CI with Gradle
 
 on: #이벤트다. 이벤트가 발생해야 워크 플로우를 실행한다.
-  push:
-    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -31,8 +31,6 @@ jobs:
 
     - name: Make main application.yml
       run: |
-        ls
-        pwd
         cd ./src/main/resources
         touch ./application.yml
         echo "${{ secrets.MAIN_APPLICATION_YML }}" > ./application.yml
