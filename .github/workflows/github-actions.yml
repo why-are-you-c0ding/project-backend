@@ -31,7 +31,7 @@ jobs:
 
     - name: Make main application.yml
       run: |
-        echo "ls -a . & pwd"
+        echo ls -a . & pwd
         pwd
         cd ./src/main/resources
         touch ./application.yml
