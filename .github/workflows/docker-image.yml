@@ -1,7 +1,7 @@
 name: Docker Image CI
 
 on: #이벤트다. 이벤트가 발생해야 워크 플로우를 실행한다.
-  pull_request:
+  push:
     branches: [ "main" ]
 
 jobs:
