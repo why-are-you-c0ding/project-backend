@@ -7,7 +7,7 @@
 
 name: Java CI with Gradle
 
-on:
+on: #이벤트다. 이벤트가 발생해야 워크 플로우를 실행한다.
   push:
     branches: [ "main", "develop" ]
 
@@ -17,17 +17,32 @@ permissions:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+    - uses: actions/checkout@v3  #체크아웃 단계는 저장소의 복사본을 런너에 다운로드합니다.
+
     - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
         java-version: '11'
         distribution: 'temurin'
+
+    - name: Make main application.yml
+      run: |
+        cd ./src/main/resources
+        touch ./application.yml
+        echo "${{ secrets.MAIN_APPLICATION_YML }}" > ./application.yml
+      shell: bash
+
+    - name: Make test application.yml
+      run: |
+        cd ./src/test/resources
+        touch ./application.yml
+        echo "${{ secrets.MAIN_APPLICATION_YML }}" > ./application.yml
+      shell: bash
+
     - name: Build with Gradle
       #uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1 이건 누가 공유해놓은 액션이라한다.
       run : ./gradlew clean build
-      with:
-        arguments: build
