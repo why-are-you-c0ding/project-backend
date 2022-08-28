@@ -52,5 +52,5 @@ jobs:
           sudo docker rm $(sudo docker ps -qa)
           sudo docker image rm ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
           sudo docker pull ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
-          sudo docker run -p ${{ secrets.SERVER_PORT }}:${{ secrets.DOCKER_PORT }} ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
-          exit
+          sudo docker run -p ${{ secrets.SERVER_PORT }}:${{ secrets.DOCKER_PORT }} -d ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
+          
