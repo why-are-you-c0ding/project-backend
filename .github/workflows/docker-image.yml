@@ -48,8 +48,9 @@ jobs:
         key: ${{ secrets.REMOTE_SSH_KEY }}
         port: 22
         script: |
-          sudo docker stop $(sudo docker ps -qa)
+          sudo docker stop $(sudo docker ps -qa)  
           sudo docker rm $(sudo docker ps -qa)
+          sudo docker image rm ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
           sudo docker pull ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
           sudo docker run -p ${{ secrets.SERVER_PORT }}:${{ secrets.DOCKER_PORT }} ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
-## ec2 접속후 도커 이미지를 pull해서 컨테이너를 실행해 띄운다.
+## docker ps -qa는 도커 컨테이너의 아이디를 띄운다.
