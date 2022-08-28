@@ -9,6 +9,11 @@ public class TestController {
     public String helloWorld(){
         return "hi";
     }
+
+    @GetMapping("/test")
+    public String test(){
+        return "test";
+    }
 }
 
 //backend-0.0.1-SNAPSHOT.jar

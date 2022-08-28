@@ -29,7 +29,7 @@ jobs:
       run: ./gradlew clean build -x test #테스트 실행을 하지 않음.
 
     - name: Build the Docker image
-      run: docker build -t ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }} ./
+      run: docker build -t ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }} .
 
     - name: Log in to Docker Hub
       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -40,7 +40,15 @@ jobs:
     - name: Push Docker Image
       run: docker push ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
 
-## 도커 허브에 로그인하고 푸쉬
-
+    - name: Executing remote ssh command using ssh key
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.REMOTE_IP }}
+        username: ${{ secrets.REMOTE_SSH_ID }}
+        key: ${{ secrets.REMOTE_SSH_KEY }}
+        script: |
+          sudo docker stop $(docker ps -qa)
+          sudo docker rm $(docker ps -qa)
+          sudo docker pull ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
+          sudo docker run -p ${{ secrets.SERVER_PORT }}:${{ secrets.DOCKER_PORT }} ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
 ## ec2 접속후 도커 이미지를 pull해서 컨테이너를 실행해 띄운다.
-

@@ -31,7 +31,7 @@ dependencies {
 }
 
 jar{
-	enabled(false)
+	enabled(false) //plain.jar 생성을 막음.
 }
 
 tasks.named('test') {
