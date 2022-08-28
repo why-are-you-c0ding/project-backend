@@ -46,6 +46,7 @@ jobs:
         host: ${{ secrets.REMOTE_IP }}
         username: ${{ secrets.REMOTE_SSH_ID }}
         key: ${{ secrets.REMOTE_SSH_KEY }}
+        port: 22
         script: |
           sudo docker stop $(sudo docker ps -qa)
           sudo docker rm $(sudo docker ps -qa)
