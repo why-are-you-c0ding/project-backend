@@ -8,4 +8,4 @@ ARG JAR_FILE=build/libs/\*.jar
 COPY ${JAR_FILE} app.jar
 
 #컨테이너를 실행할 때 실행할 명령어를 강제 지정한다.
-ENTRYPOINT ["nohup", "java", "-jar", "app.jar"]
+ENTRYPOINT ["nohup", "java", "-jar", "app.jar","&"]
