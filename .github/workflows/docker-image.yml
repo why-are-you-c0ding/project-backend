@@ -47,8 +47,8 @@ jobs:
         username: ${{ secrets.REMOTE_SSH_ID }}
         key: ${{ secrets.REMOTE_SSH_KEY }}
         script: |
-          sudo docker stop $(docker ps -qa)
-          sudo docker rm $(docker ps -qa)
+          sudo docker stop $(sudo docker ps -qa)
+          sudo docker rm $(sudo docker ps -qa)
           sudo docker pull ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
           sudo docker run -p ${{ secrets.SERVER_PORT }}:${{ secrets.DOCKER_PORT }} ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
 ## ec2 접속후 도커 이미지를 pull해서 컨테이너를 실행해 띄운다.
