@@ -11,7 +11,7 @@ public class CreateMemberResponseDto {
     private String nickName;
     private String email;
     private String loginId;
-    private String age;
+    private int age;
 
     public static CreateMemberResponseDto of(Member member) {
         return CreateMemberResponseDto.builder()
@@ -24,7 +24,7 @@ public class CreateMemberResponseDto {
     }
 
     @Builder
-    public CreateMemberResponseDto(Long id, String nickName, String email, String loginId, String age) {
+    public CreateMemberResponseDto(Long id, String nickName, String email, String loginId, int age) {
         this.id = id;
         this.nickName = nickName;
         this.email = email;

@@ -22,10 +22,10 @@ public class Member extends BaseEntity {
     private String email;
     private String loginId;
     private String password;
-    private String age;
+    private int age;
 
     @Builder
-    public Member(String nickName, String email, String loginId, String password, String age) {
+    public Member(String nickName, String email, String loginId, String password, int age) {
         super();
         this.nickName = nickName;
         this.email = email;

@@ -1,5 +1,6 @@
 package wayc.backend.member.presentation.dto.request;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
@@ -26,7 +27,7 @@ public class PostMemberRequestDto {
             message = "비밀번호는 최소 8 자로 문자, 숫자 및 특수 문자를 최소 하나씩 포함해서 8-15자리 이내로 입력해주세요.")
     private String checkPassword;
 
-    private String age;
+    private int age;
 
     public static CreateMemberRequestDto toServiceDto(PostMemberRequestDto request) {
         return CreateMemberRequestDto.builder()
@@ -37,5 +38,17 @@ public class PostMemberRequestDto {
                 .checkPassword(request.getCheckPassword())
                 .age(request.getAge())
                 .build();
+    }
+
+
+    //테스트용
+    @Builder
+    public PostMemberRequestDto(String nickName, String email, String loginId, String password, String checkPassword, int age) {
+        this.nickName = nickName;
+        this.email = email;
+        this.loginId = loginId;
+        this.password = password;
+        this.checkPassword = checkPassword;
+        this.age = age;
     }
 }

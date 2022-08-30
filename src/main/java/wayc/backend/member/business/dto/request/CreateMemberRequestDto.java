@@ -13,10 +13,10 @@ public class CreateMemberRequestDto {
     private String loginId;
     private String password;
     private String checkPassword;
-    private String age;
+    private int age;
 
     @Builder
-    public CreateMemberRequestDto(String nickName, String email, String loginId, String password, String checkPassword, String age) {
+    public CreateMemberRequestDto(String nickName, String email, String loginId, String password, String checkPassword, int age) {
         this.nickName = nickName;
         this.email = email;
         this.loginId = loginId;
