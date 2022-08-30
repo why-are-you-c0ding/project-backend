@@ -4,11 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
-@Getter @Setter
+@Getter
 public class PostMemberRequestDto {
 
     @NotBlank
@@ -17,13 +15,15 @@ public class PostMemberRequestDto {
     @Email
     private String email;
 
-    @NotNull
+    @Size(min = 6)
     private String loginId;
 
-    @NotNull
+    @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,15}$",
+            message = "비밀번호는 최소 8 자로 문자, 숫자 및 특수 문자를 최소 하나씩 포함해서 8-15자리 이내로 입력해주세요.")
     private String password;
 
-    @NotNull
+    @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,15}$",
+            message = "비밀번호는 최소 8 자로 문자, 숫자 및 특수 문자를 최소 하나씩 포함해서 8-15자리 이내로 입력해주세요.")
     private String checkPassword;
 
     private String age;
