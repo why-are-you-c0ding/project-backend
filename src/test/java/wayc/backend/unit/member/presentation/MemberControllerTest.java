@@ -24,3 +24,5 @@ public abstract class MemberControllerTest {
     @Autowired
     protected ObjectMapper mapper;
 }
+
+//IntStream

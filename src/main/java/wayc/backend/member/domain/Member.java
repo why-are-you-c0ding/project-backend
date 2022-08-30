@@ -34,3 +34,5 @@ public class Member extends BaseEntity {
         this.age = age;
     }
 }
+
+//도메인과 엔티티에 절대 서비스 정책을 넣지 말자.
