@@ -26,7 +26,7 @@ jobs:
       shell: bash
 
     - name: Build Application
-      run: ./gradlew clean build -x test #테스트 실행을 하지 않음.
+      run: ./gradlew clean build
 
     - name: Build the Docker image
       run: docker build -t ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }} .
