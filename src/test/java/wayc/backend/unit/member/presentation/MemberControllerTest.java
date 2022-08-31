@@ -7,6 +7,9 @@ import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.restdocs.payload.PayloadDocumentation;
 import wayc.backend.factory.member.dto.CreateMemberResponseDtoFactory;
 import wayc.backend.factory.member.dto.PostMemberRequestDtoFactory;
 
@@ -16,8 +19,13 @@ import wayc.backend.member.business.dto.response.CreateMemberResponseDto;
 import wayc.backend.member.presentation.dto.request.PostMemberRequestDto;
 import wayc.backend.unit.ControllerTest;
 
+import javax.print.DocFlavor;
+
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.payload.JsonFieldType.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -36,7 +44,7 @@ public class MemberControllerTest extends ControllerTest {
         String value = mapper.writeValueAsString(req);
 
         //when
-        mockMvc.perform(post("/members")
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/members")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(value)
@@ -44,8 +52,22 @@ public class MemberControllerTest extends ControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$.nickName").value("nickName"))
                 .andDo(print())
-                .andDo(document("create-member"));
+                .andDo(document("create-member",
+                                requestFields(
+                                        fieldWithPath("nickName").type(STRING).description("닉네임"),
+                                        fieldWithPath("email").type(STRING).description("이메일"),
+                                        fieldWithPath("loginId").type(STRING).description("로그인아이디"),
+                                        fieldWithPath("password").type(STRING).description("비밀번호"),
+                                        fieldWithPath("checkPassword").type(STRING).description("비밀번호 확인"),
+                                        fieldWithPath("age").type(NUMBER).description("나이")
+                                ),
+                                responseFields(
+                                        fieldWithPath("id").type(NUMBER).description("멤버 id"),
+                                        fieldWithPath("nickName").type(STRING).description("닉네임"),
+                                        fieldWithPath("email").type(STRING).description("이메일"),
+                                        fieldWithPath("loginId").type(STRING).description("로그인아이디"),
+                                        fieldWithPath("age").type(NUMBER).description("나이")
+                                )
+                        ));
     }
 }
-
-//IntStream
