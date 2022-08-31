@@ -5,10 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import wayc.backend.exception.verification.DuplicatedLoginIdException;
+import wayc.backend.exception.verification.DuplicatedNickNameException;
+import wayc.backend.exception.verification.NotSamePasswordException;
 import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
 import wayc.backend.member.business.dto.response.CreateMemberResponseDto;
 import wayc.backend.member.dataaccess.MemberRepository;
 import wayc.backend.member.domain.Member;
+import wayc.backend.verification.service.VerificationService;
 
 
 @Transactional(readOnly = true)
@@ -17,24 +21,19 @@ import wayc.backend.member.domain.Member;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final VerificationService verificationService;
 
     @Transactional(readOnly = true)
     public CreateMemberResponseDto createMember(CreateMemberRequestDto dto) {
-
-        if(!dto.getPassword().equals(dto.getCheckPassword())){
-            throw new IllegalStateException("비밀번호가 일치하지 않습니다");
-        }
-
-        if(memberRepository.findByNickNameAndStatus(dto.getNickName()).isPresent()){
-            throw new IllegalStateException("이미 존재하는 닉네임입니다");
-        }
-
-        if(memberRepository.findByLoginIdAndStatus(dto.getLoginId()).isPresent()){
-            throw new IllegalStateException("이미 존재하는 로그인 아이디입니다");
-        }
-
+        validateCreateMember(dto);
         Member member = dto.toEntity();
         Member saveMember = memberRepository.save(member);
         return CreateMemberResponseDto.of(saveMember);
+    }
+
+    public void validateCreateMember(CreateMemberRequestDto dto){
+        verificationService.isNotSamePasswords(dto.getPassword(), dto.getCheckPassword());
+        verificationService.ExistSameNickName(dto.getNickName());
+        verificationService.ExistSamLoginId(dto.getLoginId());
     }
 }
