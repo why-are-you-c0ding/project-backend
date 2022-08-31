@@ -1,5 +1,10 @@
 = 넌왜코 백엔드 API
-:toc:
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
 
 == 멤버 생성
 

@@ -435,14 +435,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="book toc2 toc-left">
 <div id="header">
 <h1>넌왜코 백엔드 API</h1>
 <div class="details">
 <span id="revnumber">version 0.0.1-SNAPSHOT</span>
 </div>
-<div id="toc" class="toc">
+<div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_멤버_생성">멤버 생성</a>
@@ -456,19 +457,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_멤버_생성">멤버 생성</h2>
+<h2 id="_멤버_생성"><a class="link" href="#_멤버_생성">멤버 생성</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_요청">요청</h3>
+<h3 id="_요청"><a class="link" href="#_요청">요청</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /members HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /members HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 132
+Content-Length: 163
 Host: waycabvav.shop
 
-{"nickName":"nickName","email":"123@google.com","loginId":"loginId","password":"1q2w3e4r!!!","checkPassword":"1q2w3e4r!!!","age":23}</code></pre>
+{
+  "nickName" : "nickName",
+  "email" : "123@google.com",
+  "loginId" : "loginId",
+  "password" : "1q2w3e4r!!!",
+  "checkPassword" : "1q2w3e4r!!!",
+  "age" : 23
+}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -519,14 +527,20 @@ Host: waycabvav.shop
 </table>
 </div>
 <div class="sect2">
-<h3 id="_응답">응답</h3>
+<h3 id="_응답"><a class="link" href="#_응답">응답</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 84
+Content-Length: 110
 
-{"id":1,"nickName":"nickName","email":"123@google.com","loginId":"loginId","age":23}</code></pre>
+{
+  "id" : 1,
+  "nickName" : "nickName",
+  "email" : "123@google.com",
+  "loginId" : "loginId",
+  "age" : 23
+}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -577,8 +591,11 @@ Content-Length: 84
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-08-31 21:46:09 +0900
+Last updated 2022-08-31 22:01:09 +0900
 </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
 </body>
 </html>

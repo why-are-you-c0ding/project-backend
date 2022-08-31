@@ -10,6 +10,7 @@ import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.PayloadDocumentation;
+import wayc.backend.docs.SpringRestDocsUtils;
 import wayc.backend.factory.member.dto.CreateMemberResponseDtoFactory;
 import wayc.backend.factory.member.dto.PostMemberRequestDtoFactory;
 
@@ -30,6 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static wayc.backend.docs.SpringRestDocsUtils.*;
 
 public class MemberControllerTest extends ControllerTest {
 
@@ -53,6 +55,8 @@ public class MemberControllerTest extends ControllerTest {
                 .andExpect(jsonPath("$.nickName").value("nickName"))
                 .andDo(print())
                 .andDo(document("create-member",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
                                 requestFields(
                                         fieldWithPath("nickName").type(STRING).description("닉네임"),
                                         fieldWithPath("email").type(STRING).description("이메일"),
