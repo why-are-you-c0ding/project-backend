@@ -24,6 +24,11 @@ public class MemberController {
         return ResponseEntity.ok(res);
     }
 
+    @GetMapping("/members")
+    public String test1(){
+        return "members";
+    }
+
     @GetMapping()
     public String test(){
         return "test";
