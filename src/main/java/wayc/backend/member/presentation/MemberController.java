@@ -13,18 +13,18 @@ import wayc.backend.member.presentation.dto.request.PostMemberRequestDto;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/members")
+//@RequestMapping("/members")
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping
+    @PostMapping("/members")
     public ResponseEntity<CreateMemberResponseDto> createMember(@RequestBody @Validated PostMemberRequestDto request){
         CreateMemberResponseDto res = memberService.createMember(PostMemberRequestDto.toServiceDto(request));
         return ResponseEntity.ok(res);
     }
 
-    @GetMapping("/test")
+    @GetMapping()
     public String test(){
         return "test";
     }
