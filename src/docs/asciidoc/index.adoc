@@ -1,0 +1,16 @@
+= 넌왜코 백엔드 API
+:toc:
+
+== 멤버 생성
+
+=== 요청
+
+include::{snippets}/create-member/http-request.adoc[]
+
+=== 응답
+
+include::{snippets}/create-member/http-response.adoc[]
+
+=== curl
+
+include::{snippets}/create-member/curl-request.adoc[]

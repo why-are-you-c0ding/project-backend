@@ -68,8 +68,13 @@ asciidoctor {
 
 bootJar {
 	dependsOn asciidoctor
-	from ("${asciidoctor.outputDir}/html5") {
-		into 'static/docs'
+//	from ("${asciidoctor.outputDir}") {
+//		println ">>>>" + asciidoctor.outputDir //build 파일에 생성된다. static으로 옮겨야함.
+//		into 'static/docs'
+//	}
+	copy {
+		from asciidoctor.outputDir
+		into 'src/main/resources/static/docs'
 	}
 }
 
