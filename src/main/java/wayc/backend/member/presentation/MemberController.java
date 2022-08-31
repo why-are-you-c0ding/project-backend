@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import wayc.backend.member.business.MemberService;
 import wayc.backend.member.business.dto.response.CreateMemberResponseDto;
@@ -25,5 +22,10 @@ public class MemberController {
     public ResponseEntity<CreateMemberResponseDto> createMember(@RequestBody @Validated PostMemberRequestDto request){
         CreateMemberResponseDto res = memberService.createMember(PostMemberRequestDto.toServiceDto(request));
         return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/test")
+    public String test(){
+        return "test";
     }
 }
