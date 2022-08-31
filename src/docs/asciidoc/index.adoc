@@ -1,5 +1,10 @@
 = 넌왜코 백엔드 API
-:toc:
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
 
 == 멤버 생성
 
@@ -7,10 +12,10 @@
 
 include::{snippets}/create-member/http-request.adoc[]
 
+include::{snippets}/create-member/request-fields.adoc[]
+
 === 응답
 
 include::{snippets}/create-member/http-response.adoc[]
 
-=== curl
-
-include::{snippets}/create-member/curl-request.adoc[]
+include::{snippets}/create-member/response-fields.adoc[]
