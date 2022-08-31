@@ -2,6 +2,7 @@ package wayc.backend.unit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import wayc.backend.member.business.MemberService;
 import wayc.backend.member.presentation.MemberController;
 

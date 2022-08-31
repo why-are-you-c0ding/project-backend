@@ -11,9 +11,9 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends JpaRepository <Member, Long> {
 
-    @Query("select m from Member m where m.status = 'ACTIVE' and m.nickName =: nickName")
-    Optional<Member> findByNickName(String nickName);
+    @Query("select m from Member m where m.status = 'ACTIVE' and m.nickName = :nickName")
+    Optional<Member> findByNickNameAndStatus(String nickName);
 
-    @Query("select m from Member m where m.status = 'ACTIVE' and m.nickName =: loginId")
-    Optional<Member> findByLoginId(String loginId);
+    @Query("select m from Member m where m.status = 'ACTIVE' and m.nickName = :loginId")
+    Optional<Member> findByLoginIdAndStatus(String loginId);
 }

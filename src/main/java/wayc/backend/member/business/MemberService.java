@@ -25,11 +25,11 @@ public class MemberService {
             throw new IllegalStateException("비밀번호가 일치하지 않습니다");
         }
 
-        if(memberRepository.findByNickName(dto.getNickName()).isPresent()){
+        if(memberRepository.findByNickNameAndStatus(dto.getNickName()).isPresent()){
             throw new IllegalStateException("이미 존재하는 닉네임입니다");
         }
 
-        if(memberRepository.findByLoginId(dto.getLoginId()).isPresent()){
+        if(memberRepository.findByLoginIdAndStatus(dto.getLoginId()).isPresent()){
             throw new IllegalStateException("이미 존재하는 로그인 아이디입니다");
         }
 
