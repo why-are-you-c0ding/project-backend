@@ -25,6 +25,9 @@ jobs:
         echo "${{ secrets.MAIN_APPLICATION_YML }}" >> ./application.yml
       shell: bash
 
+    - name: boot Jar
+      run: ./gradlew boot Jar
+
     - name: Build Application
       run: ./gradlew build
 
