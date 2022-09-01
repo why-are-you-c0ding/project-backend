@@ -1,4 +1,4 @@
-= 넌왜코 백엔드 API
+= 넌왜코 백엔드 API\
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -6,4 +6,5 @@
 :toclevels: 2
 :sectlinks:
 
-include::member-api.adoc[]
+
+include::src/docs/asciidoc/member.adoc[]

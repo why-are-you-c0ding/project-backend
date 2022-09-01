@@ -21,7 +21,7 @@ import wayc.backend.member.presentation.MemberController;
 })
 @MockBean(JpaMetamodelMappingContext.class) //JPA 설정을 못하므로 오류가 발생. 따라서 해당 애노테이션을 넣는다.
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "waycabvav.shop", uriPort = 443)
-@ExtendWith(RestDocumentationExtension.class)
+//@ExtendWith(RestDocumentationExtension.class)
 public abstract class ControllerTest {
 
     @Autowired
