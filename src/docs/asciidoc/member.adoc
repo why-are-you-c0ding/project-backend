@@ -1,0 +1,13 @@
+== 멤버 생성
+
+==== 요청
+
+include::{snippets}/create_member/http-request.adoc[]
+
+include::{snippets}/create_member/request-fields.adoc[]
+
+==== 응답
+
+include::{snippets}/create_member/http-response.adoc[]
+
+include::{snippets}/create_member/response-fields.adoc[]

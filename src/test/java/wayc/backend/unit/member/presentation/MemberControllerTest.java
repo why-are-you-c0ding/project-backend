@@ -37,7 +37,7 @@ public class MemberControllerTest extends ControllerTest {
 
     @Test
     @DisplayName("멤버 생성 성공 테스트")
-    void createMember() throws Exception {
+    void create_member() throws Exception {
         //given
         PostMemberRequestDto req = PostMemberRequestDtoFactory.createSuccessCaseDto();
         CreateMemberResponseDto res = CreateMemberResponseDtoFactory.createSuccessCaseDto();
@@ -54,7 +54,7 @@ public class MemberControllerTest extends ControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$.nickName").value("nickName"))
                 .andDo(print())
-                .andDo(document("create-member",
+                .andDo(document("create_member",
                         getDocumentRequest(),
                         getDocumentResponse(),
                                 requestFields(
