@@ -26,7 +26,7 @@ jobs:
       shell: bash
 
     - name: boot Jar
-      run: ./gradlew boot Jar
+      run: ./gradlew bootJar
 
     - name: Build Application
       run: ./gradlew build
