@@ -23,12 +23,12 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final VerificationService verificationService;
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = false)
     public CreateMemberResponseDto createMember(CreateMemberRequestDto dto) {
         validateCreateMember(dto);
         Member member = dto.toEntity();
-        Member saveMember = memberRepository.save(member);
-        return CreateMemberResponseDto.of(saveMember);
+        memberRepository.save(member);
+        return CreateMemberResponseDto.of(member);
     }
 
     public void validateCreateMember(CreateMemberRequestDto dto){

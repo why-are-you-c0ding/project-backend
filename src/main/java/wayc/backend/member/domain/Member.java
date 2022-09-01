@@ -8,6 +8,7 @@ import wayc.backend.common.domain.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Getter
@@ -16,7 +17,7 @@ import javax.persistence.Id;
 public class Member extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nickName;
     private String email;
