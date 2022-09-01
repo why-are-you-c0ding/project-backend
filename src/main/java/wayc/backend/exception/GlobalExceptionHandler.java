@@ -7,12 +7,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import wayc.backend.exception.dto.ApplicationDtoException;
 
+import javax.persistence.ElementCollection;
+
 import static org.springframework.http.HttpStatus.*;
 
 
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ApplicationException.class)
+    public ResponseEntity<ApplicationException> applicationException(ApplicationException e) {
+        //log.warn(LOG_FORMAT, e.getClass().getSimpleName(), errorCode, "@Valid");
+        return ResponseEntity.status(e.getHttpStatus()).body(e);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApplicationDtoException> methodArgumentNotValidException(MethodArgumentNotValidException e) {
