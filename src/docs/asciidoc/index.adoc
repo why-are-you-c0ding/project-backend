@@ -6,5 +6,40 @@
 :toclevels: 2
 :sectlinks:
 
+== HTTP STATUS CODE
 
-include::src/docs/asciidoc/member.adoc[]
+|===
+| 상태 코드 | 설명
+
+| `200 OK`
+| 요청 성공
+
+| `201 OK`
+| 새 리소스 생성 성공
+
+| `400 Bad Request`
+| 잘못된 요청
+
+| `401 Unauthorized`
+| 비인증 상태
+
+| `403 Forbidden`
+| 권한 거부
+
+| `404 Not Found`
+| 존재하지 않는 요청 리소스
+
+| `500 Internal Server Error`
+| 서버 에러
+|===
+
+== HTTP ERROR RESPONSE
+
+include::{snippets}/exception_example/http-response.adoc[]
+
+
+
+=== 멤버 API
+* link:/docs/member.html[멤버 생성 API, window=_blank ]
+//include::src/docs/asciidoc/member.adoc[]
+

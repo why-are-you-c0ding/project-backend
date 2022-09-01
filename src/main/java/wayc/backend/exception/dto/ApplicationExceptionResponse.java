@@ -4,15 +4,15 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class ApplicationDtoException {
+public class ApplicationExceptionResponse {
 
-    private String field;
+    private String message;
     private String errorCode;
     private HttpStatus httpStatus;
 
-    public ApplicationDtoException(String errorCode, String field, HttpStatus httpStatus) {
+    public ApplicationExceptionResponse(String message, String errorCode, HttpStatus httpStatus) {
+        this.message = message;
         this.errorCode = errorCode;
-        this.field = field;
         this.httpStatus = httpStatus;
     }
 }

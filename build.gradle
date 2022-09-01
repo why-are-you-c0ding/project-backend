@@ -91,5 +91,3 @@ jar{
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
-

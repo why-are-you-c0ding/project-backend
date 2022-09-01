@@ -13,11 +13,13 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import wayc.backend.exception.ExceptionExampleController;
 import wayc.backend.member.business.MemberService;
 import wayc.backend.member.presentation.MemberController;
 
 @WebMvcTest({
-        MemberController.class
+        MemberController.class,
+        ExceptionExampleController.class
 })
 @MockBean(JpaMetamodelMappingContext.class) //JPA 설정을 못하므로 오류가 발생. 따라서 해당 애노테이션을 넣는다.
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "waycabvav.shop", uriPort = 443)
