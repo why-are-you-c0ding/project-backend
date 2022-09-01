@@ -26,7 +26,7 @@ jobs:
       shell: bash
 
     - name: Build Application
-      run: ./gradlew clean build
+      run: ./gradlew build
 
     - name: Build the Docker image
       run: docker build -t ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }} .
