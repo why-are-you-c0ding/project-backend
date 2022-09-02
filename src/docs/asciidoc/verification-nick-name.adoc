@@ -1,0 +1,13 @@
+= 검증
+
+== 요청
+
+include::{snippets}/verify_nick_name/http-request.adoc[]
+
+include::{snippets}/verify_nick_name/request-fields.adoc[]
+
+== 응답
+
+include::{snippets}/verify_nick_name/http-response.adoc[]
+
+include::{snippets}/verify_nick_name/response-fields.adoc[]

@@ -1,4 +1,4 @@
-package wayc.backend.unit.member;
+package wayc.backend.unit;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

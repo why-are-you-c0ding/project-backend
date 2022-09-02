@@ -2,7 +2,7 @@ package wayc.backend.member.presentation.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+
 import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
 
 import javax.validation.constraints.*;

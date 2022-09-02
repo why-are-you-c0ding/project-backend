@@ -39,7 +39,9 @@ include::{snippets}/exception_example/http-response.adoc[]
 
 
 
-=== 멤버 API
+== 멤버 API
 * link:/docs/member.html[멤버 생성 API, window=_blank ]
-//include::src/docs/asciidoc/member.adoc[]
 
+== 검증 API
+* link:/docs/verification-login-id.html[로그인 아이디 검증 API, window=_blank]
+* link:/docs/verification-nick-name.html[닉네임 검증 API, window=_blank]

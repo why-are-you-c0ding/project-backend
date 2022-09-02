@@ -2,6 +2,7 @@ package wayc.backend.verification.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.exception.verification.DuplicatedLoginIdException;
 import wayc.backend.exception.verification.DuplicatedNickNameException;
 import wayc.backend.exception.verification.NotSamePasswordException;
@@ -9,6 +10,7 @@ import wayc.backend.member.dataaccess.MemberRepository;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class VerificationService {
 
     private final MemberRepository memberRepository;
