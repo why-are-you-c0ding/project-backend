@@ -45,3 +45,4 @@ include::{snippets}/exception_example/http-response.adoc[]
 == 검증 API
 * link:/docs/verification-login-id.html[로그인 아이디 검증 API, window=_blank]
 * link:/docs/verification-nick-name.html[닉네임 검증 API, window=_blank]
+* link:/docs/verification-send-email.html[인증 이메일 전송 요청 API, window=_blank]

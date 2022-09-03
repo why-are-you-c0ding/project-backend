@@ -9,4 +9,7 @@ public class PostSendEmailRequestDto {
 
     private String receiveEmail;
 
+    public PostSendEmailRequestDto(String receiveEmail) {
+        this.receiveEmail = receiveEmail;
+    }
 }
