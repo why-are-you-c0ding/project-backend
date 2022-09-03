@@ -1,35 +1,27 @@
-package wayc.backend.unit.member.business;
+package wayc.backend.integration.member;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.factory.member.dto.CreateMemberRequestDtoFactory;
 import wayc.backend.member.business.MemberService;
 import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
 import wayc.backend.member.business.dto.response.CreateMemberResponseDto;
-import wayc.backend.member.dataaccess.MemberRepository;
-import wayc.backend.verification.business.VerificationService;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(MockitoExtension.class)
-class MemberServiceTest {
+@SpringBootTest
+@Transactional
+public class MemberIntegrationTest {
 
-    @InjectMocks
+    @Autowired
     private MemberService memberService;
 
-    @Mock
-    private MemberRepository memberRepository;
-
-    @Mock
-    private VerificationService verificationService;
-
     @Test
-    @DisplayName("멤버 생성 성공 서비스 단위 테스트")
-    void successCreateDeliveryPartyTest(){
+    @DisplayName("멤버 생성 성공 통합 테스트")
+    void create_member(){
         //given
         CreateMemberRequestDto dto = CreateMemberRequestDtoFactory.createSuccessCaseDto();
 
