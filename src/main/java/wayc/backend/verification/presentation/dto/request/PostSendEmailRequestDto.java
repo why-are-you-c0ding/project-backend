@@ -1,0 +1,12 @@
+package wayc.backend.verification.presentation.dto.request;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
+public class PostSendEmailRequestDto {
+
+    private String receiveEmail;
+
+}
