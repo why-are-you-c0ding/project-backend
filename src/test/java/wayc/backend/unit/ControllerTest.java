@@ -17,6 +17,7 @@ import wayc.backend.exception.ExceptionExampleController;
 import wayc.backend.member.business.MemberService;
 import wayc.backend.member.presentation.MemberController;
 import wayc.backend.verification.presentation.VerificationController;
+import wayc.backend.verification.service.EmailService;
 import wayc.backend.verification.service.VerificationService;
 
 @WebMvcTest({
@@ -40,5 +41,8 @@ public abstract class ControllerTest {
 
     @MockBean
     protected VerificationService verificationService;
+
+    @MockBean
+    protected EmailService emailService;
 
 }

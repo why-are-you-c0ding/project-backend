@@ -1,0 +1,13 @@
+= 인증 이메일 요청
+
+== 요청
+
+include::{snippets}/verify_send_email/http-request.adoc[]
+
+include::{snippets}/verify_send_email/request-fields.adoc[]
+
+== 응답
+
+include::{snippets}/verify_send_email/http-response.adoc[]
+
+include::{snippets}/verify_send_email/response-fields.adoc[]
