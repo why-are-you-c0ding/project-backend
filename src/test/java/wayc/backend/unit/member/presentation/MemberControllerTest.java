@@ -36,7 +36,7 @@ import static wayc.backend.docs.SpringRestDocsUtils.*;
 public class MemberControllerTest extends ControllerTest {
 
     @Test
-    @DisplayName("멤버 생성 성공 테스트")
+    @DisplayName("멤버 생성 성공 컨트롤러 단위 테스트")
     void create_member() throws Exception {
         //given
         PostMemberRequestDto req = PostMemberRequestDtoFactory.createSuccessCaseDto();

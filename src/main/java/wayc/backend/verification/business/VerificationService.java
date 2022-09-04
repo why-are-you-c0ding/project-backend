@@ -1,4 +1,4 @@
-package wayc.backend.verification.service;
+package wayc.backend.verification.business;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -40,7 +40,7 @@ public class EmailControllerTest extends ControllerTest {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
-                                fieldWithPath("receiveEmail").type(STRING).description("인증을 진행할 유저의 이메")
+                                fieldWithPath("receiveEmail").type(STRING).description("인증을 진행할 유저의 이메일")
                         ),
                                 responseFields(
                                         fieldWithPath("message").type(STRING).description("이메일 발송에 성공했습니다.")

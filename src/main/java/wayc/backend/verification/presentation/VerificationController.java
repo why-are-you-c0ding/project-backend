@@ -1,6 +1,5 @@
 package wayc.backend.verification.presentation;
 
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -11,8 +10,8 @@ import wayc.backend.verification.presentation.dto.request.PostSendEmailRequestDt
 import wayc.backend.verification.presentation.dto.request.PostVerifyLoginIdRequestDto;
 import wayc.backend.verification.presentation.dto.request.PostVerifyNickNameRequestDto;
 import wayc.backend.verification.presentation.dto.response.VerifyResponseDto;
-import wayc.backend.verification.service.EmailService;
-import wayc.backend.verification.service.VerificationService;
+import wayc.backend.verification.business.EmailService;
+import wayc.backend.verification.business.VerificationService;
 
 
 @RequiredArgsConstructor
