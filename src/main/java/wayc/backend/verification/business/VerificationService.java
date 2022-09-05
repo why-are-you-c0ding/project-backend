@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.exception.verification.DuplicatedLoginIdException;
 import wayc.backend.exception.verification.DuplicatedNickNameException;
+import wayc.backend.exception.verification.NotExistsMemberException;
 import wayc.backend.exception.verification.NotSamePasswordException;
 import wayc.backend.member.dataaccess.MemberRepository;
+import wayc.backend.member.domain.Member;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +33,9 @@ public class VerificationService {
         if(!password.equals(checkPassword)){
             throw new NotSamePasswordException();
         }
+    }
+
+    public Member findByLoginId(String loginId){
+        return memberRepository.findByLoginIdAndStatus(loginId).orElseThrow(NotExistsMemberException::new);
     }
 }
