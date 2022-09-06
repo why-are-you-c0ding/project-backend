@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import wayc.backend.factory.member.dto.CreateMemberRequestDtoFactory;
 import wayc.backend.member.business.MemberService;
 import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
@@ -26,6 +27,9 @@ class MemberServiceTest {
 
     @Mock
     private VerificationService verificationService;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @Test
     @DisplayName("멤버 생성 성공 서비스 단위 테스트")

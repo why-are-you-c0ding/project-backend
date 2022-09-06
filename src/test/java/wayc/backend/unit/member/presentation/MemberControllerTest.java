@@ -10,6 +10,8 @@ import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.PayloadDocumentation;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 import wayc.backend.docs.SpringRestDocsUtils;
 import wayc.backend.factory.member.dto.CreateMemberResponseDtoFactory;
 import wayc.backend.factory.member.dto.PostMemberRequestDtoFactory;
@@ -20,14 +22,11 @@ import wayc.backend.member.business.dto.response.CreateMemberResponseDto;
 import wayc.backend.member.presentation.dto.request.PostMemberRequestDto;
 import wayc.backend.unit.ControllerTest;
 
-import javax.print.DocFlavor;
-
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

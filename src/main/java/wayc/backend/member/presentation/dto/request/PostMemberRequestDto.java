@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
 @Getter
 public class PostMemberRequestDto {
 
-    @NotBlank
+    @Size(min = 2)
     private String nickName;
 
     @Email
