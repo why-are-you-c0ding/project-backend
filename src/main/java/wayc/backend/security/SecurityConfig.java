@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/members", "/verification/**")
+                .antMatchers("/**", "/verification/**")
                 .permitAll()
                         .mvcMatchers("/**").permitAll();
 
@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .accessDeniedHandler(accessDeniedHandler());
 
         customConfigurer(http);
-        http.csrf().disable();
+
         return http.build();
     }
 
