@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import wayc.backend.unit.ControllerTest;
 import wayc.backend.verification.presentation.dto.request.PostSendEmailRequestDto;
 import wayc.backend.verification.presentation.dto.request.PostVerifyLoginIdRequestDto;
@@ -21,6 +23,7 @@ public class EmailControllerTest extends ControllerTest {
 
     @Test
     @DisplayName("이메일 검증 송신 테스트")
+    @WithMockUser
     void verify_send_email() throws Exception {
 
         //given
@@ -32,6 +35,7 @@ public class EmailControllerTest extends ControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.post("/verification/email")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .content(value)
                 )
                 .andExpect(status().is2xxSuccessful())

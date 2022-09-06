@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import wayc.backend.exception.verification.NotSamePasswordException;
 import wayc.backend.factory.member.dto.CreateMemberResponseDtoFactory;
 import wayc.backend.factory.member.dto.PostMemberRequestDtoFactory;
@@ -29,10 +31,12 @@ public class CommonExceptionTest extends ControllerTest {
 
     @Test
     @DisplayName("예외 응답 확인 테스트")
+    @WithMockUser
     void exception_test() throws Exception {
 
         mockMvc.perform(RestDocumentationRequestBuilders.get("/exception/test")
                         .contentType(MediaType.APPLICATION_JSON)
+
                 )
                 .andExpect(status().is5xxServerError())
                 .andDo(print())

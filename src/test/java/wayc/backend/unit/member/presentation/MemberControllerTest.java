@@ -12,6 +12,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.PayloadDocumentation;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import wayc.backend.docs.SpringRestDocsUtils;
 import wayc.backend.factory.member.dto.CreateMemberResponseDtoFactory;
 import wayc.backend.factory.member.dto.PostMemberRequestDtoFactory;
@@ -36,6 +37,7 @@ public class MemberControllerTest extends ControllerTest {
 
     @Test
     @DisplayName("멤버 생성 성공 컨트롤러 단위 테스트")
+    @WithMockUser
     void create_member() throws Exception {
         //given
         PostMemberRequestDto req = PostMemberRequestDtoFactory.createSuccessCaseDto();
@@ -48,6 +50,7 @@ public class MemberControllerTest extends ControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.post("/members")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .content(value)
                 )
                 .andExpect(status().is2xxSuccessful())
