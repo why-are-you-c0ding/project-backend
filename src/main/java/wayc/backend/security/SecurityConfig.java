@@ -1,26 +1,25 @@
 package wayc.backend.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import wayc.backend.security.filter.AjaxLoginProcessingFilter;
+
+import org.springframework.security.web.access.AccessDeniedHandler;
 import wayc.backend.security.handler.AjaxAuthenticationFailureHandler;
 import wayc.backend.security.handler.AjaxAuthenticationSuccessHandler;
+import wayc.backend.security.handler.AjaxLoginAuthenticationEntryPoint;
+import wayc.backend.security.handler.CustomAccessDeniedHandler;
 import wayc.backend.security.provider.CustomAuthenticationProvider;
 import wayc.backend.security.service.CustomUserDetailService;
 import wayc.backend.verification.business.VerificationService;
@@ -42,13 +41,22 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        //http.authorizeRequests().antMatchers("/**").permitAll();
+        http
+                .httpBasic().disable()
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/members", "/verification/**")
+                .permitAll()
+                        .mvcMatchers("/**").permitAll();
 
         http.authenticationProvider(authenticationProvider());
 
-        http.csrf().disable();
+        http.exceptionHandling()
+                .authenticationEntryPoint(ajaxLoginAuthenticationEntryPoint())
+                .accessDeniedHandler(accessDeniedHandler());
 
         customConfigurer(http);
+        http.csrf().disable();
         return http.build();
     }
 
@@ -74,6 +82,16 @@ public class SecurityConfig {
     @Bean
     public AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler(){
         return new AjaxAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public AjaxLoginAuthenticationEntryPoint ajaxLoginAuthenticationEntryPoint(){
+        return new AjaxLoginAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler(){
+        return new CustomAccessDeniedHandler();
     }
 
     private void customConfigurer(HttpSecurity http) throws Exception {
