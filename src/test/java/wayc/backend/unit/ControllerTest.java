@@ -6,17 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import wayc.backend.exception.ExceptionExampleController;
 import wayc.backend.member.business.MemberService;
 import wayc.backend.member.presentation.MemberController;
+import wayc.backend.security.SecurityConfig;
 import wayc.backend.verification.presentation.VerificationController;
 import wayc.backend.verification.business.EmailService;
 import wayc.backend.verification.business.VerificationService;
 
-@WebMvcTest({
+@Import(SecurityConfig.class)
+@WebMvcTest(controllers = {
         MemberController.class,
         ExceptionExampleController.class,
         VerificationController.class
