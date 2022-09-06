@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import org.springframework.stereotype.Service;
 import wayc.backend.member.domain.Member;
 import wayc.backend.security.context.MemberContext;
 import wayc.backend.verification.business.VerificationService;

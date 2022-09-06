@@ -2,6 +2,7 @@ package wayc.backend.member.business;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,11 +20,12 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final VerificationService verificationService;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = false)
     public CreateMemberResponseDto createMember(CreateMemberRequestDto dto) {
         validateCreateMember(dto);
-        Member member = dto.toEntity();
+        Member member = dto.toEntity(passwordEncoder);
         memberRepository.save(member);
         return CreateMemberResponseDto.of(member);
     }

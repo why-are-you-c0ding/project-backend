@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +17,10 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import wayc.backend.security.filter.AjaxLoginProcessingFilter;
+import wayc.backend.security.handler.AjaxAuthenticationFailureHandler;
+import wayc.backend.security.handler.AjaxAuthenticationSuccessHandler;
 import wayc.backend.security.provider.CustomAuthenticationProvider;
 import wayc.backend.security.service.CustomUserDetailService;
 import wayc.backend.verification.business.VerificationService;
@@ -38,9 +43,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //http.authorizeRequests().antMatchers("/**").permitAll();
-        http.httpBasic();
+
         http.authenticationProvider(authenticationProvider());
+
         http.csrf().disable();
+
+        customConfigurer(http);
         return http.build();
     }
 
@@ -58,4 +66,22 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(10, random);//강도 계수를 지정하고 인코딩에 이용되는 SecureRandom 인스턴스를 변경 가능.
     }
 
+    @Bean
+    public AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler(){
+        return new AjaxAuthenticationFailureHandler();
+    }
+
+    @Bean
+    public AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler(){
+        return new AjaxAuthenticationSuccessHandler();
+    }
+
+    private void customConfigurer(HttpSecurity http) throws Exception {
+        http
+                .apply(new AjaxLoginConfigurer<>())
+                .successHandlerAjax(ajaxAuthenticationSuccessHandler())
+                .failureHandlerAjax(ajaxAuthenticationFailureHandler())
+                .loginProcessingUrl("/login")
+                .setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
+    }
 }

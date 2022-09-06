@@ -1,6 +1,7 @@
 package wayc.backend.security.provider;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import wayc.backend.exception.verification.NotSamePasswordException;
+import wayc.backend.security.token.AjaxAuthenticationToken;
 
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -27,16 +29,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if(isNotSamePassword(password, userDetails.getPassword())){
             throw new NotSamePasswordException();
         }
-        return new UsernamePasswordAuthenticationToken(
-                loginId,
-                password,
-                userDetails.getAuthorities()
-        );
+
+        return new AjaxAuthenticationToken(loginId, password, userDetails.getAuthorities());
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+        return authentication.equals(AjaxAuthenticationToken.class);
     }
 
     private boolean isNotSamePassword(String rawPassword, String encoderPassword){
