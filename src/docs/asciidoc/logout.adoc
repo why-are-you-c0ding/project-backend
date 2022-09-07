@@ -1,0 +1,11 @@
+= 로그인
+
+== 요청
+
+include::{snippets}/logout/http-request.adoc[]
+
+== 응답
+
+include::{snippets}/logout/http-response.adoc[]
+
+include::{snippets}/logout/response-fields.adoc[]

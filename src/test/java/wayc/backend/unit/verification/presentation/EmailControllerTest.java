@@ -23,7 +23,6 @@ public class EmailControllerTest extends ControllerTest {
 
     @Test
     @DisplayName("이메일 검증 송신 테스트")
-    @WithMockUser
     void verify_send_email() throws Exception {
 
         //given
@@ -35,7 +34,6 @@ public class EmailControllerTest extends ControllerTest {
         mockMvc.perform(RestDocumentationRequestBuilders.post("/verification/email")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .content(value)
                 )
                 .andExpect(status().is2xxSuccessful())

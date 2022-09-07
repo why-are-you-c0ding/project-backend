@@ -26,6 +26,6 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 //        HttpSession session = request.getSession();
 //        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
 
-        mapper.writeValue(response.getWriter(), new LoginResponseDto("로그인에 성공했습니다."));
+        mapper.writeValue(response.getWriter(), new LoginResponseDto("Login succeeded."));
     }
 }

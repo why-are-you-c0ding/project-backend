@@ -31,7 +31,6 @@ public class CommonExceptionTest extends ControllerTest {
 
     @Test
     @DisplayName("예외 응답 확인 테스트")
-    @WithMockUser
     void exception_test() throws Exception {
 
         mockMvc.perform(RestDocumentationRequestBuilders.get("/exception/test")

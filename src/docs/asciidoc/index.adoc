@@ -47,4 +47,5 @@ include::{snippets}/exception_example/http-response.adoc[]
 * link:/docs/verification-send-email.html[인증 이메일 전송 요청 API, window=_blank]
 
 == 인증 API
-* link:/docs/verification-send-email.html[로그인 요청 API, window=_blank]
+* link:/docs/login.html[로그인 요청 API, window=_blank]
+* link:/docs/logout.html[로그아웃 요청 API, window=_blank]
