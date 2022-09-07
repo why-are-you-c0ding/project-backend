@@ -16,10 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import org.springframework.security.web.access.AccessDeniedHandler;
-import wayc.backend.security.handler.AjaxAuthenticationFailureHandler;
-import wayc.backend.security.handler.AjaxAuthenticationSuccessHandler;
-import wayc.backend.security.handler.AjaxLoginAuthenticationEntryPoint;
-import wayc.backend.security.handler.CustomAccessDeniedHandler;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import wayc.backend.security.handler.*;
 import wayc.backend.security.provider.CustomAuthenticationProvider;
 import wayc.backend.security.service.CustomUserDetailService;
 import wayc.backend.verification.business.VerificationService;
@@ -55,9 +54,19 @@ public class SecurityConfig {
                 .authenticationEntryPoint(ajaxLoginAuthenticationEntryPoint())
                 .accessDeniedHandler(accessDeniedHandler());
 
+
+        /**
+         * 리멤버 미 및 로그 아웃
+         */
         http.rememberMe()
                 .rememberMeParameter("remember-me")
-                .alwaysRemember(true);
+                .alwaysRemember(false);
+
+        http.logout()
+                .logoutUrl("/logout")
+                .deleteCookies("JSESSIONID", "remember-me")
+                .addLogoutHandler(logoutHandler())
+                .logoutSuccessHandler(logoutSuccessHandler());
 
         customConfigurer(http);
 
@@ -96,6 +105,16 @@ public class SecurityConfig {
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){
         return new CustomAccessDeniedHandler();
+    }
+
+    @Bean
+    public LogoutHandler logoutHandler() {
+        return new CustomLogoutHandler();
+    }
+
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler(){
+        return new CustomLogoutSuccessHandler();
     }
 
     private void customConfigurer(HttpSecurity http) throws Exception {
