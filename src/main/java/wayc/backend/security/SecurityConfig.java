@@ -55,6 +55,10 @@ public class SecurityConfig {
                 .authenticationEntryPoint(ajaxLoginAuthenticationEntryPoint())
                 .accessDeniedHandler(accessDeniedHandler());
 
+        http.rememberMe()
+                .rememberMeParameter("remember-me")
+                .alwaysRemember(true);
+
         customConfigurer(http);
 
         return http.build();
