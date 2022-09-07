@@ -33,40 +33,19 @@ public class AcceptanceLogOutTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
-    ObjectMapper mapper;
-
-    @Autowired
-    MemberService memberService;
-
-    @BeforeEach
-    void beforeEach(){
-        CreateMemberRequestDto dto = CreateMemberRequestDtoFactory.createSuccessCaseDto();
-        memberService.createMember(dto);
-    }
-
     @Test
-    void success_login_test() throws Exception {
-        //given
-        LoginRequestDto req = new LoginRequestDto("loginId", "1q2w3e4r!");
-        String value = mapper.writeValueAsString(req);
-
+    void success_logout_test() throws Exception {
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.post("/login")
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/logout")
                         .header("X-Requested-With", "XMLHttpRequest")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(value)
                 )
                 .andExpect(status().is2xxSuccessful())
                 .andDo(print())
-                .andDo(document("login",
+                .andDo(document("logout",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("loginId").type(STRING).description("로그인아이디"),
-                                fieldWithPath("password").type(STRING).description("비밀번호")
-                        ),
                         responseFields(
                                 fieldWithPath("message").type(STRING).description("성공 메시지")
                         )
