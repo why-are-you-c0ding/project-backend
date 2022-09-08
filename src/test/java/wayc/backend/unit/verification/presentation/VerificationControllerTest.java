@@ -2,31 +2,16 @@ package wayc.backend.unit.verification.presentation;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import wayc.backend.factory.member.dto.CreateMemberResponseDtoFactory;
-import wayc.backend.factory.member.dto.PostMemberRequestDtoFactory;
-import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
-import wayc.backend.member.business.dto.response.CreateMemberResponseDto;
-import wayc.backend.member.presentation.dto.request.PostMemberRequestDto;
 import wayc.backend.unit.ControllerTest;
 import wayc.backend.verification.presentation.dto.request.PostVerifyLoginIdRequestDto;
 import wayc.backend.verification.presentation.dto.request.PostVerifyNickNameRequestDto;
 
-import static org.mockito.BDDMockito.*;
-import static org.mockito.BDDMockito.given;
-
-
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static wayc.backend.docs.SpringRestDocsUtils.getDocumentRequest;
 import static wayc.backend.docs.SpringRestDocsUtils.getDocumentResponse;

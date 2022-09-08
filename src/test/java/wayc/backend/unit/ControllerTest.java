@@ -14,6 +14,7 @@ import wayc.backend.exception.ExceptionExampleController;
 import wayc.backend.member.business.MemberService;
 import wayc.backend.member.presentation.MemberController;
 import wayc.backend.security.SecurityConfig;
+import wayc.backend.verification.dataaccess.EmailRedisRepository;
 import wayc.backend.verification.presentation.VerificationController;
 import wayc.backend.verification.business.EmailService;
 import wayc.backend.verification.business.VerificationService;
@@ -43,5 +44,8 @@ public abstract class ControllerTest {
 
     @MockBean
     protected EmailService emailService;
+
+    @MockBean
+    protected EmailRedisRepository emailRedisRepository;
 
 }

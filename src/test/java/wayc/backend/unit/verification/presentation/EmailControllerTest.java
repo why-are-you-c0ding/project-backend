@@ -8,6 +8,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import wayc.backend.unit.ControllerTest;
 import wayc.backend.verification.presentation.dto.request.PostSendEmailRequestDto;
+import wayc.backend.verification.presentation.dto.request.PostVerifyEmailRequestDto;
 import wayc.backend.verification.presentation.dto.request.PostVerifyLoginIdRequestDto;
 import wayc.backend.verification.presentation.dto.request.PostVerifyNickNameRequestDto;
 
@@ -23,7 +24,7 @@ public class EmailControllerTest extends ControllerTest {
 
     @Test
     @DisplayName("이메일 검증 송신 테스트")
-    void verify_send_email() throws Exception {
+    void send_email() throws Exception {
 
         //given
         PostSendEmailRequestDto req = new PostSendEmailRequestDto("123@gmail.com");
@@ -38,7 +39,7 @@ public class EmailControllerTest extends ControllerTest {
                 )
                 .andExpect(status().is2xxSuccessful())
                 .andDo(print())
-                .andDo(document("verify_send_email",
+                .andDo(document("send_verification_email",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
@@ -48,5 +49,36 @@ public class EmailControllerTest extends ControllerTest {
                                         fieldWithPath("message").type(STRING).description("이메일 발송에 성공했습니다.")
                                 )
                         ));
+    }
+
+    @Test
+    @DisplayName("이메일 키 검증  테스트")
+    void verify_email() throws Exception {
+
+        //given
+        PostVerifyEmailRequestDto req = new PostVerifyEmailRequestDto("123@gmail.com", "authkey");
+
+        String value = mapper.writeValueAsString(req);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/verification/email/auth-key")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(value)
+                )
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print())
+                .andDo(document("verify_email_key",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("email").type(STRING).description("인증을 진행할 유저의 이메일"),
+                                fieldWithPath("authKey").type(STRING).description("이메일로 받은 인증 키")
+
+                        ),
+                        responseFields(
+                                fieldWithPath("message").type(STRING).description("검증에 성공했습니다.")
+                        )
+                ));
     }
 }

@@ -1,14 +1,15 @@
 package wayc.backend.verification.business;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import wayc.backend.exception.verification.DuplicatedLoginIdException;
-import wayc.backend.exception.verification.DuplicatedNickNameException;
-import wayc.backend.exception.verification.NotExistsMemberException;
-import wayc.backend.exception.verification.NotSamePasswordException;
+
+import wayc.backend.exception.verification.*;
 import wayc.backend.member.dataaccess.MemberRepository;
 import wayc.backend.member.domain.Member;
+import wayc.backend.verification.business.dto.VerificationEmailInfoDto;
+import wayc.backend.verification.dataaccess.EmailRedisRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +17,7 @@ import wayc.backend.member.domain.Member;
 public class VerificationService {
 
     private final MemberRepository memberRepository;
+    private final EmailRedisRepository emailRedisRepository;
 
     public void ExistSamLoginId(String loginId){
         if(memberRepository.findByLoginIdAndStatus(loginId).isPresent()){
@@ -37,5 +39,29 @@ public class VerificationService {
 
     public Member findByLoginId(String loginId){
         return memberRepository.findByLoginIdAndStatus(loginId).orElseThrow(NotExistsMemberException::new);
+    }
+
+    @Transactional(readOnly = false)
+    public void saveVerificationNumber(VerificationEmailInfoDto dto) {
+        emailRedisRepository.createEmailCertification(dto.getEmail(), dto.getAuthKey());
+    }
+
+    public void verifyEmail(String receiveEmail, String authKey) {
+
+        if(notExistsEmail(receiveEmail)){
+            throw new NotExistsEmailException();
+        }
+
+        if(wrongAuthKey(receiveEmail, authKey)){
+            throw new WrongEmailAuthKeyException();
+        }
+    }
+
+    private boolean notExistsEmail(String receiveEmail) {
+        return !emailRedisRepository.hasKey(receiveEmail);
+    }
+
+    private boolean wrongAuthKey(String receiveEmail, String certificationNumber) {
+        return !emailRedisRepository.getEmailCertification(receiveEmail).equals(certificationNumber);
     }
 }
