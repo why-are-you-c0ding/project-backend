@@ -37,7 +37,7 @@ public class CommonExceptionTest extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
 
                 )
-                .andExpect(status().is5xxServerError())
+                .andExpect(status().is4xxClientError())
                 .andDo(print())
                 .andDo(document("exception_example",
                         getDocumentRequest(),
