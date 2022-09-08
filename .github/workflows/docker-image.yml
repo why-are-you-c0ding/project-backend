@@ -41,7 +41,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker Image
-      run: docker push ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
+      run: docker push tag project-server ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
 
     - name: Executing remote ssh command using ssh key
       uses: appleboy/ssh-action@master
