@@ -9,4 +9,9 @@ public class PostVerifyEmailRequestDto {
 
     private String email;
     private String authKey;
+
+    public PostVerifyEmailRequestDto(String email, String authKey) {
+        this.email = email;
+        this.authKey = authKey;
+    }
 }
