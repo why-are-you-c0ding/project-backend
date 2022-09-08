@@ -2,6 +2,7 @@ package wayc.backend.common;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
@@ -19,6 +20,9 @@ public class RedisConfig {
 
     private final RedisClusterProperties redisClusterProperties;
 
+    @Value("${spring.redis.password}")
+    private String password;
+
     @Bean
     public StringRedisTemplate redisTemplate() {
         StringRedisTemplate redisTemplate = new StringRedisTemplate(redisConnectionFactory());
@@ -31,7 +35,7 @@ public class RedisConfig {
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
         RedisClusterConfiguration config = new RedisClusterConfiguration(redisClusterProperties.getNodes());
-        config.setPassword(RedisPassword.of("4648"));
+        config.setPassword(RedisPassword.of(password));
         LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(config);
         return lettuceConnectionFactory;
     }
