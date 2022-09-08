@@ -51,9 +51,10 @@ jobs:
           key: ${{ secrets.REMOTE_SSH_KEY }}
           port: 22
           script: |
+            cd container
             sudo docker stop ${{ secrets.CONTAINER_NAME }}
             sudo docker rm ${{ secrets.CONTAINER_NAME }}
             sudo docker image rm ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }}
             sudo docker pull ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }} 
-            sudo docker run -p ${{ secrets.SERVER_PORT }}:${{ secrets.DOCKER_PORT }} --name ${{ secrets.CONTAINER_NAME }} -d ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }} 
+            sudo docker run -p ${{ secrets.SERVER_PORT }}:${{ secrets.DOCKER_PORT }} --name ${{ secrets.CONTAINER_NAME }} --net=debin -d ${{ secrets.DOCKER_ADDRESS }}/${{ secrets.DOCKER_REPO }} 
           
