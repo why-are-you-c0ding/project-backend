@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import wayc.backend.exception.verification.FailSendEmailException;
 import wayc.backend.verification.business.dto.EmailSenderDto;
+import wayc.backend.verification.business.dto.VerificationEmailInfoDto;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,21 +26,21 @@ public class EmailService {
 
     private final AmazonSimpleEmailService amazonSimpleEmailService;
 
-    public void sendVerificationEmail(String receiveEmail) {
+    public VerificationEmailInfoDto sendVerificationEmail(String receiveEmail) {
 
         //TODO 이미 가입한 이메일이라면 검사를 해야함.
         
         //TODO 하루에 5번 이상 이메일 검사를 못하게 해야함.
-        
-        EmailSenderDto emailSenderDto = makeEmailSenderDto(receiveEmail);
+        String authKey = createAuthKey();
+        EmailSenderDto emailSenderDto = makeEmailSenderDto(receiveEmail, authKey);
         SendEmailResult sendEmailResult = amazonSimpleEmailService.sendEmail(emailSenderDto.toSendRequestDto());
         confirmSentEmail(sendEmailResult);
+        return new VerificationEmailInfoDto(authKey, receiveEmail);
     }
 
-    private EmailSenderDto makeEmailSenderDto(String receiveEmail) {
+    private EmailSenderDto makeEmailSenderDto(String receiveEmail, String authKey) {
         List<String> receiver = Arrays.asList(receiveEmail);
         String subject = getSubject();
-        String authKey = createAuthKey();
         String emailVerificationHtml = getEmailVerificationHtml(authKey);
 
         EmailSenderDto emailSenderDto = EmailSenderDto.builder()
@@ -57,4 +58,5 @@ public class EmailService {
             throw new FailSendEmailException();
         }
     }
+
 }
