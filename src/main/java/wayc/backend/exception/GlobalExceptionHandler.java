@@ -33,23 +33,23 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(BAD_REQUEST.value()).body(exceptionResponse);
     }
 
-//    @ExceptionHandler(DataAccessException.class)
-//    public ResponseEntity<ApplicationExceptionResponse> dataAccessException(DataAccessException e) {
-//        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(DATABASE_SERVER_ERROR_CODE, "S003", BAD_REQUEST);
-//        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
-//    }
-//
-//    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<ApplicationExceptionResponse> runtimeException(RuntimeException e) {
-//        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "S002", INTERNAL_SERVER_ERROR);
-//        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
-//    }
-//
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ApplicationExceptionResponse> runtimeException(Exception e) {
-//        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "S001", INTERNAL_SERVER_ERROR);
-//        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
-//    }
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<ApplicationExceptionResponse> dataAccessException(DataAccessException e) {
+        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(DATABASE_SERVER_ERROR_CODE, "S003", BAD_REQUEST);
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApplicationExceptionResponse> runtimeException(RuntimeException e) {
+        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "S002", INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApplicationExceptionResponse> runtimeException(Exception e) {
+        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "S001", INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
+    }
 }
 
 // Error
