@@ -42,10 +42,10 @@ include::{snippets}/exception_example/http-response.adoc[]
 * link:/docs/member.html[멤버 생성 API, window=_blank ]
 
 == 검증 API
-* link:/docs/veriy-login-id.html[로그인 아이디 검증 API, window=_blank]
-* link:/docs/veriy-nick-name.html[닉네임 검증 API, window=_blank]
+* link:/docs/verify-login-id.html[로그인 아이디 검증 API, window=_blank]
+* link:/docs/verify-nick-name.html[닉네임 검증 API, window=_blank]
 * link:/docs/send-verification-email.html[인증 이메일 전송 요청 API, window=_blank]
-* link:/docs/v.html[이메일 인증 키 검증 요청 API, window=_blank]
+* link:/docs/verify-email-key.html[이메일 인증 키 검증 요청 API, window=_blank]
 
 == 인증 API
 * link:/docs/login.html[로그인 요청 API, window=_blank]
