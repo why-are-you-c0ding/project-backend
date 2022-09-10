@@ -68,7 +68,7 @@ public class SecurityConfig {
          */
         http.rememberMe()
                 .rememberMeParameter("remember-me")
-                .alwaysRemember(false);
+                .alwaysRemember(true);
 
         http.logout()
                 .logoutUrl("/logout")
