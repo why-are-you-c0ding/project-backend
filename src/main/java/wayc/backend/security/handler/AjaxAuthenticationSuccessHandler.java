@@ -8,6 +8,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import wayc.backend.security.dto.response.LoginResponseDto;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,6 +28,8 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 //        HttpSession session = request.getSession();
 //        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
 
+        Cookie cookie = new Cookie("asdf","Asdf");
+        response.addCookie(cookie);
         mapper.writeValue(response.getWriter(), new LoginResponseDto("Login succeeded."));
     }
 }
