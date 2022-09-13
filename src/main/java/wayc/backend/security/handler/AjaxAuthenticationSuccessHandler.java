@@ -28,6 +28,12 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 //        HttpSession session = request.getSession();
 //        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
 
+        Cookie cookie = new Cookie("key","asdf");
+        cookie.setDomain("localhost:3090");
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        response.addCookie(cookie);
         mapper.writeValue(response.getWriter(), new LoginResponseDto("Login succeeded."));
     }
 }
