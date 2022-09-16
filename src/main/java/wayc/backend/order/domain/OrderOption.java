@@ -1,7 +1,7 @@
 package wayc.backend.order.domain;
 
 import lombok.Getter;
-import wayc.backend.common.basedomain.BaseEntity;
+import wayc.backend.common.base.BaseEntity;
 
 import javax.persistence.*;
 

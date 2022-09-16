@@ -3,7 +3,7 @@ package wayc.backend.order.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.common.basedomain.BaseEntity;
+import wayc.backend.common.base.BaseEntity;
 
 import javax.persistence.*;
 

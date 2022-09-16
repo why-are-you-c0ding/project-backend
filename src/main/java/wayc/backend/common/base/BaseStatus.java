@@ -1,4 +1,4 @@
-package wayc.backend.common.basedomain;
+package wayc.backend.common.base;
 
 public enum BaseStatus {
     ACTIVE, INACTIVE;

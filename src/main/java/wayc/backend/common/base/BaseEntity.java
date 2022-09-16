@@ -1,4 +1,4 @@
-package wayc.backend.common.basedomain;
+package wayc.backend.common.base;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
