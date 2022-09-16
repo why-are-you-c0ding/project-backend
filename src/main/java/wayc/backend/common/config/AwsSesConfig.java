@@ -1,4 +1,4 @@
-package wayc.backend.common;
+package wayc.backend.common.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;

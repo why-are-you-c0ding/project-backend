@@ -1,4 +1,4 @@
-package wayc.backend.common;
+package wayc.backend.common.config;
 
 import lombok.RequiredArgsConstructor;
 
@@ -12,6 +12,7 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import wayc.backend.common.config.RedisClusterProperties;
 
 @Configuration
 @EnableTransactionManagement

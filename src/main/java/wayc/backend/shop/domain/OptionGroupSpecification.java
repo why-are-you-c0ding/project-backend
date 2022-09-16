@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.basedomain.BaseEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
