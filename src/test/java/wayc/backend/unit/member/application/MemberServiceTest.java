@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import wayc.backend.factory.member.dto.CreateMemberRequestDtoFactory;
 import wayc.backend.member.application.MemberService;
+import wayc.backend.member.application.MemberValidator;
 import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
 import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
 import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
@@ -27,7 +28,7 @@ class MemberServiceTest {
     private MemberRepository memberRepository;
 
     @Mock
-    private VerificationService verificationService;
+    private MemberValidator memberValidator;
 
     @Mock
     private PasswordEncoder passwordEncoder;
