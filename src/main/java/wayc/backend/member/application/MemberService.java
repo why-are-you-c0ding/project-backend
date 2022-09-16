@@ -14,25 +14,23 @@ import wayc.backend.member.dataaccess.MemberRepository;
 import wayc.backend.member.domain.Member;
 import wayc.backend.verification.application.VerificationService;
 
-
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final VerificationService verificationService;
+    private final MemberValidator memberValidator;
     private final PasswordEncoder passwordEncoder;
 
     public CreateMemberResponseDto createConsumer(CreateConsumerRequestDto dto) {
-        validateCreateMember(dto);
+        memberValidator.validateCreateMember(dto);
         Member member = dto.toEntity(passwordEncoder);
         saveMember(member);
         return CreateMemberResponseDto.of(member);
     }
 
     public CreateMemberResponseDto createSeller(CreateSellerRequestDto dto) {
-        validateCreateMember(dto);
+        memberValidator.validateCreateMember(dto);
         Member member = dto.toEntity(passwordEncoder);
         saveMember(member);
         return CreateMemberResponseDto.of(member);
@@ -42,10 +40,6 @@ public class MemberService {
     public void saveMember(Member member) {
         memberRepository.save(member);
     }
+    //트랜잭션 락을 고려해서 분리
 
-    public void validateCreateMember(AbstractCreateMemberRequestDto dto){
-        verificationService.isNotSamePasswords(dto.getPassword(), dto.getCheckPassword());
-        verificationService.ExistSameNickName(dto.getNickName());
-        verificationService.ExistSamLoginId(dto.getLoginId());
-    }
 }

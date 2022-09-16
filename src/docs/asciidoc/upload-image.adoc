@@ -4,8 +4,6 @@
 
 include::{snippets}/upload_image/http-request.adoc[]
 
-include::{snippets}/upload_image/request-fields.adoc[]
-
 == 응답
 
 include::{snippets}/upload_image/http-response.adoc[]
