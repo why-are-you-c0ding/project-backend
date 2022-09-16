@@ -6,14 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import wayc.backend.verification.business.dto.VerificationEmailInfoDto;
+import wayc.backend.verification.application.dto.VerificationEmailInfoDto;
 import wayc.backend.verification.presentation.dto.request.PostSendEmailRequestDto;
 import wayc.backend.verification.presentation.dto.request.PostVerifyEmailRequestDto;
 import wayc.backend.verification.presentation.dto.request.PostVerifyLoginIdRequestDto;
 import wayc.backend.verification.presentation.dto.request.PostVerifyNickNameRequestDto;
 import wayc.backend.verification.presentation.dto.response.VerifyResponseDto;
-import wayc.backend.verification.business.EmailService;
-import wayc.backend.verification.business.VerificationService;
+import wayc.backend.verification.application.EmailService;
+import wayc.backend.verification.application.VerificationService;
 
 
 @RequiredArgsConstructor

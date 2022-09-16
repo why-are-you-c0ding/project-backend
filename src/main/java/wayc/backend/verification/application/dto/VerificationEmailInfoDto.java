@@ -1,4 +1,4 @@
-package wayc.backend.verification.business.dto;
+package wayc.backend.verification.application.dto;
 
 import lombok.Getter;
 
