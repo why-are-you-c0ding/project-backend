@@ -1,4 +1,4 @@
-package wayc.backend.common;
+package wayc.backend.common.config;
 
 import lombok.Data;
 import lombok.Getter;

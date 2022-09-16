@@ -51,3 +51,6 @@ include::{snippets}/exception_example/http-response.adoc[]
 == 인증 API
 * link:/docs/login.html[로그인 요청 API, window=_blank]
 * link:/docs/logout.html[로그아웃 요청 API, window=_blank]
+
+== 공통 API
+* link:/docs/upload-image.html[이미지 업로드 요청 API, window=_blank]

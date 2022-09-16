@@ -3,7 +3,7 @@ package wayc.backend.order.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.base.BaseEntity;
 
 import javax.persistence.*;
 
@@ -19,6 +19,10 @@ public class OrderOptionGroup extends BaseEntity {
     @JoinColumn(name = "order_line_item_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private OrderLineItem orderLineItem;
+
+
+
+    //private List<OrderOption> orderOptions = new ArrayList<>();
 
     private String name;
 }

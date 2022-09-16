@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.base.BaseEntity;
 import wayc.backend.security.role.Role;
 
 import javax.persistence.*;
