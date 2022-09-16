@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.factory.member.dto.CreateMemberRequestDtoFactory;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
+import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
 import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,13 +21,27 @@ public class MemberIntegrationTest {
     private MemberService memberService;
 
     @Test
-    @DisplayName("멤버 생성 성공 통합 테스트")
-    void create_member(){
+    @DisplayName("소비자 멤버 생성 성공 통합 테스트")
+    void create_consumer(){
         //given
-        CreateConsumerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessCaseDto();
+        CreateConsumerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessConsumerDto();
 
         //when
         CreateMemberResponseDto result = memberService.createConsumer(dto);
+
+        //then
+        assertThat(result.getAge()).isEqualTo(24);
+        assertThat(result.getNickName()).isEqualTo("nickName");
+    }
+
+    @Test
+    @DisplayName("판매자 생성 성공 통합 테스트")
+    void create_seller(){
+        //given
+        CreateSellerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessSellerDto();
+
+        //when
+        CreateMemberResponseDto result = memberService.createSeller(dto);
 
         //then
         assertThat(result.getAge()).isEqualTo(24);

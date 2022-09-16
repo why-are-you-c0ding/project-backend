@@ -45,7 +45,7 @@ public class AcceptanceLoginTest {
 
     @BeforeEach
     void beforeEach(){
-        CreateConsumerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessCaseDto();
+        CreateConsumerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessConsumerDto();
         memberService.createConsumer(dto);
     }
 
