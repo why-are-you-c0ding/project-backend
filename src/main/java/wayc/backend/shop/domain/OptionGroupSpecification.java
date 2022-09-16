@@ -1,4 +1,4 @@
-package wayc.backend.order.domain;
+package wayc.backend.shop.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,17 +13,17 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "orders")
-public class Order extends BaseEntity {
+public class OptionGroupSpecification extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderLineItem> items = new ArrayList<>();
+    @JoinColumn(name = "item_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Item item;
 
-    private Long orderingMemberId;
+    @OneToMany(mappedBy = "optionGroupSpecification", cascade = CascadeType.ALL)
+    private List<OptionSpecification> optionSpecifications = new ArrayList<>();
 
-    private Long shopId;
 }

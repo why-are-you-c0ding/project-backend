@@ -3,10 +3,10 @@ package wayc.backend.shop.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import wayc.backend.common.domain.BaseEntity;
 
 import javax.persistence.*;
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +19,10 @@ public class Item extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn
+    @JoinColumn(name = "shop_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;
 
-    @OneToMany(mappedBy = "item")
-    private List<OptionGroup> optionGroups = new ArrayList<>();
-
-    @OneToMany(mappedBy = "item")
-    private List<Stock> stocks = new ArrayList<>();
-
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<OptionGroupSpecification> optionGroupSpecifications = new ArrayList<>();
 }

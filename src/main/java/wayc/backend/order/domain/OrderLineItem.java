@@ -13,17 +13,23 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "orders")
-public class Order extends BaseEntity {
+public class OrderLineItem extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderLineItem> items = new ArrayList<>();
+    @JoinColumn(name = "order_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Order order;
 
-    private Long orderingMemberId;
+    private Long itemId;
 
-    private Long shopId;
+    private String name;
+
+    private int count;
+
+    @OneToMany(mappedBy = "orderLineItem", cascade = CascadeType.ALL)
+    private List<OrderOptionGroup> orderOptionGroups = new ArrayList<>();
+
 }

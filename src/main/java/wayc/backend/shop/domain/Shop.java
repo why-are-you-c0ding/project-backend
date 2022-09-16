@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,6 @@ public class Shop extends BaseEntity {
 
     private Long ownerId;
 
-    @OneToMany(mappedBy = "shop")
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 }

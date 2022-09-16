@@ -1,4 +1,4 @@
-package wayc.backend.shop.domain;
+package wayc.backend.order.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -6,23 +6,19 @@ import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class OptionGroup extends BaseEntity {
+public class OrderOptionGroup extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn
+    @JoinColumn(name = "order_line_item_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Item item;
+    private OrderLineItem orderLineItem;
 
-    @OneToMany(mappedBy = "optionGroup")
-    private List<Option> options = new ArrayList<>();
-
+    private String name;
 }
