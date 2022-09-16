@@ -1,4 +1,4 @@
-package wayc.backend.unit.member.business;
+package wayc.backend.unit.member.application;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,11 +8,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import wayc.backend.factory.member.dto.CreateMemberRequestDtoFactory;
-import wayc.backend.member.business.MemberService;
-import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
-import wayc.backend.member.business.dto.response.CreateMemberResponseDto;
+import wayc.backend.member.application.MemberService;
+import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
+import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
 import wayc.backend.member.dataaccess.MemberRepository;
-import wayc.backend.verification.business.VerificationService;
+import wayc.backend.verification.application.VerificationService;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -35,10 +35,10 @@ class MemberServiceTest {
     @DisplayName("멤버 생성 성공 서비스 단위 테스트")
     void successCreateDeliveryPartyTest(){
         //given
-        CreateMemberRequestDto dto = CreateMemberRequestDtoFactory.createSuccessCaseDto();
+        CreateConsumerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessCaseDto();
 
         //when
-        CreateMemberResponseDto result = memberService.createMember(dto);
+        CreateMemberResponseDto result = memberService.createConsumer(dto);
 
         //then
         assertThat(result.getAge()).isEqualTo(24);

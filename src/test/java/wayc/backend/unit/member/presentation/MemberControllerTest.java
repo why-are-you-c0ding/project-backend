@@ -1,26 +1,18 @@
 package wayc.backend.unit.member.presentation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 
-import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.restdocs.payload.PayloadDocumentation;
-import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import wayc.backend.docs.SpringRestDocsUtils;
 import wayc.backend.factory.member.dto.CreateMemberResponseDtoFactory;
 import wayc.backend.factory.member.dto.PostMemberRequestDtoFactory;
 
-import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
-import wayc.backend.member.business.dto.response.CreateMemberResponseDto;
+import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
+import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
 
-import wayc.backend.member.presentation.dto.request.PostMemberRequestDto;
+import wayc.backend.member.presentation.dto.request.PostConsumerRequestDto;
 import wayc.backend.unit.ControllerTest;
 
 import static org.mockito.BDDMockito.given;
@@ -39,14 +31,14 @@ public class MemberControllerTest extends ControllerTest {
     @DisplayName("멤버 생성 성공 컨트롤러 단위 테스트")
     void create_member() throws Exception {
         //given
-        PostMemberRequestDto req = PostMemberRequestDtoFactory.createSuccessCaseDto();
+        PostConsumerRequestDto req = PostMemberRequestDtoFactory.createSuccessCaseDto();
         CreateMemberResponseDto res = CreateMemberResponseDtoFactory.createSuccessCaseDto();
-        given(memberService.createMember(Mockito.any(CreateMemberRequestDto.class))).willReturn(res);
+        given(memberService.createConsumer(Mockito.any(CreateConsumerRequestDto.class))).willReturn(res);
 
         String value = mapper.writeValueAsString(req);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.post("/members")
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/members/consumers")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(value)

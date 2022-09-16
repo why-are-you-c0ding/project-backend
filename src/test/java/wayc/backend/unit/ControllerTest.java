@@ -11,13 +11,13 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import wayc.backend.exception.ExceptionExampleController;
-import wayc.backend.member.business.MemberService;
+import wayc.backend.member.application.MemberService;
 import wayc.backend.member.presentation.MemberController;
 import wayc.backend.security.SecurityConfig;
 import wayc.backend.verification.dataaccess.EmailRedisRepository;
 import wayc.backend.verification.presentation.VerificationController;
-import wayc.backend.verification.business.EmailService;
-import wayc.backend.verification.business.VerificationService;
+import wayc.backend.verification.application.EmailService;
+import wayc.backend.verification.application.VerificationService;
 
 @Import(SecurityConfig.class)
 @WebMvcTest(controllers = {

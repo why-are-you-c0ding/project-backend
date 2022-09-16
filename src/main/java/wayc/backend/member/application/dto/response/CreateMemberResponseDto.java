@@ -1,4 +1,4 @@
-package wayc.backend.member.business.dto.response;
+package wayc.backend.member.application.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

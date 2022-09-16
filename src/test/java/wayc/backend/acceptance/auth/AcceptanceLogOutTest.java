@@ -1,7 +1,5 @@
 package wayc.backend.acceptance.auth;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -11,10 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import wayc.backend.factory.member.dto.CreateMemberRequestDtoFactory;
-import wayc.backend.member.business.MemberService;
-import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
-import wayc.backend.security.dto.request.LoginRequestDto;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
