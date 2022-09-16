@@ -11,14 +11,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.factory.member.dto.CreateMemberRequestDtoFactory;
-import wayc.backend.member.business.MemberService;
-import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
-import wayc.backend.member.business.dto.response.CreateMemberResponseDto;
+import wayc.backend.member.application.MemberService;
+import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
 import wayc.backend.security.dto.request.LoginRequestDto;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -47,8 +45,8 @@ public class AcceptanceLoginTest {
 
     @BeforeEach
     void beforeEach(){
-        CreateMemberRequestDto dto = CreateMemberRequestDtoFactory.createSuccessCaseDto();
-        memberService.createMember(dto);
+        CreateConsumerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessConsumerDto();
+        memberService.createConsumer(dto);
     }
 
     @Test

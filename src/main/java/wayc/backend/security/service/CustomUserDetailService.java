@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import wayc.backend.member.domain.Member;
 import wayc.backend.security.context.MemberContext;
-import wayc.backend.verification.business.VerificationService;
+import wayc.backend.verification.application.VerificationService;
 
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {

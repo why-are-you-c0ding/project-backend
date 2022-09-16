@@ -2,13 +2,15 @@ package wayc.backend.member.presentation.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
+import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
+import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
 
-import wayc.backend.member.business.dto.request.CreateMemberRequestDto;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Getter
-public class PostMemberRequestDto {
+public class PostSellerRequestDto {
 
     @Size(min = 2)
     private String nickName;
@@ -29,8 +31,8 @@ public class PostMemberRequestDto {
 
     private int age;
 
-    public static CreateMemberRequestDto toServiceDto(PostMemberRequestDto request) {
-        return CreateMemberRequestDto.builder()
+    public static CreateSellerRequestDto toServiceDto(PostSellerRequestDto request) {
+        return CreateSellerRequestDto.builder()
                 .nickName(request.getNickName())
                 .email(request.getEmail())
                 .loginId(request.getLoginId())
@@ -40,10 +42,9 @@ public class PostMemberRequestDto {
                 .build();
     }
 
-
     //테스트용
     @Builder
-    public PostMemberRequestDto(String nickName, String email, String loginId, String password, String checkPassword, int age) {
+    public PostSellerRequestDto(String nickName, String email, String loginId, String password, String checkPassword, int age) {
         this.nickName = nickName;
         this.email = email;
         this.loginId = loginId;

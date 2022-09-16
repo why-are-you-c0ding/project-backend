@@ -5,11 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.security.role.Role;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,20 +17,29 @@ public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nickName;
+
     private String email;
+
     private String loginId;
+
     private String password;
+
     private int age;
 
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+
     @Builder
-    public Member(String nickName, String email, String loginId, String password, int age) {
-        super();
+    public Member(Long id, String nickName, String email, String loginId, String password, int age, Role role) {
+        this.id = id;
         this.nickName = nickName;
         this.email = email;
         this.loginId = loginId;
         this.password = password;
         this.age = age;
+        this.role = role;
     }
 }
 

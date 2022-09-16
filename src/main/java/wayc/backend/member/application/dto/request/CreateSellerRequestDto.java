@@ -1,23 +1,16 @@
-package wayc.backend.member.business.dto.request;
+package wayc.backend.member.application.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import wayc.backend.member.domain.Member;
+import wayc.backend.security.role.Role;
 
 @Getter
-public class CreateMemberRequestDto {
-
-    private String nickName;
-    private String email;
-    private String loginId;
-    private String password;
-    private String checkPassword;
-    private int age;
+public class CreateSellerRequestDto extends AbstractCreateMemberRequestDto{
 
     @Builder
-    public CreateMemberRequestDto(String nickName, String email, String loginId, String password, String checkPassword, int age) {
+    public CreateSellerRequestDto(String nickName, String email, String loginId, String password, String checkPassword, int age) {
         this.nickName = nickName;
         this.email = email;
         this.loginId = loginId;
@@ -32,6 +25,8 @@ public class CreateMemberRequestDto {
                 .email(email)
                 .loginId(loginId)
                 .password(passwordEncoder.encode(password))
-                .age(age).build();
+                .age(age)
+                .role(Role.SELLER)
+                .build();
     }
 }

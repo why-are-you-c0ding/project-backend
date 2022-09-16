@@ -1,0 +1,13 @@
+= 소비자 멤바 생성
+
+== 요청
+
+include::{snippets}/create_consumer/http-request.adoc[]
+
+include::{snippets}/create_consumer/request-fields.adoc[]
+
+== 응답
+
+include::{snippets}/create_consumer/http-response.adoc[]
+
+include::{snippets}/create_consumer/response-fields.adoc[]

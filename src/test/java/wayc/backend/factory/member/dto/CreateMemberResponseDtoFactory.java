@@ -1,7 +1,6 @@
 package wayc.backend.factory.member.dto;
 
-import wayc.backend.member.business.dto.response.CreateMemberResponseDto;
-import wayc.backend.member.presentation.dto.request.PostMemberRequestDto;
+import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
 
 public class CreateMemberResponseDtoFactory {
 

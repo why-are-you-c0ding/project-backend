@@ -1,4 +1,4 @@
-package wayc.backend.verification.business;
+package wayc.backend.verification.application;
 
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 
@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import wayc.backend.exception.verification.FailSendEmailException;
-import wayc.backend.verification.business.dto.EmailSenderDto;
-import wayc.backend.verification.business.dto.VerificationEmailInfoDto;
+import wayc.backend.verification.application.dto.EmailSenderDto;
+import wayc.backend.verification.application.dto.VerificationEmailInfoDto;
 
 import java.util.Arrays;
 import java.util.List;

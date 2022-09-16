@@ -1,4 +1,4 @@
-package wayc.backend.verification.business;
+package wayc.backend.verification.application;
 
 import lombok.RequiredArgsConstructor;
 
@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.exception.verification.*;
 import wayc.backend.member.dataaccess.MemberRepository;
 import wayc.backend.member.domain.Member;
-import wayc.backend.verification.business.dto.VerificationEmailInfoDto;
+import wayc.backend.verification.application.dto.VerificationEmailInfoDto;
 import wayc.backend.verification.dataaccess.EmailRedisRepository;
 
 @Service
