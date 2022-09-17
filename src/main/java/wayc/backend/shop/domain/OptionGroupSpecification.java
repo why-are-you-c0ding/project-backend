@@ -26,4 +26,7 @@ public class OptionGroupSpecification extends BaseEntity {
     @OneToMany(mappedBy = "optionGroupSpecification", cascade = CascadeType.ALL)
     private List<OptionSpecification> optionSpecifications = new ArrayList<>();
 
+    /**
+     * validation 로직 추가
+     */
 }

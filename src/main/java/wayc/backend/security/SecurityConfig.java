@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +23,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import wayc.backend.security.handler.*;
 import wayc.backend.security.provider.CustomAuthenticationProvider;
+import wayc.backend.security.role.Role;
 import wayc.backend.security.service.CustomUserDetailService;
 import wayc.backend.verification.application.VerificationService;
 
@@ -48,9 +50,10 @@ public class SecurityConfig {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**", "/verification/**")
-                .permitAll()
-                        .mvcMatchers("/**").permitAll();
+                .antMatchers("/shops/admin/**", "/items").hasRole("SELLER")
+                .antMatchers("/baskets/**").access("hasRole('CONSUMER') or hasRole('SELLER')")
+                .antMatchers("/members/**", "/verification/**", "/login", "/logout", "/**").permitAll()
+                        .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
 
@@ -64,13 +67,32 @@ public class SecurityConfig {
          */
         http.rememberMe()
                 .rememberMeParameter("remember-me")
-                .alwaysRemember(true);
+                .alwaysRemember(true)
+                .userDetailsService(userDetailsService(verificationService));
 
         http.logout()
                 .logoutUrl("/logout")
                 .deleteCookies("JSESSIONID", "remember-me")
                 .addLogoutHandler(logoutHandler())
                 .logoutSuccessHandler(logoutSuccessHandler());
+
+        /**
+         * 세션 제어
+         *
+         */
+        http.sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false); //기존 세션 만료
+
+        /**
+         * 세션 고정 보호
+         */
+        http.sessionManagement()
+                .sessionFixation()
+                .changeSessionId();
+
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED); //기본 값
 
         customConfigurer(http);
 

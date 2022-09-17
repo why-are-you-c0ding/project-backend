@@ -24,4 +24,8 @@ public class OptionSpecification extends BaseEntity {
     private String name;
 
     private Integer price;
+
+    /**
+     * validation 로직 추가
+     */
 }

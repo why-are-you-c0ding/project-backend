@@ -1,22 +1,26 @@
 package wayc.backend.security.context;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import wayc.backend.member.domain.Member;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class MemberContext implements UserDetails{
 
     private final Member member;
+    private final SimpleGrantedAuthority authority;
 
-    public MemberContext(Member member) {
+    public MemberContext(Member member, SimpleGrantedAuthority authority) {
         this.member = member;
+        this.authority = authority;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singleton(this.authority);
     }
 
     @Override
@@ -26,7 +30,7 @@ public class MemberContext implements UserDetails{
 
     @Override
     public String getUsername() {
-        return member.getLoginId();
+        return String.valueOf(member.getId());
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import wayc.backend.exception.verification.NotSamePasswordException;
+import wayc.backend.security.context.MemberContext;
 import wayc.backend.security.token.AjaxAuthenticationToken;
 
 @RequiredArgsConstructor
@@ -23,13 +24,17 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String loginId = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(loginId);
+        MemberContext memberContext = (MemberContext) userDetailsService.loadUserByUsername(loginId);
 
-        if(isNotSamePassword(password, userDetails.getPassword())){
+        if(isNotSamePassword(password, memberContext.getPassword())){
             throw new NotSamePasswordException();
         }
 
-        return new AjaxAuthenticationToken(loginId, password, userDetails.getAuthorities());
+        return new AjaxAuthenticationToken(
+                //String.valueOf(memberContext.getMember().getId()),  //아이디를 리턴하도록 바꿨
+                loginId,
+                password,
+                memberContext.getAuthorities());
     }
 
     @Override
