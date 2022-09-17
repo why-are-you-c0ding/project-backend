@@ -3,6 +3,8 @@ package wayc.backend.factory.member.domain;
 import wayc.backend.member.domain.Member;
 import wayc.backend.security.role.Role;
 
+import static wayc.backend.security.role.Role.*;
+
 public class MemberFactory {
 
     public static Member createConsumerSuccessCase(){
@@ -12,7 +14,7 @@ public class MemberFactory {
                 .loginId("loginId")
                 .password("1q2w3e4r!!")
                 .age(23)
-                .role(Role.CONSUMER)
+                .role(ROLE_CONSUMER)
                 .build();
     }
 }

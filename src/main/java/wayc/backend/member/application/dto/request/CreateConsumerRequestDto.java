@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import wayc.backend.member.domain.Member;
 import wayc.backend.security.role.Role;
 
+import static wayc.backend.security.role.Role.*;
+
 @Getter
 public class CreateConsumerRequestDto extends AbstractCreateMemberRequestDto{
 
@@ -27,7 +29,7 @@ public class CreateConsumerRequestDto extends AbstractCreateMemberRequestDto{
                 .loginId(loginId)
                 .password(passwordEncoder.encode(password))
                 .age(age)
-                .role(Role.CONSUMER)
+                .role(ROLE_CONSUMER)
                 .build();
     }
 }
