@@ -20,6 +20,7 @@ public class AjaxLoginAuthenticationEntryPoint implements AuthenticationEntryPoi
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        System.out.println("authException = " + authException.getMessage());
         response.getWriter().write(objectMapper.writeValueAsString(authException));
     }
 }

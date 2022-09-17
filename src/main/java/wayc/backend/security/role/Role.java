@@ -1,7 +1,19 @@
 package wayc.backend.security.role;
 
 public enum Role {
-    CONSUMER, SELLER
+
+    ROLE_CONSUMER("ROLE_CONSUMER"),
+    ROLE_SELLER("ROLE_SELLER");
+
+    String role;
+
+    Role(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
 }
 
 

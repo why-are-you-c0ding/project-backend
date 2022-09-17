@@ -1,5 +1,5 @@
 package wayc.backend.security.token;
-
+;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -7,7 +7,7 @@ import java.util.Collection;
 
 public class AjaxAuthenticationToken extends AbstractAuthenticationToken { //UsernamePasswordAuthenticationToken과 매우 유사
 
-    private final Object principal;
+    private Object principal;
     private Object credentials;
 
     public AjaxAuthenticationToken(Object principal, Object credentials) {
@@ -20,7 +20,7 @@ public class AjaxAuthenticationToken extends AbstractAuthenticationToken { //Use
     public AjaxAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
-        this.credentials = credentials;
+        this.credentials = credentials; //이걸 굳이 넣어야 할까?
         super.setAuthenticated(true);
     }
 

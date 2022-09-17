@@ -48,9 +48,10 @@ public class SecurityConfig {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**", "/verification/**")
-                .permitAll()
-                        .mvcMatchers("/**").permitAll();
+                .antMatchers("/shops/admin/**", "/items/**").access("hasRole('SELLER')")
+                .antMatchers("/baskets/**").access("hasRole('CONSUMER') or hasRole('SELLER')")
+                .antMatchers("/members/**", "/verification/**", "/login", "/logout", "/**").permitAll();
+
 
         http.authenticationProvider(authenticationProvider());
 
