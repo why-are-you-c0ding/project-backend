@@ -48,12 +48,7 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .cors().configurationSource(corsConfigurationSource());
 
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/shops/admin/**", "/items").hasRole("SELLER")
-                .antMatchers("/baskets/**").access("hasRole('CONSUMER') or hasRole('SELLER')")
-                .antMatchers("/members/**", "/verification/**", "/login", "/logout", "/**").permitAll()
-                        .anyRequest().authenticated();
+        http.csrf().disable();
 
         http.authenticationProvider(authenticationProvider());
 
@@ -65,24 +60,12 @@ public class SecurityConfig {
         /**
          * 리멤버 미 및 로그 아웃
          */
-        http.rememberMe()
-                .rememberMeParameter("remember-me")
-                .alwaysRemember(true)
-                .userDetailsService(userDetailsService(verificationService));
 
         http.logout()
                 .logoutUrl("/logout")
                 .deleteCookies("JSESSIONID", "remember-me")
                 .addLogoutHandler(logoutHandler())
                 .logoutSuccessHandler(logoutSuccessHandler());
-
-        /**
-         * 세션 제어
-         *
-         */
-        http.sessionManagement()
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(false); //기존 세션 만료
 
         /**
          * 세션 고정 보호
@@ -92,7 +75,7 @@ public class SecurityConfig {
                 .changeSessionId();
 
         http.sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED); //기본 값
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //세션 사용 안함
 
         customConfigurer(http);
 
