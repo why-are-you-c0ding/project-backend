@@ -19,7 +19,6 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String loginId) {
          Member member = verificationService.findByLoginId(loginId);
 
-        //TODO 권한도 관련해서 때려 박아야함.
         String role = member.getRole().getRole();
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
 

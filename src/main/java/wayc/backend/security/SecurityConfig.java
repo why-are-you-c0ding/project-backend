@@ -22,9 +22,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import wayc.backend.security.handler.*;
-import wayc.backend.security.provider.CustomAuthenticationProvider;
-import wayc.backend.security.role.Role;
+import wayc.backend.security.provider.TokenAuthenticationProvider;
 import wayc.backend.security.service.CustomUserDetailService;
+import wayc.backend.security.service.JwtProvider;
 import wayc.backend.verification.application.VerificationService;
 
 import java.security.NoSuchAlgorithmException;
@@ -36,6 +36,7 @@ import java.security.SecureRandom;
 public class SecurityConfig {
 
     private final VerificationService verificationService;
+    private final JwtProvider jwtProvider;
 
     @Bean
     public WebSecurityCustomizer configure() {
@@ -48,13 +49,15 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .cors().configurationSource(corsConfigurationSource());
 
+
+        //토큰을 사용하므로 csrf를 disable 한다.
         http.csrf().disable();
 
         http.authenticationProvider(authenticationProvider());
 
         http.exceptionHandling()
-                .authenticationEntryPoint(ajaxLoginAuthenticationEntryPoint())
-                .accessDeniedHandler(accessDeniedHandler());
+                .authenticationEntryPoint(ajaxLoginAuthenticationEntryPoint()) //TODO JWT 관련으로 수정해야 함.
+                .accessDeniedHandler(accessDeniedHandler()); //TODO JWT 관련으로 수정해야 함.
 
 
         /**
@@ -83,7 +86,7 @@ public class SecurityConfig {
     }
 
     @Bean AuthenticationProvider authenticationProvider() throws NoSuchAlgorithmException {
-        return new CustomAuthenticationProvider(userDetailsService(verificationService), passwordEncoder());
+        return new TokenAuthenticationProvider(userDetailsService(verificationService), passwordEncoder());
     }
 
     @Bean UserDetailsService userDetailsService(VerificationService verificationService){
@@ -97,23 +100,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler(){
-        return new AjaxAuthenticationFailureHandler();
+    public TokenAuthenticationFailureHandler ajaxAuthenticationFailureHandler(){
+        return new TokenAuthenticationFailureHandler();
     }
 
     @Bean
-    public AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler(){
-        return new AjaxAuthenticationSuccessHandler();
+    public TokenAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler(){
+        return new TokenAuthenticationSuccessHandler(jwtProvider);
     }
 
     @Bean
-    public AjaxLoginAuthenticationEntryPoint ajaxLoginAuthenticationEntryPoint(){
-        return new AjaxLoginAuthenticationEntryPoint();
+    public TokenAuthenticationEntryPoint ajaxLoginAuthenticationEntryPoint(){
+        return new TokenAuthenticationEntryPoint();
     }
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){
-        return new CustomAccessDeniedHandler();
+        return new TokenAccessDeniedHandler();
     }
 
     @Bean
@@ -143,10 +146,11 @@ public class SecurityConfig {
 
     private void customConfigurer(HttpSecurity http) throws Exception {
         http
-                .apply(new AjaxLoginConfigurer<>())
+                .apply(new TokenLoginConfigurer<>())
                 .successHandlerAjax(ajaxAuthenticationSuccessHandler())
                 .failureHandlerAjax(ajaxAuthenticationFailureHandler())
                 .loginProcessingUrl("/login")
                 .setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
     }
+
 }

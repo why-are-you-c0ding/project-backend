@@ -39,10 +39,10 @@ public class AcceptanceLogOutTest {
                 .andDo(print())
                 .andDo(document("logout",
                         getDocumentRequest(),
-                        getDocumentResponse(),
-                        responseFields(
-                                fieldWithPath("message").type(STRING).description("성공 메시지")
-                        )
+                        getDocumentResponse()//,
+//                        responseFields(
+//                                //fieldWithPath("message").type(STRING).description("성공 메시지")
+//                        )
                 ));
     }
 }

@@ -5,20 +5,23 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
-public class AjaxAuthenticationToken extends AbstractAuthenticationToken { //UsernamePasswordAuthenticationToken과 매우 유사
+public class JwtAuthenticationToken extends AbstractAuthenticationToken { //UsernamePasswordAuthenticationToken과 매우 유사
 
     private Object principal;
     private Object credentials;
+    private Long id;
 
-    public AjaxAuthenticationToken(Object principal, Object credentials) {
+    public JwtAuthenticationToken(Object principal, Object credentials) {
         super(null);
+        this.id = null;
         this.principal = principal;
         this.credentials = credentials;
         setAuthenticated(false);
     }
 
-    public AjaxAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
+    public JwtAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, Long id) {
         super(authorities);
+        this.id = id;
         this.principal = principal;
         this.credentials = credentials; //이걸 굳이 넣어야 할까?
         super.setAuthenticated(true);
@@ -32,5 +35,9 @@ public class AjaxAuthenticationToken extends AbstractAuthenticationToken { //Use
     @Override
     public Object getPrincipal() {
         return this.principal;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

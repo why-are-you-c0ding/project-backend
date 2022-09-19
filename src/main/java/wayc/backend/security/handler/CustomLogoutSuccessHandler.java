@@ -24,6 +24,8 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        mapper.writeValue(response.getWriter(), new LoginResponseDto("Logout succeeded."));
+        //TODO jwt 로그아웃 로직을 구현해야함.
+
+        //mapper.writeValue(response.getWriter(), new LoginResponseDto("Logout succeeded."));
     }
 }

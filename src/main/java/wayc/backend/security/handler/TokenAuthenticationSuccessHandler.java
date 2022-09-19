@@ -6,28 +6,37 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import wayc.backend.security.dto.response.LoginResponseDto;
+import wayc.backend.security.service.JwtProvider;
+import wayc.backend.security.token.JwtAuthenticationToken;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private final ObjectMapper mapper = new ObjectMapper();
+public class TokenAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
+    private final ObjectMapper mapper;
+    private final JwtProvider jwtProvider;
+
+    public TokenAuthenticationSuccessHandler(JwtProvider jwtProvider) {
+        this.jwtProvider = jwtProvider;
+        this.mapper = new ObjectMapper();
+    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        //String  principal = (String) authentication.getPrincipal();
-
+        JwtAuthenticationToken token = (JwtAuthenticationToken) authentication;
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
 //        HttpSession session = request.getSession();
 //        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
 
-        mapper.writeValue(response.getWriter(), new LoginResponseDto("Login succeeded."));
+        mapper.writeValue(
+                response.getWriter(),
+                new LoginResponseDto("Login succeeded.", jwtProvider.createToken(token))
+        );
     }
 }
