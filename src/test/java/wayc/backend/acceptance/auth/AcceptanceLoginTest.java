@@ -57,7 +57,6 @@ public class AcceptanceLoginTest {
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.post("/login")
-                        .header("X-Requested-With", "XMLHttpRequest")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(value)
@@ -72,6 +71,7 @@ public class AcceptanceLoginTest {
                                 fieldWithPath("password").type(STRING).description("비밀번호")
                         ),
                         responseFields(
+                                fieldWithPath("jwt").type(STRING).description("JWT 토큰"),
                                 fieldWithPath("message").type(STRING).description("성공 메시지")
                         )
                 ));
