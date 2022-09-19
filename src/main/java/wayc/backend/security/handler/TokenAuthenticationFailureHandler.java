@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class TokenAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
 	private ObjectMapper mapper = new ObjectMapper();
     

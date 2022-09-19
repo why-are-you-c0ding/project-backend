@@ -53,8 +53,8 @@ public class MemberContext implements UserDetails{
         return true;
     }
 
-    public Member getMember() {
-        return member;
+    public Long getMemberId() {
+        return member.getId();
     }
 }
 

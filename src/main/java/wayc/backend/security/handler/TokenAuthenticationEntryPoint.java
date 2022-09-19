@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AjaxLoginAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class TokenAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -20,9 +20,7 @@ public class AjaxLoginAuthenticationEntryPoint implements AuthenticationEntryPoi
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        System.out.println("authException = " + authException.getMessage());
-        System.out.println("authException = " + authException.getStackTrace());
-        authException.printStackTrace();
-        response.getWriter().write(objectMapper.writeValueAsString(authException));
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        //response.getWriter().write(objectMapper.writeValueAsString(authException));
     }
 }

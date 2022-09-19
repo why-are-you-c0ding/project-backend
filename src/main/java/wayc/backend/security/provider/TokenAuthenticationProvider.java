@@ -5,16 +5,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import wayc.backend.exception.verification.NotSamePasswordException;
 import wayc.backend.security.context.MemberContext;
-import wayc.backend.security.token.AjaxAuthenticationToken;
+import wayc.backend.security.token.JwtAuthenticationToken;
 
 @RequiredArgsConstructor
-public class CustomAuthenticationProvider implements AuthenticationProvider {
+public class TokenAuthenticationProvider implements AuthenticationProvider {
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
@@ -30,16 +29,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new NotSamePasswordException();
         }
 
-        return new AjaxAuthenticationToken(
-                //String.valueOf(memberContext.getMember().getId()),  //아이디를 리턴하도록 바꿨
+        return new JwtAuthenticationToken(
                 loginId,
                 password,
-                memberContext.getAuthorities());
+                memberContext.getAuthorities(),
+                memberContext.getMemberId());
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return authentication.equals(AjaxAuthenticationToken.class);
+        return authentication.equals(JwtAuthenticationToken.class);
     }
 
     private boolean isNotSamePassword(String rawPassword, String encoderPassword){
