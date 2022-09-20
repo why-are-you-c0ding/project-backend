@@ -9,21 +9,18 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken { //User
 
     private Object principal;
     private Object credentials;
-    private Long id;
 
     public JwtAuthenticationToken(Object principal, Object credentials) {
         super(null);
-        this.id = null;
         this.principal = principal;
         this.credentials = credentials;
         setAuthenticated(false);
     }
 
-    public JwtAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, Long id) {
-        super(authorities);
-        this.id = id;
+    public JwtAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
+        super(authorities);;
         this.principal = principal;
-        this.credentials = credentials; //이걸 굳이 넣어야 할까?
+        this.credentials = credentials;
         super.setAuthenticated(true);
     }
 
@@ -35,9 +32,5 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken { //User
     @Override
     public Object getPrincipal() {
         return this.principal;
-    }
-
-    public Long getId() {
-        return id;
     }
 }

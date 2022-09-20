@@ -27,13 +27,12 @@ public class TokenAuthenticationSuccessHandler implements AuthenticationSuccessH
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        JwtAuthenticationToken token = (JwtAuthenticationToken) authentication;
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
         mapper.writeValue(
                 response.getWriter(),
-                new LoginResponseDto("Login succeeded.", jwtProvider.createToken(token)
+                new LoginResponseDto("Login succeeded.", jwtProvider.createToken(authentication)
                 )
         );
     }

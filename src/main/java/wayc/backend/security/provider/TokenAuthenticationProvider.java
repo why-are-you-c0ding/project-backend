@@ -30,10 +30,9 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
         }
 
         return new JwtAuthenticationToken(
-                loginId,
-                password,
-                memberContext.getAuthorities(),
-                memberContext.getMemberId()
+                memberContext.getMemberId(),
+                null,
+                memberContext.getAuthorities()
         );
     }
 
