@@ -41,6 +41,8 @@ public final class TokenLoginConfigurer<H extends HttpSecurityBuilder<H>> extend
 
         http.setSharedObject(TokenLoginProcessingFilter.class, getAuthenticationFilter());
         http.addFilterBefore(getAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+
     }
 
     public TokenLoginConfigurer<H> successHandlerAjax(AuthenticationSuccessHandler successHandler) {

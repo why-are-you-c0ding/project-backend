@@ -19,7 +19,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication){
         String loginId = authentication.getName();
         String password = authentication.getCredentials().toString();
 
@@ -33,7 +33,8 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
                 loginId,
                 password,
                 memberContext.getAuthorities(),
-                memberContext.getMemberId());
+                memberContext.getMemberId()
+        );
     }
 
     @Override
