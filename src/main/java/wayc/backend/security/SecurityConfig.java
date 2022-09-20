@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -16,15 +17,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import wayc.backend.security.filter.TokenAuthorizationFilter;
 import wayc.backend.security.handler.*;
 import wayc.backend.security.provider.TokenAuthenticationProvider;
 import wayc.backend.security.service.CustomUserDetailService;
-import wayc.backend.security.service.JwtProvider;
+import wayc.backend.security.jwt.JwtProvider;
 import wayc.backend.verification.application.VerificationService;
 
 import java.security.NoSuchAlgorithmException;
@@ -46,36 +49,31 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .formLogin().disable()
                 .httpBasic().disable()
+                .csrf().disable()
                 .cors().configurationSource(corsConfigurationSource());
 
+        http
+                .authorizeRequests()
+                        .antMatchers("/items").hasRole("SELLER");
 
-        //토큰을 사용하므로 csrf를 disable 한다.
-        http.csrf().disable();
 
-        http.authenticationProvider(authenticationProvider());
+        http.authenticationManager(authenticationManager());
+        //http.authenticationProvider(authenticationProvider());
 
         http.exceptionHandling()
-                .authenticationEntryPoint(ajaxLoginAuthenticationEntryPoint()) //TODO JWT 관련으로 수정해야 함.
-                .accessDeniedHandler(accessDeniedHandler()); //TODO JWT 관련으로 수정해야 함.
-
+                .authenticationEntryPoint(loginAuthenticationEntryPoint())
+                .accessDeniedHandler(accessDeniedHandler());
 
         /**
-         * 리멤버 미 및 로그 아웃
+         * 로그 아웃
          */
 
         http.logout()
                 .logoutUrl("/logout")
-                .deleteCookies("JSESSIONID", "remember-me")
                 .addLogoutHandler(logoutHandler())
                 .logoutSuccessHandler(logoutSuccessHandler());
-
-        /**
-         * 세션 고정 보호
-         */
-        http.sessionManagement()
-                .sessionFixation()
-                .changeSessionId();
 
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //세션 사용 안함
@@ -100,17 +98,17 @@ public class SecurityConfig {
     }
 
     @Bean
-    public TokenAuthenticationFailureHandler ajaxAuthenticationFailureHandler(){
+    public TokenAuthenticationFailureHandler authenticationFailureHandler(){
         return new TokenAuthenticationFailureHandler();
     }
 
     @Bean
-    public TokenAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler(){
+    public TokenAuthenticationSuccessHandler authenticationSuccessHandler(){
         return new TokenAuthenticationSuccessHandler(jwtProvider);
     }
 
     @Bean
-    public TokenAuthenticationEntryPoint ajaxLoginAuthenticationEntryPoint(){
+    public TokenAuthenticationEntryPoint loginAuthenticationEntryPoint(){
         return new TokenAuthenticationEntryPoint();
     }
 
@@ -121,8 +119,8 @@ public class SecurityConfig {
 
     @Bean
     public LogoutHandler logoutHandler() {
-        return new CustomLogoutHandler();
-    }
+            return new CustomLogoutHandler();
+        }
 
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler(){
@@ -144,13 +142,20 @@ public class SecurityConfig {
         return source;
     }
 
-    private void customConfigurer(HttpSecurity http) throws Exception {
-        http
-                .apply(new TokenLoginConfigurer<>())
-                .successHandlerAjax(ajaxAuthenticationSuccessHandler())
-                .failureHandlerAjax(ajaxAuthenticationFailureHandler())
-                .loginProcessingUrl("/login")
-                .setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
+    @Bean
+    AuthenticationManager authenticationManager() throws NoSuchAlgorithmException {
+        return new ProviderManager(authenticationProvider());
     }
 
+    private void customConfigurer(HttpSecurity http) throws Exception {
+        http
+                .addFilterBefore(
+                        new TokenAuthorizationFilter(authenticationManager(), jwtProvider),
+                        UsernamePasswordAuthenticationFilter.class)
+                .apply(new TokenLoginConfigurer<>())
+                .successHandlerAjax(authenticationSuccessHandler())
+                .failureHandlerAjax(authenticationFailureHandler())
+                .loginProcessingUrl("/login")
+                .setAuthenticationManager(authenticationManager());
+    }
 }

@@ -2,7 +2,6 @@ package wayc.backend.unit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,7 +16,7 @@ import wayc.backend.exception.ExceptionExampleController;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.presentation.MemberController;
 import wayc.backend.security.SecurityConfig;
-import wayc.backend.security.service.JwtProvider;
+import wayc.backend.security.jwt.JwtProvider;
 import wayc.backend.verification.dataaccess.EmailRedisRepository;
 import wayc.backend.verification.presentation.VerificationController;
 import wayc.backend.verification.application.EmailService;

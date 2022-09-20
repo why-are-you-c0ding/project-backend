@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import wayc.backend.security.dto.response.LoginResponseDto;
-import wayc.backend.security.service.JwtProvider;
+import wayc.backend.security.jwt.JwtProvider;
 import wayc.backend.security.token.JwtAuthenticationToken;
 
 import javax.servlet.ServletException;
@@ -31,12 +31,10 @@ public class TokenAuthenticationSuccessHandler implements AuthenticationSuccessH
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-//        HttpSession session = request.getSession();
-//        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-
         mapper.writeValue(
                 response.getWriter(),
-                new LoginResponseDto("Login succeeded.", jwtProvider.createToken(token))
+                new LoginResponseDto("Login succeeded.", jwtProvider.createToken(token)
+                )
         );
     }
 }
