@@ -27,8 +27,8 @@ public class TokenLoginProcessingFilter extends AbstractAuthenticationProcessing
     @Override
     public Authentication attemptAuthentication(
             HttpServletRequest request,
-            HttpServletResponse response)
-            throws AuthenticationException, IOException, ServletException {
+            HttpServletResponse response
+    ) throws AuthenticationException, IOException, ServletException {
 
         LoginRequestDto loginDto = objectMapper.readValue(request.getReader(), LoginRequestDto.class);
 
@@ -53,7 +53,8 @@ public class TokenLoginProcessingFilter extends AbstractAuthenticationProcessing
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain chain,
-            Authentication authResult) throws IOException, ServletException {
+            Authentication authResult
+    ) throws IOException, ServletException {
         super.successfulAuthentication(request, response, chain, authResult);
     }
 }

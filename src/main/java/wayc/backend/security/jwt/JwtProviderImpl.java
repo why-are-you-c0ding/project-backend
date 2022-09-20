@@ -57,7 +57,7 @@ public class JwtProviderImpl implements JwtProvider {
 
         return Jwts.builder()
                 .setSubject("token")
-                .claim(ID, ((JwtAuthenticationToken)authentication).getId())
+                .claim(ID, authentication.getPrincipal())
                 .claim(AUTHORITIES, authorities)
                 .setIssuedAt(now)
                 .signWith(key, SignatureAlgorithm.HS512)
@@ -79,7 +79,11 @@ public class JwtProviderImpl implements JwtProvider {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        return new JwtAuthenticationToken(null, null, authorities, Long.valueOf(String.valueOf(claims.get(ID))));
+        return new JwtAuthenticationToken(
+                Long.valueOf((String.valueOf(claims.get(ID)))),
+                null,
+                authorities
+        );
     }
 
     @Override

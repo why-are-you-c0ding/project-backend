@@ -20,6 +20,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -56,26 +57,24 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
-                        .antMatchers("/items").hasRole("SELLER");
+                .antMatchers("/items").hasRole("SELLER");
 
+        http
+                .authenticationManager(authenticationManager());
 
-        http.authenticationManager(authenticationManager());
-        //http.authenticationProvider(authenticationProvider());
-
-        http.exceptionHandling()
+        http
+                .exceptionHandling()
                 .authenticationEntryPoint(loginAuthenticationEntryPoint())
                 .accessDeniedHandler(accessDeniedHandler());
 
-        /**
-         * 로그 아웃
-         */
-
-        http.logout()
+        http
+                .logout()
                 .logoutUrl("/logout")
                 .addLogoutHandler(logoutHandler())
                 .logoutSuccessHandler(logoutSuccessHandler());
 
-        http.sessionManagement()
+        http
+                .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //세션 사용 안함
 
         customConfigurer(http);
