@@ -10,11 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import wayc.backend.shop.application.ItemService;
 import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
-import wayc.backend.shop.presentation.dto.request.PostOptionGroupRequestDto;
-import wayc.backend.shop.presentation.dto.request.PostOptionRequestDto;
 
-import java.security.Provider;
-import java.util.Arrays;
 
 
 @RequiredArgsConstructor

@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
+import org.springframework.restdocs.JUnitRestDocumentation;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentationConfigurer;
 import org.springframework.test.web.servlet.MockMvc;
 
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 import wayc.backend.common.config.WebMvcConfig;
 import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
@@ -29,11 +33,12 @@ import wayc.backend.verification.presentation.VerificationController;
 import wayc.backend.verification.application.EmailService;
 import wayc.backend.verification.application.VerificationService;
 
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @Import({
         SecurityConfig.class,
-        WebMvcConfig.class
+        //WebMvcConfig.class
 })
 @WebMvcTest(controllers = {
         MemberController.class,
@@ -47,6 +52,9 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "waycabvav.shop", uriPort = 443)
 //@ExtendWith(RestDocumentationExtension.class)
 public abstract class ControllerTest {
+
+    @Autowired
+    protected WebApplicationContext context;
 
     @Autowired
     protected MockMvc mockMvc;
@@ -78,12 +86,6 @@ public abstract class ControllerTest {
     @MockBean
     protected ShopService shopService;
 
-
-//    @BeforeEach
-//    public void setup() {
-//        mockMvc = MockMvcBuilders
-//                .webAppContextSetup(context)
-//                .apply(springSecurity())
-//                .build();
-//    }
 }
+
+//https://www.baeldung.com/spring-rest-docs
