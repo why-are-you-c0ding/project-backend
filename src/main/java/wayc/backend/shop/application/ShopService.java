@@ -1,13 +1,14 @@
 package wayc.backend.shop.application;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import wayc.backend.exception.shop.NotExistsShopException;
 import wayc.backend.shop.application.dto.response.ShowShopResponseDto;
 import wayc.backend.shop.dataaccess.ShopRepository;
 import wayc.backend.shop.domain.Shop;
-
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,7 +25,7 @@ public class ShopService {
 
     public ShowShopResponseDto getShop(Long shopId){
         Shop shop = shopRepository.findByIdAndStatus(shopId)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 샵입니다"));
+                .orElseThrow(NotExistsShopException::new);
         return ShowShopResponseDto.of(shop);
     }
 

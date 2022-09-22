@@ -11,5 +11,8 @@ import java.util.Optional;
 public interface ShopRepository extends JpaRepository <Shop, Long> {
 
     @Query("select s from Shop s where s.id =:shopId and s.status = 'ACTIVE'")
-    Optional <Shop> findByIdAndStatus(Long shopId);
+    Optional<Shop> findByIdAndStatus(Long shopId);
+
+    @Query("select s from Shop s where s.ownerId =:ownerId and s.status = 'ACTIVE'")
+    Optional<Shop> findByOwnerIdAndStatus(Long ownerId);
 }

@@ -1,8 +1,6 @@
 package wayc.backend.shop.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import wayc.backend.common.base.BaseEntity;
 
@@ -13,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
+@ToString
 public class Item extends BaseEntity {
 
     @Id
@@ -25,4 +24,13 @@ public class Item extends BaseEntity {
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<OptionGroupSpecification> optionGroupSpecifications = new ArrayList<>();
+
+    private String name;
+
+    @Builder
+    public Item(Shop shop, List<OptionGroupSpecification> optionGroupSpecifications, String name) {
+        this.shop = shop;
+        this.optionGroupSpecifications = optionGroupSpecifications;
+        this.name = name;
+    }
 }
