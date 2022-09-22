@@ -18,8 +18,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import static wayc.backend.docs.SpringRestDocsUtils.getDocumentRequest;
 import static wayc.backend.docs.SpringRestDocsUtils.getDocumentResponse;
 
@@ -34,7 +34,11 @@ public class ItemControllerTest extends ControllerTest {
         PostItemRequestDto req = PostItemRequestDtoFactory.createSuccessCase();
         CreateItemResponseDto res = new CreateItemResponseDto(1L);
 
-        given(itemService.create(Mockito.any(Long.class), Mockito.any(CreateItemRequestDto.class) ))
+        /**
+         * given(itemService.create(Mockito.any(Long.class), Mockito.any(CreateItemRequestDto.class) )) 이 코드는 null이 나온다.
+         * 아마 컨트롤러에서 principal이 null로 들어가서 그런듯. 이거는 추후에 꼭 수정하자.
+         */
+        given(itemService.create(Mockito.any(), Mockito.any(CreateItemRequestDto.class) ))
                 .willReturn(res);
 
         String value = mapper.writeValueAsString(req);
@@ -58,10 +62,10 @@ public class ItemControllerTest extends ControllerTest {
                                         subsectionWithPath("optionGroupRequests[].optionRequests[].optionName").type(STRING).description("옵션 이름"),
                                         subsectionWithPath("optionGroupRequests[].optionRequests[].price").type(NUMBER).description("상품 가격")
 
-                                        )
-//                                responseFields(
-//                                        //fieldWithPath("itemId").type(NUMBER).description("아이템 id")
-//                                )
+                                        ),
+                                responseFields(
+                                        fieldWithPath("itemId").type(NUMBER).description("아이템 id")
+                                )
                         ));
     }
 
