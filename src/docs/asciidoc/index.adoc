@@ -54,3 +54,6 @@ include::{snippets}/exception_example/http-response.adoc[]
 
 == 공통 API
 * link:/docs/upload-image.html[이미지 업로드 요청 API, window=_blank]
+
+== 상품 API
+* link:/docs/create-item.html[상품 생성 요청 API, window=_blank]

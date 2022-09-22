@@ -10,6 +10,7 @@ import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
 import wayc.backend.member.presentation.dto.request.PostConsumerRequestDto;
 import wayc.backend.member.presentation.dto.request.PostSellerRequestDto;
+import wayc.backend.shop.application.ShopService;
 
 
 @RequiredArgsConstructor
@@ -18,6 +19,7 @@ import wayc.backend.member.presentation.dto.request.PostSellerRequestDto;
 public class MemberController {
 
     private final MemberService memberService;
+    private final ShopService shopService;
 
     @PostMapping("/consumers")
     public ResponseEntity<CreateMemberResponseDto> createMember(
@@ -32,6 +34,7 @@ public class MemberController {
             @RequestBody @Validated PostSellerRequestDto request
     ){
         CreateMemberResponseDto res = memberService.createSeller(PostSellerRequestDto.toServiceDto(request));
+        shopService.createShop(res.getId(), res.getNickName());
         return ResponseEntity.ok(res);
     }
 }

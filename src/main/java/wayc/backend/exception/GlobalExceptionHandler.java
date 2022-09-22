@@ -49,6 +49,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApplicationExceptionResponse> runtimeException(Exception e) {
         ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "S001", INTERNAL_SERVER_ERROR);
+        log.info("e={}",e);
         return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
     }
 }

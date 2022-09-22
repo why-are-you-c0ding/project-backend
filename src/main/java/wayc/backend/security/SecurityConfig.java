@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -57,7 +58,7 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
-                .antMatchers("/items").hasRole("SELLER");
+                .antMatchers(HttpMethod.POST,"/items").hasRole("SELLER");
 
         http
                 .authenticationManager(authenticationManager());

@@ -1,6 +1,7 @@
 package wayc.backend.shop.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +23,15 @@ public class Shop extends BaseEntity {
 
     private Long ownerId;
 
+    private String shopName;
+
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
+
+    @Builder
+    public Shop(Long ownerId, String shopName) {
+        this.ownerId = ownerId;
+        this.shopName = shopName;
+        this.items = new ArrayList<>();;
+    }
 }

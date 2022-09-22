@@ -29,4 +29,8 @@ public class OptionGroupSpecification extends BaseEntity {
     /**
      * validation 로직 추가
      */
+
+    public OptionGroupSpecification(List<OptionSpecification> optionSpecifications) {
+        this.optionSpecifications = optionSpecifications;
+    }
 }
