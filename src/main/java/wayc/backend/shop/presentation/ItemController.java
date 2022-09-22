@@ -32,21 +32,6 @@ public class ItemController {
         CreateItemResponseDto res = itemService.create(id, request.toServiceDto());
         return ResponseEntity.ok(res);
     }
-
-//    @GetMapping
-//    public Object test(){
-//        PostOptionRequestDto sss = new PostOptionRequestDto("sss", 1);
-//        PostOptionRequestDto sss1 = new PostOptionRequestDto("sss", 1);
-//        PostOptionRequestDto sss2 = new PostOptionRequestDto("sss", 1);
-//        PostOptionRequestDto sss3 = new PostOptionRequestDto("sss", 1);
-//
-//        PostOptionGroupRequestDto dto = new PostOptionGroupRequestDto(Arrays.asList(sss, sss1));
-//        PostOptionGroupRequestDto dto2 = new PostOptionGroupRequestDto(Arrays.asList(sss2, sss3));
-//
-//       return  new PostItemRequestDto("ss",Arrays.asList(dto, dto2));
-//
-//
-//    }
 }
 
 
