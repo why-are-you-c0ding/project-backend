@@ -5,7 +5,7 @@
 == 요청
 
 include::{snippets}/show_item/http-request.adoc[]
-
+include::{snippets}/show_item/path-parameters.adoc[]
 
 
 == 응답

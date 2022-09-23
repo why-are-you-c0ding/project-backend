@@ -22,6 +22,8 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -85,7 +87,7 @@ public class ItemControllerTest extends ControllerTest {
         given(optionGroupSpecificationService.get(Mockito.any(List.class))).willReturn(dto2);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/items/1")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/items/{itemId}",1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                 )
@@ -95,6 +97,9 @@ public class ItemControllerTest extends ControllerTest {
                 .andDo(document("show_item",
                         getDocumentRequest(),
                         getDocumentResponse(),
+                        pathParameters(
+                                parameterWithName("itemId").description("조회할 상품의 id")
+                        ),
                         responseFields(
                                 fieldWithPath("shopId").type(NUMBER).description("아이템 id"),
                                 fieldWithPath("shopName").type(STRING).description("상품 이름"),
