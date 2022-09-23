@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import wayc.backend.shop.application.ShopService;
-import wayc.backend.shop.application.dto.response.ShowShopResponseDto;
+import wayc.backend.shop.application.dto.response.show.ShowShopResponseDto;
 
 @RestController
 @RequiredArgsConstructor

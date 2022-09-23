@@ -1,4 +1,4 @@
-package wayc.backend.shop.application.dto.response;
+package wayc.backend.shop.application.dto.response.show;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.Shop;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

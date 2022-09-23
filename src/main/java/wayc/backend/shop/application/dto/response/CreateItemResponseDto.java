@@ -1,4 +1,4 @@
-package wayc.backend.shop.application.dto.response.item;
+package wayc.backend.shop.application.dto.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

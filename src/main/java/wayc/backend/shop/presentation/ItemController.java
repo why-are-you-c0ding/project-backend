@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import wayc.backend.shop.application.ItemService;
 import wayc.backend.shop.application.OptionGroupSpecificationService;
-import wayc.backend.shop.application.dto.response.item.CreateItemResponseDto;
-import wayc.backend.shop.application.dto.response.item.ShowItemResponseDto;
+import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
+import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
+import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
 import wayc.backend.shop.presentation.dto.response.GetItemResponseDto;
 
@@ -38,9 +39,10 @@ public class ItemController {
     public ResponseEntity<GetItemResponseDto> showItem(
             @PathVariable Long itemId
     ){
-        ShowItemResponseDto itemServiceRes = itemService.get(itemId);
-        List<Object> objects = optionGroupSpecificationService.get(itemServiceRes.getOptionGroupSpecificationIdList());
-        return ResponseEntity.ok(new GetItemResponseDto(itemServiceRes, objects));
+        ShowItemResponseDto itemDto = itemService.get(itemId);
+        List<ShowOptionGroupResponseDto> optionGroupDto =
+                optionGroupSpecificationService.get(itemDto.getOptionGroupSpecificationIdList());
+        return ResponseEntity.ok(GetItemResponseDto.from(itemDto, optionGroupDto));
 
     }
 }
