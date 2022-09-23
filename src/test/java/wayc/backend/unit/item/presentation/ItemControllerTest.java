@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import org.springframework.security.test.context.support.WithUserDetails;
-import wayc.backend.common.WithMockSellerV2;
+import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.PostItemRequestDtoFactory;
 import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
 import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
@@ -27,8 +26,8 @@ public class ItemControllerTest extends ControllerTest {
 
     @Test
     @DisplayName("아이템 생성 성공 컨트롤러 단위 테스트")
-    @WithMockSellerV2
-    @WithUserDetails("prism")
+    @WithMockSeller
+    //@WithMockSellerV2
     void create_item() throws Exception {
         //given
         PostItemRequestDto req = PostItemRequestDtoFactory.createSuccessCase();
@@ -38,8 +37,7 @@ public class ItemControllerTest extends ControllerTest {
          * given(itemService.create(Mockito.any(Long.class), Mockito.any(CreateItemRequestDto.class) )) 이 코드는 null이 나온다.
          * 아마 컨트롤러에서 principal이 null로 들어가서 그런듯. 이거는 추후에 꼭 수정하자.
          */
-        given(itemService.create(Mockito.any(), Mockito.any(CreateItemRequestDto.class) ))
-                .willReturn(res);
+        given(itemService.create(Mockito.any(Long.class), Mockito.any(CreateItemRequestDto.class))).willReturn(res);
 
         String value = mapper.writeValueAsString(req);
 
@@ -68,6 +66,4 @@ public class ItemControllerTest extends ControllerTest {
                                 )
                         ));
     }
-
-
 }

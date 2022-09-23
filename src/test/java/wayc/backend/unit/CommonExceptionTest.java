@@ -1,9 +1,12 @@
 package wayc.backend.unit;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
@@ -16,6 +19,15 @@ import static wayc.backend.docs.SpringRestDocsUtils.getDocumentRequest;
 import static wayc.backend.docs.SpringRestDocsUtils.getDocumentResponse;
 
 public class CommonExceptionTest extends ControllerTest {
+
+
+//    @BeforeEach
+//    void beforeEach(  //어떻게 이게 들어오는걸까??
+//            WebApplicationContext webApplicationContext,
+//            RestDocumentationContextProvider restDocumentationContextProvider
+//    ){
+//        super.setUp(webApplicationContext, restDocumentationContextProvider);
+//    }
 
     @Test
     @DisplayName("예외 응답 확인 테스트")
