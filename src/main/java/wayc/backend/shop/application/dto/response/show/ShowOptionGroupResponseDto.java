@@ -13,12 +13,12 @@ public class ShowOptionGroupResponseDto {
 
     private Long optionGroupId;
     private String optionGroupName;
-    private List<ShowOptionResponseDto> optionGroupSpecificationIdList;
+    private List<ShowOptionResponseDto> options;
 
-    public ShowOptionGroupResponseDto(Long optionGroupId, String optionGroupName, List<ShowOptionResponseDto> optionGroupSpecificationIdList) {
+    public ShowOptionGroupResponseDto(Long optionGroupId, String optionGroupName, List<ShowOptionResponseDto> options) {
         this.optionGroupId = optionGroupId;
         this.optionGroupName = optionGroupName;
-        this.optionGroupSpecificationIdList = optionGroupSpecificationIdList;
+        this.options = options;
     }
 }
 

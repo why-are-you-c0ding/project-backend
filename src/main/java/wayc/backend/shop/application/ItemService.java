@@ -35,6 +35,6 @@ public class ItemService {
 
     public ShowItemResponseDto get(Long itemId) {
         Item item = itemRepository.findByIdAndStatus(itemId).orElseThrow(NotExistsItemException::new);
-        return new ShowItemResponseDto(item);
+        return ShowItemResponseDto.from(item);
     }
 }

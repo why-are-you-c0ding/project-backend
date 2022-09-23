@@ -30,6 +30,7 @@ public class OptionGroupSpecificationService {
                     .orElseThrow(NotExistsOptionGroupSpecificationException::new);
             result.add(toOptionGroupDto(optionGroup));
         }
+
         return result;
     }
 
@@ -45,7 +46,7 @@ public class OptionGroupSpecificationService {
         );
     }
 
-    public ShowOptionResponseDto toOptionDto(OptionSpecification optionSpecification) {
+    private ShowOptionResponseDto toOptionDto(OptionSpecification optionSpecification) {
         return new ShowOptionResponseDto(
                 optionSpecification.getId(),
                 optionSpecification.getName(),

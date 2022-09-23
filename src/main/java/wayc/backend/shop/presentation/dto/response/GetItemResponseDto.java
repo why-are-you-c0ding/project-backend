@@ -16,15 +16,15 @@ public class GetItemResponseDto {
     private String itemName;
     private Long shopId;
     private String shopName;
-    private List<ShowOptionGroupResponseDto> optionGroup;
+    private List<ShowOptionGroupResponseDto> optionGroups;
 
     @Builder
-    public GetItemResponseDto(Long itemId, String itemName, Long shopId, String shopName, List<ShowOptionGroupResponseDto> optionGroup) {
+    public GetItemResponseDto(Long itemId, String itemName, Long shopId, String shopName, List<ShowOptionGroupResponseDto> optionGroups) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.shopId = shopId;
         this.shopName = shopName;
-        this.optionGroup = optionGroup;
+        this.optionGroups = optionGroups;
     }
 
     public static GetItemResponseDto from(ShowItemResponseDto itemDto, List<ShowOptionGroupResponseDto> optionGroupDto) {
@@ -33,7 +33,7 @@ public class GetItemResponseDto {
                 .itemName(itemDto.getItemName())
                 .shopId(itemDto.getShopId())
                 .shopName(itemDto.getShopName())
-                .optionGroup(optionGroupDto)
+                .optionGroups(optionGroupDto)
                 .build();
     }
 }
