@@ -5,9 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import wayc.backend.exception.shop.NotExistsItemException;
 import wayc.backend.exception.shop.NotExistsShopException;
 import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
-import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
+import wayc.backend.shop.application.dto.response.item.CreateItemResponseDto;
+import wayc.backend.shop.application.dto.response.item.ShowItemResponseDto;
 import wayc.backend.shop.dataaccess.ItemRepository;
 import wayc.backend.shop.dataaccess.ShopRepository;
 import wayc.backend.shop.domain.Item;
@@ -31,4 +33,8 @@ public class ItemService {
         return new CreateItemResponseDto(item.getId());
     }
 
+    public ShowItemResponseDto get(Long itemId) {
+        Item item = itemRepository.findByIdAndStatus(itemId).orElseThrow(NotExistsItemException::new);
+        return new ShowItemResponseDto(item);
+    }
 }

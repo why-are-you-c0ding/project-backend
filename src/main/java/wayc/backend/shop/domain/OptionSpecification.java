@@ -18,10 +18,6 @@ public class OptionSpecification extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "option_group_specification_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private OptionGroupSpecification optionGroupSpecification;
-
     private String name;
 
     private Integer price;

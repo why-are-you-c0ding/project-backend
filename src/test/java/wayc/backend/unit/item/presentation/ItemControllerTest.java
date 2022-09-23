@@ -8,7 +8,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.PostItemRequestDtoFactory;
 import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
-import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
+import wayc.backend.shop.application.dto.response.item.CreateItemResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
 import wayc.backend.unit.ControllerTest;
 

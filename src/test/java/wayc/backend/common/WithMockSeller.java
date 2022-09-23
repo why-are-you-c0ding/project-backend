@@ -8,7 +8,8 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 @WithSecurityContext(factory = WithMockSellerSecurityContextFactory.class)
 public @interface WithMockSeller {
-    long principal() default 1L;
 
+    long principal() default 1L;
     String password() default "123";
+
 }

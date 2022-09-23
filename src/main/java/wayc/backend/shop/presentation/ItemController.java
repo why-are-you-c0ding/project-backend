@@ -8,9 +8,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import wayc.backend.shop.application.ItemService;
-import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
+import wayc.backend.shop.application.OptionGroupSpecificationService;
+import wayc.backend.shop.application.dto.response.item.CreateItemResponseDto;
+import wayc.backend.shop.application.dto.response.item.ShowItemResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
+import wayc.backend.shop.presentation.dto.response.GetItemResponseDto;
 
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -19,6 +23,7 @@ import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
 public class ItemController {
 
     private final ItemService itemService;
+    private final OptionGroupSpecificationService optionGroupSpecificationService;
 
     @PostMapping
     public ResponseEntity<CreateItemResponseDto> createItem(
@@ -27,6 +32,16 @@ public class ItemController {
     ){
         CreateItemResponseDto res = itemService.create(id, request.toServiceDto());
         return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/{itemId}")
+    public ResponseEntity<GetItemResponseDto> showItem(
+            @PathVariable Long itemId
+    ){
+        ShowItemResponseDto itemServiceRes = itemService.get(itemId);
+        List<Object> objects = optionGroupSpecificationService.get(itemServiceRes.getOptionGroupSpecificationIdList());
+        return ResponseEntity.ok(new GetItemResponseDto(itemServiceRes, objects));
+
     }
 }
 
