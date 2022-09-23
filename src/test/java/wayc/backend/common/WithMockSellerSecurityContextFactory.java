@@ -14,6 +14,7 @@ import java.util.Set;
 import static java.util.Collections.singleton;
 
 public class WithMockSellerSecurityContextFactory implements WithSecurityContextFactory<WithMockSeller> {
+
     @Override
     public SecurityContext createSecurityContext(WithMockSeller customUser) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();

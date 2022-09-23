@@ -1,11 +1,11 @@
 = 상품 멤버 생성
 
-=== 로그인한 판매자만 이용가능
+로그인한 판매자만 이용가능
 
 == 요청
 
 include::{snippets}/create_item/http-request.adoc[]
-                           item
+
 include::{snippets}/create_item/request-fields.adoc[]
 
 == 응답

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import wayc.backend.common.base.BaseEntity;
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,18 +20,17 @@ public class OptionGroupSpecification extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "item_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Item item;
-
-    @OneToMany(mappedBy = "optionGroupSpecification", cascade = CascadeType.ALL)
+    @JoinColumn(name = "option_group_specification_id")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OptionSpecification> optionSpecifications = new ArrayList<>();
 
+    private String name;
     /**
      * validation 로직 추가
      */
 
-    public OptionGroupSpecification(List<OptionSpecification> optionSpecifications) {
+    public OptionGroupSpecification(List<OptionSpecification> optionSpecifications, String name) {
         this.optionSpecifications = optionSpecifications;
+        this.name = name;
     }
 }

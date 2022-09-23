@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @NoArgsConstructor
@@ -15,7 +16,11 @@ public class PostOptionGroupRequestDto {
     @NotEmpty
     private List<PostOptionRequestDto> optionRequests;
 
-    public PostOptionGroupRequestDto(List<PostOptionRequestDto> optionRequests) {
+    @Size(min = 5)
+    private String optionGroupName;
+
+    public PostOptionGroupRequestDto(List<PostOptionRequestDto> optionRequests, String optionGroupName) {
         this.optionRequests = optionRequests;
+        this.optionGroupName = optionGroupName;
     }
 }

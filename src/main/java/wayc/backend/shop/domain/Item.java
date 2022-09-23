@@ -22,7 +22,8 @@ public class Item extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    @JoinColumn(name = "item_id")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OptionGroupSpecification> optionGroupSpecifications = new ArrayList<>();
 
     private String name;
