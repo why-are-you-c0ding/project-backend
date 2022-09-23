@@ -27,7 +27,9 @@ import wayc.backend.member.presentation.MemberController;
 import wayc.backend.security.SecurityConfig;
 import wayc.backend.security.jwt.JwtProvider;
 import wayc.backend.shop.application.ItemService;
+import wayc.backend.shop.application.OptionGroupSpecificationService;
 import wayc.backend.shop.application.ShopService;
+import wayc.backend.shop.domain.OptionGroupSpecification;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.shop.presentation.ShopController;
 import wayc.backend.verification.dataaccess.EmailRedisRepository;
@@ -84,6 +86,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected ShopService shopService;
+
+    @MockBean
+    protected OptionGroupSpecificationService optionGroupSpecificationService;
 
 
     public void setUp(

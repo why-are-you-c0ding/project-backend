@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import wayc.backend.common.base.BaseEntity;
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +24,13 @@ public class OptionGroupSpecification extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL)
     private List<OptionSpecification> optionSpecifications = new ArrayList<>();
 
+    private String name;
     /**
      * validation 로직 추가
      */
 
-    public OptionGroupSpecification(List<OptionSpecification> optionSpecifications) {
+    public OptionGroupSpecification(List<OptionSpecification> optionSpecifications, String name) {
         this.optionSpecifications = optionSpecifications;
+        this.name = name;
     }
-
 }

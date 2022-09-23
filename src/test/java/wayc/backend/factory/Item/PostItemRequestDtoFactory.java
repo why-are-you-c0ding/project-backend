@@ -15,8 +15,8 @@ public class PostItemRequestDtoFactory {
         PostOptionRequestDto option3 = new PostOptionRequestDto("option3", 3000);
         PostOptionRequestDto option4 = new PostOptionRequestDto("option4", 4000);
 
-        PostOptionGroupRequestDto dto1 = new PostOptionGroupRequestDto(Arrays.asList(option1, option2));
-        PostOptionGroupRequestDto dto2 = new PostOptionGroupRequestDto(Arrays.asList(option3, option4));
+        PostOptionGroupRequestDto dto1 = new PostOptionGroupRequestDto(Arrays.asList(option1, option2), "optionName1");
+        PostOptionGroupRequestDto dto2 = new PostOptionGroupRequestDto(Arrays.asList(option3, option4), "optionName2");
 
         return new PostItemRequestDto("item1",Arrays.asList(dto1, dto2));
     }

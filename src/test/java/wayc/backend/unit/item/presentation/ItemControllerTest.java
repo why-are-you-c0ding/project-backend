@@ -27,7 +27,6 @@ public class ItemControllerTest extends ControllerTest {
     @Test
     @DisplayName("아이템 생성 성공 컨트롤러 단위 테스트")
     @WithMockSeller
-    //@WithMockSellerV2
     void create_item() throws Exception {
         //given
         PostItemRequestDto req = PostItemRequestDtoFactory.createSuccessCase();
@@ -56,6 +55,7 @@ public class ItemControllerTest extends ControllerTest {
                                 requestFields(
                                         fieldWithPath("itemName").type(STRING).description("상품 이름"),
                                         fieldWithPath("optionGroupRequests").type(ARRAY).description("옵션 그룹"),
+                                        subsectionWithPath("optionGroupRequests[].optionGroupName").type(STRING).description("옵션 그룹의 이름"),
                                         subsectionWithPath("optionGroupRequests[].optionRequests").type(ARRAY).description("옵션"),
                                         subsectionWithPath("optionGroupRequests[].optionRequests[].optionName").type(STRING).description("옵션 이름"),
                                         subsectionWithPath("optionGroupRequests[].optionRequests[].price").type(NUMBER).description("상품 가격")
@@ -66,4 +66,5 @@ public class ItemControllerTest extends ControllerTest {
                                 )
                         ));
     }
+
 }

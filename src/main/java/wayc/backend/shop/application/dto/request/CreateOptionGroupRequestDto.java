@@ -13,12 +13,14 @@ import java.util.stream.Collectors;
 public class CreateOptionGroupRequestDto {
 
     private List<CreateOptionRequestDto> optionRequests;
+    private String optionGroupName;
 
-    public CreateOptionGroupRequestDto(List<PostOptionRequestDto> dtos) {
+    public CreateOptionGroupRequestDto(List<PostOptionRequestDto> dtos, String optionGroupName) {
         this.optionRequests = dtos
                 .stream()
                 .map(dto -> new CreateOptionRequestDto(dto.getOptionName(), dto.getPrice()))
                 .collect(Collectors.toList());
+        this.optionGroupName = optionGroupName;
     }
 
 //    public CreateOptionGroupRequestDto(List<CreateOptionRequestDto> optionRequests) {

@@ -38,6 +38,8 @@ public class ItemMapper {
                         .stream()
                         .map(this::toOptionSpecification)
                         .collect(Collectors.toList())
+                ,
+                optionGroups.getOptionGroupName()
         );
     }
 
