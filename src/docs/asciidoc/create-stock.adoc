@@ -1,0 +1,15 @@
+= 재고 생성
+
+로그인한 판매자만 이용가능
+
+== 요청
+
+include::{snippets}/create_stock/http-request.adoc[]
+                           stock
+include::{snippets}/create_stock/request-fields.adoc[]
+
+== 응답
+
+include::{snippets}/create_stock/http-response.adoc[]
+
+include::{snippets}/create_stock/response-fields.adoc[]

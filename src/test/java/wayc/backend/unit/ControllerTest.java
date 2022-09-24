@@ -29,9 +29,11 @@ import wayc.backend.security.jwt.JwtProvider;
 import wayc.backend.shop.application.ItemService;
 import wayc.backend.shop.application.OptionGroupSpecificationService;
 import wayc.backend.shop.application.ShopService;
+import wayc.backend.shop.application.StockService;
 import wayc.backend.shop.domain.OptionGroupSpecification;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.shop.presentation.ShopController;
+import wayc.backend.shop.presentation.StockController;
 import wayc.backend.verification.dataaccess.EmailRedisRepository;
 import wayc.backend.verification.presentation.VerificationController;
 import wayc.backend.verification.application.EmailService;
@@ -50,7 +52,8 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
         VerificationController.class,
         ImageController.class,
         ItemController.class,
-        ShopController.class
+        ShopController.class,
+        StockController.class
 })
 @MockBean(JpaMetamodelMappingContext.class) //JPA 설정을 못하므로 오류가 발생. 따라서 해당 애노테이션을 넣는다.
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "waycabvav.shop", uriPort = 443)
@@ -89,6 +92,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected OptionGroupSpecificationService optionGroupSpecificationService;
+
+    @MockBean
+    protected StockService stockService;
 
 
     public void setUp(
