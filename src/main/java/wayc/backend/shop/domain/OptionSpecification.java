@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import wayc.backend.common.base.BaseEntity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter

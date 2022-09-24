@@ -1,4 +1,4 @@
-package wayc.backend.unit.item.presentation;
+package wayc.backend.unit.shop.presentation;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

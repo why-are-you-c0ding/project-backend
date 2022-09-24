@@ -27,7 +27,6 @@ public class ItemService {
     public CreateItemResponseDto create(Long ownerId, CreateItemRequestDto dto){
         Shop shop = shopRepository.findByOwnerIdAndStatus(ownerId)
                 .orElseThrow(NotExistsShopException::new);
-
         Item item = itemMapper.mapFrom(dto, shop);
         itemRepository.save(item);
         return new CreateItemResponseDto(item.getId());

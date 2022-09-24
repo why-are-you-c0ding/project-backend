@@ -58,7 +58,8 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/items").hasRole("SELLER");
+                .antMatchers(HttpMethod.POST,"/items").hasRole("SELLER")
+                .antMatchers(HttpMethod.POST, "/stocks").hasRole("SELLER");
 
         http
                 .authenticationManager(authenticationManager());

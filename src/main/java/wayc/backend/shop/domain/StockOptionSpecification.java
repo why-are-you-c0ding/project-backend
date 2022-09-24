@@ -25,4 +25,8 @@ public class StockOptionSpecification extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private OptionSpecification optionSpecification;
 
+    public StockOptionSpecification(Stock stock, OptionSpecification optionSpecification) {
+        this.stock = stock;
+        this.optionSpecification = optionSpecification;
+    }
 }
