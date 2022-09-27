@@ -16,10 +16,10 @@ public class ShowOptionGroupResponseDtoFactory {
         ShowOptionResponseDto optionRes4 = new ShowOptionResponseDto(13L, "optionRes4", 1000);
 
         ShowOptionGroupResponseDto optionGroup1 =
-                new ShowOptionGroupResponseDto(20L, "optionGroup1", Arrays.asList(optionRes1, optionRes2));
+                new ShowOptionGroupResponseDto(20L, "optionGroup1", Arrays.asList(optionRes1, optionRes2), true);
 
         ShowOptionGroupResponseDto optionGroup2 =
-                new ShowOptionGroupResponseDto(21L, "optionGroup2", Arrays.asList(optionRes3, optionRes4));
+                new ShowOptionGroupResponseDto(21L, "optionGroup2", Arrays.asList(optionRes3, optionRes4), false);
 
         return Arrays.asList(optionGroup1, optionGroup2);
     }

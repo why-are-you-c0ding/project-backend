@@ -14,11 +14,13 @@ public class ShowOptionGroupResponseDto {
     private Long optionGroupId;
     private String optionGroupName;
     private List<ShowOptionResponseDto> options;
+    private Boolean basic;
 
-    public ShowOptionGroupResponseDto(Long optionGroupId, String optionGroupName, List<ShowOptionResponseDto> options) {
+    public ShowOptionGroupResponseDto(Long optionGroupId, String optionGroupName, List<ShowOptionResponseDto> options, Boolean basic) {
         this.optionGroupId = optionGroupId;
         this.optionGroupName = optionGroupName;
         this.options = options;
+        this.basic = basic;
     }
 }
 
