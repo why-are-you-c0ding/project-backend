@@ -21,7 +21,7 @@ public class CreateItemRequestDto {
         this.itemName = itemName;
         this.optionGroups = dtos
                 .stream()
-                .map(dto -> new CreateOptionGroupRequestDto(dto.getOptionRequests(), dto.getOptionGroupName()))
+                .map(dto -> new CreateOptionGroupRequestDto(dto.getOptionRequests(), dto.getOptionGroupName(), dto.getBasic()))
                 .collect(Collectors.toList());
     }
 }

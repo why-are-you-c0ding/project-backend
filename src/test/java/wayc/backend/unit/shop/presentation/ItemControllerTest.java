@@ -64,6 +64,7 @@ public class ItemControllerTest extends ControllerTest {
                                         fieldWithPath("itemName").type(STRING).description("상품 이름"),
                                         fieldWithPath("optionGroupRequests").type(ARRAY).description("옵션 그룹"),
                                         subsectionWithPath("optionGroupRequests[].optionGroupName").type(STRING).description("옵션 그룹의 이름"),
+                                        subsectionWithPath("optionGroupRequests[].basic").type(BOOLEAN).description("기본 옵션 그룹인지"),
                                         subsectionWithPath("optionGroupRequests[].optionRequests").type(ARRAY).description("옵션"),
                                         subsectionWithPath("optionGroupRequests[].optionRequests[].optionName").type(STRING).description("옵션 이름"),
                                         subsectionWithPath("optionGroupRequests[].optionRequests[].price").type(NUMBER).description("상품 가격")
