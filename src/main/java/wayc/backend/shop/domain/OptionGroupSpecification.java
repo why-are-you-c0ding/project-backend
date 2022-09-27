@@ -25,12 +25,17 @@ public class OptionGroupSpecification extends BaseEntity {
     private List<OptionSpecification> optionSpecifications = new ArrayList<>();
 
     private String name;
+
+    private Boolean basic;
+
+    public OptionGroupSpecification(List<OptionSpecification> optionSpecifications, String name, Boolean basic) {
+        this.optionSpecifications = optionSpecifications;
+        this.name = name;
+        this.basic = basic;
+    }
+
     /**
      * validation 로직 추가
      */
 
-    public OptionGroupSpecification(List<OptionSpecification> optionSpecifications, String name) {
-        this.optionSpecifications = optionSpecifications;
-        this.name = name;
-    }
 }

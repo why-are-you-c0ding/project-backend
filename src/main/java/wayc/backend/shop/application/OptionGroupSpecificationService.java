@@ -42,7 +42,8 @@ public class OptionGroupSpecificationService {
                         .getOptionSpecifications()
                         .stream()
                         .map(this::toOptionDto)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                optionGroup.getBasic()
         );
     }
 

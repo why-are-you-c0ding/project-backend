@@ -14,16 +14,14 @@ public class CreateOptionGroupRequestDto {
 
     private List<CreateOptionRequestDto> optionRequests;
     private String optionGroupName;
+    private Boolean basic;
 
-    public CreateOptionGroupRequestDto(List<PostOptionRequestDto> dtos, String optionGroupName) {
+    public CreateOptionGroupRequestDto(List<PostOptionRequestDto> dtos, String optionGroupName, Boolean basic) {
         this.optionRequests = dtos
                 .stream()
                 .map(dto -> new CreateOptionRequestDto(dto.getOptionName(), dto.getPrice()))
                 .collect(Collectors.toList());
         this.optionGroupName = optionGroupName;
+        this.basic = basic;
     }
-
-//    public CreateOptionGroupRequestDto(List<CreateOptionRequestDto> optionRequests) {
-//        this.optionRequests = optionRequests;
-//    }
 }

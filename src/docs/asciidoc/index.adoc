@@ -60,4 +60,4 @@ include::{snippets}/exception_example/http-response.adoc[]
 * link:/docs/show-item.html[상품 조회 요청 API, window=_blank]
 
 == 재고 API
-* link:/docs/create-stock.html[상품 조회 요청 API, window=_blank]
+* link:/docs/create-stock.html[재고 생성 요청 API, window=_blank]

@@ -39,7 +39,8 @@ public class ItemMapper {
                         .map(this::toOptionSpecification)
                         .collect(Collectors.toList())
                 ,
-                optionGroups.getOptionGroupName()
+                optionGroups.getOptionGroupName(),
+                optionGroups.getBasic()
         );
     }
 
