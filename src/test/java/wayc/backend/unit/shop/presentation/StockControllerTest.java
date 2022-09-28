@@ -53,7 +53,7 @@ public class StockControllerTest extends ControllerTest {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
-                                fieldWithPath("stock").type(NUMBER).description("재고 개수"),
+                                fieldWithPath("quantity").type(NUMBER).description("재고 개수"),
                                 fieldWithPath("optionIdList").type(ARRAY).description("옵션 Id 리스트")
 
                         ),

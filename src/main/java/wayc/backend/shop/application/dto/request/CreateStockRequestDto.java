@@ -10,10 +10,10 @@ import java.util.List;
 public class CreateStockRequestDto {
 
     private List<Long> optionIdList;
-    private Integer stock;
+    private Integer quantity;
 
-    public CreateStockRequestDto(List<Long> optionIdList, Integer stock) {
+    public CreateStockRequestDto(List<Long> optionIdList, Integer quantity) {
         this.optionIdList = optionIdList;
-        this.stock = stock;
+        this.quantity = quantity;
     }
 }
