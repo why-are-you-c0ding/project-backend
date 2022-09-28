@@ -1,0 +1,19 @@
+= 재고 조회
+
+
+== 요청
+
+include::{snippets}/show_stocks/http-request.adoc[]
+
+include::{snippets}/show_stocks/request-parameters.adoc[]
+
+* 옵션 그룹은 여러 배열을 넣어도 된다. 현재 정책 상 5개까지.
+
+== 응답
+
+include::{snippets}/show_stocks/http-response.adoc[]
+
+* 옵션 id 배열을 기반으로 요청한 재고 순서가 보장된다.
+
+include::{snippets}/show_stocks/response-fields.adoc[]
+

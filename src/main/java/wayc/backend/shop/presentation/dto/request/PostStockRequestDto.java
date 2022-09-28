@@ -15,10 +15,10 @@ public class PostStockRequestDto {
     private List<Long> optionIdList;
 
     @Min(1000)
-    private Integer stock;
+    private Integer quantity;
 
-    public PostStockRequestDto(List<Long> optionIdList, Integer stock) {
+    public PostStockRequestDto(List<Long> optionIdList, Integer quantity) {
         this.optionIdList = optionIdList;
-        this.stock = stock;
+        this.quantity = quantity;
     }
 }

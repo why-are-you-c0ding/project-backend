@@ -34,6 +34,7 @@ import wayc.backend.shop.domain.OptionGroupSpecification;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.shop.presentation.ShopController;
 import wayc.backend.shop.presentation.StockController;
+import wayc.backend.shop.presentation.StockConverter;
 import wayc.backend.verification.dataaccess.EmailRedisRepository;
 import wayc.backend.verification.presentation.VerificationController;
 import wayc.backend.verification.application.EmailService;
@@ -95,6 +96,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected StockService stockService;
+
+    @MockBean
+    protected StockConverter stockConverter;
 
 
     public void setUp(

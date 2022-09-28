@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import wayc.backend.common.base.BaseEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,6 +28,10 @@ public class OptionSpecification extends BaseEntity {
         this.name = name;
         this.price = price;
     }
+
+    @OneToMany(mappedBy = "optionSpecification")
+    private List<StockOptionSpecification> stockOptionSpecifications = new ArrayList<>();
+
 
     /**
      * validation 로직 추가

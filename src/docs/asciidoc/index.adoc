@@ -61,3 +61,4 @@ include::{snippets}/exception_example/http-response.adoc[]
 
 == 재고 API
 * link:/docs/create-stock.html[재고 생성 요청 API, window=_blank]
+* link:/docs/show-stocks.html[재고 조회 요청 API, window=_blank]
