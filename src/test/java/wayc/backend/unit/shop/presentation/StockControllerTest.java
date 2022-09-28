@@ -5,17 +5,18 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+
 import wayc.backend.common.WithMockSeller;
-import wayc.backend.factory.Item.PostItemRequestDtoFactory;
-import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
+import wayc.backend.factory.Item.ShowStocksResponseDtoFactory;
 import wayc.backend.shop.application.dto.request.CreateStockRequestDto;
-import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
 import wayc.backend.shop.application.dto.response.CreateStockResponseDto;
-import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
+import wayc.backend.shop.application.dto.response.show.ShowStocksResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostStockRequestDto;
+
 import wayc.backend.unit.ControllerTest;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -23,6 +24,7 @@ import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static wayc.backend.docs.SpringRestDocsUtils.getDocumentRequest;
@@ -59,6 +61,37 @@ public class StockControllerTest extends ControllerTest {
                         ),
                         responseFields(
                                 fieldWithPath("message").type(STRING).description("성공 메시지")
+                        )
+                ));
+    }
+
+
+    @Test
+    @DisplayName("옵션에 따른 재고 조회 컨트롤러 단위 테스트")
+    void show_stocks() throws Exception {
+        //given
+        ShowStocksResponseDto res = ShowStocksResponseDtoFactory.createSuccessCaseDto();
+
+        given(stockService.get(Mockito.any(List.class))).willReturn(res);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/stocks?optionGroup1=21,32&optionGroup2=29,32")
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print())
+                .andDo(document("show_stocks",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestParameters(
+                                parameterWithName("optionGroup1").description("옵션 그룹의 id를 넣거나 예시 처럼 넣는다"),
+                                parameterWithName("optionGroup2").description("옵션 그룹의 id를 넣거나 예시 처럼 넣는다")
+                                )
+                        ,
+                        responseFields(
+                                fieldWithPath("stockList").type(ARRAY).description("재고 정보 리스트"),
+                                fieldWithPath("stockList[].stockId").type(NUMBER).description("재고 아이디"),
+                                fieldWithPath("stockList[].quantity").type(NUMBER).description("재고 수량")
                         )
                 ));
     }

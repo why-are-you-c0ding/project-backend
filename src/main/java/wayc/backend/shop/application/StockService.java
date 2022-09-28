@@ -37,21 +37,22 @@ public class StockService {
     }
 
     private List<OptionSpecification> makeOptions(List<Long> optionIdList) {
-        return optionIdList.stream()
+        return optionIdList
+                .stream()
                 .map(id ->
                         optionSpecificationRepository
                         .findByIdAndStatus(id)
                         .orElseThrow(NotExistsOptionSpecificationException::new)
                 )
                 .collect(Collectors.toList());
-
     }
 
     public ShowStocksResponseDto get(List<List<Long>> idList) {
         return new ShowStocksResponseDto(
                 idList
                         .stream()
-                        .map(ids -> new ShowStockResponseDto(
+                        .map(ids ->
+                                new ShowStockResponseDto(
                                 stockQueryRepository.findStocks(optionSpecificationService.getList(ids))
                         ))
                         .collect(Collectors.toList())
