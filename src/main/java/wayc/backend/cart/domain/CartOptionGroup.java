@@ -27,7 +27,6 @@ public class CartOptionGroup extends BaseEntity {
 
     private String name;
 
-
     public CartOptionGroup(CartLineItem cartLineItem, List<CartOption> cartOptions, String name) {
         this.cartLineItem = cartLineItem;
         this.cartOptions = cartOptions;

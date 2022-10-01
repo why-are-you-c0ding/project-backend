@@ -23,8 +23,7 @@ public class Cart extends BaseEntity {
     @OneToMany(mappedBy = "cart")
     List<CartLineItem> cartLineItems = new ArrayList<>();
 
-    public Cart(Long memberId, List<CartLineItem> cartLineItems) {
+    public Cart(Long memberId) {
         this.memberId = memberId;
-        this.cartLineItems = cartLineItems;
     }
 }
