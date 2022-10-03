@@ -31,6 +31,8 @@ public class Member extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    //추후에 멤버에서 장바구니를 추적해야하거나, 샵을 추적해야하면 아이디를 추가하자.
+
     @Builder
     public Member(Long id, String nickName, String email, String loginId, String password, int age, Role role) {
         this.id = id;
@@ -44,3 +46,4 @@ public class Member extends BaseEntity {
 }
 
 //도메인과 엔티티에 절대 서비스 정책을 넣지 말자.
+//추후에는 멤버와 판매자를 분리하도록 하자...

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import wayc.backend.cart.application.CartService;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
 import wayc.backend.member.presentation.dto.request.PostConsumerRequestDto;
@@ -20,12 +21,14 @@ public class MemberController {
 
     private final MemberService memberService;
     private final ShopService shopService;
+    private final CartService cartService;
 
     @PostMapping("/consumers")
     public ResponseEntity<CreateMemberResponseDto> createMember(
             @RequestBody @Validated PostConsumerRequestDto request
     ){
         CreateMemberResponseDto res = memberService.createConsumer(PostConsumerRequestDto.toServiceDto(request));
+        cartService.create(res.getId());
         return ResponseEntity.ok(res);
     }
 
@@ -35,6 +38,7 @@ public class MemberController {
     ){
         CreateMemberResponseDto res = memberService.createSeller(PostSellerRequestDto.toServiceDto(request));
         shopService.createShop(res.getId(), res.getNickName());
+        cartService.create(res.getId());
         return ResponseEntity.ok(res);
     }
 }
