@@ -37,12 +37,13 @@ public class ShowOptionGroupResponseDto {
                 .name(cartOptionGroup.getName())
                 .cartOptions(cartOptionGroup.getCartOptions()
                         .stream()
-                        .map(cartOption -> ShowOptionResponseDto
+                        .map(cartOption ->
+                                ShowOptionResponseDto
                                         .builder()
                                         .id(cartOption.getId())
                                         .name(cartOption.getName())
-                                .price(cartOption.getPrice())
-                                .build()
+                                        .price(cartOption.getPrice())
+                                        .build()
                         ).collect(Collectors.toList())
                 ).build();
     }
