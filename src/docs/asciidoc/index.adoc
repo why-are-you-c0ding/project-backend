@@ -62,3 +62,8 @@ include::{snippets}/exception_example/http-response.adoc[]
 == 재고 API
 * link:/docs/create-stock.html[재고 생성 요청 API, window=_blank]
 * link:/docs/show-stocks.html[재고 조회 요청 API, window=_blank]
+
+== 장바구니 API
+
+* link:/docs/create-cart-line-item.html[장바구니에 아이템을 담는 요청 API, window=_blank]
+//* link:/docs/show-stocks.html[장바구니 조회 요청 API, window=_blank]

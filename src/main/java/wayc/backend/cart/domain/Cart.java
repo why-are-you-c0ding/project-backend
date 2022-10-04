@@ -20,10 +20,17 @@ public class Cart extends BaseEntity {
 
     private Long memberId;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     List<CartLineItem> cartLineItems = new ArrayList<>();
 
     public Cart(Long memberId) {
         this.memberId = memberId;
+    }
+
+    public void addCartLineItem(CartLineItem lineItem) {
+
+        //TODO 카트 라인 아이템과 상점의 옵션이 동일한지 검증하는 로직이 필요함.
+
+        cartLineItems.add(lineItem);
     }
 }

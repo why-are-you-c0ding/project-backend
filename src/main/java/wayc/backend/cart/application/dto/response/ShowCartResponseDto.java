@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 @Getter
 public class ShowCartResponseDto {
 
-    private List<ShowLineItemResponseDto> cartLineItems = new ArrayList<>();
+    private List<ShowCartLineItemResponseDto> cartLineItems = new ArrayList<>();
 
 
-    public ShowCartResponseDto(List<ShowLineItemResponseDto> cartLineItems) {
+    public ShowCartResponseDto(List<ShowCartLineItemResponseDto> cartLineItems) {
         this.cartLineItems = cartLineItems;
     }
 
@@ -25,7 +25,7 @@ public class ShowCartResponseDto {
                          .getCartLineItems()
                          .stream()
                          .map(cartLineItem ->
-                                 ShowLineItemResponseDto.toLineItemResponseDto(cartLineItem))
+                                 ShowCartLineItemResponseDto.toCartLineItemResponseDto(cartLineItem))
                          .collect(Collectors.toList())
          );
     }

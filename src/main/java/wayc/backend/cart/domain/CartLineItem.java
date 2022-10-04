@@ -1,8 +1,10 @@
 package wayc.backend.cart.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import wayc.backend.common.base.BaseEntity;
 
 import javax.persistence.*;
@@ -28,9 +30,11 @@ public class CartLineItem extends BaseEntity {
 
     private Integer count;
 
-    @OneToMany(mappedBy = "cartLineItem")
+    @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL)
     private List<CartOptionGroup> cartOptionGroups = new ArrayList<>();
 
+    @Builder
     public CartLineItem(Long itemId, Cart cart, String name, Integer count, List<CartOptionGroup> cartOptionGroups) {
         this.itemId = itemId;
         this.cart = cart;

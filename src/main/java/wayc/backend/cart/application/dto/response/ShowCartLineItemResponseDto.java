@@ -3,19 +3,15 @@ package wayc.backend.cart.application.dto.response;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.cart.domain.Cart;
 import wayc.backend.cart.domain.CartLineItem;
-import wayc.backend.cart.domain.CartOptionGroup;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
-public class ShowLineItemResponseDto {
-
+public class ShowCartLineItemResponseDto {
 
     private Long id;
 
@@ -28,7 +24,7 @@ public class ShowLineItemResponseDto {
     private List<ShowOptionGroupResponseDto> cartOptionGroups = new ArrayList<>();
 
     @Builder
-    public ShowLineItemResponseDto(Long id, Long itemId, String name, Integer count, List<ShowOptionGroupResponseDto> cartOptionGroups) {
+    public ShowCartLineItemResponseDto(Long id, Long itemId, String name, Integer count, List<ShowOptionGroupResponseDto> cartOptionGroups) {
         this.id = id;
         this.itemId = itemId;
         this.name = name;
@@ -36,8 +32,8 @@ public class ShowLineItemResponseDto {
         this.cartOptionGroups = cartOptionGroups;
     }
 
-    public static ShowLineItemResponseDto toLineItemResponseDto(CartLineItem cartLineItem){
-        return ShowLineItemResponseDto
+    public static ShowCartLineItemResponseDto toCartLineItemResponseDto(CartLineItem cartLineItem){
+        return ShowCartLineItemResponseDto
                 .builder()
                 .id(cartLineItem.getId())
                 .itemId(cartLineItem.getItemId())
