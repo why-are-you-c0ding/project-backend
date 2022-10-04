@@ -7,12 +7,14 @@ import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import wayc.backend.cart.application.dto.request.CreateCartLineItemRequestDto;
+import wayc.backend.cart.application.dto.response.ShowCartResponseDto;
 import wayc.backend.cart.presentation.dto.request.PostCartLineItemRequestDto;
 import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.PostItemRequestDtoFactory;
 import wayc.backend.factory.Item.ShowItemResponseDtoFactory;
 import wayc.backend.factory.Item.ShowOptionGroupResponseDtoFactory;
 import wayc.backend.factory.cart.PostCartLineItemRequestDtoFactory;
+import wayc.backend.factory.cart.ShowCartResponseDtoFactory;
 import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
 import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
@@ -68,5 +70,41 @@ public class CartControllerTest extends ControllerTest {
                                         fieldWithPath("message").type(STRING).description("요청 성공 메시지")
                                 )
                         ));
+    }
+
+
+    @Test
+    @DisplayName("장바구니 조회 성공 컨트롤러 단위 테스트")
+    @WithMockSeller
+    void show_cart() throws Exception {
+        //given
+
+        ShowCartResponseDto res = ShowCartResponseDtoFactory.createSuccessCase();
+        given(cartService.show(Mockito.any(Long.class))).willReturn(res);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/carts")
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print())
+                .andDo(document("show_cart",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        responseFields(
+                                fieldWithPath("cartLineItems").type(ARRAY).description("장바구니의 상품들"),
+                                fieldWithPath("cartLineItems[].id").type(NUMBER).description("장바구니 상품 아이디"),
+                                fieldWithPath("cartLineItems[].itemId").type(NUMBER).description("장바구니에 넣은 상품의 아이디"),
+                                fieldWithPath("cartLineItems[].name").type(STRING).description("장바구니에 넣은 상품 이름"),
+                                fieldWithPath("cartLineItems[].count").type(NUMBER).description("장바구니에 넣은 상품 개수"),
+                                fieldWithPath("cartLineItems[].cartOptionGroups").type(ARRAY).description("장바구니에 넣은 상품의 옵션 그룹"),
+                                subsectionWithPath("cartLineItems[].cartOptionGroups[].name").type(STRING).description("장바구니에 넣은 상품의 옵션 그룹의 이름"),
+                                subsectionWithPath("cartLineItems[].cartOptionGroups[].id").type(NUMBER).description("장바구니에 넣은 상품의 옵션 그룹의 아이디"),
+                                subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOptions").type(ARRAY).description("장바구니에 넣은 상품의 옵션 그룹의 옵션"),
+                                subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOptions[].id").type(NUMBER).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 아이디"),
+                                subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOptions[].name").type(STRING).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 이름"),
+                                subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOptions[].price").type(NUMBER).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 가격")
+                        )
+                ));
     }
 }

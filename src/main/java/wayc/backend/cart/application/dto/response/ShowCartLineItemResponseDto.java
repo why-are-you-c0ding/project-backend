@@ -21,10 +21,10 @@ public class ShowCartLineItemResponseDto {
 
     private Integer count;
 
-    private List<ShowOptionGroupResponseDto> cartOptionGroups = new ArrayList<>();
+    private List<ShowCartOptionGroupResponseDto> cartOptionGroups = new ArrayList<>();
 
     @Builder
-    public ShowCartLineItemResponseDto(Long id, Long itemId, String name, Integer count, List<ShowOptionGroupResponseDto> cartOptionGroups) {
+    public ShowCartLineItemResponseDto(Long id, Long itemId, String name, Integer count, List<ShowCartOptionGroupResponseDto> cartOptionGroups) {
         this.id = id;
         this.itemId = itemId;
         this.name = name;
@@ -44,7 +44,7 @@ public class ShowCartLineItemResponseDto {
                                 .getCartOptionGroups()
                                 .stream()
                                 .map(cartOptionGroup ->
-                                        ShowOptionGroupResponseDto.toOptionGroupResponseDto(cartOptionGroup)
+                                        ShowCartOptionGroupResponseDto.toOptionGroupResponseDto(cartOptionGroup)
                                 )
                                 .collect(Collectors.toList()))
                 .build();

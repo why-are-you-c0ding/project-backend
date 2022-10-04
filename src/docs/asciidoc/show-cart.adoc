@@ -1,0 +1,14 @@
+= 장바구니 조회
+
+로그인한 멤버만 사용 가능
+
+== 요청
+
+include::{snippets}/show_cart/http-request.adoc[]
+
+
+== 응답
+
+include::{snippets}/show_cart/http-response.adoc[]
+
+include::{snippets}/show_cart/response-fields.adoc[]
