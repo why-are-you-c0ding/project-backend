@@ -21,8 +21,7 @@ public class ShowCartResponseDto {
 
     public static ShowCartResponseDto of(Cart cart) {
          return new ShowCartResponseDto(
-                 cart
-                         .getCartLineItems()
+                 cart.getCartLineItems()
                          .stream()
                          .map(cartLineItem ->
                                  ShowCartLineItemResponseDto.toCartLineItemResponseDto(cartLineItem))

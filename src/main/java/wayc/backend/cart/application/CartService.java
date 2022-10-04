@@ -30,7 +30,6 @@ public class CartService {
         Cart cart = cartRepository.findByIdAndStatus(memberId)
                 .orElseThrow(NotExistsCartException::new);
         return ShowCartResponseDto.of(cart);
-
     }
 
     @Transactional(readOnly = false)
