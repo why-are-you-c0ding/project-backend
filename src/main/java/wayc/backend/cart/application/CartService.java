@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.cart.application.dto.request.CreateCartLineItemRequestDto;
 import wayc.backend.cart.application.dto.response.ShowCartResponseDto;
 
@@ -32,6 +33,7 @@ public class CartService {
 
     }
 
+    @Transactional(readOnly = false)
     public void createCartLineItem(Long memberId, CreateCartLineItemRequestDto dto){
         Cart cart = cartRepository.findByIdAndStatus(memberId)
                 .orElseThrow(NotExistsCartException::new);
