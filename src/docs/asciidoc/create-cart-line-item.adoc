@@ -1,0 +1,13 @@
+= 소비자 멤버 생성
+
+== 요청
+
+include::{snippets}/create_cart_line_item/http-request.adoc[]
+
+include::{snippets}/create_cart_line_item/request-fields.adoc[]
+
+== 응답
+
+include::{snippets}/create_cart_line_item/http-response.adoc[]
+
+include::{snippets}/create_cart_line_item/response-fields.adoc[]

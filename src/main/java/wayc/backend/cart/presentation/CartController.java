@@ -1,13 +1,16 @@
 package wayc.backend.cart.presentation;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import wayc.backend.cart.application.CartService;
 import wayc.backend.cart.application.dto.response.ShowCartResponseDto;
+
+import wayc.backend.cart.presentation.dto.request.PostCartLineItemRequestDto;
+import wayc.backend.cart.presentation.dto.response.PostCartLineItemResponseDto;
 
 @RestController
 @RequestMapping("/carts")
@@ -15,6 +18,15 @@ import wayc.backend.cart.application.dto.response.ShowCartResponseDto;
 public class CartController {
 
     private final CartService cartService;
+
+    @PostMapping("/cart-line-items")
+    public ResponseEntity<PostCartLineItemResponseDto> createCartLineItem(
+            @AuthenticationPrincipal Long id,
+            @RequestBody PostCartLineItemRequestDto request
+            ){
+        cartService.createCartLineItem(id, request.toServiceDto());
+        return ResponseEntity.ok(new PostCartLineItemResponseDto());
+    }
 
     @GetMapping
     public ResponseEntity<ShowCartResponseDto> showCart(

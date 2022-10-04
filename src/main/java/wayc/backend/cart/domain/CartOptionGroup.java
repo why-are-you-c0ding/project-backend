@@ -1,6 +1,7 @@
 package wayc.backend.cart.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.base.BaseEntity;
@@ -18,17 +19,14 @@ public class CartOptionGroup extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "cart_line_item_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CartLineItem cartLineItem;
-
-    @OneToMany(mappedBy = "cartOptionGroup")
+    @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL)
     private List<CartOption> cartOptions = new ArrayList<>();
 
     private String name;
 
-    public CartOptionGroup(CartLineItem cartLineItem, List<CartOption> cartOptions, String name) {
-        this.cartLineItem = cartLineItem;
+    @Builder
+    public CartOptionGroup(List<CartOption> cartOptions, String name) {
         this.cartOptions = cartOptions;
         this.name = name;
     }

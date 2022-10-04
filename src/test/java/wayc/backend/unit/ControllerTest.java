@@ -19,6 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import wayc.backend.cart.application.CartService;
+import wayc.backend.cart.presentation.CartController;
 import wayc.backend.common.config.WebMvcConfig;
 import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
@@ -55,7 +56,8 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
         ImageController.class,
         ItemController.class,
         ShopController.class,
-        StockController.class
+        StockController.class,
+        CartController.class
 })
 @MockBean(JpaMetamodelMappingContext.class) //JPA 설정을 못하므로 오류가 발생. 따라서 해당 애노테이션을 넣는다.
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "waycabvav.shop", uriPort = 443)
@@ -103,8 +105,6 @@ public abstract class ControllerTest {
 
     @MockBean
     protected CartService cartService;
-
-
 
     public void setUp(
             WebApplicationContext webApplicationContext,
