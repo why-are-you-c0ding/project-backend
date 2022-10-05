@@ -2,23 +2,31 @@ package wayc.backend.shop.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import wayc.backend.shop.application.dto.request.CreateStockInfoRequestDto;
+import wayc.backend.shop.application.dto.request.CreateStockRequestDto;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
 public class PostStockRequestDto {
 
     @NotEmpty
-    private List<Long> optionIdList;
+    private List<PostStockInfoRequestDto> stockInfos = new ArrayList<>();
 
-    @Min(1)
-    private Integer quantity;
+    public PostStockRequestDto(List<PostStockInfoRequestDto> stockInfos) {
+        this.stockInfos = stockInfos;
+    }
 
-    public PostStockRequestDto(List<Long> optionIdList, Integer quantity) {
-        this.optionIdList = optionIdList;
-        this.quantity = quantity;
+    public CreateStockRequestDto toServiceDto(){
+        return new CreateStockRequestDto(
+                stockInfos
+                        .stream()
+                        .map(dto -> new CreateStockInfoRequestDto(dto.getOptionIdList(), dto.getQuantity()))
+                        .collect(Collectors.toList())
+        );
     }
 }

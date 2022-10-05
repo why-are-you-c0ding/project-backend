@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import wayc.backend.exception.shop.NotExistsOptionSpecificationException;
+import wayc.backend.shop.application.dto.request.CreateStockInfoRequestDto;
 import wayc.backend.shop.application.dto.request.CreateStockRequestDto;
-import wayc.backend.shop.application.dto.response.CreateStockResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowStockResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowStocksResponseDto;
 import wayc.backend.shop.dataaccess.OptionSpecificationRepository;
@@ -29,11 +29,15 @@ public class StockService {
     private final StockQueryRepository stockQueryRepository;
     private final StockRepository stockRepository;
 
-    public CreateStockResponseDto create(CreateStockRequestDto dto) {
-        List<OptionSpecification> options = makeOptions(dto.getOptionIdList());
-        Stock stock = new Stock(options, dto.getQuantity());
-        stockRepository.save(stock);
-        return new CreateStockResponseDto();
+    public void create(CreateStockRequestDto dto) {
+        dto
+                .getStockInfos()
+                .stream()
+                .forEach(stockInfoDto -> {
+                    List<OptionSpecification> options = makeOptions(stockInfoDto.getOptionIdList());
+                    Stock stock = new Stock(options, stockInfoDto.getQuantity());
+                    stockRepository.save(stock);
+                });
     }
 
     private List<OptionSpecification> makeOptions(List<Long> optionIdList) {

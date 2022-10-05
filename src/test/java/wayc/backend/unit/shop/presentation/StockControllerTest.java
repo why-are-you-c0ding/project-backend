@@ -8,9 +8,8 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.ShowStocksResponseDtoFactory;
-import wayc.backend.shop.application.dto.request.CreateStockRequestDto;
-import wayc.backend.shop.application.dto.response.CreateStockResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowStocksResponseDto;
+import wayc.backend.shop.presentation.dto.request.PostStockInfoRequestDto;
 import wayc.backend.shop.presentation.dto.request.PostStockRequestDto;
 
 import wayc.backend.unit.ControllerTest;
@@ -37,9 +36,11 @@ public class StockControllerTest extends ControllerTest {
     @WithMockSeller
     void create_stock() throws Exception {
         //given
-        PostStockRequestDto req = new PostStockRequestDto(Arrays.asList(21L, 39L), 1000);
 
-        given(stockService.create(Mockito.any(CreateStockRequestDto.class))).willReturn(new CreateStockResponseDto());
+        PostStockInfoRequestDto req_1 = new PostStockInfoRequestDto(Arrays.asList(29L, 31L), 1000);
+        PostStockInfoRequestDto req_2 = new PostStockInfoRequestDto(Arrays.asList(32L, 34L), 500);
+
+        PostStockRequestDto req = new PostStockRequestDto(Arrays.asList(req_1, req_2));
 
         String value = mapper.writeValueAsString(req);
 
@@ -55,8 +56,9 @@ public class StockControllerTest extends ControllerTest {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
-                                fieldWithPath("quantity").type(NUMBER).description("재고 개수"),
-                                fieldWithPath("optionIdList").type(ARRAY).description("옵션 Id 리스트")
+                                fieldWithPath("stockInfos").type(ARRAY).description("재고 개수"),
+                                subsectionWithPath("stockInfos[].optionIdList").type(ARRAY).description("재고 개수"),
+                                subsectionWithPath("stockInfos[].quantity").type(NUMBER).description("옵션 Id 리스트")
 
                         ),
                         responseFields(

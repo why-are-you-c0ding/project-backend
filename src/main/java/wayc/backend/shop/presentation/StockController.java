@@ -4,8 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wayc.backend.shop.application.StockService;
-import wayc.backend.shop.application.dto.request.CreateStockRequestDto;
-import wayc.backend.shop.application.dto.response.CreateStockResponseDto;
+import wayc.backend.shop.presentation.dto.response.PostStockResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowStocksResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostStockRequestDto;
 
@@ -20,9 +19,9 @@ public class StockController {
     private final StockConverter converter;
 
     @PostMapping
-    public ResponseEntity<CreateStockResponseDto> createStock(@RequestBody PostStockRequestDto request){
-        CreateStockResponseDto res = stockService.create(new CreateStockRequestDto(request.getOptionIdList(), request.getQuantity()));
-        return ResponseEntity.ok(res);
+    public ResponseEntity<PostStockResponseDto> createStock(@RequestBody PostStockRequestDto request){
+        stockService.create(request.toServiceDto());
+        return ResponseEntity.ok(new PostStockResponseDto());
     }
 
     @GetMapping
