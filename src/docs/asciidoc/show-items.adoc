@@ -1,0 +1,11 @@
+= 전체 상품 조회
+
+== 요청
+
+include::{snippets}/show_items/http-request.adoc[]
+
+== 응답
+
+include::{snippets}/show_items/http-response.adoc[]
+
+include::{snippets}/show_items/response-fields.adoc[]
