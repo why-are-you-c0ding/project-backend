@@ -34,6 +34,15 @@ public class OptionGroupSpecification extends BaseEntity {
         this.basic = basic;
     }
 
+
+
+    public Integer getBasicPrice(){
+        if(basic == true){
+            return optionSpecifications.get(0).getPrice();
+        }
+        return -1;
+    }
+
     /**
      * validation 로직 추가
      */

@@ -8,10 +8,12 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.PostItemRequestDtoFactory;
 import wayc.backend.factory.Item.ShowItemResponseDtoFactory;
+import wayc.backend.factory.Item.ShowItemsResponseDtoFactory;
 import wayc.backend.factory.Item.ShowOptionGroupResponseDtoFactory;
 import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
 import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
+import wayc.backend.shop.application.dto.response.show.ShowItemsResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
 import wayc.backend.unit.ControllerTest;
@@ -102,8 +104,8 @@ public class ItemControllerTest extends ControllerTest {
                                 parameterWithName("itemId").description("조회할 상품의 id")
                         ),
                         responseFields(
-                                fieldWithPath("shopId").type(NUMBER).description("아이템 id"),
-                                fieldWithPath("shopName").type(STRING).description("상품 이름"),
+                                fieldWithPath("shopId").type(NUMBER).description("가게 id"),
+                                fieldWithPath("shopName").type(STRING).description("가게 이름"),
                                 fieldWithPath("itemId").type(NUMBER).description("아이템 id"),
                                 fieldWithPath("itemName").type(STRING).description("상품 이름"),
                                 fieldWithPath("optionGroups").type(ARRAY).description("옵션 그룹"),
@@ -114,6 +116,34 @@ public class ItemControllerTest extends ControllerTest {
                                 subsectionWithPath("optionGroups[].options[].optionId").type(NUMBER).description("옵션 그룹의 옵션 아이디"),
                                 subsectionWithPath("optionGroups[].options[].optionName").type(STRING).description("옵션 그룹의 옵션 이름"),
                                 subsectionWithPath("optionGroups[].options[].price").type(NUMBER).description("옵션 그룹의 옵션 가격")
+                        )
+                ));
+    }
+
+
+    @Test
+    @DisplayName("전체 아이템 조회 성공 컨트롤러 단위 테스트")
+    void show_items() throws Exception {
+        //given
+        List<ShowItemsResponseDto> res = ShowItemsResponseDtoFactory.createSuccessCaseDto();
+        given(itemService.getItems()).willReturn(res);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/items")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().is2xxSuccessful())
+                //.andExpect(jsonPath("$.itemId").value(1))
+                .andDo(print())
+                .andDo(document("show_items",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        responseFields(
+                                fieldWithPath("[].itemId").type(NUMBER).description("아이템 id"),
+                                fieldWithPath("[].shopName").type(STRING).description("상품 이름"),
+                                fieldWithPath("[].itemName").type(STRING).description("상품 이름"),
+                                fieldWithPath("[].basicPrice").type(NUMBER).description("기본 가격")
                         )
                 ));
     }

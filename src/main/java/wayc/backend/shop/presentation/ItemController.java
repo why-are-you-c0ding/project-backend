@@ -11,6 +11,7 @@ import wayc.backend.shop.application.ItemService;
 import wayc.backend.shop.application.OptionGroupSpecificationService;
 import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
+import wayc.backend.shop.application.dto.response.show.ShowItemsResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
 import wayc.backend.shop.presentation.dto.response.GetItemResponseDto;
@@ -44,6 +45,12 @@ public class ItemController {
                 optionGroupSpecificationService.get(itemDto.getOptionGroupSpecificationIdList());
         return ResponseEntity.ok(GetItemResponseDto.from(itemDto, optionGroupDto));
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ShowItemsResponseDto>> showItems(){
+        List<ShowItemsResponseDto> res = itemService.getItems();
+        return ResponseEntity.ok(res);
     }
 }
 
