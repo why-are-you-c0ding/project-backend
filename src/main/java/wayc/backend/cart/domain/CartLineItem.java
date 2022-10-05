@@ -42,4 +42,13 @@ public class CartLineItem extends BaseEntity {
         this.count = count;
         this.cartOptionGroups = cartOptionGroups;
     }
+
+    public void delete(){
+        cart = null; //이거 빼 먹어서 고생함. 양방향 연관관계 잘 체크하자.
+        super.delete();;
+    }
+
+    public void update(Integer count) {
+        this.count = count;
+    }
 }

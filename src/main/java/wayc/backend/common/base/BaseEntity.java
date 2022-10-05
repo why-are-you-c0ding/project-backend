@@ -35,6 +35,10 @@ public abstract class BaseEntity {
     protected BaseEntity() {
         this.status = BaseStatus.ACTIVE;
     }
+
+    protected void delete(){
+        this.status = BaseStatus.INACTIVE;
+    }
 }
 
 //@PrePersist : 엔티티 insert 이전 실행

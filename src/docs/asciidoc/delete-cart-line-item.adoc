@@ -1,0 +1,15 @@
+= 장바구니 상품 삭제
+
+로그인한 멤버만 사용 가능
+
+== 요청
+
+include::{snippets}/delete_cart_line_item/http-request.adoc[]
+
+include::{snippets}/delete_cart_line_item/request-fields.adoc[]
+
+== 응답
+
+include::{snippets}/delete_cart_line_item/http-response.adoc[]
+
+include::{snippets}/delete_cart_line_item/response-fields.adoc[]
