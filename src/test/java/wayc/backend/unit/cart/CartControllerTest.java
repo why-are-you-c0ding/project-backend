@@ -8,11 +8,14 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import wayc.backend.cart.application.dto.request.CreateCartLineItemRequestDto;
 import wayc.backend.cart.application.dto.response.ShowCartResponseDto;
+import wayc.backend.cart.presentation.dto.request.DeleteCartLineItemRequestDto;
+import wayc.backend.cart.presentation.dto.request.PatchCartLineItemRequestDto;
 import wayc.backend.cart.presentation.dto.request.PostCartLineItemRequestDto;
 import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.PostItemRequestDtoFactory;
 import wayc.backend.factory.Item.ShowItemResponseDtoFactory;
 import wayc.backend.factory.Item.ShowOptionGroupResponseDtoFactory;
+import wayc.backend.factory.cart.PatchCartLineItemRequestDtoFactory;
 import wayc.backend.factory.cart.PostCartLineItemRequestDtoFactory;
 import wayc.backend.factory.cart.ShowCartResponseDtoFactory;
 import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
@@ -104,6 +107,69 @@ public class CartControllerTest extends ControllerTest {
                                 subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOptions[].id").type(NUMBER).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 아이디"),
                                 subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOptions[].name").type(STRING).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 이름"),
                                 subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOptions[].price").type(NUMBER).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 가격")
+                        )
+                ));
+    }
+
+
+    @Test
+    @DisplayName("장바구니 업데이트 성공 컨트롤러 단위 테스트")
+    @WithMockSeller
+    void update_cart() throws Exception {
+        //given
+
+        PatchCartLineItemRequestDto req = PatchCartLineItemRequestDtoFactory.createSuccessCase();
+
+        String value = mapper.writeValueAsString(req);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.patch("/carts/cart-line-items")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(value)
+                )
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print())
+                .andDo(document("update_cart_line_item",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("cartLineItemId").type(NUMBER).description("업데이트할 장바구니에 넣은 상품의 아이디"),
+                                fieldWithPath("count").type(NUMBER).description("업데이트할 장바구니 상품의 수량")
+
+                        ),
+                        responseFields(
+                                fieldWithPath("message").type(STRING).description("장바구니 상품 업데이트를 성공하셨습니다")
+                        )
+                ));
+    }
+
+
+    @Test
+    @DisplayName("장바구니 상품 삭제 성공 컨트롤러 단위 테스트")
+    @WithMockSeller
+    void delete_cart() throws Exception {
+        //given
+        DeleteCartLineItemRequestDto req = new DeleteCartLineItemRequestDto(1L);
+
+        String value = mapper.writeValueAsString(req);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/carts/cart-line-items")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(value)
+                )
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print())
+                .andDo(document("delete_cart_line_item",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("cartLineItemId").type(NUMBER).description("업데이트할 장바구니에 넣은 상품의 아이디")
+                        ),
+                        responseFields(
+                                fieldWithPath("message").type(STRING).description("장바구니 삭제를 성공하셨습니다")
                         )
                 ));
     }

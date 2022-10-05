@@ -33,4 +33,15 @@ public class Cart extends BaseEntity {
 
         cartLineItems.add(lineItem);
     }
+
+    public void deleteCartLineItem(CartLineItem cartLineItem) {
+        cartLineItems.remove(cartLineItem);
+        cartLineItem.delete();
+    }
+
+    public void update(CartLineItem cartLineItem, Integer count) {
+        if(cartLineItems.contains(cartLineItem)){
+            cartLineItem.update(count);
+        }
+    }
 }

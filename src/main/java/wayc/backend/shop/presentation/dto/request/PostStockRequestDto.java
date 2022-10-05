@@ -14,7 +14,7 @@ public class PostStockRequestDto {
     @NotEmpty
     private List<Long> optionIdList;
 
-    @Min(1000)
+    @Min(1)
     private Integer quantity;
 
     public PostStockRequestDto(List<Long> optionIdList, Integer quantity) {

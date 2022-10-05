@@ -34,6 +34,7 @@ public class CartMapper {
     private CartOptionGroup toCartOptionGroup(CreateOptionGroupRequestDto dto) {
         return CartOptionGroup
                 .builder()
+                .name(dto.getName())
                 .cartOptions(
                         dto
                                 .getCartOptions()
