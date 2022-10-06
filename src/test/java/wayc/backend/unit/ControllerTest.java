@@ -2,7 +2,6 @@ package wayc.backend.unit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +31,9 @@ import wayc.backend.shop.application.ItemService;
 import wayc.backend.shop.application.OptionGroupSpecificationService;
 import wayc.backend.shop.application.ShopService;
 import wayc.backend.shop.application.StockService;
-import wayc.backend.shop.domain.OptionGroupSpecification;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.shop.presentation.ShopController;
 import wayc.backend.shop.presentation.StockController;
-import wayc.backend.shop.presentation.StockConverter;
 import wayc.backend.verification.dataaccess.EmailRedisRepository;
 import wayc.backend.verification.presentation.VerificationController;
 import wayc.backend.verification.application.EmailService;
@@ -99,9 +96,6 @@ public abstract class ControllerTest {
 
     @MockBean
     protected StockService stockService;
-
-    @MockBean
-    protected StockConverter stockConverter;
 
     @MockBean
     protected CartService cartService;
