@@ -3,12 +3,12 @@ package wayc.backend.shop.presentation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import wayc.backend.common.argumentresolver.GetStock;
 import wayc.backend.shop.application.StockService;
+import wayc.backend.shop.presentation.dto.request.GetStockRequestDto;
 import wayc.backend.shop.presentation.dto.response.PostStockResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowStocksResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostStockRequestDto;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/stocks")
@@ -16,7 +16,6 @@ import java.util.Map;
 public class StockController {
 
     private final StockService stockService;
-    private final StockConverter converter;
 
     @PostMapping
     public ResponseEntity<PostStockResponseDto> createStock(@RequestBody PostStockRequestDto request){
@@ -25,8 +24,8 @@ public class StockController {
     }
 
     @GetMapping
-    public ResponseEntity<ShowStocksResponseDto> showStock(@RequestParam Map<String, String> request){
-        ShowStocksResponseDto res = stockService.get(converter.convert(request));
+    public ResponseEntity<ShowStocksResponseDto> showStock(@GetStock GetStockRequestDto request){
+        ShowStocksResponseDto res = stockService.get(request.getOptionIdList());
         return ResponseEntity.ok(res);
     }
 }
