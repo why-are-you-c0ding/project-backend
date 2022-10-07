@@ -1,11 +1,11 @@
 package wayc.backend.shop.presentation.dto.request;
 
 import lombok.Getter;
+import wayc.backend.exception.shop.CantResolveStockException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class GetOptionIdRequestDto {
@@ -15,7 +15,7 @@ public class GetOptionIdRequestDto {
     public GetOptionIdRequestDto(String[] idListString) {
 
         if(idListString.length > 1){
-            throw new RuntimeException("재고 조회 형식에 맞지 않습니다.");
+            throw new CantResolveStockException();
         }
         Arrays
                 .stream(idListString)
