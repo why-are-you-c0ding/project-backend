@@ -39,35 +39,35 @@ include::{snippets}/exception_example/http-response.adoc[]
 
 
 == 멤버 API
-* link:/docs/create-consumer.html[소비자 멤버 생성 API, window=_blank ]
-* link:/docs/create-seller.html[판매자 멤버 생성 API, window=_blank ]
+* link:/docs/member/create-consumer.html[소비자 멤버 생성 API, window=_blank ]
+* link:/docs/member/create-seller.html[판매자 멤버 생성 API, window=_blank ]
 
 == 검증 API
-* link:/docs/verify-login-id.html[로그인 아이디 검증 API, window=_blank]
-* link:/docs/verify-nick-name.html[닉네임 검증 API, window=_blank]
-* link:/docs/send-verification-email.html[인증 이메일 전송 요청 API, window=_blank]
-* link:/docs/verify-email-key.html[이메일 인증 키 검증 요청 API, window=_blank]
+* link:/docs/verification/verify-login-id.html[로그인 아이디 검증 API, window=_blank]
+* link:/docs/verification/verify-nick-name.html[닉네임 검증 API, window=_blank]
+* link:/docs/verification/send-verification-email.html[인증 이메일 전송 요청 API, window=_blank]
+* link:/docs/verification/verify-email-key.html[이메일 인증 키 검증 요청 API, window=_blank]
 
 == 인증 API
 * link:/docs/login.html[로그인 요청 API, window=_blank]
 * link:/docs/logout.html[로그아웃 요청 API, window=_blank]
 
 == 공통 API
-* link:/docs/upload-image.html[이미지 업로드 요청 API, window=_blank]
+* link:/docs/common/upload-image.html[이미지 업로드 요청 API, window=_blank]
 
 == 상품 API
-* link:/docs/create-item.html[상품 생성 요청 API, window=_blank]
-* link:/docs/show-item.html[상품 조회 요청 API, window=_blank]
-* link:/docs/show-items.html[전체 상품 조회 요청 API, window=_blank]
+* link:/docs/shop/create-item.html[상품 생성 요청 API, window=_blank]
+* link:/docs/shop/show-item.html[상품 조회 요청 API, window=_blank]
+* link:/docs/shop/show-items.html[전체 상품 조회 요청 API, window=_blank]
 
 
 == 재고 API
-* link:/docs/create-stock.html[재고 생성 요청 API, window=_blank]
-* link:/docs/show-stocks.html[재고 조회 요청 API, window=_blank]
+* link:/docs/stock/create-stock.html[재고 생성 요청 API, window=_blank]
+* link:/docs/stock/show-stocks.html[재고 조회 요청 API, window=_blank]
 
 == 장바구니 API
 
-* link:/docs/create-cart-line-item.html[장바구니에 아이템을 담는 요청 API, window=_blank]
-* link:/docs/show-cart.html[장바구니 조회 요청 API, window=_blank]
-* link:/docs/update-cart-line-item.html[장바구니 상품 수량 업데이트 요청 API, window=_blank]
-* link:/docs/delete-cart-line-item.html[장바구니 상품 삭제 요청 API, window=_blank]
+* link:/docs/cart/create-cart-line-item.html[장바구니에 아이템을 담는 요청 API, window=_blank]
+* link:/docs/cart/show-cart.html[장바구니 조회 요청 API, window=_blank]
+* link:/docs/cart/update-cart-line-item.html[장바구니 상품 수량 업데이트 요청 API, window=_blank]
+* link:/docs/cart/delete-cart-line-item.html[장바구니 상품 삭제 요청 API, window=_blank]
