@@ -15,12 +15,14 @@ import static org.springframework.http.HttpStatus.*;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static final String LOG_FORMAT = "Class : {}, Code : {}, Message : {}";
+
     private static final String DATABASE_SERVER_ERROR_CODE = "데이터베이스 서버 오류입니다.";
     private static final String INTERNAL_SERVER_ERROR_CODE = "서버 오류입니다.";
 
     @ExceptionHandler(ApplicationException.class)
     public ResponseEntity<ApplicationExceptionResponse> applicationException(ApplicationException e) {
-        //log.warn(LOG_FORMAT, e.getClass().getSimpleName(), errorCode, "@Valid");
+        log.warn(LOG_FORMAT, e.getClass().getSimpleName(), "@Valid");
         ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(e.getMessage(), e.getErrorCode(), e.getHttpStatus());
         return ResponseEntity.status(e.getHttpStatus()).body(exceptionResponse);
     }
@@ -29,27 +31,29 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApplicationExceptionResponse> methodArgumentNotValidException(MethodArgumentNotValidException e) {
         String message = e.getFieldError().getDefaultMessage();
         ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(message, "D001", BAD_REQUEST);
-        //log.warn(LOG_FORMAT, e.getClass().getSimpleName(), errorCode, "@Valid");
+        log.warn(LOG_FORMAT, e.getClass().getSimpleName(), "@Valid");
         return ResponseEntity.status(BAD_REQUEST.value()).body(exceptionResponse);
     }
 
     @ExceptionHandler(DataAccessException.class)
     public ResponseEntity<ApplicationExceptionResponse> dataAccessException(DataAccessException e) {
         ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(DATABASE_SERVER_ERROR_CODE, "S003", BAD_REQUEST);
+        log.warn(LOG_FORMAT, e.getClass().getSimpleName(), "@Valid");
+
         return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ApplicationExceptionResponse> runtimeException(RuntimeException e) {
-        log.info("e={}",e);
         ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "S002", INTERNAL_SERVER_ERROR);
+        log.error(LOG_FORMAT, e.getClass().getSimpleName(), INTERNAL_SERVER_ERROR_CODE, e.getMessage());
         return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApplicationExceptionResponse> runtimeException(Exception e) {
         ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "S001", INTERNAL_SERVER_ERROR);
-        log.info("e={}",e);
+        log.error(LOG_FORMAT, e.getClass().getSimpleName(), INTERNAL_SERVER_ERROR_CODE, e.getMessage());
         return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
     }
 }
