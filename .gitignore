@@ -41,3 +41,6 @@ application.yml
 
 src/main/resources/static/**
 log/**
+
+*.log
+*.dylib

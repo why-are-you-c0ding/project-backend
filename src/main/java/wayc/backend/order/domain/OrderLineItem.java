@@ -19,9 +19,9 @@ public class OrderLineItem extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "order_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Order order;
+//    @JoinColumn(name = "order_id")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Order order;
 
     private Long itemId;
 
@@ -29,9 +29,14 @@ public class OrderLineItem extends BaseEntity {
 
     private int count;
 
-    @OneToMany(mappedBy = "orderLineItem", cascade = CascadeType.ALL)
+    @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OrderOptionGroup> orderOptionGroups = new ArrayList<>();
 
-
-
+    public OrderLineItem(Long itemId, String name, int count, List<OrderOptionGroup> orderOptionGroups) {
+        this.itemId = itemId;
+        this.name = name;
+        this.count = count;
+        this.orderOptionGroups.addAll(orderOptionGroups);
+    }
 }
