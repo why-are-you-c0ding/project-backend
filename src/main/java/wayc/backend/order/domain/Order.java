@@ -20,10 +20,22 @@ public class Order extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OrderLineItem> items = new ArrayList<>();
 
     private Long orderingMemberId;
 
     private Long shopId;
+
+    public Order(Long orderingMemberId, Long shopId) {
+        this.orderingMemberId = orderingMemberId;
+        this.shopId = shopId;
+    }
+
+    public Order(Long orderingMemberId, Long shopId, List<OrderLineItem> items) {
+        this.orderingMemberId = orderingMemberId;
+        this.shopId = shopId;
+        this.items.addAll(items);
+    }
 }

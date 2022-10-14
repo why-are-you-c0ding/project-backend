@@ -1,0 +1,15 @@
+= 주문 생성
+
+로그인한 판매자만 이용가능
+
+== 요청
+
+include::{snippets}/create_order/http-request.adoc[]
+
+include::{snippets}/create_order/request-fields.adoc[]
+
+== 응답
+
+include::{snippets}/create_order/http-response.adoc[]
+
+include::{snippets}/create_order/response-fields.adoc[]
