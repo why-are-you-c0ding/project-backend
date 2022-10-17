@@ -28,11 +28,6 @@ public class Order extends BaseEntity {
 
     private Long shopId;
 
-    public Order(Long orderingMemberId, Long shopId) {
-        this.orderingMemberId = orderingMemberId;
-        this.shopId = shopId;
-    }
-
     public Order(Long orderingMemberId, Long shopId, List<OrderLineItem> items) {
         this.orderingMemberId = orderingMemberId;
         this.shopId = shopId;

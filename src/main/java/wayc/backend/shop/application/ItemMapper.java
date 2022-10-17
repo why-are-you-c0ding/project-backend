@@ -26,6 +26,7 @@ public class ItemMapper {
                                 .map(this::toOptionGroupSpecification)
                                 .collect(Collectors.toList())
                 )
+                .imageUrl(dto.getImageUrl())
                 .build();
     }
 

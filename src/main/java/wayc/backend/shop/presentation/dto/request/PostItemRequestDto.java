@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -18,16 +19,20 @@ public class PostItemRequestDto {
     @Size(min = 4)
     private String itemName;
 
+    @NotBlank
+    private String imageUrl;
+
     @Valid
     @NotEmpty
     private List<PostOptionGroupRequestDto> optionGroupRequests;
 
     public CreateItemRequestDto toServiceDto(){
-        return new CreateItemRequestDto(optionGroupRequests, itemName);
+        return new CreateItemRequestDto(optionGroupRequests, itemName, imageUrl);
     }
 
-    public PostItemRequestDto(String itemName, List<PostOptionGroupRequestDto> optionGroupRequests) {
+    public PostItemRequestDto(String itemName, String imageUrl, List<PostOptionGroupRequestDto> optionGroupRequests) {
         this.itemName = itemName;
+        this.imageUrl = imageUrl;
         this.optionGroupRequests = optionGroupRequests;
     }
 }

@@ -15,10 +15,12 @@ import java.util.stream.Collectors;
 public class CreateItemRequestDto {
 
     private String itemName;
+    private String imageUrl;
     private List<CreateOptionGroupRequestDto> optionGroups;
 
-    public CreateItemRequestDto(List<PostOptionGroupRequestDto> dtos, String itemName) {
+    public CreateItemRequestDto(List<PostOptionGroupRequestDto> dtos, String itemName, String imageUrl) {
         this.itemName = itemName;
+        this.imageUrl = imageUrl;
         this.optionGroups = dtos
                 .stream()
                 .map(dto -> new CreateOptionGroupRequestDto(dto.getOptionRequests(), dto.getOptionGroupName(), dto.getBasic()))

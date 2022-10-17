@@ -5,14 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import wayc.backend.order.application.OrderService;
+import wayc.backend.order.application.dto.response.ShowOrderResponseDto;
 import wayc.backend.order.presentation.dto.request.PostOrderRequestDto;
 import wayc.backend.order.presentation.dto.response.PostOrderResponseDto;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,5 +28,13 @@ public class OrderController {
     ){
         orderService.createOrder(request.toServiceDto(), id);
         return ResponseEntity.ok(new PostOrderResponseDto());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ShowOrderResponseDto> > showOrders(
+            @AuthenticationPrincipal Long id
+    ){
+        List<ShowOrderResponseDto> res = orderService.showOrders(id);
+        return ResponseEntity.ok(res);
     }
 }
