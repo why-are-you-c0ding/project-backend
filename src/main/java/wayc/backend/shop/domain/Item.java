@@ -30,11 +30,14 @@ public class Item extends BaseEntity {
 
     private String imageUrl;
 
+    private String information;
+
     @Builder
-    public Item(Shop shop, List<OptionGroupSpecification> optionGroupSpecifications, String name, String imageUrl) {
+    public Item(Shop shop, List<OptionGroupSpecification> optionGroupSpecifications, String name, String imageUrl, String information) {
         this.shop = shop;
         this.optionGroupSpecifications = optionGroupSpecifications;
         this.name = name;
         this.imageUrl = imageUrl;
+        this.information = information;
     }
 }

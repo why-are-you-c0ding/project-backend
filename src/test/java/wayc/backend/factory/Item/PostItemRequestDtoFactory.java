@@ -18,7 +18,7 @@ public class PostItemRequestDtoFactory {
         PostOptionGroupRequestDto dto1 = new PostOptionGroupRequestDto(Arrays.asList(option1, option2), "color", true);
         PostOptionGroupRequestDto dto2 = new PostOptionGroupRequestDto(Arrays.asList(option3, option4), "sizee", false);
 
-        return new PostItemRequestDto("item1", "www.google.com", Arrays.asList(dto1, dto2));
+        return new PostItemRequestDto("item1", "www.google.com", "information1", Arrays.asList(dto1, dto2));
     }
 }
 

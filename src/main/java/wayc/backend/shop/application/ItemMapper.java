@@ -27,6 +27,7 @@ public class ItemMapper {
                                 .collect(Collectors.toList())
                 )
                 .imageUrl(dto.getImageUrl())
+                .information(dto.getInformation())
                 .build();
     }
 

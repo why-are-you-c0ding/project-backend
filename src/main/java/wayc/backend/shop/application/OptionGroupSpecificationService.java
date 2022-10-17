@@ -22,16 +22,13 @@ public class OptionGroupSpecificationService {
     private final OptionGroupSpecificationRepository optionGroupSpecificationRepository;
 
     public List<ShowOptionGroupResponseDto> get(List<Long> optionGroupSpecificationIdList) {
-
-        List<ShowOptionGroupResponseDto> result = new ArrayList<>();
-
-        for (Long id : optionGroupSpecificationIdList) {
-            OptionGroupSpecification optionGroup = optionGroupSpecificationRepository.findByIdAndStatus(id)
-                    .orElseThrow(NotExistsOptionGroupSpecificationException::new);
-            result.add(toOptionGroupDto(optionGroup));
-        }
-
-        return result;
+        return  optionGroupSpecificationIdList
+                .stream()
+                .map(id -> toOptionGroupDto(
+                        optionGroupSpecificationRepository
+                                .findByIdAndStatus(id)
+                                .orElseThrow(NotExistsOptionGroupSpecificationException::new)))
+                .collect(Collectors.toList());
     }
 
     private ShowOptionGroupResponseDto toOptionGroupDto(OptionGroupSpecification optionGroup) {
