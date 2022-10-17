@@ -19,10 +19,10 @@ public class OrderService {
     private final OrderMapper orderMapper;
 
     @Transactional(readOnly = false)
-    public void createOrder(CreateOrderRequestDto dto, Long memberId) {
-        Order order = orderMapper.mapFrom(dto, memberId);
+    public void createOrder(List<CreateOrderRequestDto> dto, Long memberId) {
+        List<Order> order = orderMapper.mapFrom(dto, memberId);
         //TODO  order vadliation을 해야함.
-        orderRepository.save(order);
+        orderRepository.saveAll(order);
     }
 
 

@@ -13,6 +13,7 @@ import wayc.backend.order.presentation.dto.request.PostOrderRequestDto;
 import wayc.backend.order.presentation.dto.response.PostOrderResponseDto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,9 +25,15 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<PostOrderResponseDto> createOrder(
             @AuthenticationPrincipal Long id,
-            @Validated @RequestBody PostOrderRequestDto request
+            @Validated @RequestBody List<PostOrderRequestDto> request
     ){
-        orderService.createOrder(request.toServiceDto(), id);
+        orderService.createOrder(
+                request
+                        .stream()
+                        .map(dto -> dto.toServiceDto())
+                        .collect(Collectors.toList()),
+                id
+        );
         return ResponseEntity.ok(new PostOrderResponseDto());
     }
 

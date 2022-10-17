@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -16,25 +18,34 @@ import java.util.stream.Collectors;
 public class PostOrderRequestDto {
 
     @NotNull
-    private Long shopId;
+    private Long itemId;
+
+    @NotBlank
+    private String name;
+
+    @Min(0)
+    private Integer count;
 
     @Valid
     @NotEmpty
-    private List<PostOrderLineItemRequestDto> orderLineItems = new ArrayList<>();
+    private List<PostOrderOptionGroupRequestDto> orderOptionGroups = new ArrayList<>();
 
-    public PostOrderRequestDto(Long shopId, List<PostOrderLineItemRequestDto> orderLineItemsDto) {
-        this.shopId = shopId;
-        this.orderLineItems = orderLineItemsDto;
+    public PostOrderRequestDto(Long itemId, String name, Integer count, List<PostOrderOptionGroupRequestDto> orderOptionGroupsDto) {
+        this.itemId = itemId;
+        this.name = name;
+        this.count = count;
+        this.orderOptionGroups = orderOptionGroupsDto;
     }
 
     public CreateOrderRequestDto toServiceDto(){
         return new CreateOrderRequestDto(
-                shopId,
-                orderLineItems
+                itemId,
+                name,
+                count,
+                orderOptionGroups
                         .stream()
-                        .map(orderLineItemDto -> orderLineItemDto.toServiceDto())
+                        .map(optionGroupsDto -> optionGroupsDto.toServiceDto())
                         .collect(Collectors.toList())
         );
     }
 }
-
