@@ -3,9 +3,6 @@ package wayc.backend.order.application.dto.request;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +10,18 @@ import java.util.List;
 @NoArgsConstructor
 public class CreateOrderRequestDto {
 
-    private Long shopId;
+    private Long itemId;
 
-    private List<CreateOrderLineItemRequestDto> orderLineItemsDto = new ArrayList<>();
+    private String name;
 
-    public CreateOrderRequestDto(Long shopId, List<CreateOrderLineItemRequestDto> orderLineItemsDto) {
-        this.shopId = shopId;
-        this.orderLineItemsDto = orderLineItemsDto;
+    private Integer count;
+
+    private List<CreateOrderOptionGroupRequestDto> orderOptionGroupsDto = new ArrayList<>();
+
+    public CreateOrderRequestDto(Long itemId, String name, Integer count, List<CreateOrderOptionGroupRequestDto> orderOptionGroupsDto) {
+        this.itemId = itemId;
+        this.name = name;
+        this.count = count;
+        this.orderOptionGroupsDto = orderOptionGroupsDto;
     }
 }
-

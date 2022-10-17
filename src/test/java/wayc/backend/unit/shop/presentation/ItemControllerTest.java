@@ -64,6 +64,7 @@ public class ItemControllerTest extends ControllerTest {
                         getDocumentResponse(),
                                 requestFields(
                                         fieldWithPath("itemName").type(STRING).description("상품 이름"),
+                                        fieldWithPath("imageUrl").type(STRING).description("상품 이미지 URL"),
                                         fieldWithPath("optionGroupRequests").type(ARRAY).description("옵션 그룹"),
                                         subsectionWithPath("optionGroupRequests[].optionGroupName").type(STRING).description("옵션 그룹의 이름"),
                                         subsectionWithPath("optionGroupRequests[].basic").type(BOOLEAN).description("기본 옵션 그룹인지"),

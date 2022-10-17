@@ -22,20 +22,21 @@ public class Order extends BaseEntity {
 
     @JoinColumn
     @OneToMany(cascade = CascadeType.ALL)
-    private List<OrderLineItem> items = new ArrayList<>();
+    private List<OrderOptionGroup> items = new ArrayList<>();
 
     private Long orderingMemberId;
 
-    private Long shopId;
+    private Long itemId;
 
-    public Order(Long orderingMemberId, Long shopId) {
-        this.orderingMemberId = orderingMemberId;
-        this.shopId = shopId;
-    }
+    private String name;
 
-    public Order(Long orderingMemberId, Long shopId, List<OrderLineItem> items) {
+    private Integer count;
+
+    public Order(Long orderingMemberId, Long itemId, String name, Integer count, List<OrderOptionGroup> items) {
+        this.items = items;
         this.orderingMemberId = orderingMemberId;
-        this.shopId = shopId;
-        this.items.addAll(items);
+        this.itemId = itemId;
+        this.name = name;
+        this.count = count;
     }
 }
