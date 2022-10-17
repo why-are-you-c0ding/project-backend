@@ -13,6 +13,8 @@ public class ShowItemResponseDtoFactory {
                 .shopId(2L)
                 .shopName("shopName")
                 .optionGroupSpecificationIdList(Arrays.asList(3L, 4L))
+                .imageUrl("www.image.com")
+                .information("information")
                 .build();
     }
 }

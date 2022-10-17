@@ -16,6 +16,7 @@ import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemsResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
+import wayc.backend.shop.presentation.dto.response.GetItemResponseDto;
 import wayc.backend.unit.ControllerTest;
 
 import java.util.List;
@@ -64,6 +65,7 @@ public class ItemControllerTest extends ControllerTest {
                         getDocumentResponse(),
                                 requestFields(
                                         fieldWithPath("itemName").type(STRING).description("상품 이름"),
+                                        fieldWithPath("information").type(STRING).description("상품 설명"),
                                         fieldWithPath("imageUrl").type(STRING).description("상품 이미지 URL"),
                                         fieldWithPath("optionGroupRequests").type(ARRAY).description("옵션 그룹"),
                                         subsectionWithPath("optionGroupRequests[].optionGroupName").type(STRING).description("옵션 그룹의 이름"),
@@ -87,6 +89,7 @@ public class ItemControllerTest extends ControllerTest {
         //given
         ShowItemResponseDto dto1 = ShowItemResponseDtoFactory.createSuccessCaseDto();
         List<ShowOptionGroupResponseDto> dto2 = ShowOptionGroupResponseDtoFactory.createSuccessCaseDto();
+
         given(itemService.get(Mockito.any(Long.class))).willReturn(dto1);
         given(optionGroupSpecificationService.get(Mockito.any(List.class))).willReturn(dto2);
 
@@ -110,6 +113,8 @@ public class ItemControllerTest extends ControllerTest {
                                 fieldWithPath("itemId").type(NUMBER).description("아이템 id"),
                                 fieldWithPath("itemName").type(STRING).description("상품 이름"),
                                 fieldWithPath("optionGroups").type(ARRAY).description("옵션 그룹"),
+                                fieldWithPath("imageUrl").type(STRING).description("상품 이미지"),
+                                fieldWithPath("information").type(STRING).description("상품 정보"),
                                 subsectionWithPath("optionGroups[].optionGroupName").type(STRING).description("옵션 그룹의 이름"),
                                 subsectionWithPath("optionGroups[].optionGroupId").type(NUMBER).description("옵션 그룹의 아이디"),
                                 subsectionWithPath("optionGroups[].basic").type(BOOLEAN).description("기본 옵션 그룹인지"),
@@ -144,7 +149,8 @@ public class ItemControllerTest extends ControllerTest {
                                 fieldWithPath("[].itemId").type(NUMBER).description("아이템 id"),
                                 fieldWithPath("[].shopName").type(STRING).description("상품 이름"),
                                 fieldWithPath("[].itemName").type(STRING).description("상품 이름"),
-                                fieldWithPath("[].basicPrice").type(NUMBER).description("기본 가격")
+                                fieldWithPath("[].basicPrice").type(NUMBER).description("기본 가격"),
+                                fieldWithPath("[].imageUrl").type(STRING).description("상품의 이미지")
                         )
                 ));
     }
