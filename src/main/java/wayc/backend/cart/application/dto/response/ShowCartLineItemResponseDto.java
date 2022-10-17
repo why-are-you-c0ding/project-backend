@@ -23,13 +23,16 @@ public class ShowCartLineItemResponseDto {
 
     private List<ShowCartOptionGroupResponseDto> cartOptionGroups = new ArrayList<>();
 
+    private String imageUrl;
+
     @Builder
-    public ShowCartLineItemResponseDto(Long id, Long itemId, String name, Integer count, List<ShowCartOptionGroupResponseDto> cartOptionGroups) {
+    public ShowCartLineItemResponseDto(Long id, Long itemId, String name, Integer count, List<ShowCartOptionGroupResponseDto> cartOptionGroups, String imageUrl) {
         this.id = id;
         this.itemId = itemId;
         this.name = name;
         this.count = count;
         this.cartOptionGroups = cartOptionGroups;
+        this.imageUrl = imageUrl;
     }
 
     public static ShowCartLineItemResponseDto toCartLineItemResponseDto(CartLineItem cartLineItem){
@@ -39,6 +42,7 @@ public class ShowCartLineItemResponseDto {
                 .itemId(cartLineItem.getItemId())
                 .name(cartLineItem.getName())
                 .count(cartLineItem.getCount())
+                .imageUrl(cartLineItem.getImageUrl())
                 .cartOptionGroups(
                         cartLineItem
                                 .getCartOptionGroups()

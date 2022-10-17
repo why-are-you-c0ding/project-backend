@@ -19,11 +19,14 @@ public class CreateCartLineItemRequestDto {
 
     private List<CreateOptionGroupRequestDto> cartOptionGroups = new ArrayList<>();
 
+    private String imageUrl;
+
     @Builder
-    public CreateCartLineItemRequestDto(Long itemId, String name, Integer count, List<CreateOptionGroupRequestDto> cartOptionGroups) {
+    public CreateCartLineItemRequestDto(Long itemId, String name, Integer count, List<CreateOptionGroupRequestDto> cartOptionGroups, String imageUrl) {
         this.itemId = itemId;
         this.name = name;
         this.count = count;
         this.cartOptionGroups = cartOptionGroups;
+        this.imageUrl = imageUrl;
     }
 }

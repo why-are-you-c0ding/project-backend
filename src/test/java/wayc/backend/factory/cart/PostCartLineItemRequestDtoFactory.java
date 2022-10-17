@@ -19,6 +19,6 @@ public class PostCartLineItemRequestDtoFactory {
         PostCartOptionGroupRequestDto optionGroup_2 = new PostCartOptionGroupRequestDto(Arrays.asList(option_3),"SIZEE");
         PostCartOptionGroupRequestDto optionGroup_3 = new PostCartOptionGroupRequestDto(Arrays.asList(option_2),"COLOR");
 
-        return new PostCartLineItemRequestDto(29L, "멋쟁이 옷", 2, Arrays.asList(optionGroup_1, optionGroup_2, optionGroup_3));
+        return new PostCartLineItemRequestDto(29L, "멋쟁이 옷", 2, Arrays.asList(optionGroup_1, optionGroup_2, optionGroup_3), "www.image.com");
     }
 }
