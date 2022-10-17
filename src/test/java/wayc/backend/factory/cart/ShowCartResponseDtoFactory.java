@@ -24,7 +24,9 @@ public class ShowCartResponseDtoFactory {
         ShowCartOptionGroupResponseDto optionGroup_3 =
                 ShowCartOptionGroupResponseDto.builder().id(13L).name("Sizee").cartOptions(Arrays.asList(option_3)).build();
 
-        ShowCartLineItemResponseDto cartLineItem = ShowCartLineItemResponseDto.builder().id(20L).itemId(29L).name("멋쟁이 옷").count(2)
+        ShowCartLineItemResponseDto cartLineItem = ShowCartLineItemResponseDto.builder().id(20L).itemId(29L).name("멋쟁이 옷")
+                .imageUrl("www.image.url")
+                .count(2)
                 .cartOptionGroups(Arrays.asList(
                 optionGroup_1, optionGrout_2, optionGroup_3
         )).build();

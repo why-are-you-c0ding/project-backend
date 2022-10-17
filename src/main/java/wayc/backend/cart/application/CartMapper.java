@@ -22,6 +22,7 @@ public class CartMapper {
                 .cart(cart)
                 .name(dto.getName())
                 .count(dto.getCount())
+                .imageUrl(dto.getImageUrl())
                 .cartOptionGroups(
                         dto.getCartOptionGroups()
                                 .stream()

@@ -30,17 +30,20 @@ public class CartLineItem extends BaseEntity {
 
     private Integer count;
 
+    private String imageUrl;
+
     @JoinColumn
     @OneToMany(cascade = CascadeType.ALL)
     private List<CartOptionGroup> cartOptionGroups = new ArrayList<>();
 
     @Builder
-    public CartLineItem(Long itemId, Cart cart, String name, Integer count, List<CartOptionGroup> cartOptionGroups) {
+    public CartLineItem(Long itemId, Cart cart, String name, Integer count, List<CartOptionGroup> cartOptionGroups, String imageUrl) {
         this.itemId = itemId;
         this.cart = cart;
         this.name = name;
         this.count = count;
         this.cartOptionGroups = cartOptionGroups;
+        this.imageUrl = imageUrl;
     }
 
     public void delete(){
