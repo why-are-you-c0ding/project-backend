@@ -7,6 +7,7 @@ import wayc.backend.order.application.dto.request.CreateOrderOptionRequestDto;
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.OrderOption;
 import wayc.backend.order.domain.OrderOptionGroup;
+import wayc.backend.order.domain.OrderStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,16 +18,20 @@ public class OrderMapper {
     public List<Order> mapFrom(List<CreateOrderRequestDto> dto, Long memberId) {
         return dto.stream()
                 .map(orderDto ->
-                        new Order(
-                                orderDto.getItemId(),
-                                memberId,
-                                orderDto.getName(),
-                                orderDto.getCount(),
-                                orderDto.getOrderOptionGroupsDto()
+                        Order.builder()
+                                .itemId(orderDto.getItemId())
+                                .orderingMemberId(memberId)
+                                .name(orderDto.getName())
+                                .count(orderDto.getCount())
+                                .address(orderDto.toAddress())
+                                .orderStatus(OrderStatus.ONGOING)
+                                .orderOptionGroups(orderDto
+                                        .getOrderOptionGroupsDto()
                                         .stream()
                                         .map(orderOptionGroupDto -> toOrderOptionGroup(orderOptionGroupDto))
-                                        .collect(Collectors.toList())
-                ))
+                                        .collect(Collectors.toList()))
+                                .build()
+                )
                 .collect(Collectors.toList());
     }
 

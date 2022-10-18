@@ -1,6 +1,7 @@
 package wayc.backend.order.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,16 +39,9 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    public Order(Long orderingMemberId, Long itemId, String name, Integer count, List<OrderOptionGroup> orderOptionGroups) {
-        this.orderOptionGroups = orderOptionGroups;
-        this.orderingMemberId = orderingMemberId;
-        this.itemId = itemId;
-        this.name = name;
-        this.count = count;
-    }
 
-    public Order(Long id, List<OrderOptionGroup> orderOptionGroups, Long orderingMemberId, Long itemId, String name, Integer count, Address address, OrderStatus orderStatus) {
-        this.id = id;
+    @Builder
+    public Order(Long orderingMemberId, Long itemId, String name, Integer count, Address address, OrderStatus orderStatus, List<OrderOptionGroup> orderOptionGroups) {
         this.orderOptionGroups= orderOptionGroups;
         this.orderingMemberId = orderingMemberId;
         this.itemId = itemId;
