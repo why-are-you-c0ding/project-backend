@@ -2,14 +2,12 @@ package wayc.backend.unit.common.presentation;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
 import wayc.backend.unit.ControllerTest;
-import wayc.backend.verification.presentation.dto.request.PostSendEmailRequestDto;
-import wayc.backend.verification.presentation.dto.request.PostVerifyEmailRequestDto;
 
 import java.io.InputStream;
 
@@ -38,7 +36,7 @@ public class ImageControllerTest extends ControllerTest {
                 "Hello, World!".getBytes()
         );
 
-        given(imageService.upload(Mockito.any(InputStream.class), Mockito.any(String.class), Mockito.any(Long.class)))
+        given(imageService.upload(Mockito.any(InputStream.class), Mockito.any(String.class), Mockito.any(Long.class), Mockito.any(String.class)))
                 .willReturn(url);
 
 

@@ -20,7 +20,7 @@ public class ImageController {
 
     @PostMapping
     public ResponseEntity<ImageResponseDto> uploadImage(@RequestParam MultipartFile images) throws IOException {
-        String imageUrl = imageService.upload(images.getInputStream(), images.getOriginalFilename(), images.getSize());
+        String imageUrl = imageService.upload(images.getInputStream(), images.getOriginalFilename(), images.getSize(), images.getContentType());
         return ResponseEntity.ok(new ImageResponseDto(imageUrl));
     }
 }
