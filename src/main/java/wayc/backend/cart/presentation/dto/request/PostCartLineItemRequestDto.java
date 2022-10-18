@@ -44,6 +44,7 @@ public class PostCartLineItemRequestDto {
                                 .map(PostCartOptionGroupRequestDto::toServiceDto)
                                 .collect(Collectors.toList())
                 )
+                .imageUrl(imageUrl)
                 .build();
     }
 }
