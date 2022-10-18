@@ -20,21 +20,14 @@ public class PostOrderOptionGroupRequestDto {
     private String name;
 
     @Valid
-    @NotEmpty
-    private List<PostOrderOptionRequestDto> orderOptions = new ArrayList<>();
+    private PostOrderOptionRequestDto orderOption;
 
-    public PostOrderOptionGroupRequestDto(String name, List<PostOrderOptionRequestDto> orderOptionsDto) {
+    public PostOrderOptionGroupRequestDto(String name, PostOrderOptionRequestDto orderOption) {
         this.name = name;
-        this.orderOptions = orderOptionsDto;
+        this.orderOption = orderOption;
     }
 
     public CreateOrderOptionGroupRequestDto toServiceDto(){
-        return new CreateOrderOptionGroupRequestDto(
-                name,
-                orderOptions
-                        .stream()
-                        .map(optionRequestDto -> optionRequestDto.toServiceDto())
-                        .collect(Collectors.toList())
-        );
+        return new CreateOrderOptionGroupRequestDto( name, orderOption.toServiceDto());
     }
 }

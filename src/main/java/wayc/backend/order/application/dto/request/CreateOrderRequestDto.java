@@ -18,10 +18,14 @@ public class CreateOrderRequestDto {
 
     private List<CreateOrderOptionGroupRequestDto> orderOptionGroupsDto = new ArrayList<>();
 
-    public CreateOrderRequestDto(Long itemId, String name, Integer count, List<CreateOrderOptionGroupRequestDto> orderOptionGroupsDto) {
+    private CreateAddressRequestDto address;
+
+
+    public CreateOrderRequestDto(Long itemId, String name, Integer count, List<CreateOrderOptionGroupRequestDto> orderOptionGroupsDto, CreateAddressRequestDto address) {
         this.itemId = itemId;
         this.name = name;
         this.count = count;
         this.orderOptionGroupsDto = orderOptionGroupsDto;
+        this.address = address;
     }
 }

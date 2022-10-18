@@ -1,4 +1,4 @@
 package wayc.backend.order.domain;
 
-public class OrderStatus {
+public enum OrderStatus {
 }

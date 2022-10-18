@@ -11,18 +11,18 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Embeddable
-public class OrderOption extends BaseEntity {
+public class OrderOption{
 
-    private String name;
+    private String optionName;
     private Integer price;
 
-    public OrderOption(String name, Integer price) {
-        this.name = name;
+    public OrderOption(String optionName, Integer price) {
+        this.optionName = optionName;
         this.price = price;
     }
 
     public Option convertToOption() {
-        return new Option(name, price);
+        return new Option(optionName, price);
     }
 }
 
