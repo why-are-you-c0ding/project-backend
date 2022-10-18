@@ -32,7 +32,7 @@ public class ImageService {
 
         //그리고 이제 S3 API 메소드인 putObject를 이용하여 파일 Stream을 열어서 S3에 파일을 업로드 합니다.
 
-        return s3Client.getUrl(bucket, s3FileName).toString();
+        return s3Client.getUrl(bucket, dir + "/" +  s3FileName).toString();
         //그리고 getUrl 메소드를 통해서 S3에 업로드된 사진 URL을 가져오는 방식입니다.
     }
 }
