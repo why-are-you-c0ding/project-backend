@@ -2,6 +2,7 @@ package wayc.backend.order.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import wayc.backend.order.application.dto.request.CreateAddressRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 
 import javax.validation.Valid;
@@ -30,11 +31,14 @@ public class PostOrderRequestDto {
     @NotEmpty
     private List<PostOrderOptionGroupRequestDto> orderOptionGroups = new ArrayList<>();
 
-    public PostOrderRequestDto(Long itemId, String name, Integer count, List<PostOrderOptionGroupRequestDto> orderOptionGroupsDto) {
+    private PostAddressRequestDto address;
+
+    public PostOrderRequestDto(Long itemId, String name, Integer count, List<PostOrderOptionGroupRequestDto> orderOptionGroups, PostAddressRequestDto address) {
         this.itemId = itemId;
         this.name = name;
         this.count = count;
-        this.orderOptionGroups = orderOptionGroupsDto;
+        this.orderOptionGroups = orderOptionGroups;
+        this.address = address;
     }
 
     public CreateOrderRequestDto toServiceDto(){
@@ -45,7 +49,8 @@ public class PostOrderRequestDto {
                 orderOptionGroups
                         .stream()
                         .map(optionGroupsDto -> optionGroupsDto.toServiceDto())
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                address.toServiceDto()
         );
     }
 }

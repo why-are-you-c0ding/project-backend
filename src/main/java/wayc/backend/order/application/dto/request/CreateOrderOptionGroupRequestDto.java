@@ -15,9 +15,9 @@ public class CreateOrderOptionGroupRequestDto {
 
     private String name;
 
-    private List<CreateOrderOptionRequestDto> orderOptionsDto = new ArrayList<>();
+    private CreateOrderOptionRequestDto orderOptionsDto;
 
-    public CreateOrderOptionGroupRequestDto(String name, List<CreateOrderOptionRequestDto> orderOptionsDto) {
+    public CreateOrderOptionGroupRequestDto(String name, CreateOrderOptionRequestDto orderOptionsDto) {
         this.name = name;
         this.orderOptionsDto = orderOptionsDto;
     }

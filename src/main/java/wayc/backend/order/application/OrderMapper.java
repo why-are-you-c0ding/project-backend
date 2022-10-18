@@ -32,11 +32,8 @@ public class OrderMapper {
 
     private OrderOptionGroup toOrderOptionGroup(CreateOrderOptionGroupRequestDto dto) {
         return new OrderOptionGroup(
-                dto.getName(),
-                dto.getOrderOptionsDto()
-                        .stream()
-                        .map(orderOptionDto -> toOrderOption(orderOptionDto))
-                        .collect(Collectors.toList())
+                toOrderOption(dto.getOrderOptionsDto()),
+                dto.getName()
         );
     }
 

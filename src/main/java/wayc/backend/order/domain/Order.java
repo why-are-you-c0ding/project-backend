@@ -22,7 +22,7 @@ public class Order extends BaseEntity {
 
     @JoinColumn
     @OneToMany(cascade = CascadeType.ALL)
-    private List<OrderOptionGroup> items = new ArrayList<>();
+    private List<OrderOptionGroup> orderOptionGroups = new ArrayList<>();
 
     private Long orderingMemberId;
 
@@ -32,11 +32,28 @@ public class Order extends BaseEntity {
 
     private Integer count;
 
-    public Order(Long orderingMemberId, Long itemId, String name, Integer count, List<OrderOptionGroup> items) {
-        this.items = items;
+    @Embedded
+    private Address address;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
+    public Order(Long orderingMemberId, Long itemId, String name, Integer count, List<OrderOptionGroup> orderOptionGroups) {
+        this.orderOptionGroups = orderOptionGroups;
         this.orderingMemberId = orderingMemberId;
         this.itemId = itemId;
         this.name = name;
         this.count = count;
+    }
+
+    public Order(Long id, List<OrderOptionGroup> orderOptionGroups, Long orderingMemberId, Long itemId, String name, Integer count, Address address, OrderStatus orderStatus) {
+        this.id = id;
+        this.orderOptionGroups= orderOptionGroups;
+        this.orderingMemberId = orderingMemberId;
+        this.itemId = itemId;
+        this.name = name;
+        this.count = count;
+        this.address = address;
+        this.orderStatus = orderStatus;
     }
 }
