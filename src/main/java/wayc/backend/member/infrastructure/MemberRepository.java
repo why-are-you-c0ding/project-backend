@@ -1,4 +1,4 @@
-package wayc.backend.member.dataaccess;
+package wayc.backend.member.infrastructure;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

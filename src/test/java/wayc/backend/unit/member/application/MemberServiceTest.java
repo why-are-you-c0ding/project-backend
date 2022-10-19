@@ -13,8 +13,7 @@ import wayc.backend.member.application.MemberValidator;
 import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
 import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
 import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
-import wayc.backend.member.dataaccess.MemberRepository;
-import wayc.backend.verification.application.VerificationService;
+import wayc.backend.member.infrastructure.MemberRepository;
 
 import static org.assertj.core.api.Assertions.*;
 

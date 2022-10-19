@@ -40,7 +40,7 @@ public class ItemController {
     public ResponseEntity<GetItemResponseDto> showItem(
             @PathVariable Long itemId
     ){
-        ShowItemResponseDto itemDto = itemService.get(itemId);
+        ShowItemResponseDto itemDto = itemService.showItem(itemId);
         List<ShowOptionGroupResponseDto> optionGroupDto =
                 optionGroupSpecificationService.get(itemDto.getOptionGroupSpecificationIdList());
         return ResponseEntity.ok(GetItemResponseDto.from(itemDto, optionGroupDto));
@@ -48,8 +48,8 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ShowItemsResponseDto>> showItems(){
-        List<ShowItemsResponseDto> res = itemService.getItems();
+    public ResponseEntity<List<ShowItemsResponseDto>> getItems(){
+        List<ShowItemsResponseDto> res = itemService.showItems();
         return ResponseEntity.ok(res);
     }
 

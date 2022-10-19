@@ -1,4 +1,4 @@
-package wayc.backend.order.dataaccess;
+package wayc.backend.order.infrastructure;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import wayc.backend.order.domain.Order;
-
-import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {

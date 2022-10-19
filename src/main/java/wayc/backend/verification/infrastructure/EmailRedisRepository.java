@@ -1,4 +1,4 @@
-package wayc.backend.verification.dataaccess;
+package wayc.backend.verification.infrastructure;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;

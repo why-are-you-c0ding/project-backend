@@ -2,9 +2,12 @@ package wayc.backend.unit.shop.presentation;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
+
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+
 import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.PostItemRequestDtoFactory;
 import wayc.backend.factory.Item.ShowItemResponseDtoFactory;
@@ -16,7 +19,6 @@ import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemsResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
-import wayc.backend.shop.presentation.dto.response.GetItemResponseDto;
 import wayc.backend.unit.ControllerTest;
 
 import java.util.List;
@@ -90,7 +92,7 @@ public class ItemControllerTest extends ControllerTest {
         ShowItemResponseDto dto1 = ShowItemResponseDtoFactory.createSuccessCaseDto();
         List<ShowOptionGroupResponseDto> dto2 = ShowOptionGroupResponseDtoFactory.createSuccessCaseDto();
 
-        given(itemService.get(Mockito.any(Long.class))).willReturn(dto1);
+        given(itemService.showItem(Mockito.any(Long.class))).willReturn(dto1);
         given(optionGroupSpecificationService.get(Mockito.any(List.class))).willReturn(dto2);
 
         //when
@@ -132,7 +134,7 @@ public class ItemControllerTest extends ControllerTest {
     void show_items() throws Exception {
         //given
         List<ShowItemsResponseDto> res = ShowItemsResponseDtoFactory.createSuccessCaseDto();
-        given(itemService.getItems()).willReturn(res);
+        given(itemService.showItems()).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/items")

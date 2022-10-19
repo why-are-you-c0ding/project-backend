@@ -10,9 +10,9 @@ import wayc.backend.exception.shop.NotExistsItemException;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.response.ShowOrdersResponseDto;
 import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
-import wayc.backend.order.dataaccess.OrderRepository;
+import wayc.backend.order.infrastructure.OrderRepository;
 import wayc.backend.order.domain.Order;
-import wayc.backend.shop.dataaccess.ItemRepository;
+import wayc.backend.shop.infrastructure.ItemRepository;
 import wayc.backend.shop.domain.Item;
 
 import java.util.List;
