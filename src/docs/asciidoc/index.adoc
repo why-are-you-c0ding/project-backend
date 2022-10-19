@@ -75,3 +75,4 @@ include::{snippets}/exception_example/http-response.adoc[]
 == 주문 API
 
 * link:/docs/order/create-order.html[주문 생성 요청 API, window=_blank]
+* link:/docs/order/show-customer-orders.html[소비자의 모든 주문 요청 API, window=_blank]
