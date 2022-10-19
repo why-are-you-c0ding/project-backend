@@ -11,6 +11,7 @@ import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
 import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
 import wayc.backend.member.infrastructure.MemberRepository;
 import wayc.backend.member.domain.Member;
+import wayc.backend.member.domain.Email;
 
 @RequiredArgsConstructor
 @Service
@@ -21,15 +22,15 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     public CreateMemberResponseDto createConsumer(CreateConsumerRequestDto dto) {
-        memberValidator.validateCreateMember(dto);
-        Member member = dto.toEntity(passwordEncoder);
+        Email email = memberValidator.validateCreateMember(dto);
+        Member member = dto.toEntity(passwordEncoder, email);
         saveMember(member);
         return CreateMemberResponseDto.of(member);
     }
 
     public CreateMemberResponseDto createSeller(CreateSellerRequestDto dto) {
-        memberValidator.validateCreateMember(dto);
-        Member member = dto.toEntity(passwordEncoder);
+        Email email = memberValidator.validateCreateMember(dto);
+        Member member = dto.toEntity(passwordEncoder, email);
         saveMember(member);
         return CreateMemberResponseDto.of(member);
     }

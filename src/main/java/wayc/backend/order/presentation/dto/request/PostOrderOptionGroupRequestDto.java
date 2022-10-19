@@ -28,6 +28,6 @@ public class PostOrderOptionGroupRequestDto {
     }
 
     public CreateOrderOptionGroupRequestDto toServiceDto(){
-        return new CreateOrderOptionGroupRequestDto( name, orderOption.toServiceDto());
+        return new CreateOrderOptionGroupRequestDto(name, orderOption.toServiceDto());
     }
 }

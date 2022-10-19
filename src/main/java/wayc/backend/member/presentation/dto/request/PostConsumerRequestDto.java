@@ -29,6 +29,8 @@ public class PostConsumerRequestDto {
 
     private int age;
 
+    private String authKey;
+
     public static CreateConsumerRequestDto toServiceDto(PostConsumerRequestDto request) {
         return CreateConsumerRequestDto.builder()
                 .nickName(request.getNickName())
@@ -37,17 +39,19 @@ public class PostConsumerRequestDto {
                 .password(request.getPassword())
                 .checkPassword(request.getCheckPassword())
                 .age(request.getAge())
+                .authKey(request.getAuthKey())
                 .build();
     }
 
     //테스트용
     @Builder
-    public PostConsumerRequestDto(String nickName, String email, String loginId, String password, String checkPassword, int age) {
+    public PostConsumerRequestDto(String nickName, String email, String loginId, String password, String checkPassword, int age, String authKey) {
         this.nickName = nickName;
         this.email = email;
         this.loginId = loginId;
         this.password = password;
         this.checkPassword = checkPassword;
         this.age = age;
+        this.authKey = authKey;
     }
 }

@@ -17,7 +17,7 @@ public class CreateMemberResponseDto {
         return CreateMemberResponseDto.builder()
                 .id(member.getId())
                 .nickName(member.getNickName())
-                .email(member.getEmail())
+                .email(member.getEmail().getEmail())
                 .loginId(member.getLoginId())
                 .age(member.getAge())
                 .build();

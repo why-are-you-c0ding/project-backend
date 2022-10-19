@@ -31,6 +31,8 @@ public class PostSellerRequestDto {
 
     private int age;
 
+    private String authKey;
+
     public static CreateSellerRequestDto toServiceDto(PostSellerRequestDto request) {
         return CreateSellerRequestDto.builder()
                 .nickName(request.getNickName())
@@ -39,17 +41,19 @@ public class PostSellerRequestDto {
                 .password(request.getPassword())
                 .checkPassword(request.getCheckPassword())
                 .age(request.getAge())
+                .authKey(request.getAuthKey())
                 .build();
     }
 
     //테스트용
     @Builder
-    public PostSellerRequestDto(String nickName, String email, String loginId, String password, String checkPassword, int age) {
+    public PostSellerRequestDto(String nickName, String email, String loginId, String password, String checkPassword, int age, String authKey) {
         this.nickName = nickName;
         this.email = email;
         this.loginId = loginId;
         this.password = password;
         this.checkPassword = checkPassword;
         this.age = age;
+        this.authKey = authKey;
     }
 }

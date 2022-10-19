@@ -10,6 +10,8 @@ import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
 import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
 import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
+import wayc.backend.member.domain.Email;
+import wayc.backend.member.infrastructure.EmailRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,10 +22,14 @@ public class MemberIntegrationTest {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private EmailRepository emailRepository;
+
     @Test
     @DisplayName("소비자 멤버 생성 성공 통합 테스트")
     void create_consumer(){
         //given
+        emailRepository.save(new Email("123@gmail.com", "999999"));
         CreateConsumerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessConsumerDto();
 
         //when
@@ -38,6 +44,7 @@ public class MemberIntegrationTest {
     @DisplayName("판매자 생성 성공 통합 테스트")
     void create_seller(){
         //given
+        emailRepository.save(new Email("123@gmail.com", "999999"));
         CreateSellerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessSellerDto();
 
         //when

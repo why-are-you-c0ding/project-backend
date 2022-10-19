@@ -57,7 +57,8 @@ public class MemberControllerTest extends ControllerTest {
                                         fieldWithPath("loginId").type(STRING).description("로그인아이디"),
                                         fieldWithPath("password").type(STRING).description("비밀번호"),
                                         fieldWithPath("checkPassword").type(STRING).description("비밀번호 확인"),
-                                        fieldWithPath("age").type(NUMBER).description("나이")
+                                        fieldWithPath("age").type(NUMBER).description("나이"),
+                                        fieldWithPath("authKey").type(STRING).description("이메일 인증 키")
                                 ),
                                 responseFields(
                                         fieldWithPath("id").type(NUMBER).description("멤버 id"),
@@ -97,7 +98,8 @@ public class MemberControllerTest extends ControllerTest {
                                 fieldWithPath("loginId").type(STRING).description("로그인아이디"),
                                 fieldWithPath("password").type(STRING).description("비밀번호"),
                                 fieldWithPath("checkPassword").type(STRING).description("비밀번호 확인"),
-                                fieldWithPath("age").type(NUMBER).description("나이")
+                                fieldWithPath("age").type(NUMBER).description("나이"),
+                                fieldWithPath("authKey").type(STRING).description("이메일 인증 키")
                         ),
                         responseFields(
                                 fieldWithPath("id").type(NUMBER).description("멤버 id"),
