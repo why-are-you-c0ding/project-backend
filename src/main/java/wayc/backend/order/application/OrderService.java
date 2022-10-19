@@ -36,7 +36,7 @@ public class OrderService {
 
     public ShowTotalOrderResponseDto showCustomerOrders(Long memberId, Integer page) {
         PageRequest paging = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Slice<Order> pagingResult = orderRepository.findOrdersByOrderingMemberId(memberId, paging);
+        Slice<Order> pagingResult = orderRepository.findOrdersPagingByOrderingMemberId(memberId, paging);
         List<ShowOrdersResponseDto> result = pagingResult.stream()
                 .map(order -> {
                     Item item = itemRepository

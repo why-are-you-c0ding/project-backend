@@ -1,8 +1,10 @@
 package wayc.backend.shop.infrastructure;
 
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.Shop;
 
 import java.util.Optional;
@@ -15,4 +17,7 @@ public interface ShopRepository extends JpaRepository <Shop, Long> {
 
     @Query("select s from Shop s where s.ownerId =:ownerId and s.status = 'ACTIVE'")
     Optional<Shop> findByOwnerIdAndStatus(Long ownerId);
+
+
+//    Slice<Item> findShopItemsByOwnerId(Long , Integer );
 }

@@ -11,7 +11,7 @@ import wayc.backend.order.domain.Order;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select o from Order o where o.orderingMemberId =:memberId and o.status = 'ACTIVE'")
-    Slice<Order> findOrdersByOrderingMemberId(Long memberId, Pageable pageable);
+    Slice<Order> findOrdersPagingByOrderingMemberId(Long memberId, Pageable pageable);
 
 
 //    @Query("select o from Order o where o. =:memberId and o.status = 'ACTIVE'")

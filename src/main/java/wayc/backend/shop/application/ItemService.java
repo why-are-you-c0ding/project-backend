@@ -2,6 +2,9 @@ package wayc.backend.shop.application;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +14,7 @@ import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
 import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemsResponseDto;
+import wayc.backend.shop.application.dto.response.show.ShowTotalItemResponseDto;
 import wayc.backend.shop.infrastructure.ItemRepository;
 import wayc.backend.shop.infrastructure.ShopRepository;
 import wayc.backend.shop.domain.Item;
@@ -47,5 +51,14 @@ public class ItemService {
                 .stream()
                 .map(item -> ShowItemsResponseDto.of(item))
                 .collect(Collectors.toList());
+    }
+
+    public ShowTotalItemResponseDto showSellerItems(Long ownerId, Integer page) {
+        PageRequest paging = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Slice<Item> pagingResult = itemRepository.findItemPagingByShopOwnerId(ownerId, paging);
+        List<ShowItemsResponseDto> result = pagingResult.stream()
+                .map(item -> ShowItemsResponseDto.of(item))
+                .collect(Collectors.toList());
+        return new ShowTotalItemResponseDto(pagingResult.isLast(), result);
     }
 }
