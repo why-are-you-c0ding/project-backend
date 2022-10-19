@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.cart.application.dto.request.CreateCartLineItemRequestDto;
 import wayc.backend.cart.application.dto.response.ShowCartResponseDto;
 
-import wayc.backend.cart.dataaccess.CartLineItemRepository;
-import wayc.backend.cart.dataaccess.CartRepository;
+import wayc.backend.cart.infrastructure.CartLineItemRepository;
+import wayc.backend.cart.infrastructure.CartRepository;
 
 import wayc.backend.cart.domain.Cart;
 

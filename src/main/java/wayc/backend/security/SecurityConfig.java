@@ -59,6 +59,7 @@ public class SecurityConfig {
         http
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/items").hasRole("SELLER")
+                .antMatchers(HttpMethod.GET,"/items/sellers").hasRole("SELLER")
                 .antMatchers(HttpMethod.POST, "/stocks").hasRole("SELLER")
                 .antMatchers("/carts/**").access("hasRole('SELLER') or hasRole('CONSUMER')");
 

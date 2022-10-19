@@ -1,10 +1,9 @@
-package wayc.backend.cart.dataaccess;
+package wayc.backend.cart.infrastructure;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import wayc.backend.cart.domain.Cart;
-import wayc.backend.shop.domain.Item;
 
 import java.util.Optional;
 

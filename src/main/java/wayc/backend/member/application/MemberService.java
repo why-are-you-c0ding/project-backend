@@ -6,13 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import wayc.backend.member.application.dto.request.AbstractCreateMemberRequestDto;
 import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
 import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
 import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
-import wayc.backend.member.dataaccess.MemberRepository;
+import wayc.backend.member.infrastructure.MemberRepository;
 import wayc.backend.member.domain.Member;
-import wayc.backend.verification.application.VerificationService;
 
 @RequiredArgsConstructor
 @Service

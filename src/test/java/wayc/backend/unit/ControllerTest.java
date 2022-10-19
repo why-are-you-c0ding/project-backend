@@ -36,7 +36,7 @@ import wayc.backend.shop.application.StockService;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.shop.presentation.ShopController;
 import wayc.backend.shop.presentation.StockController;
-import wayc.backend.verification.dataaccess.EmailRedisRepository;
+import wayc.backend.verification.infrastructure.EmailRedisRepository;
 import wayc.backend.verification.presentation.VerificationController;
 import wayc.backend.verification.application.EmailService;
 import wayc.backend.verification.application.VerificationService;

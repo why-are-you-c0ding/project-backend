@@ -1,15 +1,12 @@
-package wayc.backend.shop.dataaccess;
+package wayc.backend.shop.infrastructure;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
-import wayc.backend.common.base.BaseStatus;
 import wayc.backend.shop.domain.*;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static wayc.backend.shop.domain.QOptionSpecification.*;
-import static wayc.backend.shop.domain.QStock.stock;
 import static wayc.backend.shop.domain.QStockOptionSpecification.*;
 
 

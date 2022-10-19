@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 import wayc.backend.exception.shop.NotExistsOptionGroupSpecificationException;
 import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowOptionResponseDto;
-import wayc.backend.shop.dataaccess.OptionGroupSpecificationRepository;
+import wayc.backend.shop.infrastructure.OptionGroupSpecificationRepository;
 import wayc.backend.shop.domain.OptionGroupSpecification;
 import wayc.backend.shop.domain.OptionSpecification;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

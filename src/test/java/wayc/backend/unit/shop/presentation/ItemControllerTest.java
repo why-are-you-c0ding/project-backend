@@ -2,21 +2,21 @@ package wayc.backend.unit.shop.presentation;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
+
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+
 import wayc.backend.common.WithMockSeller;
-import wayc.backend.factory.Item.PostItemRequestDtoFactory;
-import wayc.backend.factory.Item.ShowItemResponseDtoFactory;
-import wayc.backend.factory.Item.ShowItemsResponseDtoFactory;
-import wayc.backend.factory.Item.ShowOptionGroupResponseDtoFactory;
+import wayc.backend.factory.Item.*;
 import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
 import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemsResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
+import wayc.backend.shop.application.dto.response.show.ShowTotalItemResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
-import wayc.backend.shop.presentation.dto.response.GetItemResponseDto;
 import wayc.backend.unit.ControllerTest;
 
 import java.util.List;
@@ -25,8 +25,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -84,13 +83,12 @@ public class ItemControllerTest extends ControllerTest {
 
     @Test
     @DisplayName("아이템 조회 성공 컨트롤러 단위 테스트")
-    @WithMockSeller
     void show_item() throws Exception {
         //given
         ShowItemResponseDto dto1 = ShowItemResponseDtoFactory.createSuccessCaseDto();
         List<ShowOptionGroupResponseDto> dto2 = ShowOptionGroupResponseDtoFactory.createSuccessCaseDto();
 
-        given(itemService.get(Mockito.any(Long.class))).willReturn(dto1);
+        given(itemService.showItem(Mockito.any(Long.class))).willReturn(dto1);
         given(optionGroupSpecificationService.get(Mockito.any(List.class))).willReturn(dto2);
 
         //when
@@ -132,7 +130,7 @@ public class ItemControllerTest extends ControllerTest {
     void show_items() throws Exception {
         //given
         List<ShowItemsResponseDto> res = ShowItemsResponseDtoFactory.createSuccessCaseDto();
-        given(itemService.getItems()).willReturn(res);
+        given(itemService.showItems()).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/items")
@@ -151,6 +149,43 @@ public class ItemControllerTest extends ControllerTest {
                                 fieldWithPath("[].itemName").type(STRING).description("상품 이름"),
                                 fieldWithPath("[].basicPrice").type(NUMBER).description("기본 가격"),
                                 fieldWithPath("[].imageUrl").type(STRING).description("상품의 이미지")
+                        )
+                ));
+    }
+
+
+
+
+    @Test
+    @WithMockSeller
+    @DisplayName("판매자가 등록한 아이템 전체 조회 성공 컨트롤러 단위 테스트")
+    void show_seller_items() throws Exception {
+        //given
+        ShowTotalItemResponseDto res = ShowTotalItemResponseDtoFactory.createSuccessCaseDto();
+
+        given(itemService.showSellerItems(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/items/sellers?page=0")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print())
+                .andDo(document("show_seller_items",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestParameters(
+                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스")
+                        ),
+                        responseFields(
+                                fieldWithPath("finalPage").type(BOOLEAN).description("마지막 페이지 리스트인지"),
+                                fieldWithPath("items").type(ARRAY).description("판매자가 등록한 상품 배열"),
+                                fieldWithPath("items[].itemId").type(NUMBER).description("아이템 id"),
+                                fieldWithPath("items[].shopName").type(STRING).description("상품 이름"),
+                                fieldWithPath("items[].itemName").type(STRING).description("상품 이름"),
+                                fieldWithPath("items[].basicPrice").type(NUMBER).description("기본 가격"),
+                                fieldWithPath("items[].imageUrl").type(STRING).description("상품의 이미지")
                         )
                 ));
     }

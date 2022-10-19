@@ -10,9 +10,9 @@ import wayc.backend.exception.shop.NotExistsItemException;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.response.ShowOrdersResponseDto;
 import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
-import wayc.backend.order.dataaccess.OrderRepository;
+import wayc.backend.order.infrastructure.OrderRepository;
 import wayc.backend.order.domain.Order;
-import wayc.backend.shop.dataaccess.ItemRepository;
+import wayc.backend.shop.infrastructure.ItemRepository;
 import wayc.backend.shop.domain.Item;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class OrderService {
 
     public ShowTotalOrderResponseDto showCustomerOrders(Long memberId, Integer page) {
         PageRequest paging = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Slice<Order> pagingResult = orderRepository.findOrdersByOrderingMemberId(memberId, paging);
+        Slice<Order> pagingResult = orderRepository.findOrdersPagingByOrderingMemberId(memberId, paging);
         List<ShowOrdersResponseDto> result = pagingResult.stream()
                 .map(order -> {
                     Item item = itemRepository

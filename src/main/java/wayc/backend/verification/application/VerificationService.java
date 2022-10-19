@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import wayc.backend.exception.verification.*;
-import wayc.backend.member.dataaccess.MemberRepository;
+import wayc.backend.member.infrastructure.MemberRepository;
 import wayc.backend.member.domain.Member;
 import wayc.backend.verification.application.dto.VerificationEmailInfoDto;
-import wayc.backend.verification.dataaccess.EmailRedisRepository;
+import wayc.backend.verification.infrastructure.EmailRedisRepository;
 
 @Service
 @RequiredArgsConstructor

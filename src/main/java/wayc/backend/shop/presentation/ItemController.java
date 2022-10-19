@@ -13,6 +13,7 @@ import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemsResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
+import wayc.backend.shop.application.dto.response.show.ShowTotalItemResponseDto;
 import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
 import wayc.backend.shop.presentation.dto.response.GetItemResponseDto;
 
@@ -40,7 +41,7 @@ public class ItemController {
     public ResponseEntity<GetItemResponseDto> showItem(
             @PathVariable Long itemId
     ){
-        ShowItemResponseDto itemDto = itemService.get(itemId);
+        ShowItemResponseDto itemDto = itemService.showItem(itemId);
         List<ShowOptionGroupResponseDto> optionGroupDto =
                 optionGroupSpecificationService.get(itemDto.getOptionGroupSpecificationIdList());
         return ResponseEntity.ok(GetItemResponseDto.from(itemDto, optionGroupDto));
@@ -48,11 +49,20 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ShowItemsResponseDto>> showItems(){
-        List<ShowItemsResponseDto> res = itemService.getItems();
+    public ResponseEntity<List<ShowItemsResponseDto>> getItems(){
+        List<ShowItemsResponseDto> res = itemService.showItems();
         return ResponseEntity.ok(res);
     }
 
+
+    @GetMapping("/sellers")
+    public ResponseEntity<ShowTotalItemResponseDto> getSellerItems(
+            @AuthenticationPrincipal Long id,
+            @RequestParam Integer page
+    ){
+        ShowTotalItemResponseDto res = itemService.showSellerItems(id, page);
+        return ResponseEntity.ok(res);
+    }
 }
 
 
