@@ -22,7 +22,7 @@ public class CartLineItem extends BaseEntity {
 
     private Long itemId;
 
-    @JoinColumn(name = "card_id")
+    @JoinColumn(name = "cart_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Cart cart;
 
@@ -32,7 +32,7 @@ public class CartLineItem extends BaseEntity {
 
     private String imageUrl;
 
-    @JoinColumn
+    @JoinColumn(name = "cart_line_item_id")
     @OneToMany(cascade = CascadeType.ALL)
     private List<CartOptionGroup> cartOptionGroups = new ArrayList<>();
 
