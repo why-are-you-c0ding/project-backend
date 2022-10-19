@@ -6,9 +6,11 @@ import wayc.backend.order.domain.Order;
 
 @NoArgsConstructor
 @Getter
-public class ShowOrderResponseDto {
+public class ShowOrderOptionResponseDto {
 
-    public static ShowOrderResponseDto of(Order order) {
-        return null;
+    private String name;
+
+    public ShowOrderOptionResponseDto(String name) {
+        this.name = name;
     }
 }

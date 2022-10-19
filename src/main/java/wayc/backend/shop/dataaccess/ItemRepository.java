@@ -19,4 +19,6 @@ public interface ItemRepository extends JpaRepository <Item, Long> {
     @EntityGraph(attributePaths = {"shop", "optionGroupSpecifications"})
     @Query("select i from Item i where i.status = 'ACTIVE'")
     List<Item> findItemsByStatus();
+
+
 }

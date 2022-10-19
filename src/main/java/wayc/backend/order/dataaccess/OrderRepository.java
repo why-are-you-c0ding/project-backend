@@ -1,5 +1,7 @@
 package wayc.backend.order.dataaccess;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -11,5 +13,9 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select o from Order o where o.orderingMemberId =:memberId and o.status = 'ACTIVE'")
-    List<Order> findOrdersByOrderingMemberId(Long memberId);
+    Slice<Order> findOrdersByOrderingMemberId(Long memberId, Pageable pageable);
+
+
+//    @Query("select o from Order o where o. =:memberId and o.status = 'ACTIVE'")
+//    List<Order> findOrdersByOrShopIdId(Long memberId);
 }
