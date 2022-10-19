@@ -1,8 +1,9 @@
-package wayc.backend.verification.domain;
+package wayc.backend.member.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import wayc.backend.common.base.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Email {
+public class Email extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +21,13 @@ public class Email {
 
     private String email;
 
-    private int verificationCountPerDay;
+    private String authKey;
 
+    private int verificationCountPerDay;  //TODO 추후에 로직을 구현하자.
+
+    public Email(String email, String authKey) {
+        this.email = email;
+        this.authKey = authKey;
+        this.verificationCountPerDay = 0;
+    }
 }

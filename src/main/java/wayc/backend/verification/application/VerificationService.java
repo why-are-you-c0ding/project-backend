@@ -9,7 +9,9 @@ import wayc.backend.exception.verification.*;
 import wayc.backend.member.infrastructure.MemberRepository;
 import wayc.backend.member.domain.Member;
 import wayc.backend.verification.application.dto.VerificationEmailInfoDto;
+import wayc.backend.member.domain.Email;
 import wayc.backend.verification.infrastructure.EmailRedisRepository;
+import wayc.backend.member.infrastructure.EmailRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +19,7 @@ import wayc.backend.verification.infrastructure.EmailRedisRepository;
 public class VerificationService {
 
     private final MemberRepository memberRepository;
+    private final EmailRepository emailRepository;
     private final EmailRedisRepository emailRedisRepository;
 
     public void ExistSamLoginId(String loginId){
@@ -41,11 +44,11 @@ public class VerificationService {
         return memberRepository.findByLoginIdAndStatus(loginId).orElseThrow(NotExistsMemberException::new);
     }
 
-    @Transactional(readOnly = false)
     public void saveVerificationNumber(VerificationEmailInfoDto dto) {
         emailRedisRepository.createEmailCertification(dto.getEmail(), dto.getAuthKey());
     }
 
+    @Transactional(readOnly = false)
     public void verifyEmail(String receiveEmail, String authKey) {
 
         if(notExistsEmail(receiveEmail)){
@@ -55,6 +58,7 @@ public class VerificationService {
         if(wrongAuthKey(receiveEmail, authKey)){
             throw new WrongEmailAuthKeyException();
         }
+        emailRepository.save(new Email(receiveEmail, authKey));
     }
 
     private boolean notExistsEmail(String receiveEmail) {

@@ -20,13 +20,15 @@ public class Member extends BaseEntity {
 
     private String nickName;
 
-    private String email;
-
     private String loginId;
 
     private String password;
 
     private int age;
+
+    @JoinColumn(name = "email_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    private Email email;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
@@ -34,13 +36,12 @@ public class Member extends BaseEntity {
     //추후에 멤버에서 장바구니를 추적해야하거나, 샵을 추적해야하면 아이디를 추가하자.
 
     @Builder
-    public Member(Long id, String nickName, String email, String loginId, String password, int age, Role role) {
-        this.id = id;
+    public Member(String nickName, String loginId, String password, int age, Email email, Role role) {
         this.nickName = nickName;
-        this.email = email;
         this.loginId = loginId;
         this.password = password;
         this.age = age;
+        this.email = email;
         this.role = role;
     }
 }

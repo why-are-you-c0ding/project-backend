@@ -10,4 +10,5 @@ public abstract class AbstractCreateMemberRequestDto {
     protected String password;
     protected String checkPassword;
     protected int age;
+    protected String authKey;
 }
