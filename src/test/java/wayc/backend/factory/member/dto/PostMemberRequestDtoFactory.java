@@ -13,6 +13,7 @@ public class PostMemberRequestDtoFactory {
                 .loginId("loginId")
                 .password("1q2w3e4r!!!")
                 .checkPassword("1q2w3e4r!!!")
+                .authKey("954721")
                 .age(23)
                 .build();
     }
@@ -25,6 +26,7 @@ public class PostMemberRequestDtoFactory {
                 .loginId("loginId")
                 .password("1q2w3e4r!!!")
                 .checkPassword("1q2w3e4r!!!")
+                .authKey("954721")
                 .age(23)
                 .build();
     }

@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.factory.member.dto.CreateMemberRequestDtoFactory;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
+import wayc.backend.member.domain.Email;
+import wayc.backend.member.infrastructure.EmailRepository;
 import wayc.backend.security.dto.request.LoginRequestDto;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -43,8 +45,12 @@ public class AcceptanceLoginTest {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    private EmailRepository emailRepository;
+
     @BeforeEach
     void beforeEach(){
+        emailRepository.save(new Email("123@gmail.com", "999999"));
         CreateConsumerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessConsumerDto();
         memberService.createConsumer(dto);
     }

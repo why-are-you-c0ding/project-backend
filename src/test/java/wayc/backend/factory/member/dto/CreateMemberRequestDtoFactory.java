@@ -13,6 +13,7 @@ public class CreateMemberRequestDtoFactory {
                 .password("1q2w3e4r!")
                 .checkPassword("1q2w3e4r!")
                 .age(24)
+                .authKey("999999")
                 .build();
     }
 
@@ -24,6 +25,7 @@ public class CreateMemberRequestDtoFactory {
                 .password("1q2w3e4r!")
                 .checkPassword("1q2w3e4r!")
                 .age(24)
+                .authKey("999999")
                 .build();
     }
 }
