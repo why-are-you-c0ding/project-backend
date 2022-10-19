@@ -21,7 +21,7 @@ public class Order extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn
+    @JoinColumn(name = "orders_id")
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderOptionGroup> orderOptionGroups = new ArrayList<>();
 
