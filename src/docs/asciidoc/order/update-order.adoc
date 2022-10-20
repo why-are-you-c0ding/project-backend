@@ -1,0 +1,23 @@
+= 주문 상태 업데이트
+
+로그인한 판매자만 이용가능
+
+== 요청
+
+include::{snippets}/update_order/http-request.adoc[]
+
+include::{snippets}/update_order/request-fields.adoc[]
+
+
+==== 현재 존재하는 주문 상태 값. orderStatus 변경은 아래 문자열로만 요청을 보내야함.
+
+```
+ONGOING(주문 진행), COMPLICATED(주문 완료)
+```
+
+== 응답
+
+include::{snippets}/update_order/http-response.adoc[]
+
+include::{snippets}/update_order/response-fields.adoc[]
+

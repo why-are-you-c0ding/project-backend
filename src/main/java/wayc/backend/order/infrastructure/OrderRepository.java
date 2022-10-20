@@ -28,8 +28,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<OrderDto> findOrdersPagingByOwnerId(Long ownerId, Pageable page);
 
     @Query("select o from Order o join fetch o.orderOptionGroups where o.id = :orderId and o.orderingMemberId = :memberId and o.status = 'ACTIVE'")
-    Optional<Order> findOrderByOrderId(Long memberId, Long orderId);
+    Optional<Order> findOrderByOrderIdAndOrderingMemberId(Long memberId, Long orderId);
 
+    @Query("select o from Order o where o.id = :orderId and o.itemId = :itemId and o.status = 'ACTIVE'")
+    Optional<Order> findOrderByOrderIdAndItemId(Long orderId, Long itemId);
 }
 
 

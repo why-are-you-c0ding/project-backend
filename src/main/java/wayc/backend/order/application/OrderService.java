@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.exception.order.NotExistsOrderException;
 import wayc.backend.exception.shop.NotExistsItemException;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
+import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
 import wayc.backend.order.application.dto.response.ShowOrderResponseDto;
 import wayc.backend.order.application.dto.response.ShowOrdersForCustomerResponseDto;
 import wayc.backend.order.application.dto.response.ShowOrdersForSellerResponseDto;
@@ -77,11 +78,25 @@ public class OrderService {
     }
 
     public ShowOrderResponseDto showOrder(Long memberId, Long orderId) {
-        Order order = orderRepository.findOrderByOrderId(memberId, orderId)
+        Order order = orderRepository.findOrderByOrderIdAndOrderingMemberId(memberId, orderId)
                 .orElseThrow(NotExistsOrderException::new);
         Item item = itemRepository.findItemByItemId(order.getItemId())
                 .orElseThrow(NotExistsItemException::new);
 
         return ShowOrderResponseDto.of(order, item);
+    }
+
+    @Transactional(readOnly = false)
+    public void updateOrder(Long ownerId, UpdateOrderRequestDto dto) {
+
+        //아이템의 주인이 맞는지 확인
+        itemRepository.findItemByShopOwnerIdAndItemId(ownerId, dto.getItemId())
+                .orElseThrow();
+
+        //아이템 아이디와 주문 번호로 찾아옴.
+        Order order = orderRepository.findOrderByOrderIdAndItemId(dto.getOrderId(), dto.getItemId())
+                .orElseThrow();
+
+        order.updateOrder(dto.getOrderStatus());
     }
 }
