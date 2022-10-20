@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.application.dto.response.ShowOrderResponseDto;
 import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
+import wayc.backend.order.application.dto.response.UpdateOrderResponseDto;
+
+import wayc.backend.order.presentation.dto.request.PatchOrderRequestDto;
 import wayc.backend.order.presentation.dto.request.PostOrderRequestDto;
 import wayc.backend.order.presentation.dto.response.PostOrderResponseDto;
 
@@ -65,5 +68,15 @@ public class OrderController {
     ){
         ShowOrderResponseDto res = orderService.showOrder(id, orderId);
         return ResponseEntity.ok(res);
+    }
+
+
+    @PatchMapping
+    public ResponseEntity<UpdateOrderResponseDto> patchOrder(
+            @RequestBody PatchOrderRequestDto request,
+            @AuthenticationPrincipal Long id
+    ) {
+        orderService.updateOrder(id, request.toServiceDto());
+        return ResponseEntity.ok(new UpdateOrderResponseDto());
     }
 }

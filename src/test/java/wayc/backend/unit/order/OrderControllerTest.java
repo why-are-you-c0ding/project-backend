@@ -12,6 +12,8 @@ import wayc.backend.factory.order.ShowOrderResponseDtoFactory;
 import wayc.backend.factory.order.ShowTotalOrderResponseDtoFactory;
 import wayc.backend.order.application.dto.response.ShowOrderResponseDto;
 import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
+import wayc.backend.order.domain.OrderStatus;
+import wayc.backend.order.presentation.dto.request.PatchOrderRequestDto;
 import wayc.backend.order.presentation.dto.request.PostOrderRequestDto;
 import wayc.backend.unit.ControllerTest;
 
@@ -185,6 +187,39 @@ public class OrderControllerTest extends ControllerTest {
                                 subsectionWithPath("orderOptionGroups[].name").type(STRING).description("주문한 상품의 옵션 그룹 이름"),
                                 subsectionWithPath("orderOptionGroups[].option").type(OBJECT).description("주문한 상품의 옵션 그룹 옵션"),
                                 subsectionWithPath("orderOptionGroups[].option.name").type(STRING).description("주문한 상품의 옵션 그룹 옵션 이름")
+                        )
+                ));
+    }
+
+
+
+    @Test
+    @DisplayName("주문 상태 수정 성공 컨트롤러 단위 테스트")
+    @WithMockSeller
+    void update_order() throws Exception {
+        //given
+        PatchOrderRequestDto req = new PatchOrderRequestDto(2L, 3L, OrderStatus.COMPLICATED);
+        String value = mapper.writeValueAsString(req);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.patch("/orders")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(value)
+                )
+                .andExpect(status().is2xxSuccessful())
+                //.andExpect(jsonPath("$.itemId").value(1))
+                .andDo(print())
+                .andDo(document("update_order",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("itemId").type(NUMBER).description("주문 상품 id"),
+                                fieldWithPath("orderId").type(NUMBER).description("수정할 주문 id"),
+                                fieldWithPath("orderStatus").type(STRING).description("수정할 주문 상태 정보")
+                        ),
+                        responseFields(
+                                fieldWithPath("message").type(STRING).description("주문 업데이트 성공 메시지")
                         )
                 ));
     }

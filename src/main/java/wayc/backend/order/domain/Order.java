@@ -48,4 +48,8 @@ public class Order extends BaseEntity {
         this.address = address;
         this.orderStatus = orderStatus;
     }
+
+    public void updateOrder(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 }
