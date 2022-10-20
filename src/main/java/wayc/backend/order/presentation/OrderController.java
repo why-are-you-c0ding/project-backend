@@ -8,7 +8,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import wayc.backend.order.application.OrderService;
-import wayc.backend.order.application.dto.response.ShowOrdersResponseDto;
 import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
 import wayc.backend.order.presentation.dto.request.PostOrderRequestDto;
 import wayc.backend.order.presentation.dto.response.PostOrderResponseDto;
@@ -48,6 +47,12 @@ public class OrderController {
     }
 
 
-
-
+    @GetMapping("/sellers")
+    public ResponseEntity<ShowTotalOrderResponseDto> getSellerOrders(
+            @RequestParam Integer page,
+            @AuthenticationPrincipal Long id
+    ){
+        ShowTotalOrderResponseDto res = orderService.showSellerOrders(id, page);
+        return ResponseEntity.ok(res);
+    }
 }

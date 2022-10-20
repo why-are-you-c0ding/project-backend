@@ -1,0 +1,15 @@
+= 소비자의  모든 주문 조회 요청
+
+로그인한 멤버만 이용가능
+
+== 요청
+
+include::{snippets}/show_seller_orders/http-request.adoc[]
+
+include::{snippets}/show_seller_orders/request-parameters.adoc[]
+
+== 응답
+
+include::{snippets}/show_seller_orders/http-response.adoc[]
+
+include::{snippets}/show_seller_orders/response-fields.adoc[]
