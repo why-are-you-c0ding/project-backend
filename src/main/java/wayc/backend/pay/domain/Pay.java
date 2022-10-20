@@ -1,11 +1,13 @@
 package wayc.backend.pay.domain;
 
+import lombok.Getter;
 import wayc.backend.common.base.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Getter
 @Entity
 public class Pay extends BaseEntity {
 
@@ -19,4 +21,11 @@ public class Pay extends BaseEntity {
 
     protected Pay() {
     }
+
+    public Pay(Integer price, Long orderId) {
+        this.price = price;
+        this.orderId = orderId;
+    }
 }
+
+

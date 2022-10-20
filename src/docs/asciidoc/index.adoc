@@ -80,3 +80,6 @@ include::{snippets}/exception_example/http-response.adoc[]
 * link:/docs/order/show-seller-orders.html[판매자가 받은 모든 주문 조회 요청 API, window=_blank]
 * link:/docs/order/show-order.html[주문 단건 조회 요청 API, window=_blank]
 * link:/docs/order/update-order.html[주문 상태 수정 요청 API, window=_blank]
+
+== 결제 API
+* link:/docs/pay/create-pay.html[결제 생성 요청 API, window=_blank]
