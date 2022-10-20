@@ -39,8 +39,9 @@ public class Order extends BaseEntity {
 
 
     @Builder
-    public Order(Long orderingMemberId, Long itemId, String name, Integer count, Address address, OrderStatus orderStatus, List<OrderOptionGroup> orderOptionGroups) {
-        this.orderOptionGroups= orderOptionGroups;
+    public Order(Long id, List<OrderOptionGroup> orderOptionGroups, Long orderingMemberId, Long itemId, String name, Integer count, Address address, OrderStatus orderStatus) {
+        this.id = id;
+        this.orderOptionGroups = orderOptionGroups;
         this.orderingMemberId = orderingMemberId;
         this.itemId = itemId;
         this.name = name;

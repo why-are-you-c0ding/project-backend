@@ -17,6 +17,7 @@ import wayc.backend.order.presentation.dto.request.PatchOrderRequestDto;
 import wayc.backend.order.presentation.dto.request.PostOrderRequestDto;
 import wayc.backend.unit.ControllerTest;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -39,6 +40,8 @@ public class OrderControllerTest extends ControllerTest {
         //given
         List<PostOrderRequestDto> req = PostOrderRequestDtoFactory.createSuccessCase();
         String value = mapper.writeValueAsString(req);
+
+        given(orderService.createOrder(Mockito.any(List.class), Mockito.any(Long.class))).willReturn(Arrays.asList(1L, 2L));
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.post("/orders")
@@ -66,7 +69,8 @@ public class OrderControllerTest extends ControllerTest {
                                         subsectionWithPath("[].orderOptionGroups[].orderOption.name").type(STRING).description("구매하는 상품 옵션 그룹의 옵션 이름"),
                                         subsectionWithPath("[].orderOptionGroups[].orderOption.price").type(NUMBER).description("구매하는 상품 옵션 그룹의 옵션 가격")                             ),
                                 responseFields(
-                                        fieldWithPath("message").type(STRING).description("주문 생성 성공 메시지")
+                                        fieldWithPath("message").type(STRING).description("주문 생성 성공 메시지"),
+                                        fieldWithPath("orderIdList").type(ARRAY).description("생성한 주문들의 id 배열")
                                 )
                         ));
     }

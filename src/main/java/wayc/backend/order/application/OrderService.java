@@ -20,6 +20,7 @@ import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
 import wayc.backend.order.infrastructure.OrderDto;
 import wayc.backend.order.infrastructure.OrderRepository;
 import wayc.backend.order.domain.Order;
+
 import wayc.backend.shop.infrastructure.ItemRepository;
 import wayc.backend.shop.domain.Item;
 
@@ -36,10 +37,13 @@ public class OrderService {
 
 
     @Transactional(readOnly = false)
-    public void createOrder(List<CreateOrderRequestDto> dto, Long memberId) {
-        List<Order> order = orderMapper.mapFrom(dto, memberId);
+    public List<Long> createOrder(List<CreateOrderRequestDto> dto, Long memberId) {
+        List<Order> orders = orderMapper.mapFrom(dto, memberId);
         //TODO  order vadliation을 해야함.
-        orderRepository.saveAll(order);
+        orderRepository.saveAll(orders);
+        return orders.stream()
+                .map(order -> order.getId())
+                .collect(Collectors.toList());
     }
 
     public ShowTotalOrderResponseDto showCustomerOrders(Long memberId, Integer page) {
@@ -49,7 +53,7 @@ public class OrderService {
                 .map(order -> {
                     Item item = itemRepository
                             .findItemByItemId(order.getItemId())
-                            .orElseThrow(NotExistsItemException::new);
+                            .orElseThrow(NotExistsItemException::new);  //쿼리를 쪼개니까 문제가 발생함. item이 null일 때
                     return ShowOrdersForCustomerResponseDto.of(order, item);
                 })
                 .collect(Collectors.toList());
@@ -78,7 +82,7 @@ public class OrderService {
     }
 
     public ShowOrderResponseDto showOrder(Long memberId, Long orderId) {
-        Order order = orderRepository.findOrderByOrderIdAndOrderingMemberId(memberId, orderId)
+        Order order = orderRepository.findOrderByOrderIdAndOrderingMemberId(orderId, memberId)
                 .orElseThrow(NotExistsOrderException::new);
         Item item = itemRepository.findItemByItemId(order.getItemId())
                 .orElseThrow(NotExistsItemException::new);

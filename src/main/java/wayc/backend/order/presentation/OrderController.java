@@ -31,14 +31,14 @@ public class OrderController {
             @AuthenticationPrincipal Long id,
             @Validated @RequestBody List<PostOrderRequestDto> request
     ){
-        orderService.createOrder(
+        List<Long> idList = orderService.createOrder(
                 request
                         .stream()
                         .map(dto -> dto.toServiceDto())
                         .collect(Collectors.toList()),
                 id
         );
-        return ResponseEntity.ok(new PostOrderResponseDto());
+        return ResponseEntity.ok(new PostOrderResponseDto(idList));
     }
 
     @GetMapping("/customers")
