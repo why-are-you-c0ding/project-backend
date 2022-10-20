@@ -38,7 +38,7 @@ public class ShowTotalOrderResponseDtoFactory {
                 .shopId(2L)
                 .itemId(3L)
                 .orderId(7L)
-                .orderStatus(OrderStatus.COMPLICATED)
+                .orderStatus(OrderStatus.COMPLETED)
                 .build();
 
         return new ShowTotalOrderResponseDto(true, Arrays.asList(order_1, order_2));
@@ -54,7 +54,7 @@ public class ShowTotalOrderResponseDtoFactory {
         ShowOrdersForSellerResponseDto dto_3 =
                 new ShowOrdersForSellerResponseDto("www.image.com", 3L, 4, "소시지", "2022-10-19 16:03:08", 32L, OrderStatus.ONGOING);
         ShowOrdersForSellerResponseDto dto_4 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 4L, 1, "맥북", "2022-10-19 16:03:08", 42L, OrderStatus.COMPLICATED);
+                new ShowOrdersForSellerResponseDto("www.image.com", 4L, 1, "맥북", "2022-10-19 16:03:08", 42L, OrderStatus.COMPLETED);
 
 
         return new ShowTotalOrderResponseDto(true, Arrays.asList(dto_1, dto_2, dto_3, dto_4));
