@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
-public class ShowOrdersResponseDto {
+public class ShowOrdersForCustomerResponseDto {
 
     private String itemImageUrl;
     private String shopName;
@@ -25,7 +25,7 @@ public class ShowOrdersResponseDto {
 
 
     @Builder
-    public ShowOrdersResponseDto(String itemImageUrl, String shopName, String itemName, List<ShowOrderOptionGroupResponseDto> orderOptionGroups, Integer count, Long shopId, Long itemId, Long orderId) {
+    public ShowOrdersForCustomerResponseDto(String itemImageUrl, String shopName, String itemName, List<ShowOrderOptionGroupResponseDto> orderOptionGroups, Integer count, Long shopId, Long itemId, Long orderId) {
         this.itemImageUrl = itemImageUrl;
         this.shopName = shopName;
         this.itemName = itemName;
@@ -36,14 +36,15 @@ public class ShowOrdersResponseDto {
         this.orderId = orderId;
     }
 
-    public static ShowOrdersResponseDto of(Order order, Item item) {
-        return ShowOrdersResponseDto
+    public static ShowOrdersForCustomerResponseDto of(Order order, Item item) {
+        return ShowOrdersForCustomerResponseDto
                 .builder()
                 .itemImageUrl(item.getImageUrl())
                 .shopName(item.getShop().getShopName())
                 .count(order.getCount())
                 .shopId(item.getShop().getId())
                 .itemId(item.getId())
+                .itemName(item.getName())
                 .orderId(order.getId())
                 .orderOptionGroups(
                         order.getOrderOptionGroups()

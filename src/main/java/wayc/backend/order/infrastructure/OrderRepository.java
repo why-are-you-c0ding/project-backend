@@ -1,5 +1,6 @@
 package wayc.backend.order.infrastructure;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +14,32 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select o from Order o where o.orderingMemberId =:memberId and o.status = 'ACTIVE'")
     Slice<Order> findOrdersPagingByOrderingMemberId(Long memberId, Pageable pageable);
 
+    @Query("select o from Order o where o.itemId =:itemId and o.status = 'ACTIVE'")
+    Slice<Order> findOrdersPagingByItemId(Long itemId, Pageable pageable);
 
-//    @Query("select o from Order o where o. =:memberId and o.status = 'ACTIVE'")
-//    List<Order> findOrdersByOrShopIdId(Long memberId);
+    @Query(nativeQuery = true,
+            countQuery = "select count(*) from orders",
+            value =
+            "select i.id as itemId, i.image_url as itemImageUrl, i.name as itemName, o.count, o.id as orderId, o.created_at as createdAt" +
+                    "       from orders as o " +
+                    "join( select i.id, i.image_url, i.name  from item i where i.shop_id = " +
+                    "                                   (select shop.id from shop where shop.owner_id =:ownerId) ) " +
+                    "    as i on i.id = o.item_id " +
+                    "where o.status = 'ACTIVE'")
+    Page<OrderDto> findOrdersPagingByOwnerId(Long ownerId, Pageable page);
+
 }
+
+
+
+/**
+ * select * from orders as o
+ * join( select i.id from item i where i.shop_id =
+ *                                    (select shop.id from shop where shop.owner_id =:ownerId) )
+ *     as i on i.id = o.item_id
+ * where o.status = 'ACTIVE' order by o.created_at desc limit :page, 10
+ *
+ *
+ * https://www.baeldung.com/spring-data-jpa-query
+ */
+

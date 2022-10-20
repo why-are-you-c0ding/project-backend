@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
-public class ShowTotalOrderResponseDto {
+public class ShowTotalOrderResponseDto<T> {
 
 
     private boolean finalPage;
-    private List<ShowOrdersResponseDto> orders = new ArrayList<>();
+    private T orders;
 
-    public ShowTotalOrderResponseDto(boolean finalPage, List<ShowOrdersResponseDto> orders) {
+    public ShowTotalOrderResponseDto(boolean finalPage, T orders) {
         this.finalPage = finalPage;
         this.orders = orders;
     }

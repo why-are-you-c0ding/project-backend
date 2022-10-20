@@ -1,9 +1,6 @@
 package wayc.backend.order.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import wayc.backend.common.base.BaseEntity;
 
@@ -15,6 +12,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "orders")
+@ToString
 public class Order extends BaseEntity {
 
     @Id
