@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.order.domain.Order;
+import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.shop.domain.Item;
 
 import java.util.ArrayList;
@@ -22,10 +23,10 @@ public class ShowOrdersForCustomerResponseDto {
     private Long shopId;
     private Long itemId;
     private Long orderId;
-
+    private OrderStatus orderStatus;
 
     @Builder
-    public ShowOrdersForCustomerResponseDto(String itemImageUrl, String shopName, String itemName, List<ShowOrderOptionGroupResponseDto> orderOptionGroups, Integer count, Long shopId, Long itemId, Long orderId) {
+    public ShowOrdersForCustomerResponseDto(String itemImageUrl, String shopName, String itemName, List<ShowOrderOptionGroupResponseDto> orderOptionGroups, Integer count, Long shopId, Long itemId, Long orderId, OrderStatus orderStatus) {
         this.itemImageUrl = itemImageUrl;
         this.shopName = shopName;
         this.itemName = itemName;
@@ -34,7 +35,10 @@ public class ShowOrdersForCustomerResponseDto {
         this.shopId = shopId;
         this.itemId = itemId;
         this.orderId = orderId;
+        this.orderStatus = orderStatus;
     }
+
+
 
     public static ShowOrdersForCustomerResponseDto of(Order order, Item item) {
         return ShowOrdersForCustomerResponseDto
@@ -46,6 +50,7 @@ public class ShowOrdersForCustomerResponseDto {
                 .itemId(item.getId())
                 .itemName(item.getName())
                 .orderId(order.getId())
+                .orderStatus(order.getOrderStatus())
                 .orderOptionGroups(
                         order.getOrderOptionGroups()
                                 .stream()
