@@ -198,7 +198,7 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void update_order() throws Exception {
         //given
-        PatchOrderRequestDto req = new PatchOrderRequestDto(2L, 3L, OrderStatus.COMPLICATED);
+        PatchOrderRequestDto req = new PatchOrderRequestDto(2L, 3L, OrderStatus.COMPLETED);
         String value = mapper.writeValueAsString(req);
 
         //when
