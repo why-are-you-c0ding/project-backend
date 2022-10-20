@@ -1,14 +1,18 @@
 package wayc.backend.order.application;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import wayc.backend.exception.order.NotExistsOrderException;
 import wayc.backend.exception.shop.NotExistsItemException;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
+import wayc.backend.order.application.dto.response.ShowOrderResponseDto;
 import wayc.backend.order.application.dto.response.ShowOrdersForCustomerResponseDto;
 import wayc.backend.order.application.dto.response.ShowOrdersForSellerResponseDto;
 import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
@@ -43,7 +47,7 @@ public class OrderService {
         List<ShowOrdersForCustomerResponseDto> result = pagingResult.stream()
                 .map(order -> {
                     Item item = itemRepository
-                            .findByIdAndStatus(order.getItemId())
+                            .findItemByItemId(order.getItemId())
                             .orElseThrow(NotExistsItemException::new);
                     return ShowOrdersForCustomerResponseDto.of(order, item);
                 })
@@ -64,10 +68,20 @@ public class OrderService {
                                 dto.getCount(),
                                 dto.getItemName(),
                                 dto.getCreatedAt(),
-                                dto.getItemId()
+                                dto.getItemId(),
+                                dto.getOrderStatus()
                 ))
                 .collect(Collectors.toList());
 
         return new ShowTotalOrderResponseDto(pagingResult.isLast(), result);
+    }
+
+    public ShowOrderResponseDto showOrder(Long memberId, Long orderId) {
+        Order order = orderRepository.findOrderByOrderId(memberId, orderId)
+                .orElseThrow(NotExistsOrderException::new);
+        Item item = itemRepository.findItemByItemId(order.getItemId())
+                .orElseThrow(NotExistsItemException::new);
+
+        return ShowOrderResponseDto.of(order, item);
     }
 }

@@ -1,5 +1,7 @@
 package wayc.backend.order.infrastructure;
 
+import wayc.backend.order.domain.OrderStatus;
+
 import java.time.LocalDateTime;
 
 public interface OrderDto {
@@ -9,6 +11,7 @@ public interface OrderDto {
     String getItemName();
     String getCreatedAt();
     Long getItemId();
+    OrderStatus getOrderStatus();
 }
 
 /**

@@ -1,6 +1,7 @@
 package wayc.backend.factory.order;
 
 import wayc.backend.order.application.dto.response.*;
+import wayc.backend.order.domain.OrderStatus;
 
 import java.util.Arrays;
 
@@ -21,6 +22,7 @@ public class ShowTotalOrderResponseDtoFactory {
                 .shopId(1L)
                 .itemId(2L)
                 .orderId(4L)
+                .orderStatus(OrderStatus.ONGOING)
                 .build();
 
 
@@ -36,6 +38,7 @@ public class ShowTotalOrderResponseDtoFactory {
                 .shopId(2L)
                 .itemId(3L)
                 .orderId(7L)
+                .orderStatus(OrderStatus.COMPLICATED)
                 .build();
 
         return new ShowTotalOrderResponseDto(true, Arrays.asList(order_1, order_2));
@@ -45,13 +48,13 @@ public class ShowTotalOrderResponseDtoFactory {
     public static ShowTotalOrderResponseDto createSuccessCaseForSeller(){
 
         ShowOrdersForSellerResponseDto dto_1 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 1L, 2, "멋진 옷", "2022-10-19 16:03:08", 39L);
+                new ShowOrdersForSellerResponseDto("www.image.com", 1L, 2, "멋진 옷", "2022-10-19 16:03:08", 39L, OrderStatus.ONGOING);
         ShowOrdersForSellerResponseDto dto_2 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 2L, 3, "닭가슴살 패키지", "2022-10-19 16:03:08", 40L);
+                new ShowOrdersForSellerResponseDto("www.image.com", 2L, 3, "닭가슴살 패키지", "2022-10-19 16:03:08", 40L, OrderStatus.ONGOING);
         ShowOrdersForSellerResponseDto dto_3 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 3L, 4, "소시지", "2022-10-19 16:03:08", 32L);
+                new ShowOrdersForSellerResponseDto("www.image.com", 3L, 4, "소시지", "2022-10-19 16:03:08", 32L, OrderStatus.ONGOING);
         ShowOrdersForSellerResponseDto dto_4 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 4L, 1, "맥북", "2022-10-19 16:03:08", 42L);
+                new ShowOrdersForSellerResponseDto("www.image.com", 4L, 1, "맥북", "2022-10-19 16:03:08", 42L, OrderStatus.COMPLICATED);
 
 
         return new ShowTotalOrderResponseDto(true, Arrays.asList(dto_1, dto_2, dto_3, dto_4));
