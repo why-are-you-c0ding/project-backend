@@ -46,7 +46,6 @@ public class MemberControllerTest extends ControllerTest {
                         .content(value)
                 )
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("$.nickName").value("nickName"))
                 .andDo(print())
                 .andDo(document("create_consumer",
                         getDocumentRequest(),
@@ -61,11 +60,7 @@ public class MemberControllerTest extends ControllerTest {
                                         fieldWithPath("authKey").type(STRING).description("이메일 인증 키")
                                 ),
                                 responseFields(
-                                        fieldWithPath("id").type(NUMBER).description("멤버 id"),
-                                        fieldWithPath("nickName").type(STRING).description("닉네임"),
-                                        fieldWithPath("email").type(STRING).description("이메일"),
-                                        fieldWithPath("loginId").type(STRING).description("로그인아이디"),
-                                        fieldWithPath("age").type(NUMBER).description("나이")
+                                        fieldWithPath("message").type(STRING).description("성공 메시지")
                                 )
                         ));
     }
@@ -87,7 +82,6 @@ public class MemberControllerTest extends ControllerTest {
                         .content(value)
                 )
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("$.nickName").value("nickName"))
                 .andDo(print())
                 .andDo(document("create_seller",
                         getDocumentRequest(),
@@ -102,11 +96,7 @@ public class MemberControllerTest extends ControllerTest {
                                 fieldWithPath("authKey").type(STRING).description("이메일 인증 키")
                         ),
                         responseFields(
-                                fieldWithPath("id").type(NUMBER).description("멤버 id"),
-                                fieldWithPath("nickName").type(STRING).description("닉네임"),
-                                fieldWithPath("email").type(STRING).description("이메일"),
-                                fieldWithPath("loginId").type(STRING).description("로그인아이디"),
-                                fieldWithPath("age").type(NUMBER).description("나이")
+                                fieldWithPath("message").type(STRING).description("성공 메시지")
                         )
                 ));
     }
