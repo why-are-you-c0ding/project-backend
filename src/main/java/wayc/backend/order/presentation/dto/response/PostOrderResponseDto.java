@@ -9,11 +9,9 @@ import java.util.List;
 public class PostOrderResponseDto {
 
     private String message;
-    private List<Long> orderIdList = new ArrayList<>();
 
-    public PostOrderResponseDto(List<Long> orderIdList) {
+    public PostOrderResponseDto() {
         this.message = "주문 생성에 성공하셨습니다.";
-        this.orderIdList = orderIdList;
     }
 }
 

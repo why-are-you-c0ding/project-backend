@@ -41,7 +41,7 @@ public class OrderControllerTest extends ControllerTest {
         List<PostOrderRequestDto> req = PostOrderRequestDtoFactory.createSuccessCase();
         String value = mapper.writeValueAsString(req);
 
-        given(orderService.createOrder(Mockito.any(List.class), Mockito.any(Long.class))).willReturn(Arrays.asList(1L, 2L));
+        given(orderService.createOrder(Mockito.any(Long.class), Mockito.any(List.class))).willReturn(Arrays.asList(1L));
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.post("/orders")
@@ -59,6 +59,7 @@ public class OrderControllerTest extends ControllerTest {
                                         fieldWithPath("[].itemId").type(NUMBER).description("구매하는 상품 id"),
                                         fieldWithPath("[].name").type(STRING).description("구매하는 상품 이름"),
                                         fieldWithPath("[].count").type(NUMBER).description("구매하는 상품 개수"),
+                                        fieldWithPath("[].price").type(NUMBER).description("주문의 결제 금액"),
                                         fieldWithPath("[].address").type(OBJECT).description("주문하는 주소"),
                                         fieldWithPath("[].address.major").type(STRING).description("주문하는 대주소"),
                                         fieldWithPath("[].address.detail").type(STRING).description("주문하는 상세 주소"),
@@ -69,8 +70,7 @@ public class OrderControllerTest extends ControllerTest {
                                         subsectionWithPath("[].orderOptionGroups[].orderOption.name").type(STRING).description("구매하는 상품 옵션 그룹의 옵션 이름"),
                                         subsectionWithPath("[].orderOptionGroups[].orderOption.price").type(NUMBER).description("구매하는 상품 옵션 그룹의 옵션 가격")                             ),
                                 responseFields(
-                                        fieldWithPath("message").type(STRING).description("주문 생성 성공 메시지"),
-                                        fieldWithPath("orderIdList").type(ARRAY).description("생성한 주문들의 id 배열")
+                                        fieldWithPath("message").type(STRING).description("주문 생성 성공 메시지")
                                 )
                         ));
     }

@@ -5,12 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import wayc.backend.exception.order.NotExistsOrderException;
+import wayc.backend.order.application.PayService;
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.order.infrastructure.OrderRepository;
 
 import wayc.backend.pay.application.dto.request.CreatePayRequestDto;
-import wayc.backend.pay.application.dto.response.CreatePayResponseDto;
 import wayc.backend.pay.domain.Pay;
 import wayc.backend.pay.infrastructure.PayRepository;
 
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class PayService {
+public class PayServiceImpl implements PayService {
 
     private final PayRepository payRepository;
     private final OrderRepository orderRepository;

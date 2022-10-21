@@ -37,7 +37,7 @@ public class OrderService {
 
 
     @Transactional(readOnly = false)
-    public List<Long> createOrder(List<CreateOrderRequestDto> dto, Long memberId) {
+    public List<Long> createOrder(Long memberId, List<CreateOrderRequestDto> dto) {
         List<Order> orders = orderMapper.mapFrom(dto, memberId);
         //TODO  order vadliation을 해야함.
         orderRepository.saveAll(orders);

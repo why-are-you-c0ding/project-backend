@@ -21,7 +21,7 @@ public class PostOrderRequestDtoFactory {
 
         PostAddressRequestDto address = new PostAddressRequestDto("서울특별시 멋진구 멋진동", "멋진아파트 111동 111호", "01099");
 
-        return Arrays.asList(new PostOrderRequestDto(1L, "멋쟁이 옷", 3, Arrays.asList(color, sizee), address));
+        return Arrays.asList(new PostOrderRequestDto(1L, "멋쟁이 옷", 3, 40000,Arrays.asList(color, sizee), address));
     }
 }
 
