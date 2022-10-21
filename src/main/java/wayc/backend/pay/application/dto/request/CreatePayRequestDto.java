@@ -2,13 +2,17 @@ package wayc.backend.pay.application.dto.request;
 
 import lombok.Getter;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 public class CreatePayRequestDto {
 
+    @NotNull
     private Integer price;
+
+    @NotNull
     private Long orderId;
 
     public CreatePayRequestDto(Integer price, Long orderId) {

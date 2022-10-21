@@ -34,6 +34,7 @@ public class PostOrderRequestDto {
     @NotEmpty
     private List<PostOrderOptionGroupRequestDto> orderOptionGroups = new ArrayList<>();
 
+    @NotNull
     private PostAddressRequestDto address;
 
     public PostOrderRequestDto(Long itemId, String name, Integer count, Integer price, List<PostOrderOptionGroupRequestDto> orderOptionGroups, PostAddressRequestDto address) {
@@ -54,7 +55,8 @@ public class PostOrderRequestDto {
                         .stream()
                         .map(optionGroupsDto -> optionGroupsDto.toServiceDto())
                         .collect(Collectors.toList()),
-                address.toServiceDto()
+                address.toServiceDto(),
+                price
         );
     }
 }

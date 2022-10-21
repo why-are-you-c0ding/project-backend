@@ -27,29 +27,19 @@ import java.util.stream.Collectors;
 public class OrderController {
 
     private final OrderService orderService;
-    private final PayService payService;
 
     @PostMapping
     public ResponseEntity<PostOrderResponseDto> postOrder(
             @AuthenticationPrincipal Long memberId,
             @Validated @RequestBody List<PostOrderRequestDto> request
     ){
-        List<Long> idList = orderService.createOrder(
-                memberId,
-                request
-                        .stream()
-                        .map(dto -> dto.toServiceDto())
-                        .collect(Collectors.toList())
+       orderService.createOrder(
+               memberId,
+               request
+                       .stream()
+                       .map(dto -> dto.toServiceDto())
+                       .collect(Collectors.toList())
                 );
-
-        payService.createPay(
-                memberId,
-                CreatePayRequestDto.from(
-                        idList,
-                        request.stream()
-                                .map(dto -> dto.getPrice())
-                                .collect(Collectors.toList())
-        ));
 
         return ResponseEntity.ok(new PostOrderResponseDto());
     }
