@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import wayc.backend.order.application.OrderService;
+import wayc.backend.order.application.PayService;
 import wayc.backend.order.application.dto.response.ShowOrderResponseDto;
 import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
 import wayc.backend.order.application.dto.response.UpdateOrderResponseDto;
@@ -15,6 +16,7 @@ import wayc.backend.order.application.dto.response.UpdateOrderResponseDto;
 import wayc.backend.order.presentation.dto.request.PatchOrderRequestDto;
 import wayc.backend.order.presentation.dto.request.PostOrderRequestDto;
 import wayc.backend.order.presentation.dto.response.PostOrderResponseDto;
+import wayc.backend.pay.application.dto.request.CreatePayRequestDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,20 +27,31 @@ import java.util.stream.Collectors;
 public class OrderController {
 
     private final OrderService orderService;
+    private final PayService payService;
 
     @PostMapping
     public ResponseEntity<PostOrderResponseDto> postOrder(
-            @AuthenticationPrincipal Long id,
+            @AuthenticationPrincipal Long memberId,
             @Validated @RequestBody List<PostOrderRequestDto> request
     ){
         List<Long> idList = orderService.createOrder(
+                memberId,
                 request
                         .stream()
                         .map(dto -> dto.toServiceDto())
-                        .collect(Collectors.toList()),
-                id
-        );
-        return ResponseEntity.ok(new PostOrderResponseDto(idList));
+                        .collect(Collectors.toList())
+                );
+
+        payService.createPay(
+                memberId,
+                CreatePayRequestDto.from(
+                        idList,
+                        request.stream()
+                                .map(dto -> dto.getPrice())
+                                .collect(Collectors.toList())
+        ));
+
+        return ResponseEntity.ok(new PostOrderResponseDto());
     }
 
     @GetMapping("/customers")

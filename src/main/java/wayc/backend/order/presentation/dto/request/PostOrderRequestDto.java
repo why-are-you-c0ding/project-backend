@@ -27,16 +27,20 @@ public class PostOrderRequestDto {
     @Min(0)
     private Integer count;
 
+    @NotNull
+    private Integer price;
+
     @Valid
     @NotEmpty
     private List<PostOrderOptionGroupRequestDto> orderOptionGroups = new ArrayList<>();
 
     private PostAddressRequestDto address;
 
-    public PostOrderRequestDto(Long itemId, String name, Integer count, List<PostOrderOptionGroupRequestDto> orderOptionGroups, PostAddressRequestDto address) {
+    public PostOrderRequestDto(Long itemId, String name, Integer count, Integer price, List<PostOrderOptionGroupRequestDto> orderOptionGroups, PostAddressRequestDto address) {
         this.itemId = itemId;
         this.name = name;
         this.count = count;
+        this.price = price;
         this.orderOptionGroups = orderOptionGroups;
         this.address = address;
     }
