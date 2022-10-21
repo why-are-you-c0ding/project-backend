@@ -19,15 +19,16 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(nativeQuery = true,
             countQuery = "select count(*) from orders",
             value =
-            "select i.id as itemId, i.image_url as itemImageUrl, i.name as itemName, o.count, o.id as orderId, o.created_at as createdAt, o.order_status as orderStatus" +
-                    "       from orders as o " +
-                    "join( select i.id, i.image_url, i.name, i.status  from item i where i.shop_id = " +
+            "select i.id as itemId, i.image_url as itemImageUrl, i.name as itemName, o.count, " +
+                    " o.id as orderId, o.created_at as createdAt, o.order_status as orderStatus, pay.price as price from orders as o " +
+                    " join( select i.id, i.image_url, i.name, i.status  from item i where i.shop_id = " +
                     "                                   (select shop.id from shop where shop.owner_id =:ownerId) ) " +
-                    "    as i on i.id = o.item_id and i.status = 'ACTIVE'  " +
-                    "where o.status = 'ACTIVE'")
+                    "    as i on i.id = o.item_id and i.status = 'ACTIVE' " +
+                    " join pay on pay.order_id = o.id and pay.status = 'ACTIVE' " +
+                    " where o.status = 'ACTIVE'")
     Page<OrderDto> findOrdersPagingByOwnerId(Long ownerId, Pageable page);
 
-    @Query("select o from Order o join fetch o.orderOptionGroups where o.id = :orderId and o.orderingMemberId = :memberId and o.status = 'ACTIVE'")
+    @Query("select distinct o from Order o join fetch o.orderOptionGroups where o.id = :orderId and o.orderingMemberId = :memberId and o.status = 'ACTIVE'")
     Optional<Order> findOrderByOrderIdAndOrderingMemberId(Long orderId, Long memberId);
 
     @Query("select o from Order o  where o.id = :orderId and o.orderingMemberId = :memberId and o.orderStatus = 'BEFORE_PAY' and o.status = 'ACTIVE'")

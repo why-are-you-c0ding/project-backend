@@ -34,6 +34,7 @@ public class ShowOrderResponseDtoFactory {
                 )
                 .shopId(7L)
                 .shopName("멋쟁이들의 가게")
+                .price(10000)
                 .build();
     }
 }

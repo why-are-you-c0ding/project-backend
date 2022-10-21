@@ -146,9 +146,9 @@ public class OrderControllerTest extends ControllerTest {
                                 subsectionWithPath("orders[].itemId").type(NUMBER).description("주문한 상품의 id"),
                                 subsectionWithPath("orders[].orderId").type(NUMBER).description("주문 id"),
                                 subsectionWithPath("orders[].createdAt").type(STRING).description("주문 생성 날짜"),
-                                subsectionWithPath("orders[].orderStatus").type(STRING).description("주문 진행 상태")
-
-                        )
+                                subsectionWithPath("orders[].orderStatus").type(STRING).description("주문 진행 상태"),
+                                subsectionWithPath("orders[].price").type(NUMBER).description("주문 결제 금액")
+                                )
                 ));
     }
 
@@ -188,6 +188,7 @@ public class OrderControllerTest extends ControllerTest {
                                 fieldWithPath("address.detail").type(STRING).description("주문 배송지 자세한 주소"),
                                 fieldWithPath("address.zipcode").type(STRING).description("주문 배송지 도로 번호"),
                                 fieldWithPath("orderOptionGroups").type(ARRAY).description("주문한 상품의 옵션 그룹"),
+                                fieldWithPath("price").type(NUMBER).description("주문 결제 금액"),
                                 subsectionWithPath("orderOptionGroups[].name").type(STRING).description("주문한 상품의 옵션 그룹 이름"),
                                 subsectionWithPath("orderOptionGroups[].option").type(OBJECT).description("주문한 상품의 옵션 그룹 옵션"),
                                 subsectionWithPath("orderOptionGroups[].option.name").type(STRING).description("주문한 상품의 옵션 그룹 옵션 이름")

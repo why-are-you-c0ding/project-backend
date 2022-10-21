@@ -12,6 +12,7 @@ public interface OrderDto {
     String getCreatedAt();
     Long getItemId();
     OrderStatus getOrderStatus();
+    Integer getPrice();
 }
 
 /**

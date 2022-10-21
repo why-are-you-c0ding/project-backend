@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import wayc.backend.exception.order.NotExistsOrderException;
+import wayc.backend.exception.pay.NotExistsPayException;
 import wayc.backend.exception.shop.NotExistsItemException;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
@@ -21,6 +22,7 @@ import wayc.backend.order.infrastructure.OrderDto;
 import wayc.backend.order.infrastructure.OrderRepository;
 import wayc.backend.order.domain.Order;
 
+import wayc.backend.pay.infrastructure.PayRepository;
 import wayc.backend.shop.infrastructure.ItemRepository;
 import wayc.backend.shop.domain.Item;
 
@@ -33,8 +35,8 @@ public class OrderService {
 
     private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
+    private final PayRepository payRepository; //추후에 의존성 역전을 진행하도록 하자.
     private final OrderMapper orderMapper;
-
 
     @Transactional(readOnly = false)
     public List<Long> createOrder(Long memberId, List<CreateOrderRequestDto> dto) {
@@ -74,7 +76,8 @@ public class OrderService {
                                 dto.getItemName(),
                                 dto.getCreatedAt(),
                                 dto.getItemId(),
-                                dto.getOrderStatus()
+                                dto.getOrderStatus(),
+                                dto.getPrice()
                 ))
                 .collect(Collectors.toList());
 
@@ -86,8 +89,10 @@ public class OrderService {
                 .orElseThrow(NotExistsOrderException::new);
         Item item = itemRepository.findItemByItemId(order.getItemId())
                 .orElseThrow(NotExistsItemException::new);
+        Integer price = payRepository.findPayPriceByOrderId(order.getId())
+                .orElseThrow(NotExistsPayException::new);
 
-        return ShowOrderResponseDto.of(order, item);
+        return ShowOrderResponseDto.of(order, item, price);
     }
 
     @Transactional(readOnly = false)
@@ -95,11 +100,11 @@ public class OrderService {
 
         //아이템의 주인이 맞는지 확인
         itemRepository.findItemByShopOwnerIdAndItemId(ownerId, dto.getItemId())
-                .orElseThrow();
+                .orElseThrow(NotExistsItemException::new);
 
         //아이템 아이디와 주문 번호로 찾아옴.
         Order order = orderRepository.findOrderByOrderIdAndItemId(dto.getOrderId(), dto.getItemId())
-                .orElseThrow();
+                .orElseThrow(NotExistsOrderException::new);
 
         order.updateOrder(dto.getOrderStatus());
     }
