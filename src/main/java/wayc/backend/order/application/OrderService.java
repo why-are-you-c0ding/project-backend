@@ -56,7 +56,9 @@ public class OrderService {
                     Item item = itemRepository
                             .findItemByItemId(order.getItemId())
                             .orElseThrow(NotExistsItemException::new);  //쿼리를 쪼개니까 문제가 발생함. item이 null일 때
-                    return ShowOrdersForCustomerResponseDto.of(order, item);
+                    Integer price = payRepository.findPayPriceByOrderId(order.getId())
+                            .orElseThrow(NotExistsPayException::new);
+                    return ShowOrdersForCustomerResponseDto.of(order, item, price);
                 })
                 .collect(Collectors.toList());
         ;

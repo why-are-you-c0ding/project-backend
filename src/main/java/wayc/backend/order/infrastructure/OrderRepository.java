@@ -28,6 +28,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
                     " where o.status = 'ACTIVE'")
     Page<OrderDto> findOrdersPagingByOwnerId(Long ownerId, Pageable page);
 
+    //일대다 컬렉션 페치 조인을 하게 되면 데이터 뻥튀기가 발생하는데 이를 막기 위해 distince 사용
     @Query("select distinct o from Order o join fetch o.orderOptionGroups where o.id = :orderId and o.orderingMemberId = :memberId and o.status = 'ACTIVE'")
     Optional<Order> findOrderByOrderIdAndOrderingMemberId(Long orderId, Long memberId);
 
