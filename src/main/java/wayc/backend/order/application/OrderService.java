@@ -22,6 +22,7 @@ import wayc.backend.order.infrastructure.OrderDto;
 import wayc.backend.order.infrastructure.OrderRepository;
 import wayc.backend.order.domain.Order;
 
+import wayc.backend.pay.application.dto.request.CreatePayRequestDto;
 import wayc.backend.pay.infrastructure.PayRepository;
 import wayc.backend.shop.infrastructure.ItemRepository;
 import wayc.backend.shop.domain.Item;
@@ -33,19 +34,31 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
 
+    private final PayService payService;
+
     private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
     private final PayRepository payRepository; //추후에 의존성 역전을 진행하도록 하자.
     private final OrderMapper orderMapper;
 
     @Transactional(readOnly = false)
-    public List<Long> createOrder(Long memberId, List<CreateOrderRequestDto> dto) {
-        List<Order> orders = orderMapper.mapFrom(dto, memberId);
+    public void createOrder(Long memberId, List<CreateOrderRequestDto> dtoList) {
+        List<Order> orders = orderMapper.mapFrom(dtoList, memberId);
         //TODO  order vadliation을 해야함.
         orderRepository.saveAll(orders);
-        return orders.stream()
-                .map(order -> order.getId())
-                .collect(Collectors.toList());
+
+        payService.createPay(
+                memberId,
+                CreatePayRequestDto.from(
+                        orders.stream()
+                                .map(order -> order.getId())
+                                .collect(Collectors.toList())
+                        ,
+                        dtoList.stream()
+                                .map(dto -> dto.getPrice())
+                                .collect(Collectors.toList())
+                ));
+
     }
 
     public ShowTotalOrderResponseDto showCustomerOrders(Long memberId, Integer page) {

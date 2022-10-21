@@ -41,8 +41,6 @@ public class OrderControllerTest extends ControllerTest {
         List<PostOrderRequestDto> req = PostOrderRequestDtoFactory.createSuccessCase();
         String value = mapper.writeValueAsString(req);
 
-        given(orderService.createOrder(Mockito.any(Long.class), Mockito.any(List.class))).willReturn(Arrays.asList(1L));
-
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.post("/orders")
                         .contentType(MediaType.APPLICATION_JSON)
