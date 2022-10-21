@@ -104,6 +104,7 @@ public class OrderControllerTest extends ControllerTest {
                                 subsectionWithPath("orders[].shopName").type(STRING).description("주문한 상품의 가게 이름"),
                                 subsectionWithPath("orders[].itemName").type(STRING).description("주문한 상품의 이름"),
                                 subsectionWithPath("orders[].count").type(NUMBER).description("주문한 상품의 개수"),
+                                subsectionWithPath("orders[].price").type(NUMBER).description("주문 결제 금액"),
                                 subsectionWithPath("orders[].shopId").type(NUMBER).description("주문한 상품의 가게 id"),
                                 subsectionWithPath("orders[].itemId").type(NUMBER).description("주문한 상품의 id"),
                                 subsectionWithPath("orders[].orderId").type(NUMBER).description("주문 id"),
