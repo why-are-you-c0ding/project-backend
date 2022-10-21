@@ -148,7 +148,7 @@ public class OrderControllerTest extends ControllerTest {
                                 subsectionWithPath("orders[].createdAt").type(STRING).description("주문 생성 날짜"),
                                 subsectionWithPath("orders[].orderStatus").type(STRING).description("주문 진행 상태"),
                                 subsectionWithPath("orders[].price").type(NUMBER).description("주문 결제 금액")
-                                )
+                        )
                 ));
     }
 

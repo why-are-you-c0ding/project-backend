@@ -24,9 +24,10 @@ public class ShowOrdersForCustomerResponseDto {
     private Long itemId;
     private Long orderId;
     private OrderStatus orderStatus;
+    private Integer price;
 
     @Builder
-    public ShowOrdersForCustomerResponseDto(String itemImageUrl, String shopName, String itemName, List<ShowOrderOptionGroupResponseDto> orderOptionGroups, Integer count, Long shopId, Long itemId, Long orderId, OrderStatus orderStatus) {
+    public ShowOrdersForCustomerResponseDto(String itemImageUrl, String shopName, String itemName, List<ShowOrderOptionGroupResponseDto> orderOptionGroups, Integer count, Long shopId, Long itemId, Long orderId, OrderStatus orderStatus, Integer price) {
         this.itemImageUrl = itemImageUrl;
         this.shopName = shopName;
         this.itemName = itemName;
@@ -36,11 +37,12 @@ public class ShowOrdersForCustomerResponseDto {
         this.itemId = itemId;
         this.orderId = orderId;
         this.orderStatus = orderStatus;
+        this.price = price;
     }
 
 
 
-    public static ShowOrdersForCustomerResponseDto of(Order order, Item item) {
+    public static ShowOrdersForCustomerResponseDto of(Order order, Item item, Integer price) {
         return ShowOrdersForCustomerResponseDto
                 .builder()
                 .itemImageUrl(item.getImageUrl())
@@ -51,6 +53,7 @@ public class ShowOrdersForCustomerResponseDto {
                 .itemName(item.getName())
                 .orderId(order.getId())
                 .orderStatus(order.getOrderStatus())
+                .price(price)
                 .orderOptionGroups(
                         order.getOrderOptionGroups()
                                 .stream()
