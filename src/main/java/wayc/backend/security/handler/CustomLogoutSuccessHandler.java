@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import wayc.backend.security.dto.response.LoginResponseDto;
+import wayc.backend.security.dto.response.LogoutResponseDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
         //TODO jwt 로그아웃 로직을 구현해야함.
 
+        mapper.writeValue(response.getWriter(), new LogoutResponseDto());
         //mapper.writeValue(response.getWriter(), new LoginResponseDto("Logout succeeded."));
     }
 }
