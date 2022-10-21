@@ -15,7 +15,7 @@ public class PostOptionGroupRequestDto {
 
     @Valid
     @NotEmpty
-    private List<PostOptionRequestDto> optionRequests;
+    private List<PostOptionRequestDto> options;
 
     @Size(min = 5)
     private String optionGroupName;
@@ -24,7 +24,7 @@ public class PostOptionGroupRequestDto {
     private Boolean basic;
 
     public PostOptionGroupRequestDto(List<PostOptionRequestDto> optionRequests, String optionGroupName, Boolean basic) {
-        this.optionRequests = optionRequests;
+        this.options = optionRequests;
         this.optionGroupName = optionGroupName;
         this.basic = basic;
     }
