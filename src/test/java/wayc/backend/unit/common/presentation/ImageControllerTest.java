@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import wayc.backend.common.WithMockSeller;
 import wayc.backend.unit.ControllerTest;
 
 import java.io.InputStream;
@@ -23,6 +24,7 @@ import static wayc.backend.docs.SpringRestDocsUtils.getDocumentResponse;
 public class ImageControllerTest extends ControllerTest {
 
     @Test
+    @WithMockSeller
     @DisplayName("이미지 업로드 성공 테스트")
     void upload_imagel() throws Exception {
 

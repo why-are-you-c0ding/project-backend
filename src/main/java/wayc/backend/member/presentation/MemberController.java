@@ -11,6 +11,7 @@ import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
 import wayc.backend.member.presentation.dto.request.PostConsumerRequestDto;
 import wayc.backend.member.presentation.dto.request.PostSellerRequestDto;
+import wayc.backend.member.presentation.dto.response.PostMemberResponseDto;
 import wayc.backend.shop.application.ShopService;
 
 
@@ -24,21 +25,21 @@ public class MemberController {
     private final CartService cartService;
 
     @PostMapping("/consumers")
-    public ResponseEntity<CreateMemberResponseDto> createMember(
+    public ResponseEntity<PostMemberResponseDto> createMember(
             @RequestBody @Validated PostConsumerRequestDto request
     ){
         CreateMemberResponseDto res = memberService.createConsumer(PostConsumerRequestDto.toServiceDto(request));
         cartService.create(res.getId());
-        return ResponseEntity.ok(res);
+        return ResponseEntity.ok(new PostMemberResponseDto());
     }
 
     @PostMapping("/sellers")
-    public ResponseEntity<CreateMemberResponseDto> createSeller(
+    public ResponseEntity<PostMemberResponseDto> createSeller(
             @RequestBody @Validated PostSellerRequestDto request
     ){
         CreateMemberResponseDto res = memberService.createSeller(PostSellerRequestDto.toServiceDto(request));
         shopService.createShop(res.getId(), res.getNickName());
         cartService.create(res.getId());
-        return ResponseEntity.ok(res);
+        return ResponseEntity.ok(new PostMemberResponseDto());
     }
 }
