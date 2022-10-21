@@ -48,13 +48,13 @@ public class ShowTotalOrderResponseDtoFactory {
     public static ShowTotalOrderResponseDto createSuccessCaseForSeller(){
 
         ShowOrdersForSellerResponseDto dto_1 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 1L, 2, "멋진 옷", "2022-10-19 16:03:08", 39L, OrderStatus.ONGOING);
+                new ShowOrdersForSellerResponseDto("www.image.com", 1L, 2, "멋진 옷", "2022-10-19 16:03:08", 39L, OrderStatus.ONGOING, 5000);
         ShowOrdersForSellerResponseDto dto_2 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 2L, 3, "닭가슴살 패키지", "2022-10-19 16:03:08", 40L, OrderStatus.ONGOING);
+                new ShowOrdersForSellerResponseDto("www.image.com", 2L, 3, "닭가슴살 패키지", "2022-10-19 16:03:08", 40L, OrderStatus.ONGOING, 4000);
         ShowOrdersForSellerResponseDto dto_3 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 3L, 4, "소시지", "2022-10-19 16:03:08", 32L, OrderStatus.ONGOING);
+                new ShowOrdersForSellerResponseDto("www.image.com", 3L, 4, "소시지", "2022-10-19 16:03:08", 32L, OrderStatus.ONGOING, 4000);
         ShowOrdersForSellerResponseDto dto_4 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 4L, 1, "맥북", "2022-10-19 16:03:08", 42L, OrderStatus.COMPLETED);
+                new ShowOrdersForSellerResponseDto("www.image.com", 4L, 1, "맥북", "2022-10-19 16:03:08", 42L, OrderStatus.COMPLETED, 100000);
 
 
         return new ShowTotalOrderResponseDto(true, Arrays.asList(dto_1, dto_2, dto_3, dto_4));

@@ -15,8 +15,9 @@ public class ShowOrdersForSellerResponseDto {
     private String createdAt;
     private Long itemId;
     private OrderStatus orderStatus;
+    private Integer price;
 
-    public ShowOrdersForSellerResponseDto(String itemImageUrl, Long orderId, Integer count, String itemName, String createdAt, Long itemId, OrderStatus orderStatus) {
+    public ShowOrdersForSellerResponseDto(String itemImageUrl, Long orderId, Integer count, String itemName, String createdAt, Long itemId, OrderStatus orderStatus, Integer price) {
         this.itemImageUrl = itemImageUrl;
         this.orderId = orderId;
         this.count = count;
@@ -24,6 +25,7 @@ public class ShowOrdersForSellerResponseDto {
         this.createdAt = createdAt;
         this.itemId = itemId;
         this.orderStatus = orderStatus;
+        this.price = price;
     }
 
     public Long getItemId() {

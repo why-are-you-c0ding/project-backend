@@ -24,11 +24,12 @@ public class ShowOrderResponseDto {
 
     private String shopName;
     private Long shopId;
+    private Integer price;
 
     private List<ShowOrderOptionGroupResponseDto> orderOptionGroups = new ArrayList<>();
 
     @Builder
-    public ShowOrderResponseDto(Long orderId, Long itemId, String itemName, String itemImageUrl, Integer count,
+    public ShowOrderResponseDto(Long orderId, Long itemId, String itemName, String itemImageUrl, Integer count, Integer price,
                                 OrderStatus orderStatus, Address address, String shopName, Long shopId, List<ShowOrderOptionGroupResponseDto> orderOptionGroups) {
         this.orderId = orderId;
         this.itemId = itemId;
@@ -40,9 +41,10 @@ public class ShowOrderResponseDto {
         this.shopName = shopName;
         this.shopId = shopId;
         this.orderOptionGroups = orderOptionGroups;
+        this.price = price;
     }
 
-    public static ShowOrderResponseDto of(Order order, Item item) {
+    public static ShowOrderResponseDto of(Order order, Item item, Integer price) {
         return ShowOrderResponseDto.builder()
                 .shopId(item.getShop().getId())
                 .shopName(item.getShop().getShopName())
@@ -53,6 +55,7 @@ public class ShowOrderResponseDto {
                 .count(order.getCount())
                 .orderStatus(order.getOrderStatus())
                 .address(order.getAddress())
+                .price(price)
                 .orderOptionGroups(
                         order.getOrderOptionGroups()
                                 .stream()
