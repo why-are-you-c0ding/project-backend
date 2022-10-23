@@ -39,8 +39,11 @@ public class JwtProviderImpl implements JwtProvider {
         this.key = createKey(secretKey);
     }
 
-    private Key createKey(String secretKey){
+    public Key createKey(String secretKey){
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        for (byte keyByte : keyBytes) {
+            System.out.print(keyByte);
+        }
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
@@ -60,7 +63,7 @@ public class JwtProviderImpl implements JwtProvider {
                 .claim(ID, authentication.getPrincipal())
                 .claim(AUTHORITIES, authorities)
                 .setIssuedAt(now)
-                .signWith(key, SignatureAlgorithm.HS512)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .setExpiration(validity)
                 .compact();
     }
@@ -109,6 +112,10 @@ public class JwtProviderImpl implements JwtProvider {
      *          logger.info("JWT 토큰이 잘못되었습니다.");
      *       }
      */
+
+    public Key getKey() {
+        return key;
+    }
 }
 
 
