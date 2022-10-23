@@ -39,7 +39,7 @@ public class JwtProviderImpl implements JwtProvider {
         this.key = createKey(secretKey);
     }
 
-    private Key createKey(String secretKey){
+    public Key createKey(String secretKey){
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
@@ -60,7 +60,7 @@ public class JwtProviderImpl implements JwtProvider {
                 .claim(ID, authentication.getPrincipal())
                 .claim(AUTHORITIES, authorities)
                 .setIssuedAt(now)
-                .signWith(key, SignatureAlgorithm.HS512)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .setExpiration(validity)
                 .compact();
     }
