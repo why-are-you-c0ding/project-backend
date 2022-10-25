@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import wayc.backend.common.argumentresolver.GetRecommendedItem;
 import wayc.backend.shop.application.ItemService;
 import wayc.backend.shop.application.OptionGroupSpecificationService;
 import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
@@ -29,7 +30,7 @@ public class ItemController {
     private final OptionGroupSpecificationService optionGroupSpecificationService;
 
     @PostMapping
-    public ResponseEntity<CreateItemResponseDto> createItem(
+    public ResponseEntity<CreateItemResponseDto> postItem(
             @AuthenticationPrincipal Long id,
             @Validated @RequestBody PostItemRequestDto request
     ){
@@ -38,19 +39,28 @@ public class ItemController {
     }
 
     @GetMapping("/{itemId}")
-    public ResponseEntity<GetItemResponseDto> showItem(
+    public ResponseEntity<GetItemResponseDto> getItem(
             @PathVariable Long itemId
     ){
         ShowItemResponseDto itemDto = itemService.showItem(itemId);
         List<ShowOptionGroupResponseDto> optionGroupDto =
                 optionGroupSpecificationService.get(itemDto.getOptionGroupSpecificationIdList());
         return ResponseEntity.ok(GetItemResponseDto.from(itemDto, optionGroupDto));
-
     }
 
     @GetMapping
-    public ResponseEntity<List<ShowItemsResponseDto>> getItems(){
-        List<ShowItemsResponseDto> res = itemService.showItems();
+    public ResponseEntity<ShowTotalItemResponseDto> getItems(
+            @RequestParam Integer page
+    ){
+        ShowTotalItemResponseDto res = itemService.showItems(page);
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/recommend")
+    public ResponseEntity<List<ShowItemsResponseDto>> getRecommendedItem(
+        @GetRecommendedItem List<String> recommendedItemNames
+    ){
+        List<ShowItemsResponseDto> res = itemService.showRecommendedItem(recommendedItemNames);
         return ResponseEntity.ok(res);
     }
 

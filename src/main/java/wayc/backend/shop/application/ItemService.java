@@ -15,6 +15,7 @@ import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemsResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowTotalItemResponseDto;
+import wayc.backend.shop.infrastructure.ItemQueryRepository;
 import wayc.backend.shop.infrastructure.ItemRepository;
 import wayc.backend.shop.infrastructure.ShopRepository;
 import wayc.backend.shop.domain.Item;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ItemService {
 
+    private final ItemQueryRepository itemQueryRepository;
     private final ShopRepository shopRepository;
     private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
@@ -45,12 +47,14 @@ public class ItemService {
         return ShowItemResponseDto.from(item);
     }
 
-    public List<ShowItemsResponseDto> showItems() {
-        return itemRepository
-                .findItemsByStatus()
+    public ShowTotalItemResponseDto showItems(Integer page) {
+        PageRequest paging = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Slice<Item> pagingResult = itemRepository.findItemsPagingByStatus(paging);
+        List<ShowItemsResponseDto> result = pagingResult
                 .stream()
                 .map(item -> ShowItemsResponseDto.of(item))
                 .collect(Collectors.toList());
+        return new ShowTotalItemResponseDto(pagingResult.isLast(), result);
     }
 
     public ShowTotalItemResponseDto showSellerItems(Long ownerId, Integer page) {
@@ -60,5 +64,12 @@ public class ItemService {
                 .map(item -> ShowItemsResponseDto.of(item))
                 .collect(Collectors.toList());
         return new ShowTotalItemResponseDto(pagingResult.isLast(), result);
+    }
+
+    public List<ShowItemsResponseDto> showRecommendedItem(List<String> names) {
+        List<Item> items = itemQueryRepository.findItem(names);
+        return items.stream()
+                .map(item -> ShowItemsResponseDto.of(item))
+                .collect(Collectors.toList());
     }
 }
