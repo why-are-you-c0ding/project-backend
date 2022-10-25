@@ -72,7 +72,6 @@ public class ItemControllerTest extends ControllerTest {
                                         subsectionWithPath("optionGroups[].options").type(ARRAY).description("옵션"),
                                         subsectionWithPath("optionGroups[].options[].optionName").type(STRING).description("옵션 이름"),
                                         subsectionWithPath("optionGroups[].options[].price").type(NUMBER).description("상품 가격")
-
                                         ),
                                 responseFields(
                                         fieldWithPath("itemId").type(NUMBER).description("아이템 id")
@@ -129,11 +128,12 @@ public class ItemControllerTest extends ControllerTest {
     @DisplayName("전체 아이템 조회 성공 컨트롤러 단위 테스트")
     void show_items() throws Exception {
         //given
-        List<ShowItemsResponseDto> res = ShowItemsResponseDtoFactory.createSuccessCaseDto();
-        given(itemService.showItems()).willReturn(res);
+        List<ShowItemsResponseDto> dto = ShowItemsResponseDtoFactory.createSuccessCaseDto();
+        ShowTotalItemResponseDto res = new ShowTotalItemResponseDto(true, dto);
+        given(itemService.showItems(Mockito.any(Integer.class))).willReturn(res);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/items")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/items?page=0")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                 )
@@ -143,12 +143,17 @@ public class ItemControllerTest extends ControllerTest {
                 .andDo(document("show_items",
                         getDocumentRequest(),
                         getDocumentResponse(),
+                        requestParameters(
+                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스")
+                        ),
                         responseFields(
-                                fieldWithPath("[].itemId").type(NUMBER).description("아이템 id"),
-                                fieldWithPath("[].shopName").type(STRING).description("상품 이름"),
-                                fieldWithPath("[].itemName").type(STRING).description("상품 이름"),
-                                fieldWithPath("[].basicPrice").type(NUMBER).description("기본 가격"),
-                                fieldWithPath("[].imageUrl").type(STRING).description("상품의 이미지")
+                                fieldWithPath("finalPage").type(BOOLEAN).description("마지막 페이지 리스트인지"),
+                                fieldWithPath("items").type(ARRAY).description("판매자가 등록한 상품 배열"),
+                                fieldWithPath("items[].itemId").type(NUMBER).description("아이템 id"),
+                                fieldWithPath("items[].shopName").type(STRING).description("상품 이름"),
+                                fieldWithPath("items[].itemName").type(STRING).description("상품 이름"),
+                                fieldWithPath("items[].basicPrice").type(NUMBER).description("기본 가격"),
+                                fieldWithPath("items[].imageUrl").type(STRING).description("상품의 이미지")
                         )
                 ));
     }
@@ -186,6 +191,41 @@ public class ItemControllerTest extends ControllerTest {
                                 fieldWithPath("items[].itemName").type(STRING).description("상품 이름"),
                                 fieldWithPath("items[].basicPrice").type(NUMBER).description("기본 가격"),
                                 fieldWithPath("items[].imageUrl").type(STRING).description("상품의 이미지")
+                        )
+                ));
+    }
+
+
+
+
+    @Test
+    @DisplayName("추천 아이템 조회 성공 컨트롤러 단위 테스트")
+    void show_recommended_items() throws Exception {
+        //given
+        List<ShowItemsResponseDto> res = ShowItemsResponseDtoFactory.createSuccessCaseDto();
+        given(itemService.showRecommendedItem(Mockito.any(List.class))).willReturn(res);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/items/recommend?r1=McCain Smiles&r2=Biofinest Maqui Berry Juice Powder")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().is2xxSuccessful())
+                //.andExpect(jsonPath("$.itemId").value(1))
+                .andDo(print())
+                .andDo(document("show_recommended_items",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestParameters(
+                                parameterWithName("r1").description("추천 아이템의 이름"),
+                                parameterWithName("r2").description("추천 아이템의 이름")
+                        ),
+                        responseFields(
+                                fieldWithPath("[].itemId").type(NUMBER).description("아이템 id"),
+                                fieldWithPath("[].shopName").type(STRING).description("상품 이름"),
+                                fieldWithPath("[].itemName").type(STRING).description("상품 이름"),
+                                fieldWithPath("[].basicPrice").type(NUMBER).description("기본 가격"),
+                                fieldWithPath("[].imageUrl").type(STRING).description("상품의 이미지")
                         )
                 ));
     }

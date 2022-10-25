@@ -1,11 +1,14 @@
 package wayc.backend.shop.infrastructure;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import wayc.backend.order.infrastructure.OrderDto;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.join.Option;
 
@@ -21,7 +24,7 @@ public interface ItemRepository extends JpaRepository <Item, Long> {
 
     @EntityGraph(attributePaths = {"shop", "optionGroupSpecifications"})
     @Query("select i from Item i where i.status = 'ACTIVE'")
-    List<Item> findItemsByStatus();
+    Slice<Item> findItemsPagingByStatus(PageRequest paging);
 
     @EntityGraph(attributePaths = {"shop"})
     @Query("select i from Item i where i.shop.ownerId =:ownerId and i.status = 'ACTIVE'")

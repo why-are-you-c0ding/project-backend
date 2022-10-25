@@ -1,0 +1,15 @@
+= 추천 상품 조회
+
+== 요청
+
+include::{snippets}/show_recommended_items/http-request.adoc[]
+
+include::{snippets}/show_recommended_items/request-parameters.adoc[]
+
+== 응답
+
+=== 총 20개의 상품이 내려갈 예정
+
+include::{snippets}/show_recommended_items/http-response.adoc[]
+
+include::{snippets}/show_recommended_items/response-fields.adoc[]
