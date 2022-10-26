@@ -19,9 +19,11 @@ public class GetItemResponseDto {
     private List<ShowOptionGroupResponseDto> optionGroups;
     private String imageUrl;
     private String information;
+    private String category;
 
     @Builder
-    public GetItemResponseDto(Long itemId, String itemName, Long shopId, String shopName, List<ShowOptionGroupResponseDto> optionGroups, String imageUrl, String information) {
+    public GetItemResponseDto(Long itemId, String itemName, Long shopId, String shopName,
+                              List<ShowOptionGroupResponseDto> optionGroups, String imageUrl, String information, String category) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.shopId = shopId;
@@ -29,6 +31,7 @@ public class GetItemResponseDto {
         this.optionGroups = optionGroups;
         this.imageUrl = imageUrl;
         this.information = information;
+        this.category = category;
     }
 
     public static GetItemResponseDto from(ShowItemResponseDto itemDto, List<ShowOptionGroupResponseDto> optionGroupDto) {
@@ -40,6 +43,7 @@ public class GetItemResponseDto {
                 .optionGroups(optionGroupDto)
                 .imageUrl(itemDto.getImageUrl())
                 .information(itemDto.getInformation())
+                .category(itemDto.getCategory())
                 .build();
     }
 }

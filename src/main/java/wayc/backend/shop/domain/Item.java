@@ -11,7 +11,6 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@ToString
 public class Item extends BaseEntity {
 
     @Id
@@ -32,12 +31,15 @@ public class Item extends BaseEntity {
 
     private String information;
 
+    private String category;
+
     @Builder
-    public Item(Shop shop, List<OptionGroupSpecification> optionGroupSpecifications, String name, String imageUrl, String information) {
+    public Item(Shop shop, List<OptionGroupSpecification> optionGroupSpecifications, String name, String imageUrl, String information, String category) {
         this.shop = shop;
         this.optionGroupSpecifications = optionGroupSpecifications;
         this.name = name;
         this.imageUrl = imageUrl;
         this.information = information;
+        this.category = category;
     }
 }

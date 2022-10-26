@@ -9,12 +9,13 @@ public class ShowItemResponseDtoFactory {
         return ShowItemResponseDto
                 .builder()
                 .itemId(1L)
-                .itemName("itemName")
+                .itemName("맥북")
                 .shopId(2L)
-                .shopName("shopName")
+                .shopName("애플 스토어")
                 .optionGroupSpecificationIdList(Arrays.asList(3L, 4L))
                 .imageUrl("www.image.com")
                 .information("information")
+                .category("Electronics")
                 .build();
     }
 }

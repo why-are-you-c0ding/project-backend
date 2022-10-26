@@ -48,7 +48,7 @@ public class ItemService {
     }
 
     public ShowTotalItemResponseDto showItems(Integer page) {
-        PageRequest paging = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
+        PageRequest paging = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "createdAt"));
         Slice<Item> pagingResult = itemRepository.findItemsPagingByStatus(paging);
         List<ShowItemsResponseDto> result = pagingResult
                 .stream()
@@ -67,7 +67,7 @@ public class ItemService {
     }
 
     public List<ShowItemsResponseDto> showRecommendedItem(List<String> names) {
-        List<Item> items = itemQueryRepository.findItem(names);
+        List<Item> items = itemQueryRepository.findRecommendedItem(names);
         return items.stream()
                 .map(item -> ShowItemsResponseDto.of(item))
                 .collect(Collectors.toList());

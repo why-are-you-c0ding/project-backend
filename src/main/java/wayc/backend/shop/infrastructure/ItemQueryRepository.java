@@ -27,7 +27,7 @@ public class ItemQueryRepository {
         this.query = new JPAQueryFactory(em);
     }
 
-    public List<Item> findItem(List<String> names ){
+    public List<Item> findRecommendedItem(List<String> names ){
 
         StringBuffer sb= new StringBuffer();
 
@@ -35,8 +35,9 @@ public class ItemQueryRepository {
                 .forEach(str -> sb.append(str));
         System.out.println("sb.toString() = " + sb.toString());
 
+        System.out.println(sb.toString().equals("health"));
         NumberTemplate booleanTemplate= Expressions.numberTemplate(Double.class,
-                "function('match',{0},{1})", item.name, "+" + sb.toString() + "*");
+                "function('match',{0},{1})", item.name, "+" + "health" + "*");
 
 
         return query.select(item)

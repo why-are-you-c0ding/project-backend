@@ -18,13 +18,15 @@ public class ShowItemsResponseDto {
     private String shopName;
     private Integer basicPrice;
     private String imageUrl;
+    private String category;
 
-    public ShowItemsResponseDto(Long itemId, String itemName, String shopName, Integer basicPrice, String imageUrl) {
+    public ShowItemsResponseDto(Long itemId, String itemName, String shopName, Integer basicPrice, String imageUrl, String category) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.shopName = shopName;
         this.basicPrice = basicPrice;
         this.imageUrl = imageUrl;
+        this.category = category;
     }
 
     public static ShowItemsResponseDto of(Item item) {
@@ -33,7 +35,8 @@ public class ShowItemsResponseDto {
                 item.getName(),
                 item.getShop().getShopName(),
                 findBasicGroupPrice(item.getOptionGroupSpecifications()),
-                item.getImageUrl()
+                item.getImageUrl(),
+                item.getCategory()
         );
     }
 
