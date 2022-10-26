@@ -25,18 +25,22 @@ public class PostItemRequestDto {
     @NotBlank
     private String information;
 
+    @NotBlank
+    private String category;
+
     @Valid
     @NotEmpty
     private List<PostOptionGroupRequestDto> optionGroups;
 
     public CreateItemRequestDto toServiceDto(){
-        return new CreateItemRequestDto(optionGroups, itemName, imageUrl, information);
+        return new CreateItemRequestDto(optionGroups, itemName, imageUrl, information, category);
     }
 
-    public PostItemRequestDto(String itemName, String imageUrl, String information, List<PostOptionGroupRequestDto> optionGroupRequests) {
+    public PostItemRequestDto(String itemName, String imageUrl, String information, List<PostOptionGroupRequestDto> optionGroupRequests, String category) {
         this.itemName = itemName;
         this.imageUrl = imageUrl;
         this.information = information;
         this.optionGroups = optionGroupRequests;
+        this.category = category;
     }
 }

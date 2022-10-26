@@ -67,6 +67,7 @@ public class ItemControllerTest extends ControllerTest {
                                         fieldWithPath("information").type(STRING).description("상품 설명"),
                                         fieldWithPath("imageUrl").type(STRING).description("상품 이미지 URL"),
                                         fieldWithPath("optionGroups").type(ARRAY).description("옵션 그룹"),
+                                        fieldWithPath("category").type(STRING).description("상품 카테고리"),
                                         subsectionWithPath("optionGroups[].optionGroupName").type(STRING).description("옵션 그룹의 이름"),
                                         subsectionWithPath("optionGroups[].basic").type(BOOLEAN).description("기본 옵션 그룹인지"),
                                         subsectionWithPath("optionGroups[].options").type(ARRAY).description("옵션"),
@@ -131,10 +132,10 @@ public class ItemControllerTest extends ControllerTest {
         //given
         List<ShowItemsResponseDto> dto = ShowItemsResponseDtoFactory.createSuccessCaseDto();
         ShowTotalItemResponseDto res = new ShowTotalItemResponseDto(true, dto);
-        given(itemService.showItems(Mockito.any(Integer.class))).willReturn(res);
+        given(itemService.showItems(Mockito.any(Integer.class), Mockito.any(String.class))).willReturn(res);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/items?page=0")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/items?page=0&blockCategory=Food")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                 )
@@ -145,7 +146,8 @@ public class ItemControllerTest extends ControllerTest {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestParameters(
-                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스")
+                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스"),
+                                parameterWithName("blockCategory").description("차단한 상품의 카테고리")
                         ),
                         responseFields(
                                 fieldWithPath("finalPage").type(BOOLEAN).description("마지막 페이지 리스트인지"),

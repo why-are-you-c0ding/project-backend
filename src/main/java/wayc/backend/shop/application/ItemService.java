@@ -47,9 +47,9 @@ public class ItemService {
         return ShowItemResponseDto.from(item);
     }
 
-    public ShowTotalItemResponseDto showItems(Integer page) {
+    public ShowTotalItemResponseDto showItems(Integer page, String blockCategory) {
         PageRequest paging = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Slice<Item> pagingResult = itemRepository.findItemsPagingByStatus(paging);
+        Slice<Item> pagingResult = itemRepository.findItemsPagingByStatus(paging, blockCategory);
         List<ShowItemsResponseDto> result = pagingResult
                 .stream()
                 .map(item -> ShowItemsResponseDto.of(item))

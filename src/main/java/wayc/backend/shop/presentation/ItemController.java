@@ -50,9 +50,10 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<ShowTotalItemResponseDto> getItems(
-            @RequestParam Integer page
+            @RequestParam Integer page,
+            @RequestParam String blockCategory
     ){
-        ShowTotalItemResponseDto res = itemService.showItems(page);
+        ShowTotalItemResponseDto res = itemService.showItems(page, blockCategory);
         return ResponseEntity.ok(res);
     }
 
