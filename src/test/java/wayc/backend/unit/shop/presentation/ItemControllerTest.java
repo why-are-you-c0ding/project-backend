@@ -131,10 +131,10 @@ public class ItemControllerTest extends ControllerTest {
         //given
         List<ShowItemsResponseDto> dto = ShowItemsResponseDtoFactory.createSuccessCaseDto();
         ShowTotalItemResponseDto res = new ShowTotalItemResponseDto(true, dto);
-        given(itemService.showItems(Mockito.any(Integer.class))).willReturn(res);
+        given(itemService.showItems(Mockito.any(Integer.class), Mockito.any(String.class))).willReturn(res);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/items?page=0")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/items?page=0&blockCategory=Food")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                 )
@@ -145,7 +145,8 @@ public class ItemControllerTest extends ControllerTest {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestParameters(
-                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스")
+                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스"),
+                                parameterWithName("blockCategory").description("차단한 상품의 카테고리")
                         ),
                         responseFields(
                                 fieldWithPath("finalPage").type(BOOLEAN).description("마지막 페이지 리스트인지"),
