@@ -112,6 +112,7 @@ public class ItemControllerTest extends ControllerTest {
                                 fieldWithPath("optionGroups").type(ARRAY).description("옵션 그룹"),
                                 fieldWithPath("imageUrl").type(STRING).description("상품 이미지"),
                                 fieldWithPath("information").type(STRING).description("상품 정보"),
+                                fieldWithPath("category").type(STRING).description("상품 카테고리"),
                                 subsectionWithPath("optionGroups[].optionGroupName").type(STRING).description("옵션 그룹의 이름"),
                                 subsectionWithPath("optionGroups[].optionGroupId").type(NUMBER).description("옵션 그룹의 아이디"),
                                 subsectionWithPath("optionGroups[].basic").type(BOOLEAN).description("기본 옵션 그룹인지"),
@@ -153,7 +154,8 @@ public class ItemControllerTest extends ControllerTest {
                                 fieldWithPath("items[].shopName").type(STRING).description("상품 이름"),
                                 fieldWithPath("items[].itemName").type(STRING).description("상품 이름"),
                                 fieldWithPath("items[].basicPrice").type(NUMBER).description("기본 가격"),
-                                fieldWithPath("items[].imageUrl").type(STRING).description("상품의 이미지")
+                                fieldWithPath("items[].imageUrl").type(STRING).description("상품의 이미지"),
+                                fieldWithPath("items[].category").type(STRING).description("상품 카테고리")
                         )
                 ));
     }
@@ -190,7 +192,8 @@ public class ItemControllerTest extends ControllerTest {
                                 fieldWithPath("items[].shopName").type(STRING).description("상품 이름"),
                                 fieldWithPath("items[].itemName").type(STRING).description("상품 이름"),
                                 fieldWithPath("items[].basicPrice").type(NUMBER).description("기본 가격"),
-                                fieldWithPath("items[].imageUrl").type(STRING).description("상품의 이미지")
+                                fieldWithPath("items[].imageUrl").type(STRING).description("상품의 이미지"),
+                                fieldWithPath("items[].category").type(STRING).description("상품 카테고리")
                         )
                 ));
     }
@@ -225,8 +228,10 @@ public class ItemControllerTest extends ControllerTest {
                                 fieldWithPath("[].shopName").type(STRING).description("상품 이름"),
                                 fieldWithPath("[].itemName").type(STRING).description("상품 이름"),
                                 fieldWithPath("[].basicPrice").type(NUMBER).description("기본 가격"),
-                                fieldWithPath("[].imageUrl").type(STRING).description("상품의 이미지")
-                        )
+                                fieldWithPath("[].imageUrl").type(STRING).description("상품의 이미지"),
+                                fieldWithPath("[].category").type(STRING).description("상품 카테고리")
+
+                                )
                 ));
     }
 }

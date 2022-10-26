@@ -19,6 +19,7 @@ public class ShowItemResponseDto {
     private List<Long> optionGroupSpecificationIdList;
     private String imageUrl;
     private String information;
+    private String category;
 
     public static ShowItemResponseDto from(Item item) {
         return ShowItemResponseDto.builder()
@@ -35,11 +36,13 @@ public class ShowItemResponseDto {
                 )
                 .imageUrl(item.getImageUrl())
                 .information(item.getInformation())
+                .category(item.getCategory())
                 .build();
     }
 
     @Builder
-    public ShowItemResponseDto(Long itemId, String itemName, Long shopId, String shopName, List<Long> optionGroupSpecificationIdList, String imageUrl, String information) {
+    public ShowItemResponseDto(Long itemId, String itemName, Long shopId, String shopName,
+                               List<Long> optionGroupSpecificationIdList, String imageUrl, String information, String category) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.shopId = shopId;
@@ -47,6 +50,7 @@ public class ShowItemResponseDto {
         this.optionGroupSpecificationIdList = optionGroupSpecificationIdList;
         this.imageUrl = imageUrl;
         this.information = information;
+        this.category = category;
     }
 }
 

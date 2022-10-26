@@ -67,7 +67,7 @@ public class ItemService {
     }
 
     public List<ShowItemsResponseDto> showRecommendedItem(List<String> names) {
-        List<Item> items = itemQueryRepository.findItem(names);
+        List<Item> items = itemQueryRepository.findRecommendedItem(names);
         return items.stream()
                 .map(item -> ShowItemsResponseDto.of(item))
                 .collect(Collectors.toList());
