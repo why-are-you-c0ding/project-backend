@@ -61,6 +61,7 @@ include::{snippets}/exception_example/http-response.adoc[]
 * link:/docs/shop/show-items.html[전체 상품 조회 요청 API, window=_blank]
 * link:/docs/shop/show-seller-items.html[판매자가 등록한 전체 상품 조회 요청 API, window=_blank]
 * link:/docs/shop/show-recommended-items.html[추천 상품들 조회 요청 API, window=_blank]
+* link:/docs/shop/search-items.html[검색한 상품 전체 조회 요청 API, window=_blank]
 
 
 == 재고 API

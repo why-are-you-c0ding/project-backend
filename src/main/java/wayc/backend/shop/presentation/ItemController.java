@@ -51,7 +51,7 @@ public class ItemController {
     @GetMapping
     public ResponseEntity<ShowTotalItemResponseDto> getItems(
             @RequestParam Integer page,
-            @RequestParam String blockCategory
+            @RequestParam(required = false, defaultValue = "") String blockCategory
     ){
         ShowTotalItemResponseDto res = itemService.showItems(page, blockCategory);
         return ResponseEntity.ok(res);
@@ -72,6 +72,15 @@ public class ItemController {
             @RequestParam Integer page
     ){
         ShowTotalItemResponseDto res = itemService.showSellerItems(id, page);
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<ShowTotalItemResponseDto> search(
+            @RequestParam Integer page,
+            @RequestParam String keyword
+    ){
+        ShowTotalItemResponseDto res = itemService.search(page, keyword);
         return ResponseEntity.ok(res);
     }
 }

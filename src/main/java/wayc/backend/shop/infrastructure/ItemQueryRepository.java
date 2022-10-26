@@ -31,16 +31,13 @@ public class ItemQueryRepository {
 
         StringBuffer sb= new StringBuffer();
 
-        names.stream()
-                .forEach(str -> sb.append(str));
-        System.out.println("sb.toString() = " + sb.toString());
+        names.stream().forEach(str -> sb.append(str));
 
-        System.out.println(sb.toString().equals("health"));
         NumberTemplate booleanTemplate= Expressions.numberTemplate(Double.class,
-                "function('match',{0},{1})", item.name, "+" + "health" + "*");
-
+                "function('match',{0},{1})", item.name, "+" + sb.toString() + "*");
 
         return query.select(item)
+                .distinct()
                 .from(item)
                 .where(
                         booleanTemplate.gt(0)
@@ -50,6 +47,25 @@ public class ItemQueryRepository {
                 .join(item.optionGroupSpecifications, optionGroupSpecification)
                 .fetchJoin()
                 .limit(20)
+                .fetch();
+    }
+
+    public List<Item> findItemBySearchKeyword(Integer page, String searchKeyword){
+
+        NumberTemplate<Double> booleanTemplate = Expressions.numberTemplate(Double.class,
+                "function('match2',{0},{1},{2})", item.name, item.category, "+" + searchKeyword + "*");
+        return query.select(item)
+                .distinct()
+                .from(item)
+                .where(
+                        booleanTemplate.gt(0)
+                )
+                .join(item.shop, shop)
+                .fetchJoin()
+                .join(item.optionGroupSpecifications, optionGroupSpecification)
+                .fetchJoin()
+                .offset(page)
+                .limit(21)
                 .fetch();
     }
 }

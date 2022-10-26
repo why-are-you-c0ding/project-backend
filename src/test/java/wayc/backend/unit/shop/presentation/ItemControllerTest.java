@@ -236,4 +236,40 @@ public class ItemControllerTest extends ControllerTest {
                                 )
                 ));
     }
+
+
+    @Test
+    @DisplayName("검색 아이템 전체 조회 성공 컨트롤러 단위 테스트")
+    void search_items() throws Exception {
+        //given
+        ShowTotalItemResponseDto res = ShowTotalItemResponseDtoFactory.createSuccessCaseDto();
+
+        given(itemService.search(Mockito.any(Integer.class), Mockito.any(String.class))).willReturn(res);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/items/search?keyword=computer&page=0")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print())
+                .andDo(document("search_items",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestParameters(
+                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스"),
+                                parameterWithName("keyword").description("검색할 단어")
+                        ),
+                        responseFields(
+                                fieldWithPath("finalPage").type(BOOLEAN).description("마지막 페이지 리스트인지"),
+                                fieldWithPath("items").type(ARRAY).description("판매자가 등록한 상품 배열"),
+                                fieldWithPath("items[].itemId").type(NUMBER).description("아이템 id"),
+                                fieldWithPath("items[].shopName").type(STRING).description("상품 이름"),
+                                fieldWithPath("items[].itemName").type(STRING).description("상품 이름"),
+                                fieldWithPath("items[].basicPrice").type(NUMBER).description("기본 가격"),
+                                fieldWithPath("items[].imageUrl").type(STRING).description("상품의 이미지"),
+                                fieldWithPath("items[].category").type(STRING).description("상품 카테고리")
+                        )
+                ));
+    }
 }

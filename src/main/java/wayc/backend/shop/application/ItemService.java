@@ -67,9 +67,25 @@ public class ItemService {
     }
 
     public List<ShowItemsResponseDto> showRecommendedItem(List<String> names) {
-        List<Item> items = itemQueryRepository.findRecommendedItem(names);
-        return items.stream()
+        return itemQueryRepository
+                .findRecommendedItem(names)
+                .stream()
                 .map(item -> ShowItemsResponseDto.of(item))
                 .collect(Collectors.toList());
+    }
+
+    public ShowTotalItemResponseDto search(Integer page, String searchKeyword) {
+
+        List<ShowItemsResponseDto> result = itemQueryRepository
+                .findItemBySearchKeyword(page, searchKeyword)
+                .stream()
+                .map(item -> ShowItemsResponseDto.of(item))
+                .collect(Collectors.toList());
+
+        if(result.size() > 20) {
+            return new ShowTotalItemResponseDto(false, result);
+        }
+
+        return new ShowTotalItemResponseDto(true, result);
     }
 }

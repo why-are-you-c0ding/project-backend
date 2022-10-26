@@ -11,7 +11,12 @@ public class MysqlCustomDialect extends MySQL8Dialect {
 
         this.registerFunction(
                 "match",
-                new SQLFunctionTemplate(StandardBasicTypes.DOUBLE, "match(?1) against (?2 in boolean mode) and 1")
+                new SQLFunctionTemplate(StandardBasicTypes.DOUBLE, "match (?1) against (?2 in boolean mode) and 1")
+        );
+
+        this.registerFunction(
+                "match2",
+                new SQLFunctionTemplate(StandardBasicTypes.DOUBLE, "match (?1, ?2) against (?3 in boolean mode)")
         );
     }
 }
