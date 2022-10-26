@@ -28,6 +28,7 @@ public class ItemMapper {
                 )
                 .imageUrl(dto.getImageUrl())
                 .information(dto.getInformation())
+                .category(dto.getCategory())
                 .build();
     }
 

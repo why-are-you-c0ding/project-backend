@@ -18,11 +18,13 @@ public class CreateItemRequestDto {
     private String imageUrl;
     private String information;
     private List<CreateOptionGroupRequestDto> optionGroups;
+    private String category;
 
-    public CreateItemRequestDto(List<PostOptionGroupRequestDto> dtos, String itemName, String imageUrl, String information) {
+    public CreateItemRequestDto(List<PostOptionGroupRequestDto> dtos, String itemName, String imageUrl, String information, String category) {
         this.itemName = itemName;
         this.imageUrl = imageUrl;
         this.information = information;
+        this.category = category;
         this.optionGroups = dtos
                 .stream()
                 .map(dto -> new CreateOptionGroupRequestDto(dto.getOptions(), dto.getOptionGroupName(), dto.getBasic()))

@@ -67,6 +67,7 @@ public class ItemControllerTest extends ControllerTest {
                                         fieldWithPath("information").type(STRING).description("상품 설명"),
                                         fieldWithPath("imageUrl").type(STRING).description("상품 이미지 URL"),
                                         fieldWithPath("optionGroups").type(ARRAY).description("옵션 그룹"),
+                                        fieldWithPath("category").type(STRING).description("상품 카테고리"),
                                         subsectionWithPath("optionGroups[].optionGroupName").type(STRING).description("옵션 그룹의 이름"),
                                         subsectionWithPath("optionGroups[].basic").type(BOOLEAN).description("기본 옵션 그룹인지"),
                                         subsectionWithPath("optionGroups[].options").type(ARRAY).description("옵션"),
