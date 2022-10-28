@@ -100,7 +100,7 @@ public class OrderService {
     }
 
     public ShowOrderResponseDto showOrder(Long memberId, Long orderId) {
-        Order order = orderRepository.findOrderByOrderIdAndOrderingMemberId(orderId, memberId)
+        Order order = orderRepository.findOrderByOrderId(orderId)
                 .orElseThrow(NotExistsOrderException::new);
         Item item = itemRepository.findItemByItemId(order.getItemId())
                 .orElseThrow(NotExistsItemException::new);
