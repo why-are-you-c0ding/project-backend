@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import wayc.backend.exception.shop.NotExistsShopException;
 import wayc.backend.shop.application.dto.response.show.ShowShopResponseDto;
-import wayc.backend.shop.infrastructure.ShopRepository;
+import wayc.backend.shop.domain.command.ShopRepository;
 import wayc.backend.shop.domain.Shop;
 
 @Service

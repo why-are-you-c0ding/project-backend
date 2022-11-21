@@ -1,4 +1,4 @@
-package wayc.backend.pay.infrastructure;
+package wayc.backend.pay.domain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

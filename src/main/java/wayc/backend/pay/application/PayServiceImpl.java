@@ -8,11 +8,11 @@ import wayc.backend.exception.order.NotExistsOrderException;
 import wayc.backend.order.application.PayService;
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.OrderStatus;
-import wayc.backend.order.infrastructure.OrderRepository;
+import wayc.backend.order.domain.repository.OrderRepository;
 
 import wayc.backend.pay.application.dto.request.CreatePayRequestDto;
 import wayc.backend.pay.domain.Pay;
-import wayc.backend.pay.infrastructure.PayRepository;
+import wayc.backend.pay.domain.repository.PayRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

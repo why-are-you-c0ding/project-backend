@@ -18,13 +18,13 @@ import wayc.backend.order.application.dto.response.ShowOrderResponseDto;
 import wayc.backend.order.application.dto.response.ShowOrdersForCustomerResponseDto;
 import wayc.backend.order.application.dto.response.ShowOrdersForSellerResponseDto;
 import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
-import wayc.backend.order.infrastructure.OrderDto;
-import wayc.backend.order.infrastructure.OrderRepository;
+import wayc.backend.order.infrastructure.dto.OrderDto;
+import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.order.domain.Order;
 
 import wayc.backend.pay.application.dto.request.CreatePayRequestDto;
-import wayc.backend.pay.infrastructure.PayRepository;
-import wayc.backend.shop.infrastructure.ItemRepository;
+import wayc.backend.pay.domain.repository.PayRepository;
+import wayc.backend.shop.domain.command.ItemRepository;
 import wayc.backend.shop.domain.Item;
 
 import java.util.List;

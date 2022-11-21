@@ -9,9 +9,9 @@ import wayc.backend.exception.shop.NotExistsOptionSpecificationException;
 import wayc.backend.shop.application.dto.request.CreateStockRequestDto;
 import wayc.backend.shop.application.dto.response.show.ShowStockResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowStocksResponseDto;
-import wayc.backend.shop.infrastructure.OptionSpecificationRepository;
-import wayc.backend.shop.infrastructure.StockQueryRepository;
-import wayc.backend.shop.infrastructure.StockRepository;
+import wayc.backend.shop.domain.command.OptionSpecificationRepository;
+import wayc.backend.shop.infrastructure.StockQueryRepositoryImpl;
+import wayc.backend.shop.domain.command.StockRepository;
 import wayc.backend.shop.domain.OptionSpecification;
 import wayc.backend.shop.domain.Stock;
 import wayc.backend.shop.presentation.dto.request.GetOptionIdRequestDto;
@@ -26,7 +26,7 @@ public class StockService {
     private final OptionSpecificationService optionSpecificationService;
 
     private final OptionSpecificationRepository optionSpecificationRepository;
-    private final StockQueryRepository stockQueryRepository;
+    private final StockQueryRepositoryImpl stockQueryRepository;
     private final StockRepository stockRepository;
 
     public void create(CreateStockRequestDto dto) {

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
 import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
 import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
-import wayc.backend.member.infrastructure.MemberRepository;
+import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.domain.Member;
 import wayc.backend.member.domain.Email;
 

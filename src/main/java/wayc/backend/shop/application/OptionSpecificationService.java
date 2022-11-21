@@ -3,7 +3,7 @@ package wayc.backend.shop.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import wayc.backend.exception.shop.NotExistsOptionSpecificationException;
-import wayc.backend.shop.infrastructure.OptionSpecificationRepository;
+import wayc.backend.shop.domain.command.OptionSpecificationRepository;
 import wayc.backend.shop.domain.OptionSpecification;
 
 import java.util.List;

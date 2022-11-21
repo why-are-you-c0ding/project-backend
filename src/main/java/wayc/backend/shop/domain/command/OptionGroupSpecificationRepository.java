@@ -1,4 +1,4 @@
-package wayc.backend.shop.infrastructure;
+package wayc.backend.shop.domain.command;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
