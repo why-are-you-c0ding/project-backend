@@ -1,4 +1,4 @@
-package wayc.backend.order.infrastructure;
+package wayc.backend.order.infrastructure.dto;
 
 import wayc.backend.order.domain.OrderStatus;
 

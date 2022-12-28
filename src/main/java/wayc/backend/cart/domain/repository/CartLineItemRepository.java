@@ -1,4 +1,4 @@
-package wayc.backend.cart.infrastructure;
+package wayc.backend.cart.domain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

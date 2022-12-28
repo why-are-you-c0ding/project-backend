@@ -15,9 +15,9 @@ import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemsResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowTotalItemResponseDto;
-import wayc.backend.shop.infrastructure.ItemQueryRepository;
-import wayc.backend.shop.infrastructure.ItemRepository;
-import wayc.backend.shop.infrastructure.ShopRepository;
+import wayc.backend.shop.infrastructure.ItemQueryRepositoryImpl;
+import wayc.backend.shop.domain.command.ItemRepository;
+import wayc.backend.shop.domain.command.ShopRepository;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.Shop;
 
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ItemService {
 
-    private final ItemQueryRepository itemQueryRepository;
+    private final ItemQueryRepositoryImpl itemQueryRepository;
     private final ShopRepository shopRepository;
     private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;

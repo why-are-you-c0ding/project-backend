@@ -1,18 +1,13 @@
-package wayc.backend.shop.infrastructure;
+package wayc.backend.shop.domain.command;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import wayc.backend.order.infrastructure.OrderDto;
 import wayc.backend.shop.domain.Item;
-import wayc.backend.shop.domain.join.Option;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository

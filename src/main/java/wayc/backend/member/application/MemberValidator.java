@@ -8,7 +8,7 @@ import wayc.backend.exception.verification.NotExistsEmailException;
 import wayc.backend.member.application.dto.request.AbstractCreateMemberRequestDto;
 import wayc.backend.verification.application.VerificationService;
 import wayc.backend.member.domain.Email;
-import wayc.backend.member.infrastructure.EmailRepository;
+import wayc.backend.member.domain.repository.EmailRepository;
 
 @Service
 @RequiredArgsConstructor

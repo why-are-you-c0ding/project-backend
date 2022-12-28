@@ -15,7 +15,7 @@ import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
 import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
 import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
 import wayc.backend.member.domain.Email;
-import wayc.backend.member.infrastructure.MemberRepository;
+import wayc.backend.member.domain.repository.MemberRepository;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
