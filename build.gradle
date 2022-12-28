@@ -87,7 +87,7 @@ bootJar {
 //		println ">>>>" + asciidoctor.outputDir //build 파일에 생성된다. static으로 옮겨야함.
 //		into 'static/docs'
 //	}
-	copy {
+	copy { //파일을 복사하는 방법 중 기본적으로 제공되는 Copy 태스크를 이용
 		from asciidoctor.outputDir
 		into 'src/main/resources/static/docs'
 	}
