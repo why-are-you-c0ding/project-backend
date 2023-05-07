@@ -1,7 +1,7 @@
-package wayc.backend.exception.pay;
+package wayc.backend.pay.exception;
 
 import org.springframework.http.HttpStatus;
-import wayc.backend.exception.verification.VerificationException;
+import wayc.backend.verification.exception.VerificationException;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 

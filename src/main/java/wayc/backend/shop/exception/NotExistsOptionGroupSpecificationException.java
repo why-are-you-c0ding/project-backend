@@ -1,4 +1,4 @@
-package wayc.backend.exception.shop;
+package wayc.backend.shop.exception;
 
 import org.springframework.http.HttpStatus;
 

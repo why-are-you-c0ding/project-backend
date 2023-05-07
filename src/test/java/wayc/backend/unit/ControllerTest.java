@@ -22,7 +22,7 @@ import wayc.backend.cart.presentation.CartController;
 import wayc.backend.common.config.WebMvcConfig;
 import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
-import wayc.backend.exception.ExceptionExampleController;
+import wayc.backend.common.exception.ExceptionExampleController;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.presentation.MemberController;
 import wayc.backend.order.application.OrderService;

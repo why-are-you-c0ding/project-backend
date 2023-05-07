@@ -8,8 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import wayc.backend.exception.shop.NotExistsItemException;
-import wayc.backend.exception.shop.NotExistsShopException;
+import wayc.backend.shop.exception.NotExistsItemException;
+import wayc.backend.shop.exception.NotExistsShopException;
 import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
 import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;

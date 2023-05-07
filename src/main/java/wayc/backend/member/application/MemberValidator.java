@@ -4,7 +4,7 @@ package wayc.backend.member.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import wayc.backend.exception.verification.NotExistsEmailException;
+import wayc.backend.verification.exception.NotExistsEmailException;
 import wayc.backend.member.application.dto.request.AbstractCreateMemberRequestDto;
 import wayc.backend.verification.application.VerificationService;
 import wayc.backend.member.domain.Email;

@@ -1,7 +1,7 @@
-package wayc.backend.exception.cart;
+package wayc.backend.cart.cart;
 
 import org.springframework.http.HttpStatus;
-import wayc.backend.exception.verification.VerificationException;
+import wayc.backend.verification.exception.VerificationException;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 

@@ -1,4 +1,4 @@
-package wayc.backend.exception;
+package wayc.backend.common.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

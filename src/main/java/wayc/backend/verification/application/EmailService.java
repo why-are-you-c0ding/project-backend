@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import wayc.backend.exception.verification.FailSendEmailException;
+import wayc.backend.verification.exception.FailSendEmailException;
 import wayc.backend.verification.application.dto.EmailSenderDto;
 import wayc.backend.verification.application.dto.VerificationEmailInfoDto;
 

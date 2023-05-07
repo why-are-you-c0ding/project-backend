@@ -1,7 +1,7 @@
-package wayc.backend.exception.verification;
+package wayc.backend.verification.exception;
 
 import org.springframework.http.HttpStatus;
-import wayc.backend.exception.ApplicationException;
+import wayc.backend.common.exception.ApplicationException;
 
 public abstract class VerificationException extends ApplicationException {
     public VerificationException(String message, HttpStatus httpStatus, String errorCode) {

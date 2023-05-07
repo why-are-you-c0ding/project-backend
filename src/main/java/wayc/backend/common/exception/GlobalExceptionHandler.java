@@ -1,4 +1,4 @@
-package wayc.backend.exception;
+package wayc.backend.common.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import wayc.backend.exception.dto.ApplicationExceptionResponse;
 
 import static org.springframework.http.HttpStatus.*;
 

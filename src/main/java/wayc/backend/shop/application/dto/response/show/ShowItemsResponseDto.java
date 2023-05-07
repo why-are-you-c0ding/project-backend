@@ -3,7 +3,7 @@ package wayc.backend.shop.application.dto.response.show;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import wayc.backend.exception.shop.NotExistsOptionGroupSpecificationException;
+import wayc.backend.shop.exception.NotExistsOptionGroupSpecificationException;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.OptionGroupSpecification;
 

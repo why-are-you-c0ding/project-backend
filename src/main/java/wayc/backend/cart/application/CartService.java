@@ -14,8 +14,8 @@ import wayc.backend.cart.domain.repository.CartRepository;
 import wayc.backend.cart.domain.Cart;
 
 import wayc.backend.cart.domain.CartLineItem;
-import wayc.backend.exception.cart.NotExistsCartException;
-import wayc.backend.exception.cart.NotExistsCartLineException;
+import wayc.backend.cart.cart.NotExistsCartException;
+import wayc.backend.cart.cart.NotExistsCartLineException;
 
 @Service
 @RequiredArgsConstructor

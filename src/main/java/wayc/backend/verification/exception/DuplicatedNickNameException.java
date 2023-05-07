@@ -1,4 +1,4 @@
-package wayc.backend.exception.verification;
+package wayc.backend.verification.exception;
 
 import org.springframework.http.HttpStatus;
 

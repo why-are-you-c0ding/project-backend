@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
-import wayc.backend.exception.shop.NotExistsOptionGroupSpecificationException;
+import wayc.backend.shop.exception.NotExistsOptionGroupSpecificationException;
 import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowOptionResponseDto;
 import wayc.backend.shop.domain.command.OptionGroupSpecificationRepository;
