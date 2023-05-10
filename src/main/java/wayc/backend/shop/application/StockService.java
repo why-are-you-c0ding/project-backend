@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
-import wayc.backend.exception.shop.NotExistsOptionSpecificationException;
+import wayc.backend.shop.exception.NotExistsOptionSpecificationException;
 import wayc.backend.shop.application.dto.request.CreateStockRequestDto;
 import wayc.backend.shop.application.dto.response.show.ShowStockResponseDto;
 import wayc.backend.shop.application.dto.response.show.ShowStocksResponseDto;

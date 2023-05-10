@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import wayc.backend.exception.order.NotExistsOrderException;
+import wayc.backend.order.exception.NotExistsOrderException;
 import wayc.backend.order.application.PayService;
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.OrderStatus;

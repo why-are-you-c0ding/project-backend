@@ -9,9 +9,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import wayc.backend.exception.order.NotExistsOrderException;
-import wayc.backend.exception.pay.NotExistsPayException;
-import wayc.backend.exception.shop.NotExistsItemException;
+import wayc.backend.order.exception.NotExistsOrderException;
+import wayc.backend.pay.exception.NotExistsPayException;
+import wayc.backend.shop.exception.NotExistsItemException;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
 import wayc.backend.order.application.dto.response.ShowOrderResponseDto;

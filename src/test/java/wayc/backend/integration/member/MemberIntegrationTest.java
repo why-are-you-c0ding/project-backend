@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import wayc.backend.factory.member.dto.CreateMemberRequestDtoFactory;
+import wayc.backend.factory.member.dto.RegisterMemberRequestDtoFactory;
 import wayc.backend.member.application.MemberService;
-import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
-import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
-import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
+import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
+import wayc.backend.member.application.dto.request.RegisterSellerRequestDto;
+import wayc.backend.member.application.dto.response.RegisterMemberResponseDto;
 import wayc.backend.member.domain.Email;
 import wayc.backend.member.domain.repository.EmailRepository;
 
@@ -30,10 +30,10 @@ public class MemberIntegrationTest {
     void create_consumer(){
         //given
         emailRepository.save(new Email("123@gmail.com", "999999"));
-        CreateConsumerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessConsumerDto();
+        RegisterConsumerRequestDto dto = RegisterMemberRequestDtoFactory.createSuccessConsumerDto();
 
         //when
-        CreateMemberResponseDto result = memberService.createConsumer(dto);
+        RegisterMemberResponseDto result = memberService.registerMember(dto);
 
         //then
         assertThat(result.getAge()).isEqualTo(24);
@@ -45,10 +45,10 @@ public class MemberIntegrationTest {
     void create_seller(){
         //given
         emailRepository.save(new Email("123@gmail.com", "999999"));
-        CreateSellerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessSellerDto();
+        RegisterSellerRequestDto dto = RegisterMemberRequestDtoFactory.createSuccessSellerDto();
 
         //when
-        CreateMemberResponseDto result = memberService.createSeller(dto);
+        RegisterMemberResponseDto result = memberService.registerMember(dto);
 
         //then
         assertThat(result.getAge()).isEqualTo(24);

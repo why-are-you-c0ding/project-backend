@@ -1,7 +1,7 @@
 package wayc.backend.shop.presentation.dto.request;
 
 import lombok.Getter;
-import wayc.backend.exception.shop.CantResolveStockException;
+import wayc.backend.shop.exception.CantResolveStockException;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,11 +1,11 @@
 package wayc.backend.factory.member.dto;
 
-import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
+import wayc.backend.member.application.dto.response.RegisterMemberResponseDto;
 
 public class CreateMemberResponseDtoFactory {
 
-    static public CreateMemberResponseDto createSuccessCaseDto(){
-        return CreateMemberResponseDto.
+    static public RegisterMemberResponseDto createSuccessCaseDto(){
+        return RegisterMemberResponseDto.
                 builder()
                 .id(1L)
                 .email("123@google.com")

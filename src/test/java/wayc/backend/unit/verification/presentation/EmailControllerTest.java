@@ -4,13 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import wayc.backend.unit.ControllerTest;
-import wayc.backend.verification.presentation.dto.request.PostSendEmailRequestDto;
-import wayc.backend.verification.presentation.dto.request.PostVerifyEmailRequestDto;
-import wayc.backend.verification.presentation.dto.request.PostVerifyLoginIdRequestDto;
-import wayc.backend.verification.presentation.dto.request.PostVerifyNickNameRequestDto;
+import wayc.backend.member.presentation.dto.request.SendEmailRequest;
+import wayc.backend.member.presentation.dto.request.ValidateEmailRequest;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
@@ -27,7 +23,7 @@ public class EmailControllerTest extends ControllerTest {
     void send_email() throws Exception {
 
         //given
-        PostSendEmailRequestDto req = new PostSendEmailRequestDto("123@gmail.com");
+        SendEmailRequest req = new SendEmailRequest("123@gmail.com");
 
         String value = mapper.writeValueAsString(req);
 
@@ -56,7 +52,7 @@ public class EmailControllerTest extends ControllerTest {
     void verify_email() throws Exception {
 
         //given
-        PostVerifyEmailRequestDto req = new PostVerifyEmailRequestDto("123@gmail.com", "authkey");
+        ValidateEmailRequest req = new ValidateEmailRequest("123@gmail.com", "authkey");
 
         String value = mapper.writeValueAsString(req);
 

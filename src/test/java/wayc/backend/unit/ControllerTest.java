@@ -19,11 +19,12 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import wayc.backend.cart.application.CartService;
 import wayc.backend.cart.presentation.CartController;
-import wayc.backend.common.config.WebMvcConfig;
+import wayc.backend.config.WebMvcConfig;
 import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
-import wayc.backend.exception.ExceptionExampleController;
+import wayc.backend.common.exception.ExceptionExampleController;
 import wayc.backend.member.application.MemberService;
+import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.presentation.MemberController;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.presentation.OrderController;
@@ -37,10 +38,7 @@ import wayc.backend.shop.application.StockService;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.shop.presentation.ShopController;
 import wayc.backend.shop.presentation.StockController;
-import wayc.backend.verification.infrastructure.EmailRedisRepository;
-import wayc.backend.verification.presentation.VerificationController;
-import wayc.backend.verification.application.EmailService;
-import wayc.backend.verification.application.VerificationService;
+import wayc.backend.member.infrastructure.SendEmailServiceImpl;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -52,7 +50,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @WebMvcTest(controllers = {
         MemberController.class,
         ExceptionExampleController.class,
-        VerificationController.class,
         ImageController.class,
         ItemController.class,
         ShopController.class,
@@ -75,13 +72,10 @@ public abstract class ControllerTest {
     protected MemberService memberService;
 
     @MockBean
-    protected VerificationService verificationService;
+    protected MemberRepository memberRepository;
 
     @MockBean
-    protected EmailService emailService;
-
-    @MockBean
-    protected EmailRedisRepository emailRedisRepository;
+    protected SendEmailServiceImpl emailService;
 
     @MockBean
     protected ImageService imageService;

@@ -1,18 +1,13 @@
 package wayc.backend.order.domain;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.common.base.BaseEntity;
+import wayc.backend.common.domain.BaseEntity;
 import wayc.backend.shop.domain.join.Option;
 import wayc.backend.shop.domain.join.OptionGroup;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter

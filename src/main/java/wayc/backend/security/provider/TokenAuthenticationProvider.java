@@ -4,11 +4,10 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import wayc.backend.exception.verification.NotSamePasswordException;
+import wayc.backend.member.exception.NotSamePasswordException;
 import wayc.backend.security.context.MemberContext;
 import wayc.backend.security.token.JwtAuthenticationToken;
 

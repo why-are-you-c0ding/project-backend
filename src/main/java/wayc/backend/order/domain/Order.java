@@ -2,7 +2,7 @@ package wayc.backend.order.domain;
 
 import lombok.*;
 
-import wayc.backend.common.base.BaseEntity;
+import wayc.backend.common.domain.BaseEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;

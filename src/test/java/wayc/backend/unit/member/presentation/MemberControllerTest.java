@@ -7,14 +7,14 @@ import org.springframework.http.MediaType;
 
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import wayc.backend.factory.member.dto.CreateMemberResponseDtoFactory;
-import wayc.backend.factory.member.dto.PostMemberRequestDtoFactory;
+import wayc.backend.factory.member.dto.RegisterMemberRequestFactory;
 
-import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
-import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
-import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
+import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
+import wayc.backend.member.application.dto.request.RegisterSellerRequestDto;
+import wayc.backend.member.application.dto.response.RegisterMemberResponseDto;
 
-import wayc.backend.member.presentation.dto.request.PostConsumerRequestDto;
-import wayc.backend.member.presentation.dto.request.PostSellerRequestDto;
+import wayc.backend.member.presentation.dto.request.RegisterConsumerRequest;
+import wayc.backend.member.presentation.dto.request.RegisterSellerRequest;
 import wayc.backend.unit.ControllerTest;
 
 import static org.mockito.BDDMockito.given;
@@ -33,9 +33,9 @@ public class MemberControllerTest extends ControllerTest {
     @DisplayName("소비자 멤버 생성 성공 컨트롤러 단위 테스트")
     void create_consumer() throws Exception {
         //given
-        PostConsumerRequestDto req = PostMemberRequestDtoFactory.createConsumerSuccessCaseDto();
-        CreateMemberResponseDto res = CreateMemberResponseDtoFactory.createSuccessCaseDto();
-        given(memberService.createConsumer(Mockito.any(CreateConsumerRequestDto.class))).willReturn(res);
+        RegisterConsumerRequest req = RegisterMemberRequestFactory.createConsumerSuccessCaseDto();
+        RegisterMemberResponseDto res = CreateMemberResponseDtoFactory.createSuccessCaseDto();
+        given(memberService.registerMember(Mockito.any(RegisterConsumerRequestDto.class))).willReturn(res);
 
         String value = mapper.writeValueAsString(req);
 
@@ -69,9 +69,9 @@ public class MemberControllerTest extends ControllerTest {
     @DisplayName("판매자 멤버 생성 성공 컨트롤러 단위 테스트")
     void create_seller() throws Exception {
         //given
-        PostSellerRequestDto req = PostMemberRequestDtoFactory.createSellerSuccessCaseDto();
-        CreateMemberResponseDto res = CreateMemberResponseDtoFactory.createSuccessCaseDto();
-        given(memberService.createSeller(Mockito.any(CreateSellerRequestDto.class))).willReturn(res);
+        RegisterSellerRequest req = RegisterMemberRequestFactory.createSellerSuccessCaseDto();
+        RegisterMemberResponseDto res = CreateMemberResponseDtoFactory.createSuccessCaseDto();
+        given(memberService.registerMember(Mockito.any(RegisterSellerRequestDto.class))).willReturn(res);
 
         String value = mapper.writeValueAsString(req);
 

@@ -2,43 +2,41 @@ package wayc.backend.member.application;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
-import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
-import wayc.backend.member.application.dto.response.CreateMemberResponseDto;
+import wayc.backend.member.application.dto.request.AbstractRegisterMemberRequestDto;
+import wayc.backend.member.application.dto.response.RegisterMemberResponseDto;
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.domain.Member;
-import wayc.backend.member.domain.Email;
+import wayc.backend.member.exception.DuplicatedLoginIdException;
+import wayc.backend.member.exception.DuplicatedNickNameException;
+
 
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final MemberValidator memberValidator;
-    private final PasswordEncoder passwordEncoder;
-
-    public CreateMemberResponseDto createConsumer(CreateConsumerRequestDto dto) {
-        Email email = memberValidator.validateCreateMember(dto);
-        Member member = dto.toEntity(passwordEncoder, email);
-        saveMember(member);
-        return CreateMemberResponseDto.of(member);
-    }
-
-    public CreateMemberResponseDto createSeller(CreateSellerRequestDto dto) {
-        Email email = memberValidator.validateCreateMember(dto);
-        Member member = dto.toEntity(passwordEncoder, email);
-        saveMember(member);
-        return CreateMemberResponseDto.of(member);
-    }
+    private final MemberMapper memberMapper;
 
     @Transactional(readOnly = false)
-    public void saveMember(Member member) {
+    public RegisterMemberResponseDto registerMember(AbstractRegisterMemberRequestDto dto) {
+        Member member = memberMapper.mapFrom(dto);
         memberRepository.save(member);
+        return RegisterMemberResponseDto.of(member);
     }
-    //트랜잭션 락을 고려해서 분리
 
+    public void validateLoginId(String loginId){
+        if(memberRepository.findByLoginIdAndStatus(loginId).isPresent()){
+            throw new DuplicatedLoginIdException();
+        }
+    }
+
+    public void validateNickName(String nickName){
+        if(memberRepository.findByNickNameAndStatus(nickName).isPresent()){
+            throw new DuplicatedNickNameException();
+        }
+    }
 }

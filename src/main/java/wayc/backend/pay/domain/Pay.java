@@ -1,7 +1,7 @@
 package wayc.backend.pay.domain;
 
 import lombok.Getter;
-import wayc.backend.common.base.BaseEntity;
+import wayc.backend.common.domain.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
