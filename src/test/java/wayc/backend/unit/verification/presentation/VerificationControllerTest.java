@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import wayc.backend.unit.ControllerTest;
-import wayc.backend.verification.presentation.dto.request.PostVerifyLoginIdRequestDto;
-import wayc.backend.verification.presentation.dto.request.PostVerifyNickNameRequestDto;
+import wayc.backend.member.presentation.dto.request.PostVerifyLoginIdRequestDto;
+import wayc.backend.member.presentation.dto.request.PostVerifyNickNameRequestDto;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;

@@ -2,7 +2,7 @@ package wayc.backend.common.exception;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import wayc.backend.verification.exception.NotExistsMemberException;
+import wayc.backend.member.exception.NotExistsMemberException;
 
 /**
  * TODO 수정해야함.

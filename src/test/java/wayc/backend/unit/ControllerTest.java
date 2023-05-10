@@ -19,7 +19,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import wayc.backend.cart.application.CartService;
 import wayc.backend.cart.presentation.CartController;
-import wayc.backend.common.config.WebMvcConfig;
+import wayc.backend.config.WebMvcConfig;
 import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
 import wayc.backend.common.exception.ExceptionExampleController;
@@ -37,10 +37,10 @@ import wayc.backend.shop.application.StockService;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.shop.presentation.ShopController;
 import wayc.backend.shop.presentation.StockController;
-import wayc.backend.verification.infrastructure.EmailRedisRepository;
-import wayc.backend.verification.presentation.VerificationController;
-import wayc.backend.verification.application.EmailService;
-import wayc.backend.verification.application.VerificationService;
+import wayc.backend.member.infrastructure.EmailRedisRepository;
+import wayc.backend.member.presentation.VerificationController;
+import wayc.backend.member.application.EmailService;
+import wayc.backend.member.application.VerificationService;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;

@@ -24,7 +24,6 @@ public class WithMockSellerSecurityContextFactory implements WithSecurityContext
                 customUser.password(),
                 singleton(authority)
         );
-
         context.setAuthentication(token);
         return context;
     }

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import wayc.backend.common.argumentresolver.GetStock;
+import wayc.backend.config.argumentresolver.GetStock;
 import wayc.backend.shop.application.StockService;
 import wayc.backend.shop.presentation.dto.request.GetStockRequestDto;
 import wayc.backend.shop.presentation.dto.response.PostStockResponseDto;

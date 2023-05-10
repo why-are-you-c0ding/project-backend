@@ -21,7 +21,6 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -30,7 +29,7 @@ import wayc.backend.security.handler.*;
 import wayc.backend.security.provider.TokenAuthenticationProvider;
 import wayc.backend.security.service.CustomUserDetailService;
 import wayc.backend.security.jwt.JwtProvider;
-import wayc.backend.verification.application.VerificationService;
+import wayc.backend.member.application.VerificationService;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import wayc.backend.verification.exception.NotSamePasswordException;
+import wayc.backend.member.exception.NotSamePasswordException;
 import wayc.backend.security.context.MemberContext;
 import wayc.backend.security.token.JwtAuthenticationToken;
 

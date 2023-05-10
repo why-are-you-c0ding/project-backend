@@ -39,6 +39,5 @@ public class MemberService {
     public void saveMember(Member member) {
         memberRepository.save(member);
     }
-    //트랜잭션 락을 고려해서 분리
 
 }

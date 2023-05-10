@@ -3,7 +3,7 @@ package wayc.backend.cart.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.common.base.BaseEntity;
+import wayc.backend.common.domain.BaseEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;

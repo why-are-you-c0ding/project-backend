@@ -7,7 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import wayc.backend.common.argumentresolver.GetRecommendedItem;
+import wayc.backend.config.argumentresolver.GetRecommendedItem;
 import wayc.backend.shop.application.ItemService;
 import wayc.backend.shop.application.OptionGroupSpecificationService;
 import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
