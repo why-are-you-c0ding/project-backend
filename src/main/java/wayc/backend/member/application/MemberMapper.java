@@ -21,7 +21,7 @@ public class MemberMapper {
     private final EmailRepository emailRepository;
 
     public Member mapFrom(AbstractRegisterMemberRequestDto dto){
-        memberValidator.validateCreateMember(dto);
+        memberValidator.validateRegisterMember(dto);
         Email email = findEmail(dto);
         return dto.toEntity(passwordEncoder, email);
     }

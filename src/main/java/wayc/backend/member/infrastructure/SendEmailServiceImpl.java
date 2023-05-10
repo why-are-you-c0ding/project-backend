@@ -14,7 +14,7 @@ import wayc.backend.member.presentation.dto.response.ValidateEmailResponse;
 
 import java.util.List;
 
-import static wayc.backend.utils.AwsSesUtils.*;
+import static wayc.backend.member.infrastructure.AwsSesUtils.*;
 
 @Service
 @RequiredArgsConstructor

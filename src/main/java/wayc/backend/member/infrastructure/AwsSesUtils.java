@@ -1,4 +1,4 @@
-package wayc.backend.utils;
+package wayc.backend.member.infrastructure;
 
 import java.util.Random;
 

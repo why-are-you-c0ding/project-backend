@@ -20,7 +20,7 @@ public class MemberValidator {
     private final MemberRepository memberRepository;
 
 
-    public void validateCreateMember(AbstractRegisterMemberRequestDto dto) {
+    public void validateRegisterMember(AbstractRegisterMemberRequestDto dto) {
 
         if (!dto.getPassword().equals(dto.getPassword())) {
             throw new NotSamePasswordException();

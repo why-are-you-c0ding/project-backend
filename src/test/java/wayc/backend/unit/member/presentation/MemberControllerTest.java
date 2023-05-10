@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import wayc.backend.factory.member.dto.CreateMemberResponseDtoFactory;
-import wayc.backend.factory.member.dto.PostMemberRequestDtoFactory;
+import wayc.backend.factory.member.dto.RegisterMemberRequestFactory;
 
 import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
 import wayc.backend.member.application.dto.request.RegisterSellerRequestDto;
@@ -33,7 +33,7 @@ public class MemberControllerTest extends ControllerTest {
     @DisplayName("소비자 멤버 생성 성공 컨트롤러 단위 테스트")
     void create_consumer() throws Exception {
         //given
-        RegisterConsumerRequest req = PostMemberRequestDtoFactory.createConsumerSuccessCaseDto();
+        RegisterConsumerRequest req = RegisterMemberRequestFactory.createConsumerSuccessCaseDto();
         RegisterMemberResponseDto res = CreateMemberResponseDtoFactory.createSuccessCaseDto();
         given(memberService.registerMember(Mockito.any(RegisterConsumerRequestDto.class))).willReturn(res);
 
@@ -69,7 +69,7 @@ public class MemberControllerTest extends ControllerTest {
     @DisplayName("판매자 멤버 생성 성공 컨트롤러 단위 테스트")
     void create_seller() throws Exception {
         //given
-        RegisterSellerRequest req = PostMemberRequestDtoFactory.createSellerSuccessCaseDto();
+        RegisterSellerRequest req = RegisterMemberRequestFactory.createSellerSuccessCaseDto();
         RegisterMemberResponseDto res = CreateMemberResponseDtoFactory.createSuccessCaseDto();
         given(memberService.registerMember(Mockito.any(RegisterSellerRequestDto.class))).willReturn(res);
 

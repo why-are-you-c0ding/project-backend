@@ -3,7 +3,7 @@ package wayc.backend.factory.member.dto;
 import wayc.backend.member.presentation.dto.request.RegisterConsumerRequest;
 import wayc.backend.member.presentation.dto.request.RegisterSellerRequest;
 
-public class PostMemberRequestDtoFactory {
+public class RegisterMemberRequestFactory {
 
     static public RegisterConsumerRequest createConsumerSuccessCaseDto(){
         return RegisterConsumerRequest.

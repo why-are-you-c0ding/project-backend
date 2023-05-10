@@ -78,9 +78,6 @@ public abstract class ControllerTest {
     protected SendEmailServiceImpl emailService;
 
     @MockBean
-    protected EmailRedisRepository emailRedisRepository;
-
-    @MockBean
     protected ImageService imageService;
 
     @MockBean

@@ -32,7 +32,7 @@ public class RedisServiceImpl implements RedisService{
     public void set(String key, Object value, Duration duration) {
         try{
             String serializedValue = objectMapper.writeValueAsString(value);
-            redisTemplate.opsForValue().set(key, serializedValue, Duration.ofSeconds(LIMIT_TIME));
+            redisTemplate.opsForValue().set(key, serializedValue, duration);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("JSON 파싱 에러입니다.");
         }

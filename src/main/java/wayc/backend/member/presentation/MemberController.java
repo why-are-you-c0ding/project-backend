@@ -43,8 +43,6 @@ public class MemberController {
             @RequestBody @Validated RegisterSellerRequest request
     ){
         RegisterMemberResponseDto res = memberService.registerMember(RegisterSellerRequest.toServiceDto(request));
-
-        //TODO 도메인 이벤트로 빼버리자.
         shopService.createShop(res.getId(), res.getNickName());
         cartService.create(res.getId());
         return ResponseEntity.ok(new RegisterMemberResponse());

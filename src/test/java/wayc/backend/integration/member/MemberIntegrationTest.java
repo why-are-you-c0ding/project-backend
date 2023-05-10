@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import wayc.backend.factory.member.dto.CreateMemberRequestDtoFactory;
+import wayc.backend.factory.member.dto.RegisterMemberRequestDtoFactory;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
 import wayc.backend.member.application.dto.request.RegisterSellerRequestDto;
@@ -30,7 +30,7 @@ public class MemberIntegrationTest {
     void create_consumer(){
         //given
         emailRepository.save(new Email("123@gmail.com", "999999"));
-        RegisterConsumerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessConsumerDto();
+        RegisterConsumerRequestDto dto = RegisterMemberRequestDtoFactory.createSuccessConsumerDto();
 
         //when
         RegisterMemberResponseDto result = memberService.registerMember(dto);
@@ -45,7 +45,7 @@ public class MemberIntegrationTest {
     void create_seller(){
         //given
         emailRepository.save(new Email("123@gmail.com", "999999"));
-        RegisterSellerRequestDto dto = CreateMemberRequestDtoFactory.createSuccessSellerDto();
+        RegisterSellerRequestDto dto = RegisterMemberRequestDtoFactory.createSuccessSellerDto();
 
         //when
         RegisterMemberResponseDto result = memberService.registerMember(dto);

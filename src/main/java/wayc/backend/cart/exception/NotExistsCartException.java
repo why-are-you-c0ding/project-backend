@@ -1,4 +1,4 @@
-package wayc.backend.cart.cart;
+package wayc.backend.cart.exception;
 
 import org.springframework.http.HttpStatus;
 import wayc.backend.member.exception.MemberException;

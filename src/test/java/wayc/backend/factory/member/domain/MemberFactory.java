@@ -13,7 +13,7 @@ public class MemberFactory {
                 .email(new Email("123@gamil.com", "999999"))
                 .nickName("nickName")
                 .loginId("loginId")
-                .password("1q2w3e4r!!")
+                .password("1q2w3e4r!")
                 .age(23)
                 .role(ROLE_CONSUMER)
                 .build();
