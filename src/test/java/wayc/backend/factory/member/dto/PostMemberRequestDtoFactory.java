@@ -1,12 +1,12 @@
 package wayc.backend.factory.member.dto;
 
-import wayc.backend.member.presentation.dto.request.PostConsumerRequestDto;
-import wayc.backend.member.presentation.dto.request.PostSellerRequestDto;
+import wayc.backend.member.presentation.dto.request.RegisterConsumerRequest;
+import wayc.backend.member.presentation.dto.request.RegisterSellerRequest;
 
 public class PostMemberRequestDtoFactory {
 
-    static public PostConsumerRequestDto createConsumerSuccessCaseDto(){
-        return PostConsumerRequestDto.
+    static public RegisterConsumerRequest createConsumerSuccessCaseDto(){
+        return RegisterConsumerRequest.
                 builder()
                 .email("123@google.com")
                 .nickName("nickName")
@@ -18,8 +18,8 @@ public class PostMemberRequestDtoFactory {
                 .build();
     }
 
-    static public PostSellerRequestDto createSellerSuccessCaseDto(){
-        return PostSellerRequestDto.
+    static public RegisterSellerRequest createSellerSuccessCaseDto(){
+        return RegisterSellerRequest.
                 builder()
                 .email("123@google.com")
                 .nickName("nickName")

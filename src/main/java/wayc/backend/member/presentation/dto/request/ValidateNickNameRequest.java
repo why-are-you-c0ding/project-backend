@@ -7,12 +7,12 @@ import javax.validation.constraints.*;
 
 @Getter
 @NoArgsConstructor
-public class PostVerifyNickNameRequestDto {
+public class ValidateNickNameRequest {
 
     @NotBlank
     private String nickName;
 
-    public PostVerifyNickNameRequestDto(String nickName) {
+    public ValidateNickNameRequest(String nickName) {
         this.nickName = nickName;
     }
 }

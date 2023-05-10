@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import wayc.backend.unit.ControllerTest;
-import wayc.backend.member.presentation.dto.request.PostVerifyLoginIdRequestDto;
-import wayc.backend.member.presentation.dto.request.PostVerifyNickNameRequestDto;
+import wayc.backend.member.presentation.dto.request.ValidateLoginIdRequest;
+import wayc.backend.member.presentation.dto.request.ValidateNickNameRequest;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
@@ -23,7 +23,7 @@ public class VerificationControllerTest extends ControllerTest {
     void verify_login_id() throws Exception {
 
         //given
-        PostVerifyLoginIdRequestDto req = new PostVerifyLoginIdRequestDto("loginId");
+        ValidateLoginIdRequest req = new ValidateLoginIdRequest("loginId");
 
         String value = mapper.writeValueAsString(req);
 
@@ -52,7 +52,7 @@ public class VerificationControllerTest extends ControllerTest {
     void verify_nickName() throws Exception {
 
         //given
-        PostVerifyNickNameRequestDto req = new PostVerifyNickNameRequestDto("nickName");
+        ValidateNickNameRequest req = new ValidateNickNameRequest("nickName");
 
         String value = mapper.writeValueAsString(req);
 

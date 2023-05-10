@@ -4,11 +4,11 @@ import lombok.Getter;
 
 
 @Getter
-public class VerifyResponseDto {
+public class ValidateResponse {
 
     private String message;
 
-    public VerifyResponseDto(String message) {
+    public ValidateResponse(String message) {
         this.message = message;
     }
 }

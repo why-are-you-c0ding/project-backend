@@ -14,6 +14,10 @@ public class EmailSenderDto {
     private String subject;
     private String content;
 
+    public static EmailSenderDto of(String from, List<String> to, String subject, String content) {
+        return new EmailSenderDto(from, to, subject, content);
+    }
+
     @Builder
     public EmailSenderDto(String from, List<String> to, String subject, String content) {
         this.from = from;

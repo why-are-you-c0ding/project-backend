@@ -5,11 +5,11 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PostSendEmailRequestDto {
+public class SendEmailRequest {
 
     private String receiveEmail;
 
-    public PostSendEmailRequestDto(String receiveEmail) {
+    public SendEmailRequest(String receiveEmail) {
         this.receiveEmail = receiveEmail;
     }
 }

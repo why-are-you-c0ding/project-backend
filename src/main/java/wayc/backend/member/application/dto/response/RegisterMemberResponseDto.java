@@ -5,7 +5,7 @@ import lombok.Getter;
 import wayc.backend.member.domain.Member;
 
 @Getter
-public class CreateMemberResponseDto {
+public class RegisterMemberResponseDto {
 
     private Long id;
     private String nickName;
@@ -13,8 +13,8 @@ public class CreateMemberResponseDto {
     private String loginId;
     private int age;
 
-    public static CreateMemberResponseDto of(Member member) {
-        return CreateMemberResponseDto.builder()
+    public static RegisterMemberResponseDto of(Member member) {
+        return RegisterMemberResponseDto.builder()
                 .id(member.getId())
                 .nickName(member.getNickName())
                 .email(member.getEmail().getEmail())
@@ -24,7 +24,7 @@ public class CreateMemberResponseDto {
     }
 
     @Builder
-    public CreateMemberResponseDto(Long id, String nickName, String email, String loginId, int age) {
+    public RegisterMemberResponseDto(Long id, String nickName, String email, String loginId, int age) {
         this.id = id;
         this.nickName = nickName;
         this.email = email;

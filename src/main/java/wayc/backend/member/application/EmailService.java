@@ -1,58 +1,47 @@
 package wayc.backend.member.application;
 
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
-
-import com.amazonaws.services.simpleemail.model.SendEmailResult;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import wayc.backend.member.exception.FailSendEmailException;
-import wayc.backend.member.infrastructure.EmailSenderDto;
-import wayc.backend.member.presentation.dto.response.VerificationEmailInfoDto;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static wayc.backend.utils.AwsSesUtils.*;
+import org.springframework.transaction.annotation.Transactional;
+import wayc.backend.member.domain.Email;
+import wayc.backend.member.domain.repository.EmailRepository;
+import wayc.backend.member.domain.service.SendEmailService;
+import wayc.backend.member.exception.email.NotExistsEmailException;
+import wayc.backend.member.exception.email.WrongEmailAuthKeyException;
+import wayc.backend.member.infrastructure.EmailRedisRepository;
+import wayc.backend.member.presentation.dto.response.ValidateEmailResponse;
 
 @Service
 @RequiredArgsConstructor
 public class EmailService {
 
-    @Value("${aws.ses.sender}")
-    private String sender;
+    private final EmailRepository emailRepository;
+    private final SendEmailService sendEmailService;
+    private final EmailRedisRepository emailRedisRepository;
 
-    private final AmazonSimpleEmailService amazonSimpleEmailService;
+    @Transactional(readOnly = false)
+    public void verifyEmail(String receiveEmail, String authKey) {
 
-    public VerificationEmailInfoDto sendVerificationEmail(String receiveEmail) {
-        String authKey = createAuthKey();
-        EmailSenderDto emailSenderDto = makeEmailSenderDto(receiveEmail, authKey);
-        SendEmailResult sendEmailResult = amazonSimpleEmailService.sendEmail(emailSenderDto.toSendRequestDto());
-        confirmSentEmail(sendEmailResult);
-        return new VerificationEmailInfoDto(authKey, receiveEmail);
-    }
-
-    private EmailSenderDto makeEmailSenderDto(String receiveEmail, String authKey) {
-        List<String> receiver = Arrays.asList(receiveEmail);
-        String subject = getSubject();
-        String emailVerificationHtml = getEmailVerificationHtml(authKey);
-
-        EmailSenderDto emailSenderDto = EmailSenderDto.builder()
-                .from(sender)
-                .to(receiver)
-                .subject(subject)
-                .content(emailVerificationHtml)
-                .build();
-
-        return emailSenderDto;
-    }
-
-    private void confirmSentEmail(SendEmailResult sendEmailResult) {
-        if (sendEmailResult.getSdkHttpMetadata().getHttpStatusCode() != 200) {
-            throw new FailSendEmailException();
+        if(notExistsEmail(receiveEmail)){
+            throw new NotExistsEmailException();
         }
+
+        if(wrongAuthKey(receiveEmail, authKey)){
+            throw new WrongEmailAuthKeyException();
+        }
+        emailRepository.save(new Email(receiveEmail, authKey));
     }
 
+    private boolean notExistsEmail(String receiveEmail) {
+        return !emailRedisRepository.hasKey(receiveEmail);
+    }
+
+    private boolean wrongAuthKey(String receiveEmail, String certificationNumber) {
+        return !emailRedisRepository.getEmailCertification(receiveEmail).equals(certificationNumber);
+    }
+
+    public void sendVerificationEmail(String receiveEmail) {
+        ValidateEmailResponse res = sendEmailService.sendVerificationEmail(receiveEmail);
+        emailRedisRepository.createEmailCertification(res.getEmail(), res.getAuthKey());
+    }
 }

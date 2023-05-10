@@ -5,12 +5,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PostVerifyEmailRequestDto {
+public class ValidateEmailRequest {
 
     private String email;
     private String authKey;
 
-    public PostVerifyEmailRequestDto(String email, String authKey) {
+    public ValidateEmailRequest(String email, String authKey) {
         this.email = email;
         this.authKey = authKey;
     }

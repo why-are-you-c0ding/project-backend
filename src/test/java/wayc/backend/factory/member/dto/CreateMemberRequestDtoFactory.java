@@ -1,12 +1,12 @@
 package wayc.backend.factory.member.dto;
 
-import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
-import wayc.backend.member.application.dto.request.CreateSellerRequestDto;
+import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
+import wayc.backend.member.application.dto.request.RegisterSellerRequestDto;
 
 public class CreateMemberRequestDtoFactory {
 
-    static public CreateConsumerRequestDto createSuccessConsumerDto(){
-        return CreateConsumerRequestDto.builder()
+    static public RegisterConsumerRequestDto createSuccessConsumerDto(){
+        return RegisterConsumerRequestDto.builder()
                 .nickName("nickName")
                 .email("123@gmail.com")
                 .loginId("loginId")
@@ -17,8 +17,8 @@ public class CreateMemberRequestDtoFactory {
                 .build();
     }
 
-    static public CreateSellerRequestDto createSuccessSellerDto(){
-        return CreateSellerRequestDto.builder()
+    static public RegisterSellerRequestDto createSuccessSellerDto(){
+        return RegisterSellerRequestDto.builder()
                 .nickName("nickName")
                 .email("123@gmail.com")
                 .loginId("loginId")

@@ -2,13 +2,14 @@ package wayc.backend.member.presentation.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
+import wayc.backend.member.application.dto.request.RegisterSellerRequestDto;
 
-import wayc.backend.member.application.dto.request.CreateConsumerRequestDto;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Getter
-public class PostConsumerRequestDto {
+public class RegisterSellerRequest {
 
     @Size(min = 2)
     private String nickName;
@@ -31,8 +32,8 @@ public class PostConsumerRequestDto {
 
     private String authKey;
 
-    public static CreateConsumerRequestDto toServiceDto(PostConsumerRequestDto request) {
-        return CreateConsumerRequestDto.builder()
+    public static RegisterSellerRequestDto toServiceDto(RegisterSellerRequest request) {
+        return RegisterSellerRequestDto.builder()
                 .nickName(request.getNickName())
                 .email(request.getEmail())
                 .loginId(request.getLoginId())
@@ -45,7 +46,7 @@ public class PostConsumerRequestDto {
 
     //테스트용
     @Builder
-    public PostConsumerRequestDto(String nickName, String email, String loginId, String password, String checkPassword, int age, String authKey) {
+    public RegisterSellerRequest(String nickName, String email, String loginId, String password, String checkPassword, int age, String authKey) {
         this.nickName = nickName;
         this.email = email;
         this.loginId = loginId;

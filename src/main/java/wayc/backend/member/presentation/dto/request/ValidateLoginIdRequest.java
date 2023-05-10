@@ -7,13 +7,13 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
-public class PostVerifyLoginIdRequestDto {
+public class ValidateLoginIdRequest {
 
     @NotBlank
     private String loginId;
 
     //테스트용
-    public PostVerifyLoginIdRequestDto(String loginId) {
+    public ValidateLoginIdRequest(String loginId) {
         this.loginId = loginId;
     }
 }
