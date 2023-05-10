@@ -6,16 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import wayc.backend.cart.application.CartService;
-import wayc.backend.member.application.EmailService;
-import wayc.backend.member.domain.service.SendEmailService;
-import wayc.backend.member.infrastructure.SendEmailServiceImpl;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.response.RegisterMemberResponseDto;
 import wayc.backend.member.presentation.dto.request.*;
 import wayc.backend.member.presentation.dto.response.RegisterMemberResponse;
-import wayc.backend.member.presentation.dto.response.ValidateEmailResponse;
 import wayc.backend.member.presentation.dto.response.ValidateResponse;
+
+import wayc.backend.cart.application.CartService;
 import wayc.backend.shop.application.ShopService;
 
 
@@ -46,6 +43,8 @@ public class MemberController {
             @RequestBody @Validated RegisterSellerRequest request
     ){
         RegisterMemberResponseDto res = memberService.registerMember(RegisterSellerRequest.toServiceDto(request));
+
+        //TODO 도메인 이벤트로 빼버리자.
         shopService.createShop(res.getId(), res.getNickName());
         cartService.create(res.getId());
         return ResponseEntity.ok(new RegisterMemberResponse());

@@ -38,7 +38,6 @@ import wayc.backend.shop.application.StockService;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.shop.presentation.ShopController;
 import wayc.backend.shop.presentation.StockController;
-import wayc.backend.member.infrastructure.EmailRedisRepository;
 import wayc.backend.member.infrastructure.SendEmailServiceImpl;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;

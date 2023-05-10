@@ -7,17 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import wayc.backend.member.application.dto.request.AbstractRegisterMemberRequestDto;
 import wayc.backend.member.application.dto.response.RegisterMemberResponseDto;
-import wayc.backend.member.domain.repository.EmailRepository;
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.domain.Member;
-import wayc.backend.member.domain.Email;
-import wayc.backend.member.domain.service.SendEmailService;
 import wayc.backend.member.exception.DuplicatedLoginIdException;
 import wayc.backend.member.exception.DuplicatedNickNameException;
-import wayc.backend.member.exception.email.NotExistsEmailException;
-import wayc.backend.member.exception.email.WrongEmailAuthKeyException;
-import wayc.backend.member.infrastructure.EmailRedisRepository;
-import wayc.backend.member.presentation.dto.response.ValidateEmailResponse;
+
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
