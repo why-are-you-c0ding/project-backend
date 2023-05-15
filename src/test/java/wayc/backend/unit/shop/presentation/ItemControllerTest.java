@@ -16,8 +16,6 @@ import wayc.backend.shop.application.dto.response.find.*;
 import wayc.backend.shop.presentation.dto.request.RegisterItemRequest;
 import wayc.backend.unit.ControllerTest;
 
-import java.util.List;
-
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
@@ -36,13 +34,8 @@ public class ItemControllerTest extends ControllerTest {
     @WithMockSeller
     void register_item() throws Exception {
         //given
-        RegisterItemRequest req = PostItemRequestDtoFactory.createSuccessCase();
+        RegisterItemRequest req = RegisterItemRequestDtoFactory.createSuccessCase();
         RegisterItemResponseDto res = new RegisterItemResponseDto(1L);
-
-        /**
-         * given(itemService.create(Mockito.any(Long.class), Mockito.any(CreateItemRequestDto.class) )) 이 코드는 null이 나온다.
-         * 아마 컨트롤러에서 principal이 null로 들어가서 그런듯. 이거는 추후에 꼭 수정하자.
-         */
         given(itemService.registerItem(Mockito.any(Long.class), Mockito.any(RegisterItemRequestDto.class))).willReturn(res);
 
         String value = mapper.writeValueAsString(req);
@@ -82,9 +75,7 @@ public class ItemControllerTest extends ControllerTest {
     @DisplayName("아이템 조회 성공 컨트롤러 단위 테스트")
     void show_item() throws Exception {
         //given
-        FindItemDto dto1 = ShowItemResponseDtoFactory.createSuccessCaseDto();
-        List<FindOptionGroupResponseDto> dto2 = ShowOptionGroupResponseDtoFactory.createSuccessCaseDto();
-        FindItemResponseDto dto = FindItemResponseDto.of(dto1, dto2);
+        FindItemResponseDto dto = FindItemResponseDtoFactory.createSuccessDto();
 
         given(itemProvider.findItem(Mockito.any(Long.class))).willReturn(dto);
 
@@ -127,8 +118,8 @@ public class ItemControllerTest extends ControllerTest {
     @DisplayName("전체 아이템 조회 성공 컨트롤러 단위 테스트")
     void find_items() throws Exception {
         //given
-        FindItemsResponseDto dto = ShowItemsResponseDtoFactory.createSuccessCaseDto().get(0);
-        given(itemProvider.findItem(Mockito.any(Long.class))).willReturn(dto);
+        given(itemProvider.findItems(Mockito.any(Integer.class)))
+                .willReturn(FindPagingItemResponseDtoFactory.createSuccessCaseDto());
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/items?page=0")
@@ -142,8 +133,7 @@ public class ItemControllerTest extends ControllerTest {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestParameters(
-                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스"),
-                                parameterWithName("blockCategory").description("차단한 상품의 카테고리")
+                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스")
                         ),
                         responseFields(
                                 fieldWithPath("finalPage").type(BOOLEAN).description("마지막 페이지 리스트인지"),
@@ -166,8 +156,7 @@ public class ItemControllerTest extends ControllerTest {
     @DisplayName("판매자가 등록한 아이템 전체 조회 성공 컨트롤러 단위 테스트")
     void show_seller_items() throws Exception {
         //given
-        FindPagingItemResponseDto res = ShowTotalItemResponseDtoFactory.createSuccessCaseDto();
-
+        FindPagingItemResponseDto res = FindPagingItemResponseDtoFactory.createSuccessCaseDto();
         given(itemProvider.findSellerItems(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
 
         //when
@@ -201,8 +190,7 @@ public class ItemControllerTest extends ControllerTest {
     @DisplayName("검색 아이템 전체 조회 성공 컨트롤러 단위 테스트")
     void search_items() throws Exception {
         //given
-        FindPagingItemResponseDto res = ShowTotalItemResponseDtoFactory.createSuccessCaseDto();
-
+        FindPagingItemResponseDto res = FindPagingItemResponseDtoFactory.createSuccessCaseDto();
         given(itemProvider.searchItem(Mockito.any(Integer.class), Mockito.any(String.class))).willReturn(res);
 
         //when

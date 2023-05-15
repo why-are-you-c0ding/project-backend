@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import wayc.backend.common.WithMockSeller;
-import wayc.backend.factory.Item.ShowStocksResponseDtoFactory;
+import wayc.backend.factory.Item.FindStocksResponseDtoFactory;
 import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
 import wayc.backend.shop.presentation.dto.request.RegisterStockInfoRequest;
 import wayc.backend.shop.presentation.dto.request.RegisterStockRequest;
@@ -72,7 +72,7 @@ public class StockControllerTest extends ControllerTest {
     @DisplayName("옵션에 따른 재고 조회 컨트롤러 단위 테스트")
     void show_stocks() throws Exception {
         //given
-        FindStocksResponseDto res = ShowStocksResponseDtoFactory.createSuccessCaseDto();
+        FindStocksResponseDto res = FindStocksResponseDtoFactory.createSuccessCaseDto();
 
         given(stockService.get(Mockito.any(List.class))).willReturn(res);
 

@@ -6,7 +6,7 @@ import wayc.backend.shop.application.dto.response.find.FindPagingItemResponseDto
 import java.util.Arrays;
 import java.util.List;
 
-public class ShowTotalItemResponseDtoFactory {
+public class FindPagingItemResponseDtoFactory {
 
 
     public static FindPagingItemResponseDto createSuccessCaseDto(){

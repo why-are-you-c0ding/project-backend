@@ -5,7 +5,7 @@ import wayc.backend.shop.application.dto.response.find.FindItemsResponseDto;
 import java.util.Arrays;
 import java.util.List;
 
-public class ShowItemsResponseDtoFactory {
+public class FindItemsResponseDtoFactory {
 
     public static List<FindItemsResponseDto> createSuccessCaseDto(){
         FindItemsResponseDto item_1 = new FindItemsResponseDto(1L,"맥북", "애플 스토어", 1000000 ,"www.image.com", "Electronics");

@@ -6,7 +6,7 @@ import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
 import java.util.Arrays;
 import java.util.List;
 
-public class ShowStocksResponseDtoFactory {
+public class FindStocksResponseDtoFactory {
 
     public static FindStocksResponseDto createSuccessCaseDto(){
 
