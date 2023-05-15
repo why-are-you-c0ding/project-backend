@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class StockOptionSpecification extends BaseEntity {
+public class StockOption extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,12 +21,12 @@ public class StockOptionSpecification extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Stock stock;
 
-    @JoinColumn(name = "option_specification_id")
+    @JoinColumn(name = "option_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Option optionSpecification;
+    private Option option;
 
-    public StockOptionSpecification(Stock stock, Option optionSpecification) {
+    public StockOption(Stock stock, Option option) {
         this.stock = stock;
-        this.optionSpecification = optionSpecification;
+        this.option = option;
     }
 }

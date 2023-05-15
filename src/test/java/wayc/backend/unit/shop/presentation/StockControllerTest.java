@@ -8,9 +8,9 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.ShowStocksResponseDtoFactory;
-import wayc.backend.shop.application.dto.response.show.ShowStocksResponseDto;
-import wayc.backend.shop.presentation.dto.request.PostStockInfoRequestDto;
-import wayc.backend.shop.presentation.dto.request.PostStockRequestDto;
+import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
+import wayc.backend.shop.presentation.dto.request.RegisterStockInfoRequest;
+import wayc.backend.shop.presentation.dto.request.RegisterStockRequest;
 
 import wayc.backend.unit.ControllerTest;
 
@@ -37,10 +37,10 @@ public class StockControllerTest extends ControllerTest {
     void create_stock() throws Exception {
         //given
 
-        PostStockInfoRequestDto req_1 = new PostStockInfoRequestDto(Arrays.asList(29L, 31L), 1000);
-        PostStockInfoRequestDto req_2 = new PostStockInfoRequestDto(Arrays.asList(32L, 34L), 500);
+        RegisterStockInfoRequest req_1 = new RegisterStockInfoRequest(Arrays.asList(29L, 31L), 1000);
+        RegisterStockInfoRequest req_2 = new RegisterStockInfoRequest(Arrays.asList(32L, 34L), 500);
 
-        PostStockRequestDto req = new PostStockRequestDto(Arrays.asList(req_1, req_2));
+        RegisterStockRequest req = new RegisterStockRequest(Arrays.asList(req_1, req_2));
 
         String value = mapper.writeValueAsString(req);
 
@@ -72,7 +72,7 @@ public class StockControllerTest extends ControllerTest {
     @DisplayName("옵션에 따른 재고 조회 컨트롤러 단위 테스트")
     void show_stocks() throws Exception {
         //given
-        ShowStocksResponseDto res = ShowStocksResponseDtoFactory.createSuccessCaseDto();
+        FindStocksResponseDto res = ShowStocksResponseDtoFactory.createSuccessCaseDto();
 
         given(stockService.get(Mockito.any(List.class))).willReturn(res);
 

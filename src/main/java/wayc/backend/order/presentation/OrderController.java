@@ -2,6 +2,7 @@ package wayc.backend.order.presentation;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
@@ -29,10 +30,8 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<PostOrderResponseDto> postOrder(
-            @AuthenticationPrincipal Long memberId,
-            @Validated @RequestBody List<PostOrderRequestDto> request
-    ){
+    public ResponseEntity registerOrder(@AuthenticationPrincipal Long memberId,
+                                    @Validated @RequestBody List<PostOrderRequestDto> request){
        orderService.createOrder(
                memberId,
                request
@@ -41,7 +40,7 @@ public class OrderController {
                        .collect(Collectors.toList())
                 );
 
-        return ResponseEntity.ok(new PostOrderResponseDto());
+        return new ResponseEntity(new PostOrderResponseDto(), HttpStatus.CREATED);
     }
 
     @GetMapping("/customers")
@@ -55,30 +54,21 @@ public class OrderController {
 
 
     @GetMapping("/sellers")
-    public ResponseEntity<ShowTotalOrderResponseDto> getSellerOrders(
-            @RequestParam Integer page,
-            @AuthenticationPrincipal Long id
-    ){
-        ShowTotalOrderResponseDto res = orderService.showSellerOrders(id, page);
-        return ResponseEntity.ok(res);
+    public ResponseEntity getSellerOrders(@RequestParam Integer page,
+                                          @AuthenticationPrincipal Long id){
+        return new ResponseEntity(orderService.showSellerOrders(id, page), HttpStatus.OK);
     }
 
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<ShowOrderResponseDto> getOrder(
-            @PathVariable Long orderId,
-            @AuthenticationPrincipal Long id
-    ){
-        ShowOrderResponseDto res = orderService.showOrder(id, orderId);
-        return ResponseEntity.ok(res);
+    public ResponseEntity getOrder(@PathVariable Long orderId,
+                                                         @AuthenticationPrincipal Long id){
+        return new ResponseEntity(orderService.showOrder(id, orderId) , HttpStatus.OK);
     }
 
-
     @PatchMapping
-    public ResponseEntity<UpdateOrderResponseDto> patchOrder(
-            @RequestBody PatchOrderRequestDto request,
-            @AuthenticationPrincipal Long id
-    ) {
+    public ResponseEntity updateOrder(@RequestBody PatchOrderRequestDto request,
+                                      @AuthenticationPrincipal Long id) {
         orderService.updateOrder(id, request.toServiceDto());
         return ResponseEntity.ok(new UpdateOrderResponseDto());
     }

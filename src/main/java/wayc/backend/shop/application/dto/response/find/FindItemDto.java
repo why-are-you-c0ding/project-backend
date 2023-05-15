@@ -1,4 +1,4 @@
-package wayc.backend.shop.application.dto.response.show;
+package wayc.backend.shop.application.dto.response.find;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -10,28 +10,28 @@ import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
-public class ShowItemResponseDto {
+public class FindItemDto {
 
     private Long itemId;
     private String itemName;
     private Long shopId;
     private String shopName;
-    private List<Long> optionGroupSpecificationIdList;
+    private List<Long> optionGroupIdList;
     private String imageUrl;
     private String information;
     private String category;
 
-    public static ShowItemResponseDto from(Item item) {
-        return ShowItemResponseDto.builder()
+    public static FindItemDto from(Item item) {
+        return FindItemDto.builder()
                 .itemId(item.getId())
                 .itemName(item.getName())
                 .shopId(item.getShop().getId())
                 .shopName(item.getShop().getShopName())
-                .optionGroupSpecificationIdList(
+                .optionGroupIdList(
                         item
-                                .getOptionGroupSpecifications()
+                                .getOptionGroups()
                                 .stream()
-                                .map(optionGroupSpecification -> optionGroupSpecification.getId())
+                                .map(optionGroup -> optionGroup.getId())
                                 .collect(Collectors.toList())
                 )
                 .imageUrl(item.getImageUrl())
@@ -41,13 +41,19 @@ public class ShowItemResponseDto {
     }
 
     @Builder
-    public ShowItemResponseDto(Long itemId, String itemName, Long shopId, String shopName,
-                               List<Long> optionGroupSpecificationIdList, String imageUrl, String information, String category) {
+    public FindItemDto(Long itemId,
+                       String itemName,
+                       Long shopId,
+                       String shopName,
+                       List<Long> optionGroupIdList,
+                       String imageUrl,
+                       String information,
+                       String category) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.shopId = shopId;
         this.shopName = shopName;
-        this.optionGroupSpecificationIdList = optionGroupSpecificationIdList;
+        this.optionGroupIdList = optionGroupIdList;
         this.imageUrl = imageUrl;
         this.information = information;
         this.category = category;

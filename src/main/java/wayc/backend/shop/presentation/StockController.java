@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.*;
 
 import wayc.backend.config.argumentresolver.GetStock;
 import wayc.backend.shop.application.StockService;
-import wayc.backend.shop.presentation.dto.request.GetStockRequestDto;
-import wayc.backend.shop.presentation.dto.response.PostStockResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowStocksResponseDto;
-import wayc.backend.shop.presentation.dto.request.PostStockRequestDto;
+import wayc.backend.shop.presentation.dto.request.FindStockRequest;
+import wayc.backend.shop.presentation.dto.response.RegisterStockResponse;
+import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
+import wayc.backend.shop.presentation.dto.request.RegisterStockRequest;
+
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/stocks")
@@ -19,14 +21,14 @@ public class StockController {
     private final StockService stockService;
 
     @PostMapping
-    public ResponseEntity<PostStockResponseDto> createStock(@RequestBody PostStockRequestDto request){
+    public ResponseEntity<RegisterStockResponse> registerStock(@RequestBody RegisterStockRequest request){
         stockService.create(request.toServiceDto());
-        return ResponseEntity.ok(new PostStockResponseDto());
+        return new ResponseEntity(new RegisterStockResponse(), CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<ShowStocksResponseDto> showStock(@GetStock GetStockRequestDto request){
-        ShowStocksResponseDto res = stockService.get(request.getOptionIdList());
-        return ResponseEntity.ok(res);
+    public ResponseEntity<FindStocksResponseDto> findStock(@GetStock FindStockRequest request){
+        FindStocksResponseDto res = stockService.get(request.getOptionIdList());
+        return new ResponseEntity(res, OK);
     }
 }

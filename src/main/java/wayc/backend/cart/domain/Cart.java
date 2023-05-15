@@ -45,7 +45,7 @@ public class Cart extends BaseEntity {
         }
     }
 
-    public void setCartLineItem(CartLineItem cartLineItem){
+    public void add(CartLineItem cartLineItem){
         this.cartLineItems.add(cartLineItem);
         cartLineItem.addCart(this);
     }

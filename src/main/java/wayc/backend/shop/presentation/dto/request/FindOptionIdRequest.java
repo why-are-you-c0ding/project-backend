@@ -8,11 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Getter
-public class GetOptionIdRequestDto {
+public class FindOptionIdRequest {
 
     private List<Long> idList = new ArrayList<>();
 
-    public GetOptionIdRequestDto(String[] idListString) {
+    public FindOptionIdRequest(String[] idListString) {
 
         if(idListString.length > 1){
             throw new CantResolveStockException();

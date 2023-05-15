@@ -1,12 +1,12 @@
 package wayc.backend.factory.Item;
 
-import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
+import wayc.backend.shop.application.dto.response.find.FindItemDto;
 
 import java.util.Arrays;
 
 public class ShowItemResponseDtoFactory {
-    public static ShowItemResponseDto createSuccessCaseDto(){
-        return ShowItemResponseDto
+    public static FindItemDto createSuccessCaseDto(){
+        return FindItemDto
                 .builder()
                 .itemId(1L)
                 .itemName("맥북")

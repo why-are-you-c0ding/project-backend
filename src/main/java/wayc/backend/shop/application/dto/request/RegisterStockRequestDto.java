@@ -8,11 +8,11 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
-public class CreateStockRequestDto {
+public class RegisterStockRequestDto {
 
-    private List<CreateStockInfoRequestDto> stockInfos= new ArrayList<>();
+    private List<RegisterStockInfoRequestDto> stockInfos= new ArrayList<>();
 
-    public CreateStockRequestDto(List<CreateStockInfoRequestDto> stockInfos) {
+    public RegisterStockRequestDto(List<RegisterStockInfoRequestDto> stockInfos) {
         this.stockInfos = stockInfos;
     }
 

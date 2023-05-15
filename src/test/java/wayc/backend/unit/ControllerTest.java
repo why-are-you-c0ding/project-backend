@@ -33,10 +33,7 @@ import wayc.backend.order.presentation.OrderController;
 import wayc.backend.pay.application.PayServiceImpl;
 import wayc.backend.security.SecurityConfig;
 import wayc.backend.security.jwt.JwtProvider;
-import wayc.backend.shop.application.ItemService;
-import wayc.backend.shop.application.OptionGroupSpecificationService;
-import wayc.backend.shop.application.ShopService;
-import wayc.backend.shop.application.StockService;
+import wayc.backend.shop.application.*;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.shop.presentation.ShopController;
 import wayc.backend.shop.presentation.StockController;
@@ -93,7 +90,7 @@ public abstract class ControllerTest {
     protected ShopService shopService;
 
     @MockBean
-    protected OptionGroupSpecificationService optionGroupSpecificationService;
+    protected OptionGroupService optionGroupSpecificationService;
 
     @MockBean
     protected StockService stockService;
@@ -109,6 +106,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected EmailService emailService;
+
+    @MockBean
+    protected ItemProvider itemProvider;
 
     public void setUp(
             WebApplicationContext webApplicationContext,

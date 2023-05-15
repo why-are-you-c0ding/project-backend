@@ -1,25 +1,25 @@
 package wayc.backend.factory.Item;
 
-import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowOptionResponseDto;
+import wayc.backend.shop.application.dto.response.find.FindOptionGroupResponseDto;
+import wayc.backend.shop.application.dto.response.find.FindOptionResponseDto;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class ShowOptionGroupResponseDtoFactory {
 
-    public static List<ShowOptionGroupResponseDto> createSuccessCaseDto(){
+    public static List<FindOptionGroupResponseDto> createSuccessCaseDto(){
 
-        ShowOptionResponseDto optionRes1 = new ShowOptionResponseDto(10L, "white", 1000);
-        ShowOptionResponseDto optionRes2 = new ShowOptionResponseDto(11L, "black", 1000);
-        ShowOptionResponseDto optionRes3 = new ShowOptionResponseDto(12L, "small", 1000);
-        ShowOptionResponseDto optionRes4 = new ShowOptionResponseDto(13L, "superLarge", 1000);
+        FindOptionResponseDto optionRes1 = new FindOptionResponseDto(10L, "white", 1000);
+        FindOptionResponseDto optionRes2 = new FindOptionResponseDto(11L, "black", 1000);
+        FindOptionResponseDto optionRes3 = new FindOptionResponseDto(12L, "small", 1000);
+        FindOptionResponseDto optionRes4 = new FindOptionResponseDto(13L, "superLarge", 1000);
 
-        ShowOptionGroupResponseDto optionGroup1 =
-                new ShowOptionGroupResponseDto(20L, "color", Arrays.asList(optionRes1, optionRes2), true);
+        FindOptionGroupResponseDto optionGroup1 =
+                new FindOptionGroupResponseDto(20L, "color", Arrays.asList(optionRes1, optionRes2), true);
 
-        ShowOptionGroupResponseDto optionGroup2 =
-                new ShowOptionGroupResponseDto(21L, "size", Arrays.asList(optionRes3, optionRes4), false);
+        FindOptionGroupResponseDto optionGroup2 =
+                new FindOptionGroupResponseDto(21L, "size", Arrays.asList(optionRes3, optionRes4), false);
 
         return Arrays.asList(optionGroup1, optionGroup2);
     }

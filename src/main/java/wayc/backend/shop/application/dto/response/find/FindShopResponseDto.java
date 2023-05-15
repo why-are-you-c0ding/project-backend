@@ -1,4 +1,4 @@
-package wayc.backend.shop.application.dto.response.show;
+package wayc.backend.shop.application.dto.response.find;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class ShowShopResponseDto {
+public class FindShopResponseDto {
 
     private Long id;
 
@@ -22,15 +22,15 @@ public class ShowShopResponseDto {
     private List<Item> items = new ArrayList<>();
 
     @Builder
-    public ShowShopResponseDto(Long id, String shopName, List<Item> items) {
+    public FindShopResponseDto(Long id, String shopName, List<Item> items) {
         this.id = id;
         this.shopName = shopName;
         this.items = items;
     }
 
     @Builder
-    public static ShowShopResponseDto of(Shop shop) {
-        return ShowShopResponseDto
+    public static FindShopResponseDto of(Shop shop) {
+        return FindShopResponseDto
                 .builder()
                 .id(shop.getId())
                 .shopName(shop.getShopName())

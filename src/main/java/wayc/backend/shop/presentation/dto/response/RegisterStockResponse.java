@@ -3,11 +3,11 @@ package wayc.backend.shop.presentation.dto.response;
 import lombok.Getter;
 
 @Getter
-public class PostStockResponseDto {
+public class RegisterStockResponse {
 
     private String message;
 
-    public PostStockResponseDto() {
+    public RegisterStockResponse() {
         this.message = "재고 등록에 성공했습니다";
     }
 }

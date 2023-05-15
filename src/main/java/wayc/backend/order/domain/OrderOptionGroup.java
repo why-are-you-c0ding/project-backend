@@ -4,8 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
-import wayc.backend.shop.domain.join.Option;
-import wayc.backend.shop.domain.join.OptionGroup;
 
 import javax.persistence.*;
 
@@ -27,9 +25,5 @@ public class OrderOptionGroup extends BaseEntity {
     public OrderOptionGroup(OrderOption orderOption, String name) {
         this.orderOptions = orderOption;
         this.name = name;
-    }
-
-    public OptionGroup convertToOptionGroup() {
-        return new OptionGroup(name, new Option(orderOptions.getOptionName(), orderOptions.getPrice()));
     }
 }

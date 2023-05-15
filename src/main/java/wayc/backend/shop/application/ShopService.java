@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import wayc.backend.shop.exception.NotExistsShopException;
-import wayc.backend.shop.application.dto.response.show.ShowShopResponseDto;
+import wayc.backend.shop.application.dto.response.find.FindShopResponseDto;
 import wayc.backend.shop.domain.command.ShopRepository;
 import wayc.backend.shop.domain.Shop;
 
@@ -23,10 +23,8 @@ public class ShopService {
         shopRepository.save(shop);
     }
 
-    public ShowShopResponseDto getShop(Long shopId){
-        Shop shop = shopRepository.findByIdAndStatus(shopId)
-                .orElseThrow(NotExistsShopException::new);
-        return ShowShopResponseDto.of(shop);
+    public FindShopResponseDto showShop(Long shopId){
+        Shop shop = shopRepository.findByIdAndStatus(shopId).orElseThrow(NotExistsShopException::new);
+        return FindShopResponseDto.of(shop);
     }
-
 }

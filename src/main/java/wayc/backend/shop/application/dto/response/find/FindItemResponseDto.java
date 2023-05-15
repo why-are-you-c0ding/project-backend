@@ -1,29 +1,33 @@
-package wayc.backend.shop.presentation.dto.response;
+package wayc.backend.shop.application.dto.response.find;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
 
 import java.util.List;
 
 @NoArgsConstructor
 @Getter
-public class GetItemResponseDto {
+public class FindItemResponseDto {
 
     private Long itemId;
     private String itemName;
     private Long shopId;
     private String shopName;
-    private List<ShowOptionGroupResponseDto> optionGroups;
+    private List<FindOptionGroupResponseDto> optionGroups;
     private String imageUrl;
     private String information;
     private String category;
 
     @Builder
-    public GetItemResponseDto(Long itemId, String itemName, Long shopId, String shopName,
-                              List<ShowOptionGroupResponseDto> optionGroups, String imageUrl, String information, String category) {
+    public FindItemResponseDto(Long itemId,
+                               String itemName,
+                               Long shopId,
+                               String shopName,
+                               List<FindOptionGroupResponseDto> optionGroups,
+                               String imageUrl,
+                               String information,
+                               String category) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.shopId = shopId;
@@ -34,8 +38,9 @@ public class GetItemResponseDto {
         this.category = category;
     }
 
-    public static GetItemResponseDto from(ShowItemResponseDto itemDto, List<ShowOptionGroupResponseDto> optionGroupDto) {
-        return GetItemResponseDto.builder()
+    public static FindItemResponseDto of(FindItemDto itemDto,
+                                           List<FindOptionGroupResponseDto> optionGroupDto) {
+        return FindItemResponseDto.builder()
                 .itemId(itemDto.getItemId())
                 .itemName(itemDto.getItemName())
                 .shopId(itemDto.getShopId())

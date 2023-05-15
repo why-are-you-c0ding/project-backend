@@ -22,15 +22,14 @@ public class Stock extends BaseEntity { //옵션과 Stock은 N:M 인듯
     private Long id;
 
     @OneToMany(mappedBy = "stock", cascade = CascadeType.ALL)
-    private List<StockOptionSpecification> stockOptionSpecifications = new ArrayList<>();
+    private List<StockOption> stockOptions = new ArrayList<>();
 
     private Integer quantity;
 
-
-    public Stock(List<OptionSpecification> options, Integer quantity) {
-        this.stockOptionSpecifications = options
+    public Stock(List<Option> options, Integer quantity) {
+        this.stockOptions = options
                 .stream()
-                .map(option-> new StockOptionSpecification(this, option))
+                .map(option-> new StockOption(this, option))
                 .collect(Collectors.toList());
         this.quantity = quantity;
     }

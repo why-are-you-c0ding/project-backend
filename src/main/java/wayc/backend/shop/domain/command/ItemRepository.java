@@ -18,8 +18,8 @@ public interface ItemRepository extends JpaRepository <Item, Long> {
     Optional<Item> findItemByItemId(Long itemId);
 
     //@EntityGraph(attributePaths = {"shop", "optionGroupSpecifications"})
-    @Query("select distinct i from Item i where i.status = 'ACTIVE' and i.category <> :blockKeyword")
-    Slice<Item> findItemsPagingByStatus(PageRequest paging, String blockKeyword);
+    @Query("select distinct i from Item i where i.status = 'ACTIVE'")
+    Slice<Item> findItemsPagingByStatus(PageRequest paging);
 
     @EntityGraph(attributePaths = {"shop"})
     @Query("select i from Item i where i.shop.ownerId =:ownerId and i.status = 'ACTIVE'")

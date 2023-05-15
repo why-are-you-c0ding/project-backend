@@ -9,7 +9,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
-public class PostStockInfoRequestDto {
+public class RegisterStockInfoRequest {
 
     @NotEmpty
     private List<Long> optionIdList;
@@ -17,7 +17,7 @@ public class PostStockInfoRequestDto {
     @Min(1)
     private Integer quantity;
 
-    public PostStockInfoRequestDto(List<Long> optionIdList, Integer quantity) {
+    public RegisterStockInfoRequest(List<Long> optionIdList, Integer quantity) {
         this.optionIdList = optionIdList;
         this.quantity = quantity;
     }

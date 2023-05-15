@@ -3,7 +3,7 @@ package wayc.backend.shop.presentation.dto.request;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
+import wayc.backend.shop.application.dto.request.RegisterItemRequestDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
-public class PostItemRequestDto {
+public class RegisterItemRequest {
 
     @Size(min = 4)
     private String itemName;
@@ -30,13 +30,13 @@ public class PostItemRequestDto {
 
     @Valid
     @NotEmpty
-    private List<PostOptionGroupRequestDto> optionGroups;
+    private List<RegisterOptionGroupRequest> optionGroups;
 
-    public CreateItemRequestDto toServiceDto(){
-        return new CreateItemRequestDto(optionGroups, itemName, imageUrl, information, category);
+    public RegisterItemRequestDto toServiceDto(){
+        return new RegisterItemRequestDto(optionGroups, itemName, imageUrl, information, category);
     }
 
-    public PostItemRequestDto(String itemName, String imageUrl, String information, List<PostOptionGroupRequestDto> optionGroupRequests, String category) {
+    public RegisterItemRequest(String itemName, String imageUrl, String information, List<RegisterOptionGroupRequest> optionGroupRequests, String category) {
         this.itemName = itemName;
         this.imageUrl = imageUrl;
         this.information = information;

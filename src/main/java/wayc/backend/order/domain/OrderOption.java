@@ -3,7 +3,6 @@ package wayc.backend.order.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.shop.domain.join.Option;
 
 import javax.persistence.*;
 
@@ -18,10 +17,6 @@ public class OrderOption{
     public OrderOption(String optionName, Integer price) {
         this.optionName = optionName;
         this.price = price;
-    }
-
-    public Option convertToOption() {
-        return new Option(optionName, price);
     }
 }
 

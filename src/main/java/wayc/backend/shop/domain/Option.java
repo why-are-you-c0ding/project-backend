@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class OptionSpecification extends BaseEntity {
+public class Option extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,13 +24,21 @@ public class OptionSpecification extends BaseEntity {
 
     private Integer price;
 
-    public OptionSpecification(String name, Integer price) {
+    @JoinColumn(name = "option_group_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OptionGroup optionGroup;
+
+    public Option(String name, Integer price) {
         this.name = name;
         this.price = price;
     }
 
-    @OneToMany(mappedBy = "optionSpecification")
-    private List<StockOptionSpecification> stockOptionSpecifications = new ArrayList<>();
+    @OneToMany(mappedBy = "option")
+    private List<StockOption> stockOptions = new ArrayList<>();
+
+    public void add(OptionGroup optionGroup) {
+        this.optionGroup = optionGroup;
+    }
 
 
     /**

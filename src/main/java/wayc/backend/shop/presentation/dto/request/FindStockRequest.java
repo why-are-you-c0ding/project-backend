@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class GetStockRequestDto {
+public class FindStockRequest {
 
-    private List<GetOptionIdRequestDto> optionIdList = new ArrayList<>();
+    private List<FindOptionIdRequest> optionIdList = new ArrayList<>();
 
-    public GetStockRequestDto(List<GetOptionIdRequestDto> optionIdList) {
+    public FindStockRequest(List<FindOptionIdRequest> optionIdList) {
         this.optionIdList = optionIdList;
     }
 }

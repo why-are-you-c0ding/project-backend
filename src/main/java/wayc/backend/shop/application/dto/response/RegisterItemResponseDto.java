@@ -5,11 +5,11 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class CreateItemResponseDto {
+public class RegisterItemResponseDto {
 
     private Long itemId;
 
-    public CreateItemResponseDto(Long itemId) {
+    public RegisterItemResponseDto(Long itemId) {
         this.itemId = itemId;
     }
 }

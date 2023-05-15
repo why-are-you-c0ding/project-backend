@@ -14,39 +14,39 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class OptionGroupSpecification extends BaseEntity {
+public class OptionGroup extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @JoinColumn(name = "item_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Item item;
 
-
-    @JoinColumn(name = "option_group_specification_id")
     @OneToMany(cascade = CascadeType.ALL)
-    private List<OptionSpecification> optionSpecifications = new ArrayList<>();
+    private List<Option> options = new ArrayList<>();
 
     private String name;
 
     private Boolean basic;
 
-    public OptionGroupSpecification(List<OptionSpecification> optionSpecifications, String name, Boolean basic) {
-        this.optionSpecifications = optionSpecifications;
+    public OptionGroup(List<Option> options, String name, Boolean basic) {
+        this.options = options;
         this.name = name;
         this.basic = basic;
+        options.forEach(option -> option.add(this));
     }
-
-
 
     public Integer getBasicPrice(){
         if(basic == true){
-            return optionSpecifications.get(0).getPrice();
+            return options.get(0).getPrice();
         }
         return -1;
+    }
+
+    public void add(Item item) {
+        this.item = item;
     }
 
     /**

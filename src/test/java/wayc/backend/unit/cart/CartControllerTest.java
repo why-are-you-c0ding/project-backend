@@ -2,36 +2,23 @@ package wayc.backend.unit.cart;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import wayc.backend.cart.application.dto.request.CreateCartLineItemRequestDto;
 import wayc.backend.cart.application.dto.response.ShowCartResponseDto;
 import wayc.backend.cart.presentation.dto.request.DeleteCartLineItemRequestDto;
 import wayc.backend.cart.presentation.dto.request.PatchCartLineItemRequestDto;
 import wayc.backend.cart.presentation.dto.request.PostCartLineItemRequestDto;
 import wayc.backend.common.WithMockSeller;
-import wayc.backend.factory.Item.PostItemRequestDtoFactory;
-import wayc.backend.factory.Item.ShowItemResponseDtoFactory;
-import wayc.backend.factory.Item.ShowOptionGroupResponseDtoFactory;
 import wayc.backend.factory.cart.PatchCartLineItemRequestDtoFactory;
 import wayc.backend.factory.cart.PostCartLineItemRequestDtoFactory;
 import wayc.backend.factory.cart.ShowCartResponseDtoFactory;
-import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
-import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
-import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
 import wayc.backend.unit.ControllerTest;
-
-import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

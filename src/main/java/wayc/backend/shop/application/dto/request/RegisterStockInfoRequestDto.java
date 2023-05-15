@@ -7,13 +7,13 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
-public class CreateStockInfoRequestDto {
+public class RegisterStockInfoRequestDto {
 
     private List<Long> optionIdList;
     private Integer quantity;
 
 
-    public CreateStockInfoRequestDto(List<Long> optionIdList, Integer quantity) {
+    public RegisterStockInfoRequestDto(List<Long> optionIdList, Integer quantity) {
         this.optionIdList = optionIdList;
         this.quantity = quantity;
     }

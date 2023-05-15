@@ -1,22 +1,20 @@
 package wayc.backend.factory.Item;
 
-import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowOptionResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowStockResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowStocksResponseDto;
+import wayc.backend.shop.application.dto.response.find.FindStockResponseDto;
+import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class ShowStocksResponseDtoFactory {
 
-    public static ShowStocksResponseDto createSuccessCaseDto(){
+    public static FindStocksResponseDto createSuccessCaseDto(){
 
-        ShowStockResponseDto stock1 = new ShowStockResponseDto(2L, 11);
-        ShowStockResponseDto stock2 = new ShowStockResponseDto(1L, 11);
+        FindStockResponseDto stock1 = new FindStockResponseDto(2L, 11);
+        FindStockResponseDto stock2 = new FindStockResponseDto(1L, 11);
 
-        List<ShowStockResponseDto> list = Arrays.asList(stock1, stock2);
+        List<FindStockResponseDto> list = Arrays.asList(stock1, stock2);
 
-        return new ShowStocksResponseDto(list);
+        return new FindStocksResponseDto(list);
     }
 }

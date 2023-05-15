@@ -5,8 +5,8 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import wayc.backend.shop.presentation.dto.request.GetOptionIdRequestDto;
-import wayc.backend.shop.presentation.dto.request.GetStockRequestDto;
+import wayc.backend.shop.presentation.dto.request.FindOptionIdRequest;
+import wayc.backend.shop.presentation.dto.request.FindStockRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -29,12 +29,12 @@ public class GetStockArgumentResolver implements HandlerMethodArgumentResolver {
         HttpServletRequest request = (HttpServletRequest) nativeWebRequest.getNativeRequest();
         Map<String, String[]> parameterMap = request.getParameterMap();
 
-        return new GetStockRequestDto(
+        return new FindStockRequest(
                 parameterMap
                         .keySet()
                         .stream()
                         .map(key ->
-                                new GetOptionIdRequestDto(parameterMap.get(key)))
+                                new FindOptionIdRequest(parameterMap.get(key)))
                         .collect(Collectors.toList())
         );
     }
