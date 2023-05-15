@@ -20,6 +20,12 @@ public class OptionGroupSpecification extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @JoinColumn(name = "item_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Item item;
+
+
     @JoinColumn(name = "option_group_specification_id")
     @OneToMany(cascade = CascadeType.ALL)
     private List<OptionSpecification> optionSpecifications = new ArrayList<>();

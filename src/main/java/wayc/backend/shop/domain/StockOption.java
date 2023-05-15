@@ -23,9 +23,9 @@ public class StockOptionSpecification extends BaseEntity {
 
     @JoinColumn(name = "option_specification_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private OptionSpecification optionSpecification;
+    private Option optionSpecification;
 
-    public StockOptionSpecification(Stock stock, OptionSpecification optionSpecification) {
+    public StockOptionSpecification(Stock stock, Option optionSpecification) {
         this.stock = stock;
         this.optionSpecification = optionSpecification;
     }

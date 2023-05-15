@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class CartMapper {
 
     public CartLineItem toLineItem(CreateCartLineItemRequestDto dto, Cart cart) {
-        return CartLineItem
+        CartLineItem cartLineItem = CartLineItem
                 .builder()
                 .itemId(dto.getItemId())
                 .cart(cart)
@@ -30,10 +30,12 @@ public class CartMapper {
                                 .collect(Collectors.toList())
                 )
                 .build();
+        cart.setCartLineItem(cartLineItem);
+        return cartLineItem;
     }
 
     private CartOptionGroup toCartOptionGroup(CreateOptionGroupRequestDto dto) {
-        return CartOptionGroup
+        CartOptionGroup optionGroup = CartOptionGroup
                 .builder()
                 .name(dto.getName())
                 .cartOptions(
@@ -44,6 +46,8 @@ public class CartMapper {
                                 .collect(Collectors.toList())
                 )
                 .build();
+
+        return optionGroup;
     }
 
     private CartOption toCartOption(CreateOptionRequestDto dto) {

@@ -30,5 +30,9 @@ public class CartOption extends BaseEntity {
         this.name = name;
         this.price = price;
     }
+
+    public void addCartOptionGroup(CartOptionGroup cartOptionGroup) {
+        this.cartOptionGroup = cartOptionGroup;
+    }
 }
 
