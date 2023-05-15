@@ -21,6 +21,10 @@ public class CartOption extends BaseEntity {
 
     private Integer price;
 
+    @JoinColumn(name = "cart_option_group_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CartOptionGroup cartOptionGroup;
+
     @Builder
     public CartOption(String name, Integer price) {
         this.name = name;

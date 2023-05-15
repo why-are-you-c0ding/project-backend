@@ -18,6 +18,7 @@ import wayc.backend.cart.exception.NotExistsCartException;
 import wayc.backend.cart.exception.NotExistsCartLineException;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CartService {
 

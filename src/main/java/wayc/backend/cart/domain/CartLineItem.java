@@ -32,8 +32,7 @@ public class CartLineItem extends BaseEntity {
 
     private String imageUrl;
 
-    @JoinColumn(name = "cart_line_item_id")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartOptions")
     private List<CartOptionGroup> cartOptionGroups = new ArrayList<>();
 
     @Builder

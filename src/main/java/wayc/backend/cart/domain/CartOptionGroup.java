@@ -19,8 +19,7 @@ public class CartOptionGroup extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "cart_option_group_id")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartOptionGroup")
     private List<CartOption> cartOptions = new ArrayList<>();
 
     private String name;
