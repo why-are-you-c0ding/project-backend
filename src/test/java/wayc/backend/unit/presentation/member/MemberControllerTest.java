@@ -1,4 +1,4 @@
-package wayc.backend.unit.member.presentation;
+package wayc.backend.unit.presentation.member;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,9 @@ import wayc.backend.member.application.dto.response.RegisterMemberResponseDto;
 
 import wayc.backend.member.presentation.dto.request.RegisterConsumerRequest;
 import wayc.backend.member.presentation.dto.request.RegisterSellerRequest;
-import wayc.backend.unit.ControllerTest;
+import wayc.backend.member.presentation.dto.request.ValidateLoginIdRequest;
+import wayc.backend.member.presentation.dto.request.ValidateNickNameRequest;
+import wayc.backend.unit.presentation.ControllerTest;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
@@ -97,6 +99,64 @@ public class MemberControllerTest extends ControllerTest {
                         ),
                         responseFields(
                                 fieldWithPath("message").type(STRING).description("성공 메시지")
+                        )
+                ));
+    }
+
+    @Test
+    @DisplayName("로그인 아이디 중복 확인 테스트")
+    void verify_login_id() throws Exception {
+
+        //given
+        ValidateLoginIdRequest req = new ValidateLoginIdRequest("loginId");
+
+        String value = mapper.writeValueAsString(req);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/verification/login-id")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(value)
+                )
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print())
+                .andDo(document("verify_login_id",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("loginId").type(STRING).description("검증할 로그인 아이디")
+                        ),
+                        responseFields(
+                                fieldWithPath("message").type(STRING).description("검증에 성공했습니다.")
+                        )
+                ));
+    }
+
+    @Test
+    @DisplayName("닉네임 중복 확인 테스트")
+    void verify_nickName() throws Exception {
+
+        //given
+        ValidateNickNameRequest req = new ValidateNickNameRequest("nickName");
+
+        String value = mapper.writeValueAsString(req);
+
+        //when
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/verification/nick-name")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(value)
+                )
+                .andExpect(status().is2xxSuccessful())
+                .andDo(print())
+                .andDo(document("verify_nick_name",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("nickName").type(STRING).description("검증할 닉네임")
+                        ),
+                        responseFields(
+                                fieldWithPath("message").type(STRING).description("검증에 성공했습니다.")
                         )
                 ));
     }

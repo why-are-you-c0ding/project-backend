@@ -1,4 +1,4 @@
-package wayc.backend.unit.shop.presentation;
+package wayc.backend.unit.presentation.shop;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import wayc.backend.shop.application.dto.request.RegisterItemRequestDto;
 import wayc.backend.shop.application.dto.response.RegisterItemResponseDto;
 import wayc.backend.shop.application.dto.response.find.*;
 import wayc.backend.shop.presentation.dto.request.RegisterItemRequest;
-import wayc.backend.unit.ControllerTest;
+import wayc.backend.unit.presentation.ControllerTest;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;

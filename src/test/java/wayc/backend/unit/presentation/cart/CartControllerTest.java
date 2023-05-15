@@ -1,4 +1,4 @@
-package wayc.backend.unit.cart;
+package wayc.backend.unit.presentation.cart;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.cart.PatchCartLineItemRequestDtoFactory;
 import wayc.backend.factory.cart.PostCartLineItemRequestDtoFactory;
 import wayc.backend.factory.cart.ShowCartResponseDtoFactory;
-import wayc.backend.unit.ControllerTest;
+import wayc.backend.unit.presentation.ControllerTest;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;

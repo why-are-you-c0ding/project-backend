@@ -1,12 +1,12 @@
-package wayc.backend.unit.verification.presentation;
+package wayc.backend.unit.presentation.member;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import wayc.backend.unit.ControllerTest;
 import wayc.backend.member.presentation.dto.request.SendEmailRequest;
 import wayc.backend.member.presentation.dto.request.ValidateEmailRequest;
+import wayc.backend.unit.presentation.ControllerTest;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;

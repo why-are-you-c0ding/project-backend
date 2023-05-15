@@ -1,14 +1,13 @@
-package wayc.backend.unit.common.presentation;
+package wayc.backend.unit.presentation.common;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import wayc.backend.common.WithMockSeller;
-import wayc.backend.unit.ControllerTest;
+import wayc.backend.unit.presentation.ControllerTest;
 
 import java.io.InputStream;
 

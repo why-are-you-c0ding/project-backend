@@ -1,4 +1,4 @@
-package wayc.backend.unit.order;
+package wayc.backend.unit.presentation.order;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,9 +15,8 @@ import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
 import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.order.presentation.dto.request.PatchOrderRequestDto;
 import wayc.backend.order.presentation.dto.request.PostOrderRequestDto;
-import wayc.backend.unit.ControllerTest;
+import wayc.backend.unit.presentation.ControllerTest;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;

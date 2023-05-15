@@ -7,7 +7,7 @@
 //import wayc.backend.common.WithMockSeller;
 //import wayc.backend.factory.pay.PostPayRequestDtoFactory;
 //import wayc.backend.pay.presentation.dto.request.PostPayRequestDto;
-//import wayc.backend.unit.ControllerTest;
+//import wayc.backend.unit.presentation.ControllerTest;
 //
 //import java.util.Arrays;
 //import java.util.List;

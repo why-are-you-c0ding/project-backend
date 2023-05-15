@@ -1,4 +1,4 @@
-package wayc.backend.unit.shop.presentation;
+package wayc.backend.unit.presentation.shop;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
 import wayc.backend.shop.presentation.dto.request.RegisterStockInfoRequest;
 import wayc.backend.shop.presentation.dto.request.RegisterStockRequest;
 
-import wayc.backend.unit.ControllerTest;
+import wayc.backend.unit.presentation.ControllerTest;
 
 import java.util.Arrays;
 import java.util.List;
