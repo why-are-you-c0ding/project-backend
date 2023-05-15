@@ -16,8 +16,6 @@ public class RedisServiceImpl implements RedisService{
     private final StringRedisTemplate redisTemplate;
     private final ObjectMapper objectMapper;
 
-    private final int LIMIT_TIME = 5 * 600; //유효시간 설정
-
     @Override
     public <T> Optional<T> get(String key, Class<T> type) {
         String serializedValue = redisTemplate.opsForValue().get(key);

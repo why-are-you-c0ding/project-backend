@@ -19,8 +19,11 @@ public class CartOptionGroup extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "cart_option_group_id")
-    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_line_item_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CartLineItem cartLineItem;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartOptionGroup")
     private List<CartOption> cartOptions = new ArrayList<>();
 
     private String name;
@@ -29,5 +32,10 @@ public class CartOptionGroup extends BaseEntity {
     public CartOptionGroup(List<CartOption> cartOptions, String name) {
         this.cartOptions = cartOptions;
         this.name = name;
+        cartOptions.forEach(option -> option.addCartOptionGroup(this));
+    }
+
+    public void addCartLineItem(CartLineItem cartLineItem){
+        this.cartLineItem = cartLineItem;
     }
 }

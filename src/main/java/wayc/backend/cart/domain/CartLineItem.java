@@ -32,18 +32,23 @@ public class CartLineItem extends BaseEntity {
 
     private String imageUrl;
 
-    @JoinColumn(name = "cart_line_item_id")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartLineItem")
     private List<CartOptionGroup> cartOptionGroups = new ArrayList<>();
 
     @Builder
-    public CartLineItem(Long itemId, Cart cart, String name, Integer count, List<CartOptionGroup> cartOptionGroups, String imageUrl) {
+    public CartLineItem(Long itemId,
+                        Cart cart,
+                        String name,
+                        Integer count,
+                        List<CartOptionGroup> cartOptionGroups,
+                        String imageUrl) {
         this.itemId = itemId;
         this.cart = cart;
         this.name = name;
         this.count = count;
         this.cartOptionGroups = cartOptionGroups;
         this.imageUrl = imageUrl;
+        cartOptionGroups.forEach(optionGroup -> optionGroup.addCartLineItem(this));
     }
 
     public void delete(){
@@ -53,5 +58,9 @@ public class CartLineItem extends BaseEntity {
 
     public void update(Integer count) {
         this.count = count;
+    }
+
+    public void addCart(Cart cart) {
+        this.cart = cart;
     }
 }

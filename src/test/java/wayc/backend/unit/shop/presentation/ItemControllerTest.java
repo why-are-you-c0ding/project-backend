@@ -10,16 +10,11 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.*;
-import wayc.backend.shop.application.dto.request.CreateItemRequestDto;
-import wayc.backend.shop.application.dto.response.CreateItemResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowItemResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowItemsResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowOptionGroupResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowTotalItemResponseDto;
-import wayc.backend.shop.presentation.dto.request.PostItemRequestDto;
+import wayc.backend.shop.application.dto.request.RegisterItemRequestDto;
+import wayc.backend.shop.application.dto.response.RegisterItemResponseDto;
+import wayc.backend.shop.application.dto.response.find.*;
+import wayc.backend.shop.presentation.dto.request.RegisterItemRequest;
 import wayc.backend.unit.ControllerTest;
-
-import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -37,16 +32,11 @@ public class ItemControllerTest extends ControllerTest {
     @Test
     @DisplayName("아이템 생성 성공 컨트롤러 단위 테스트")
     @WithMockSeller
-    void create_item() throws Exception {
+    void register_item() throws Exception {
         //given
-        PostItemRequestDto req = PostItemRequestDtoFactory.createSuccessCase();
-        CreateItemResponseDto res = new CreateItemResponseDto(1L);
-
-        /**
-         * given(itemService.create(Mockito.any(Long.class), Mockito.any(CreateItemRequestDto.class) )) 이 코드는 null이 나온다.
-         * 아마 컨트롤러에서 principal이 null로 들어가서 그런듯. 이거는 추후에 꼭 수정하자.
-         */
-        given(itemService.create(Mockito.any(Long.class), Mockito.any(CreateItemRequestDto.class))).willReturn(res);
+        RegisterItemRequest req = RegisterItemRequestDtoFactory.createSuccessCase();
+        RegisterItemResponseDto res = new RegisterItemResponseDto(1L);
+        given(itemService.registerItem(Mockito.any(Long.class), Mockito.any(RegisterItemRequestDto.class))).willReturn(res);
 
         String value = mapper.writeValueAsString(req);
 
@@ -85,11 +75,9 @@ public class ItemControllerTest extends ControllerTest {
     @DisplayName("아이템 조회 성공 컨트롤러 단위 테스트")
     void show_item() throws Exception {
         //given
-        ShowItemResponseDto dto1 = ShowItemResponseDtoFactory.createSuccessCaseDto();
-        List<ShowOptionGroupResponseDto> dto2 = ShowOptionGroupResponseDtoFactory.createSuccessCaseDto();
+        FindItemResponseDto dto = FindItemResponseDtoFactory.createSuccessDto();
 
-        given(itemService.showItem(Mockito.any(Long.class))).willReturn(dto1);
-        given(optionGroupSpecificationService.get(Mockito.any(List.class))).willReturn(dto2);
+        given(itemProvider.findItem(Mockito.any(Long.class))).willReturn(dto);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/items/{itemId}",1)
@@ -128,14 +116,13 @@ public class ItemControllerTest extends ControllerTest {
 
     @Test
     @DisplayName("전체 아이템 조회 성공 컨트롤러 단위 테스트")
-    void show_items() throws Exception {
+    void find_items() throws Exception {
         //given
-        List<ShowItemsResponseDto> dto = ShowItemsResponseDtoFactory.createSuccessCaseDto();
-        ShowTotalItemResponseDto res = new ShowTotalItemResponseDto(true, dto);
-        given(itemService.showItems(Mockito.any(Integer.class), Mockito.any(String.class))).willReturn(res);
+        given(itemProvider.findItems(Mockito.any(Integer.class)))
+                .willReturn(FindPagingItemResponseDtoFactory.createSuccessCaseDto());
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/items?page=0&blockCategory=Food")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/items?page=0")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                 )
@@ -146,8 +133,7 @@ public class ItemControllerTest extends ControllerTest {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestParameters(
-                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스"),
-                                parameterWithName("blockCategory").description("차단한 상품의 카테고리")
+                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스")
                         ),
                         responseFields(
                                 fieldWithPath("finalPage").type(BOOLEAN).description("마지막 페이지 리스트인지"),
@@ -170,9 +156,8 @@ public class ItemControllerTest extends ControllerTest {
     @DisplayName("판매자가 등록한 아이템 전체 조회 성공 컨트롤러 단위 테스트")
     void show_seller_items() throws Exception {
         //given
-        ShowTotalItemResponseDto res = ShowTotalItemResponseDtoFactory.createSuccessCaseDto();
-
-        given(itemService.showSellerItems(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
+        FindPagingItemResponseDto res = FindPagingItemResponseDtoFactory.createSuccessCaseDto();
+        given(itemProvider.findSellerItems(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/items/sellers?page=0")
@@ -201,50 +186,12 @@ public class ItemControllerTest extends ControllerTest {
     }
 
 
-
-
-    @Test
-    @DisplayName("추천 아이템 조회 성공 컨트롤러 단위 테스트")
-    void show_recommended_items() throws Exception {
-        //given
-        List<ShowItemsResponseDto> res = ShowItemsResponseDtoFactory.createSuccessCaseDto();
-        given(itemService.showRecommendedItem(Mockito.any(List.class))).willReturn(res);
-
-        //when
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/items/recommend?r1=McCain Smiles&r2=Biofinest Maqui Berry Juice Powder")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().is2xxSuccessful())
-                //.andExpect(jsonPath("$.itemId").value(1))
-                .andDo(print())
-                .andDo(document("show_recommended_items",
-                        getDocumentRequest(),
-                        getDocumentResponse(),
-                        requestParameters(
-                                parameterWithName("r1").description("추천 아이템의 이름"),
-                                parameterWithName("r2").description("추천 아이템의 이름")
-                        ),
-                        responseFields(
-                                fieldWithPath("[].itemId").type(NUMBER).description("아이템 id"),
-                                fieldWithPath("[].shopName").type(STRING).description("상품 이름"),
-                                fieldWithPath("[].itemName").type(STRING).description("상품 이름"),
-                                fieldWithPath("[].basicPrice").type(NUMBER).description("기본 가격"),
-                                fieldWithPath("[].imageUrl").type(STRING).description("상품의 이미지"),
-                                fieldWithPath("[].category").type(STRING).description("상품 카테고리")
-
-                                )
-                ));
-    }
-
-
     @Test
     @DisplayName("검색 아이템 전체 조회 성공 컨트롤러 단위 테스트")
     void search_items() throws Exception {
         //given
-        ShowTotalItemResponseDto res = ShowTotalItemResponseDtoFactory.createSuccessCaseDto();
-
-        given(itemService.search(Mockito.any(Integer.class), Mockito.any(String.class))).willReturn(res);
+        FindPagingItemResponseDto res = FindPagingItemResponseDtoFactory.createSuccessCaseDto();
+        given(itemProvider.searchItem(Mockito.any(Integer.class), Mockito.any(String.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/items/search?keyword=computer&page=0")

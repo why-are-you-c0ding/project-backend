@@ -8,7 +8,7 @@ import wayc.backend.shop.domain.query.StockQueryRepository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static wayc.backend.shop.domain.QStockOptionSpecification.*;
+import static wayc.backend.shop.domain.QStockOption.stockOption;
 
 
 @Repository
@@ -20,15 +20,15 @@ public class StockQueryRepositoryImpl implements StockQueryRepository {
         this.query = new JPAQueryFactory(em);
     }
 
-    public Stock findStocks(List<OptionSpecification> options) {
+    public Stock findStocks(List<Option> options) {
         return query
-                .select(stockOptionSpecification.stock)
-                .from(stockOptionSpecification)
+                .select(stockOption.stock)
+                .from(stockOption)
                 .where(
-                        stockOptionSpecification.optionSpecification.in(options)
+                        stockOption.option.in(options)
                 )
-                .groupBy(stockOptionSpecification.stock.id)
-                .orderBy(stockOptionSpecification.stock.id.count().desc())
+                .groupBy(stockOption.stock.id)
+                .orderBy(stockOption.stock.id.count().desc())
                 .limit(1)
                 .fetchFirst();
 

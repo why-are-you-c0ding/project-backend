@@ -21,7 +21,7 @@ public class Cart extends BaseEntity {
     private Long memberId;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    List<CartLineItem> cartLineItems = new ArrayList<>();
+    private List<CartLineItem> cartLineItems = new ArrayList<>();
 
     public Cart(Long memberId) {
         this.memberId = memberId;
@@ -43,5 +43,10 @@ public class Cart extends BaseEntity {
         if(cartLineItems.contains(cartLineItem)){
             cartLineItem.update(count);
         }
+    }
+
+    public void add(CartLineItem cartLineItem){
+        this.cartLineItems.add(cartLineItem);
+        cartLineItem.addCart(this);
     }
 }

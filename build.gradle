@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
 	id "org.asciidoctor.jvm.convert" version "3.3.2"
+	id 'jacoco'
 }
 
 group = 'wayc'
@@ -72,13 +73,70 @@ dependencies {
 //--spring rest docs --//
 
 test {
+	useJUnitPlatform()
 	outputs.dir snippetsDir
+	finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
 asciidoctor {
 	inputs.dir snippetsDir
 	configurations 'asciidoctorExt'
 	dependsOn test
+}
+
+jacocoTestReport { //바이너리 커버리지 결과를 사람이 읽기 좋은 형태의 리포트로 저장.
+	dependsOn test // tests are required to run before generating the report
+	reports {
+		html.enabled true
+		xml.enabled false
+		csv.enabled false
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					"**/KakaoBeanApplication*",
+					"**/common*",
+					"**/dto*",
+					"**/config*",
+					"**/security*",
+					"**/util*",
+					"**/exception*",
+					"**/Q*"
+			])
+		}))
+	}
+	//테스트 커버리지 결과 파일을 생성을 안함.
+
+	finalizedBy 'jacocoTestCoverageVerification'
+}
+
+jacocoTestCoverageVerification { //내가 원하는 커버리지 기준을 만족하는지 확인해 주는 task
+	violationRules {
+		rule {
+			enabled = true
+			element = 'CLASS'
+
+			limit {
+				counter = 'LINE'
+				value = 'COVEREDRATIO'
+				minimum = 0.80
+			}
+
+			excludes = [
+					"**.dto*",
+					"**.*KakaoBeanApplication*",
+					"**.config*",
+					"**.security*",
+					"**.exception*",
+					"**.util*",
+					"**.common*",
+					"**.Q*",
+					"**.response.*" //임시 설정
+			]
+		}
+	}
 }
 
 bootJar {
@@ -101,8 +159,4 @@ clean {
 
 jar{
 	enabled(false) //plain.jar 생성을 막음.
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
 }

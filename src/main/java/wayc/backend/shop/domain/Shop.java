@@ -34,4 +34,10 @@ public class Shop extends BaseEntity {
         this.shopName = shopName;
         this.items = new ArrayList<>();;
     }
+
+
+    public void addItem(Item item) {
+        this.items.add(item);
+        item.add(this);
+    }
 }

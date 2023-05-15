@@ -22,7 +22,11 @@ public class CreateCartLineItemRequestDto {
     private String imageUrl;
 
     @Builder
-    public CreateCartLineItemRequestDto(Long itemId, String name, Integer count, List<CreateOptionGroupRequestDto> cartOptionGroups, String imageUrl) {
+    public CreateCartLineItemRequestDto(Long itemId,
+                                        String name,
+                                        Integer count,
+                                        List<CreateOptionGroupRequestDto> cartOptionGroups,
+                                        String imageUrl) {
         this.itemId = itemId;
         this.name = name;
         this.count = count;

@@ -5,16 +5,16 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import wayc.backend.shop.domain.Option;
+import wayc.backend.shop.domain.command.OptionRepository;
 import wayc.backend.shop.exception.NotExistsOptionSpecificationException;
-import wayc.backend.shop.application.dto.request.CreateStockRequestDto;
-import wayc.backend.shop.application.dto.response.show.ShowStockResponseDto;
-import wayc.backend.shop.application.dto.response.show.ShowStocksResponseDto;
-import wayc.backend.shop.domain.command.OptionSpecificationRepository;
+import wayc.backend.shop.application.dto.request.RegisterStockRequestDto;
+import wayc.backend.shop.application.dto.response.find.FindStockResponseDto;
+import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
 import wayc.backend.shop.infrastructure.StockQueryRepositoryImpl;
 import wayc.backend.shop.domain.command.StockRepository;
-import wayc.backend.shop.domain.OptionSpecification;
 import wayc.backend.shop.domain.Stock;
-import wayc.backend.shop.presentation.dto.request.GetOptionIdRequestDto;
+import wayc.backend.shop.presentation.dto.request.FindOptionIdRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,24 +23,23 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StockService {
 
-    private final OptionSpecificationService optionSpecificationService;
+    private final OptionService optionSpecificationService;
 
-    private final OptionSpecificationRepository optionSpecificationRepository;
+    private final OptionRepository optionSpecificationRepository;
     private final StockQueryRepositoryImpl stockQueryRepository;
     private final StockRepository stockRepository;
 
-    public void create(CreateStockRequestDto dto) {
+    public void create(RegisterStockRequestDto dto) {
         dto
                 .getStockInfos()
-                .stream()
                 .forEach(stockInfoDto -> {
-                    List<OptionSpecification> options = makeOptions(stockInfoDto.getOptionIdList());
+                    List<Option> options = makeOptions(stockInfoDto.getOptionIdList());
                     Stock stock = new Stock(options, stockInfoDto.getQuantity());
                     stockRepository.save(stock);
                 });
     }
 
-    private List<OptionSpecification> makeOptions(List<Long> optionIdList) {
+    private List<Option> makeOptions(List<Long> optionIdList) {
         return optionIdList
                 .stream()
                 .map(id ->
@@ -51,12 +50,12 @@ public class StockService {
                 .collect(Collectors.toList());
     }
 
-    public ShowStocksResponseDto get(List<GetOptionIdRequestDto> optionIdList) {
-        return new ShowStocksResponseDto(
+    public FindStocksResponseDto get(List<FindOptionIdRequest> optionIdList) {
+        return new FindStocksResponseDto(
                 optionIdList
                         .stream()
                         .map(ids ->
-                                new ShowStockResponseDto(
+                                new FindStockResponseDto(
                                 stockQueryRepository.findStocks(optionSpecificationService.getList(ids.getIdList()))
                         ))
                         .collect(Collectors.toList())

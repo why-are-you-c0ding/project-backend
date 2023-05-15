@@ -2,6 +2,7 @@ package wayc.backend.cart.presentation;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -24,37 +25,30 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping("/cart-line-items")
-    public ResponseEntity<PostCartLineItemResponseDto> createCartLineItem(
-            @AuthenticationPrincipal Long id,
-            @RequestBody PostCartLineItemRequestDto request
+    public ResponseEntity createCartLineItem(@AuthenticationPrincipal Long id,
+                                             @RequestBody PostCartLineItemRequestDto request
     ) {
         cartService.createCartLineItem(id, request.toServiceDto());
-        return ResponseEntity.ok(new PostCartLineItemResponseDto());
+        return new ResponseEntity(new PostCartLineItemResponseDto(), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<ShowCartResponseDto> showCart(
-            @AuthenticationPrincipal Long id
-    ){
+    public ResponseEntity showCart(@AuthenticationPrincipal Long id){
         ShowCartResponseDto res = cartService.show(id);
-        return ResponseEntity.ok(res);
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @PatchMapping("/cart-line-items")
-    public ResponseEntity<PatchCartLineItemResponseDto> updateCartLineItem(
-            @AuthenticationPrincipal Long id,
-            @RequestBody PatchCartLineItemRequestDto request
-    ){
+    public ResponseEntity updateCartLineItem(@AuthenticationPrincipal Long id,
+                                             @RequestBody PatchCartLineItemRequestDto request){
         cartService.updateCartLineItem(id, request.getCartLineItemId(), request.getCount());
-        return ResponseEntity.ok(new PatchCartLineItemResponseDto());
+        return new ResponseEntity(new PatchCartLineItemResponseDto(), HttpStatus.OK);
     }
 
     @DeleteMapping("/cart-line-items")
-    public ResponseEntity<DeleteCartLineItemResponseDto> updateCartLineItem(
-            @AuthenticationPrincipal Long id,
-            @RequestBody DeleteCartLineItemRequestDto request
-    ){
+    public ResponseEntity updateCartLineItem(@AuthenticationPrincipal Long id,
+                                             @RequestBody DeleteCartLineItemRequestDto request){
         cartService.deleteCartLineItem(id, request.getCartLineItemId());
-        return ResponseEntity.ok(new DeleteCartLineItemResponseDto());
+        return new ResponseEntity(new DeleteCartLineItemResponseDto(), HttpStatus.OK);
     }
 }

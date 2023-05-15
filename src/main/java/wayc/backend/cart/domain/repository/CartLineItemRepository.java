@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface CartLineItemRepository extends JpaRepository<CartLineItem, Long> {
 
-    @Query("select cat from CartLineItem  cat where cat.id =:id and cat.status='ACTIVE'")
+    @Query("select cat from CartLineItem cat where cat.id =:id and cat.status='ACTIVE'")
     Optional<CartLineItem> findByIdAndStatus(Long id);
 }

@@ -21,9 +21,8 @@ public class Item extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;
 
-    @JoinColumn(name = "item_id")
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<OptionGroupSpecification> optionGroupSpecifications = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
+    private List<OptionGroup> optionGroups = new ArrayList<>();
 
     private String name;
 
@@ -34,12 +33,22 @@ public class Item extends BaseEntity {
     private String category;
 
     @Builder
-    public Item(Shop shop, List<OptionGroupSpecification> optionGroupSpecifications, String name, String imageUrl, String information, String category) {
+    public Item(Shop shop,
+                List<OptionGroup> optionGroups,
+                String name,
+                String imageUrl,
+                String information,
+                String category) {
         this.shop = shop;
-        this.optionGroupSpecifications = optionGroupSpecifications;
+        this.optionGroups = optionGroups;
         this.name = name;
         this.imageUrl = imageUrl;
         this.information = information;
         this.category = category;
+        optionGroups.forEach(optionGroup ->  optionGroup.add(this));
+    }
+
+    public void add(Shop shop) {
+        this.shop = shop;
     }
 }

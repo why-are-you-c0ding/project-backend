@@ -23,18 +23,17 @@ import wayc.backend.config.WebMvcConfig;
 import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
 import wayc.backend.common.exception.ExceptionExampleController;
+import wayc.backend.member.application.EmailService;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.domain.repository.MemberRepository;
+import wayc.backend.member.presentation.EmailController;
 import wayc.backend.member.presentation.MemberController;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.presentation.OrderController;
 import wayc.backend.pay.application.PayServiceImpl;
 import wayc.backend.security.SecurityConfig;
 import wayc.backend.security.jwt.JwtProvider;
-import wayc.backend.shop.application.ItemService;
-import wayc.backend.shop.application.OptionGroupSpecificationService;
-import wayc.backend.shop.application.ShopService;
-import wayc.backend.shop.application.StockService;
+import wayc.backend.shop.application.*;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.shop.presentation.ShopController;
 import wayc.backend.shop.presentation.StockController;
@@ -56,6 +55,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
         StockController.class,
         CartController.class,
         OrderController.class,
+        EmailController.class
 })
 @MockBean(JpaMetamodelMappingContext.class) //JPA 설정을 못하므로 오류가 발생. 따라서 해당 애노테이션을 넣는다.
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "waycabvav.shop", uriPort = 443)
@@ -75,7 +75,7 @@ public abstract class ControllerTest {
     protected MemberRepository memberRepository;
 
     @MockBean
-    protected SendEmailServiceImpl emailService;
+    protected SendEmailServiceImpl sendEmailService;
 
     @MockBean
     protected ImageService imageService;
@@ -90,7 +90,7 @@ public abstract class ControllerTest {
     protected ShopService shopService;
 
     @MockBean
-    protected OptionGroupSpecificationService optionGroupSpecificationService;
+    protected OptionGroupService optionGroupSpecificationService;
 
     @MockBean
     protected StockService stockService;
@@ -103,6 +103,12 @@ public abstract class ControllerTest {
 
     @MockBean
     protected PayServiceImpl payService;
+
+    @MockBean
+    protected EmailService emailService;
+
+    @MockBean
+    protected ItemProvider itemProvider;
 
     public void setUp(
             WebApplicationContext webApplicationContext,
