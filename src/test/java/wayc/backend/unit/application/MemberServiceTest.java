@@ -110,7 +110,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("판매자 멤버 생성 성공 서비스 단위 테스트")
+    @DisplayName("중복되는 로그인 아이디가 존재하므로 멤버 생성에 실패한다.")
     void failRegisterMemberCase2(){
         //given
         RegisterSellerRequestDto dto = createSuccessSellerDto();

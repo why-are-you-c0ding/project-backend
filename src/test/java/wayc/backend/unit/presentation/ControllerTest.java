@@ -36,7 +36,6 @@ import wayc.backend.security.SecurityConfig;
 import wayc.backend.security.jwt.JwtProvider;
 import wayc.backend.shop.application.*;
 import wayc.backend.shop.presentation.ItemController;
-import wayc.backend.shop.presentation.ShopController;
 import wayc.backend.shop.presentation.StockController;
 import wayc.backend.member.infrastructure.SendEmailServiceImpl;
 
@@ -52,7 +51,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
         ExceptionExampleController.class,
         ImageController.class,
         ItemController.class,
-        ShopController.class,
+//        ShopController.class,
         StockController.class,
         CartController.class,
         OrderController.class,
