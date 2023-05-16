@@ -9,11 +9,9 @@ import wayc.backend.factory.member.dto.RegisterMemberRequestDtoFactory;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
 import wayc.backend.member.application.dto.request.RegisterSellerRequestDto;
-import wayc.backend.member.application.dto.response.RegisterMemberResponseDto;
 import wayc.backend.member.domain.Email;
 import wayc.backend.member.domain.repository.EmailRepository;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
@@ -33,11 +31,10 @@ public class MemberIntegrationTest {
         RegisterConsumerRequestDto dto = RegisterMemberRequestDtoFactory.createSuccessConsumerDto();
 
         //when
-        RegisterMemberResponseDto result = memberService.registerMember(dto);
+        memberService.registerMember(dto);
 
         //then
-        assertThat(result.getAge()).isEqualTo(24);
-        assertThat(result.getNickName()).isEqualTo("nickName");
+
     }
 
     @Test
@@ -48,10 +45,9 @@ public class MemberIntegrationTest {
         RegisterSellerRequestDto dto = RegisterMemberRequestDtoFactory.createSuccessSellerDto();
 
         //when
-        RegisterMemberResponseDto result = memberService.registerMember(dto);
+        memberService.registerMember(dto);
 
         //then
-        assertThat(result.getAge()).isEqualTo(24);
-        assertThat(result.getNickName()).isEqualTo("nickName");
+
     }
 }

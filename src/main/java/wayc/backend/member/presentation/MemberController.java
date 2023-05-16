@@ -6,21 +6,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import wayc.backend.member.application.MemberProvider;
 import wayc.backend.member.application.MemberService;
-import wayc.backend.member.application.dto.response.RegisterMemberResponseDto;
 import wayc.backend.member.presentation.dto.request.*;
 import wayc.backend.member.presentation.dto.response.RegisterMemberResponse;
 import wayc.backend.member.presentation.dto.response.ValidateResponse;
-
-import wayc.backend.cart.application.CartService;
-import wayc.backend.shop.application.ShopService;
-
 
 @RequiredArgsConstructor
 @RestController
 public class MemberController {
 
     private final MemberService memberService;
+    private final MemberProvider memberProvider;
 
     private final static String VERIFICATION_SUCCESS = "검증에 성공했습니다.";
 
@@ -28,7 +25,7 @@ public class MemberController {
     public ResponseEntity<RegisterMemberResponse> createMember(
             @RequestBody @Validated RegisterConsumerRequest request
     ){
-        RegisterMemberResponseDto res = memberService.registerMember(RegisterConsumerRequest.toServiceDto(request));
+        memberService.registerMember(RegisterConsumerRequest.toServiceDto(request));
         return ResponseEntity.ok(new RegisterMemberResponse());
     }
 
@@ -36,7 +33,7 @@ public class MemberController {
     public ResponseEntity<RegisterMemberResponse> createSeller(
             @RequestBody @Validated RegisterSellerRequest request
     ){
-        RegisterMemberResponseDto res = memberService.registerMember(RegisterSellerRequest.toServiceDto(request));
+        memberService.registerMember(RegisterSellerRequest.toServiceDto(request));
         return ResponseEntity.ok(new RegisterMemberResponse());
     }
     
@@ -44,7 +41,7 @@ public class MemberController {
     public ResponseEntity<ValidateResponse> verifyNickName(
             @RequestBody @Validated ValidateNickNameRequest request
     ){
-        memberService.validateNickName(request.getNickName());
+        memberProvider.validateNickName(request.getNickName());
         return ResponseEntity.ok(new ValidateResponse(VERIFICATION_SUCCESS));
     }
 
@@ -52,7 +49,7 @@ public class MemberController {
     public ResponseEntity<ValidateResponse> verifyLoginId(
             @RequestBody @Validated ValidateLoginIdRequest request
     ) {
-        memberService.validateLoginId(request.getLoginId());
+        memberProvider.validateLoginId(request.getLoginId());
         return ResponseEntity.ok(new ValidateResponse(VERIFICATION_SUCCESS));
     }
 }

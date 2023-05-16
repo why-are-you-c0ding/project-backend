@@ -24,6 +24,7 @@ import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
 import wayc.backend.common.exception.ExceptionExampleController;
 import wayc.backend.member.application.EmailService;
+import wayc.backend.member.application.MemberProvider;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.presentation.EmailController;
@@ -109,6 +110,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected ItemProvider itemProvider;
+
+    @MockBean
+    protected MemberProvider memberProvider;
 
     public void setUp(
             WebApplicationContext webApplicationContext,

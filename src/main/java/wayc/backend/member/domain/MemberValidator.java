@@ -21,7 +21,7 @@ public class MemberValidator {
 
     public void validateRegisterMember(AbstractRegisterMemberRequestDto dto) {
 
-        if (!dto.getPassword().equals(dto.getPassword())) {
+        if (!dto.getPassword().equals(dto.getCheckPassword())) {
             throw new NotSamePasswordException();
         }
 

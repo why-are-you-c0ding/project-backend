@@ -2,31 +2,24 @@ package wayc.backend.unit.presentation.member;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
 import org.springframework.http.MediaType;
-
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import wayc.backend.factory.member.dto.RegisterMemberResponseDtoFactory;
+
 import wayc.backend.factory.member.dto.RegisterMemberRequestFactory;
-
-import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
-import wayc.backend.member.application.dto.request.RegisterSellerRequestDto;
-import wayc.backend.member.application.dto.response.RegisterMemberResponseDto;
-
 import wayc.backend.member.presentation.dto.request.RegisterConsumerRequest;
 import wayc.backend.member.presentation.dto.request.RegisterSellerRequest;
 import wayc.backend.member.presentation.dto.request.ValidateLoginIdRequest;
 import wayc.backend.member.presentation.dto.request.ValidateNickNameRequest;
 import wayc.backend.unit.presentation.ControllerTest;
 
-import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import static wayc.backend.docs.SpringRestDocsUtils.*;
 
 public class MemberControllerTest extends ControllerTest {
@@ -36,8 +29,6 @@ public class MemberControllerTest extends ControllerTest {
     void create_consumer() throws Exception {
         //given
         RegisterConsumerRequest req = RegisterMemberRequestFactory.createConsumerSuccessCaseDto();
-        RegisterMemberResponseDto res = RegisterMemberResponseDtoFactory.createSuccessCaseDto();
-        given(memberService.registerMember(Mockito.any(RegisterConsumerRequestDto.class))).willReturn(res);
 
         String value = mapper.writeValueAsString(req);
 
@@ -72,8 +63,6 @@ public class MemberControllerTest extends ControllerTest {
     void create_seller() throws Exception {
         //given
         RegisterSellerRequest req = RegisterMemberRequestFactory.createSellerSuccessCaseDto();
-        RegisterMemberResponseDto res = RegisterMemberResponseDtoFactory.createSuccessCaseDto();
-        given(memberService.registerMember(Mockito.any(RegisterSellerRequestDto.class))).willReturn(res);
 
         String value = mapper.writeValueAsString(req);
 
