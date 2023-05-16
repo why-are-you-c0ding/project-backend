@@ -10,21 +10,21 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
-public class ShowCartResponseDto {
+public class FindCartResponseDto {
 
-    private List<ShowCartLineItemResponseDto> cartLineItems = new ArrayList<>();
+    private List<FindCartLineItemResponseDto> cartLineItems = new ArrayList<>();
 
 
-    public ShowCartResponseDto(List<ShowCartLineItemResponseDto> cartLineItems) {
+    public FindCartResponseDto(List<FindCartLineItemResponseDto> cartLineItems) {
         this.cartLineItems = cartLineItems;
     }
 
-    public static ShowCartResponseDto of(Cart cart) {
-         return new ShowCartResponseDto(
+    public static FindCartResponseDto of(Cart cart) {
+         return new FindCartResponseDto(
                  cart.getCartLineItems()
                          .stream()
                          .map(cartLineItem ->
-                                 ShowCartLineItemResponseDto.toCartLineItemResponseDto(cartLineItem))
+                                 FindCartLineItemResponseDto.toCartLineItemResponseDto(cartLineItem))
                          .collect(Collectors.toList())
          );
     }

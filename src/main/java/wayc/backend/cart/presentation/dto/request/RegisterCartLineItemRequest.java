@@ -3,7 +3,7 @@ package wayc.backend.cart.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.cart.application.dto.request.CreateCartLineItemRequestDto;
+import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
-public class PostCartLineItemRequestDto {
+public class RegisterCartLineItemRequest {
 
     private Long itemId;
     private String name;
@@ -22,9 +22,9 @@ public class PostCartLineItemRequestDto {
 
     @Valid
     @NotEmpty
-    private List<PostCartOptionGroupRequestDto> cartOptionGroups = new ArrayList<>();
+    private List<RegisterCartOptionGroupRequest> cartOptionGroups = new ArrayList<>();
 
-    public PostCartLineItemRequestDto(Long itemId, String name, Integer count, List<PostCartOptionGroupRequestDto> optionGroups, String imageUrl) {
+    public RegisterCartLineItemRequest(Long itemId, String name, Integer count, List<RegisterCartOptionGroupRequest> optionGroups, String imageUrl) {
         this.itemId = itemId;
         this.name = name;
         this.count = count;
@@ -32,8 +32,8 @@ public class PostCartLineItemRequestDto {
         this.imageUrl = imageUrl;
     }
 
-    public CreateCartLineItemRequestDto toServiceDto(){
-        return CreateCartLineItemRequestDto
+    public RegisterCartLineItemRequestDto toServiceDto(){
+        return RegisterCartLineItemRequestDto
                 .builder()
                 .itemId(itemId)
                 .name(name)
@@ -41,7 +41,7 @@ public class PostCartLineItemRequestDto {
                 .cartOptionGroups(
                         cartOptionGroups
                                 .stream()
-                                .map(PostCartOptionGroupRequestDto::toServiceDto)
+                                .map(RegisterCartOptionGroupRequest::toServiceDto)
                                 .collect(Collectors.toList())
                 )
                 .imageUrl(imageUrl)

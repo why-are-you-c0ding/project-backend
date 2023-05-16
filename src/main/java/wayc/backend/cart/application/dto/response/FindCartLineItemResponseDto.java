@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
-public class ShowCartLineItemResponseDto {
+public class FindCartLineItemResponseDto {
 
     private Long id;
 
@@ -21,12 +21,12 @@ public class ShowCartLineItemResponseDto {
 
     private Integer count;
 
-    private List<ShowCartOptionGroupResponseDto> cartOptionGroups = new ArrayList<>();
+    private List<FindCartOptionGroupResponseDto> cartOptionGroups = new ArrayList<>();
 
     private String imageUrl;
 
     @Builder
-    public ShowCartLineItemResponseDto(Long id, Long itemId, String name, Integer count, List<ShowCartOptionGroupResponseDto> cartOptionGroups, String imageUrl) {
+    public FindCartLineItemResponseDto(Long id, Long itemId, String name, Integer count, List<FindCartOptionGroupResponseDto> cartOptionGroups, String imageUrl) {
         this.id = id;
         this.itemId = itemId;
         this.name = name;
@@ -35,8 +35,8 @@ public class ShowCartLineItemResponseDto {
         this.imageUrl = imageUrl;
     }
 
-    public static ShowCartLineItemResponseDto toCartLineItemResponseDto(CartLineItem cartLineItem){
-        return ShowCartLineItemResponseDto
+    public static FindCartLineItemResponseDto toCartLineItemResponseDto(CartLineItem cartLineItem){
+        return FindCartLineItemResponseDto
                 .builder()
                 .id(cartLineItem.getId())
                 .itemId(cartLineItem.getItemId())
@@ -48,7 +48,7 @@ public class ShowCartLineItemResponseDto {
                                 .getCartOptionGroups()
                                 .stream()
                                 .map(cartOptionGroup ->
-                                        ShowCartOptionGroupResponseDto.toOptionGroupResponseDto(cartOptionGroup)
+                                        FindCartOptionGroupResponseDto.toOptionGroupResponseDto(cartOptionGroup)
                                 )
                                 .collect(Collectors.toList()))
                 .build();

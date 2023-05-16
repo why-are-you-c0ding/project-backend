@@ -11,28 +11,28 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
-public class ShowCartOptionGroupResponseDto {
+public class FindCartOptionGroupResponseDto {
 
     private Long id;
-    private List<ShowCartOptionResponseDto> cartOptions = new ArrayList<>();
+    private List<FindCartOptionResponseDto> cartOptions = new ArrayList<>();
     private String name;
 
     @Builder
-    public ShowCartOptionGroupResponseDto(Long id, List<ShowCartOptionResponseDto> cartOptions, String name) {
+    public FindCartOptionGroupResponseDto(Long id, List<FindCartOptionResponseDto> cartOptions, String name) {
         this.id = id;
         this.cartOptions = cartOptions;
         this.name = name;
     }
 
-    public static ShowCartOptionGroupResponseDto toOptionGroupResponseDto(CartOptionGroup cartOptionGroup){
-        return ShowCartOptionGroupResponseDto
+    public static FindCartOptionGroupResponseDto toOptionGroupResponseDto(CartOptionGroup cartOptionGroup){
+        return FindCartOptionGroupResponseDto
                 .builder()
                 .id(cartOptionGroup.getId())
                 .name(cartOptionGroup.getName())
                 .cartOptions(cartOptionGroup.getCartOptions()
                         .stream()
                         .map(cartOption ->
-                                ShowCartOptionResponseDto
+                                FindCartOptionResponseDto
                                         .builder()
                                         .id(cartOption.getId())
                                         .name(cartOption.getName())

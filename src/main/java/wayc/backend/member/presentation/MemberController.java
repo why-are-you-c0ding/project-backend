@@ -22,7 +22,6 @@ public class MemberController {
 
     private final MemberService memberService;
 
-
     //TODO 나중에 도메인 이벤트로 빼버리자.
     private final ShopService shopService;
     private final CartService cartService;
@@ -43,7 +42,7 @@ public class MemberController {
             @RequestBody @Validated RegisterSellerRequest request
     ){
         RegisterMemberResponseDto res = memberService.registerMember(RegisterSellerRequest.toServiceDto(request));
-        shopService.createShop(res.getId(), res.getNickName());
+        shopService.registerShop(res.getId(), res.getNickName());
         cartService.create(res.getId());
         return ResponseEntity.ok(new RegisterMemberResponse());
     }

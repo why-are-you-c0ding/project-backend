@@ -10,9 +10,9 @@
 //@Getter
 //public class UpdateCartRequestDto {
 //
-//    private List<CreateCartLineItemRequestDto> cartLineItems = new ArrayList<>();
+//    private List<RegisterCartLineItemRequestDto> cartLineItems = new ArrayList<>();
 //
-//    public UpdateCartRequestDto(List<CreateCartLineItemRequestDto> cartLineItems) {
+//    public UpdateCartRequestDto(List<RegisterCartLineItemRequestDto> cartLineItems) {
 //        this.cartLineItems = cartLineItems;
 //    }
 //}

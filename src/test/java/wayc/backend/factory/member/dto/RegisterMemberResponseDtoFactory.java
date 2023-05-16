@@ -2,7 +2,7 @@ package wayc.backend.factory.member.dto;
 
 import wayc.backend.member.application.dto.response.RegisterMemberResponseDto;
 
-public class CreateMemberResponseDtoFactory {
+public class RegisterMemberResponseDtoFactory {
 
     static public RegisterMemberResponseDto createSuccessCaseDto(){
         return RegisterMemberResponseDto.

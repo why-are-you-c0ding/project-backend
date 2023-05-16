@@ -7,8 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import wayc.backend.common.WithMockSeller;
-import wayc.backend.factory.order.PostOrderRequestDtoFactory;
-import wayc.backend.factory.order.ShowOrderResponseDtoFactory;
+import wayc.backend.factory.order.RegisterOrderRequestDtoFactory;
+import wayc.backend.factory.order.FindOrderResponseDtoFactory;
 import wayc.backend.factory.order.ShowTotalOrderResponseDtoFactory;
 import wayc.backend.order.application.dto.response.ShowOrderResponseDto;
 import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
@@ -37,7 +37,7 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void create_order() throws Exception {
         //given
-        List<PostOrderRequestDto> req = PostOrderRequestDtoFactory.createSuccessCase();
+        List<PostOrderRequestDto> req = RegisterOrderRequestDtoFactory.createSuccessCase();
         String value = mapper.writeValueAsString(req);
 
         //when
@@ -156,7 +156,7 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void show_order() throws Exception {
         //given
-        ShowOrderResponseDto res = ShowOrderResponseDtoFactory.createSuccessCase();
+        ShowOrderResponseDto res = FindOrderResponseDtoFactory.createSuccessCase();
         given(orderService.showOrder(Mockito.any(Long.class), Mockito.any(Long.class))).willReturn(res);
 
         //when

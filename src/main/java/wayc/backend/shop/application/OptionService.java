@@ -15,7 +15,7 @@ public class OptionService {
 
     private final OptionRepository optionSpecificationRepository;
 
-    public List<Option> getList(List<Long> idList) {
+    public List<Option> getOptions(List<Long> idList) {
         return idList.stream()
                 .map(id ->
                         optionSpecificationRepository

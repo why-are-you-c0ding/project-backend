@@ -9,7 +9,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
-public class CreateCartLineItemRequestDto {
+public class RegisterCartLineItemRequestDto {
 
     private Long itemId;
 
@@ -17,16 +17,16 @@ public class CreateCartLineItemRequestDto {
 
     private Integer count;
 
-    private List<CreateOptionGroupRequestDto> cartOptionGroups = new ArrayList<>();
+    private List<RegisterOptionGroupRequestDto> cartOptionGroups = new ArrayList<>();
 
     private String imageUrl;
 
     @Builder
-    public CreateCartLineItemRequestDto(Long itemId,
-                                        String name,
-                                        Integer count,
-                                        List<CreateOptionGroupRequestDto> cartOptionGroups,
-                                        String imageUrl) {
+    public RegisterCartLineItemRequestDto(Long itemId,
+                                          String name,
+                                          Integer count,
+                                          List<RegisterOptionGroupRequestDto> cartOptionGroups,
+                                          String imageUrl) {
         this.itemId = itemId;
         this.name = name;
         this.count = count;

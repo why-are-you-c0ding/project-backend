@@ -32,6 +32,4 @@ public class ItemService {
         itemRepository.save(item);
         return new RegisterItemResponseDto(item.getId());
     }
-
-
 }

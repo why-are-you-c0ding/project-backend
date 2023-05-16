@@ -1,18 +1,19 @@
 package wayc.backend.unit.presentation.cart;
 
+import org.hibernate.sql.Update;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import wayc.backend.cart.application.dto.response.ShowCartResponseDto;
-import wayc.backend.cart.presentation.dto.request.DeleteCartLineItemRequestDto;
-import wayc.backend.cart.presentation.dto.request.PatchCartLineItemRequestDto;
-import wayc.backend.cart.presentation.dto.request.PostCartLineItemRequestDto;
+import wayc.backend.cart.application.dto.response.FindCartResponseDto;
+import wayc.backend.cart.presentation.dto.request.DeleteCartLineItemRequest;
+import wayc.backend.cart.presentation.dto.request.UpdateCartLineItemRequest;
+import wayc.backend.cart.presentation.dto.request.RegisterCartLineItemRequest;
 import wayc.backend.common.WithMockSeller;
-import wayc.backend.factory.cart.PatchCartLineItemRequestDtoFactory;
-import wayc.backend.factory.cart.PostCartLineItemRequestDtoFactory;
-import wayc.backend.factory.cart.ShowCartResponseDtoFactory;
+import wayc.backend.factory.cart.FindCartResponseDtoFactory;
+import wayc.backend.factory.cart.RegisterCartLineItemRequestFactory;
+import wayc.backend.factory.cart.UpdateCartLineItemRequestFactory;
 import wayc.backend.unit.presentation.ControllerTest;
 
 import static org.mockito.BDDMockito.given;
@@ -32,7 +33,7 @@ public class CartControllerTest extends ControllerTest {
     @WithMockSeller
     void create_cart_line_item() throws Exception {
         //given
-        PostCartLineItemRequestDto req = PostCartLineItemRequestDtoFactory.createSuccessCase();
+        RegisterCartLineItemRequest req = RegisterCartLineItemRequestFactory.createSuccessCase();
         String value = mapper.writeValueAsString(req);
 
         //when
@@ -70,8 +71,8 @@ public class CartControllerTest extends ControllerTest {
     void show_cart() throws Exception {
         //given
 
-        ShowCartResponseDto res = ShowCartResponseDtoFactory.createSuccessCase();
-        given(cartService.show(Mockito.any(Long.class))).willReturn(res);
+        FindCartResponseDto res = FindCartResponseDtoFactory.createSuccessCase();
+        given(cartService.findCart(Mockito.any(Long.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/carts")
@@ -107,7 +108,7 @@ public class CartControllerTest extends ControllerTest {
     void update_cart() throws Exception {
         //given
 
-        PatchCartLineItemRequestDto req = PatchCartLineItemRequestDtoFactory.createSuccessCase();
+        UpdateCartLineItemRequest req = UpdateCartLineItemRequestFactory.createSuccessCase();
 
         String value = mapper.writeValueAsString(req);
 
@@ -139,7 +140,7 @@ public class CartControllerTest extends ControllerTest {
     @WithMockSeller
     void delete_cart() throws Exception {
         //given
-        DeleteCartLineItemRequestDto req = new DeleteCartLineItemRequestDto(1L);
+        DeleteCartLineItemRequest req = new DeleteCartLineItemRequest(1L);
 
         String value = mapper.writeValueAsString(req);
 

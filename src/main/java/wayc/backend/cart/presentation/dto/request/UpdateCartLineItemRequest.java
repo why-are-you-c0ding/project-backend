@@ -5,12 +5,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PatchCartLineItemRequestDto {
+public class UpdateCartLineItemRequest {
 
     private Integer count;
     private Long cartLineItemId;
 
-    public PatchCartLineItemRequestDto(Integer count, Long cartLineItemId) {
+    public UpdateCartLineItemRequest(Integer count, Long cartLineItemId) {
         this.count = count;
         this.cartLineItemId = cartLineItemId;
     }

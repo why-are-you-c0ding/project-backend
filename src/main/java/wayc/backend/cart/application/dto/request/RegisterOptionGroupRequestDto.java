@@ -9,14 +9,14 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
-public class CreateOptionGroupRequestDto {
+public class RegisterOptionGroupRequestDto {
 
-    private List<CreateOptionRequestDto> cartOptions = new ArrayList<>();
+    private List<RegisterOptionRequestDto> cartOptions = new ArrayList<>();
 
     private String name;
 
     @Builder
-    public CreateOptionGroupRequestDto(List<CreateOptionRequestDto> cartOptions, String name) {
+    public RegisterOptionGroupRequestDto(List<RegisterOptionRequestDto> cartOptions, String name) {
         this.cartOptions = cartOptions;
         this.name = name;
     }

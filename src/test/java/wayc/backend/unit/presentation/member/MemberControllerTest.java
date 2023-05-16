@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import wayc.backend.factory.member.dto.CreateMemberResponseDtoFactory;
+import wayc.backend.factory.member.dto.RegisterMemberResponseDtoFactory;
 import wayc.backend.factory.member.dto.RegisterMemberRequestFactory;
 
 import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
@@ -36,7 +36,7 @@ public class MemberControllerTest extends ControllerTest {
     void create_consumer() throws Exception {
         //given
         RegisterConsumerRequest req = RegisterMemberRequestFactory.createConsumerSuccessCaseDto();
-        RegisterMemberResponseDto res = CreateMemberResponseDtoFactory.createSuccessCaseDto();
+        RegisterMemberResponseDto res = RegisterMemberResponseDtoFactory.createSuccessCaseDto();
         given(memberService.registerMember(Mockito.any(RegisterConsumerRequestDto.class))).willReturn(res);
 
         String value = mapper.writeValueAsString(req);
@@ -72,7 +72,7 @@ public class MemberControllerTest extends ControllerTest {
     void create_seller() throws Exception {
         //given
         RegisterSellerRequest req = RegisterMemberRequestFactory.createSellerSuccessCaseDto();
-        RegisterMemberResponseDto res = CreateMemberResponseDtoFactory.createSuccessCaseDto();
+        RegisterMemberResponseDto res = RegisterMemberResponseDtoFactory.createSuccessCaseDto();
         given(memberService.registerMember(Mockito.any(RegisterSellerRequestDto.class))).willReturn(res);
 
         String value = mapper.writeValueAsString(req);

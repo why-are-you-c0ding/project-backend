@@ -2,23 +2,23 @@ package wayc.backend.cart.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.cart.application.dto.request.CreateOptionRequestDto;
+import wayc.backend.cart.application.dto.request.RegisterOptionRequestDto;
 
 @NoArgsConstructor
 @Getter
-public class PostCartOptionRequestDto {
+public class RegisterCartOptionRequest {
 
     private String name;
 
     private Integer price;
 
-    public PostCartOptionRequestDto(String name, Integer price) {
+    public RegisterCartOptionRequest(String name, Integer price) {
         this.name = name;
         this.price = price;
     }
 
-    public CreateOptionRequestDto toServiceDto(){
-        return CreateOptionRequestDto
+    public RegisterOptionRequestDto toServiceDto(){
+        return RegisterOptionRequestDto
                 .builder()
                 .name(name)
                 .price(price)

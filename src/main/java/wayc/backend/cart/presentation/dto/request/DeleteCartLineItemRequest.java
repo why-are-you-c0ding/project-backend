@@ -5,11 +5,11 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class DeleteCartLineItemRequestDto {
+public class DeleteCartLineItemRequest {
 
     private Long cartLineItemId;
 
-    public DeleteCartLineItemRequestDto(Long cartLineItemId) {
+    public DeleteCartLineItemRequest(Long cartLineItemId) {
         this.cartLineItemId = cartLineItemId;
     }
 }

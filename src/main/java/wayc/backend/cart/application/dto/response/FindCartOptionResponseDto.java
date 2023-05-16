@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class ShowCartOptionResponseDto {
+public class FindCartOptionResponseDto {
 
     private Long id;
 
@@ -15,7 +15,7 @@ public class ShowCartOptionResponseDto {
     private Integer price;
 
     @Builder
-    public ShowCartOptionResponseDto(Long id, String name, Integer price) {
+    public FindCartOptionResponseDto(Long id, String name, Integer price) {
         this.id = id;
         this.name = name;
         this.price = price;

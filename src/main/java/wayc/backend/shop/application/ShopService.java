@@ -18,7 +18,7 @@ public class ShopService {
     private final ShopRepository shopRepository;
 
     @Transactional(readOnly = false)
-    public void createShop(Long ownerId, String nickName){
+    public void registerShop(Long ownerId, String nickName){
         Shop shop = Shop.builder().ownerId(ownerId).shopName(nickName + "님의 shop").build();
         shopRepository.save(shop);
     }

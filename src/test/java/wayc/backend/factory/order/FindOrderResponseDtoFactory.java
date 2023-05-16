@@ -6,7 +6,7 @@ import wayc.backend.order.domain.OrderStatus;
 
 import java.util.Arrays;
 
-public class ShowOrderResponseDtoFactory {
+public class FindOrderResponseDtoFactory {
 
     public static ShowOrderResponseDto createSuccessCase(){
 

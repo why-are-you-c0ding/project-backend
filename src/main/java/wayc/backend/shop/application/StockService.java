@@ -56,7 +56,7 @@ public class StockService {
                         .stream()
                         .map(ids ->
                                 new FindStockResponseDto(
-                                stockQueryRepository.findStocks(optionSpecificationService.getList(ids.getIdList()))
+                                stockQueryRepository.findStocks(optionSpecificationService.getOptions(ids.getIdList()))
                         ))
                         .collect(Collectors.toList())
         );
