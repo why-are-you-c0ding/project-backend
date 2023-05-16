@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import wayc.backend.cart.application.CartProvider;
 import wayc.backend.cart.application.CartService;
 import wayc.backend.cart.application.dto.response.FindCartResponseDto;
 
@@ -23,6 +24,7 @@ import wayc.backend.cart.presentation.dto.response.RegisterCartLineItemResponse;
 public class CartController {
 
     private final CartService cartService;
+    private final CartProvider cartProvider;
 
     @PostMapping("/cart-line-items")
     public ResponseEntity registerCartLineItem(@AuthenticationPrincipal Long id,
@@ -34,7 +36,7 @@ public class CartController {
 
     @GetMapping
     public ResponseEntity findCart(@AuthenticationPrincipal Long id){
-        FindCartResponseDto res = cartService.findCart(id);
+        FindCartResponseDto res = cartProvider.findCart(id);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

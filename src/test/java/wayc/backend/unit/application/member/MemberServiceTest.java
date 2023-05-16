@@ -1,4 +1,4 @@
-package wayc.backend.unit.application;
+package wayc.backend.unit.application.member;
 
 import org.assertj.core.api.AbstractThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;

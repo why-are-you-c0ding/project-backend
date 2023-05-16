@@ -30,7 +30,6 @@ public class CartMapper {
                                 .collect(Collectors.toList())
                 )
                 .build();
-        cart.add(cartLineItem);
         return cartLineItem;
     }
 

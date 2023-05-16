@@ -1,6 +1,8 @@
 package wayc.backend.pay.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
 
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.Id;
 
 @Getter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Pay extends BaseEntity {
 
     @Id
@@ -18,9 +21,6 @@ public class Pay extends BaseEntity {
     private Integer price;
 
     private Long orderId;
-
-    protected Pay() {
-    }
 
     public Pay(Integer price, Long orderId) {
         this.price = price;
