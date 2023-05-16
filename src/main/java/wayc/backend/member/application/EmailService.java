@@ -42,7 +42,7 @@ public class EmailService {
     }
 
     private boolean wrongAuthKey(String receiveEmail, String certificationNumber) {
-        return !redisService.get(receiveEmail, String.class).equals(certificationNumber);
+        return !redisService.get(receiveEmail, String.class).get().equals(certificationNumber);
     }
 
     public void sendVerificationEmail(String receiveEmail) {

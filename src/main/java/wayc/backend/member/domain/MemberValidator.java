@@ -19,7 +19,6 @@ public class MemberValidator {
 
     private final MemberRepository memberRepository;
 
-
     public void validateRegisterMember(AbstractRegisterMemberRequestDto dto) {
 
         if (!dto.getPassword().equals(dto.getPassword())) {

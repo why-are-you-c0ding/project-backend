@@ -3,10 +3,10 @@ package wayc.backend.cart.application;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
-import wayc.backend.cart.application.dto.request.CreateCartLineItemRequestDto;
-import wayc.backend.cart.application.dto.response.ShowCartResponseDto;
+
+import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
+import wayc.backend.cart.application.dto.response.FindCartResponseDto;
 
 import wayc.backend.cart.domain.repository.CartLineItemRepository;
 import wayc.backend.cart.domain.repository.CartRepository;
@@ -26,21 +26,23 @@ public class CartService {
     private final CartLineItemRepository cartLineItemRepository;
     private final CartMapper cartMapper;
 
-    public void create(Long memberId){
+    @Transactional(readOnly = false)
+    public void register(Long memberId){
         cartRepository.save(new Cart(memberId));
     }
 
-    public ShowCartResponseDto show(Long memberId){
+    public FindCartResponseDto findCart(Long memberId){
         Cart cart = cartRepository.findByIdAndStatus(memberId)
                 .orElseThrow(NotExistsCartException::new);
-        return ShowCartResponseDto.of(cart);
+        return FindCartResponseDto.of(cart);
     }
 
     @Transactional(readOnly = false)
-    public void createCartLineItem(Long memberId, CreateCartLineItemRequestDto dto){
+    public void registerCartLineItem(Long memberId, RegisterCartLineItemRequestDto dto){
         Cart cart = cartRepository.findByIdAndStatus(memberId)
                 .orElseThrow(NotExistsCartException::new);
         CartLineItem lineItem = cartMapper.toLineItem(dto, cart);
+
         cart.addCartLineItem(lineItem);
     }
 

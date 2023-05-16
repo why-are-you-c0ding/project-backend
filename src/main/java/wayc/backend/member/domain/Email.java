@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.domain.BaseStatus;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

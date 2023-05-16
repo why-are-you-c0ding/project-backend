@@ -96,8 +96,7 @@ jacocoTestReport { //바이너리 커버리지 결과를 사람이 읽기 좋은
 	afterEvaluate {
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it, exclude: [
-					"**/KakaoBeanApplication*",
-					"**/common*",
+					"**/BackendApplication*",
 					"**/dto*",
 					"**/config*",
 					"**/security*",
@@ -126,14 +125,12 @@ jacocoTestCoverageVerification { //내가 원하는 커버리지 기준을 만�
 
 			excludes = [
 					"**.dto*",
-					"**.*KakaoBeanApplication*",
+					"**.*BackendApplication*",
 					"**.config*",
 					"**.security*",
 					"**.exception*",
 					"**.util*",
-					"**.common*",
 					"**.Q*",
-					"**.response.*" //임시 설정
 			]
 		}
 	}

@@ -1,9 +1,9 @@
 package wayc.backend.cart.application;
 
 import org.springframework.stereotype.Component;
-import wayc.backend.cart.application.dto.request.CreateCartLineItemRequestDto;
-import wayc.backend.cart.application.dto.request.CreateOptionGroupRequestDto;
-import wayc.backend.cart.application.dto.request.CreateOptionRequestDto;
+import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
+import wayc.backend.cart.application.dto.request.RegisterOptionGroupRequestDto;
+import wayc.backend.cart.application.dto.request.RegisterOptionRequestDto;
 
 import wayc.backend.cart.domain.Cart;
 import wayc.backend.cart.domain.CartLineItem;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Component
 public class CartMapper {
 
-    public CartLineItem toLineItem(CreateCartLineItemRequestDto dto, Cart cart) {
+    public CartLineItem toLineItem(RegisterCartLineItemRequestDto dto, Cart cart) {
         CartLineItem cartLineItem = CartLineItem
                 .builder()
                 .itemId(dto.getItemId())
@@ -34,7 +34,7 @@ public class CartMapper {
         return cartLineItem;
     }
 
-    private CartOptionGroup toCartOptionGroup(CreateOptionGroupRequestDto dto) {
+    private CartOptionGroup toCartOptionGroup(RegisterOptionGroupRequestDto dto) {
         CartOptionGroup optionGroup = CartOptionGroup
                 .builder()
                 .name(dto.getName())
@@ -50,7 +50,7 @@ public class CartMapper {
         return optionGroup;
     }
 
-    private CartOption toCartOption(CreateOptionRequestDto dto) {
+    private CartOption toCartOption(RegisterOptionRequestDto dto) {
         return new CartOption(dto.getName(), dto.getPrice());
     }
 }
