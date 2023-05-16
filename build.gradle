@@ -121,7 +121,7 @@ jacocoTestCoverageVerification { //내가 원하는 커버리지 기준을 만�
 			limit {
 				counter = 'LINE'
 				value = 'COVEREDRATIO'
-				minimum = 0.80
+				minimum = 0.90
 			}
 
 			excludes = [

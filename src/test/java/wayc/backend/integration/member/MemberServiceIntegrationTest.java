@@ -26,7 +26,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static wayc.backend.factory.member.dto.RegisterMemberRequestDtoFactory.*;
 
-public class MemberIntegrationTest extends IntegrationTest {
+public class MemberServiceIntegrationTest extends IntegrationTest {
 
     @Autowired
     private MemberService memberService;
