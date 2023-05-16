@@ -25,6 +25,7 @@ public class MemberService {
     public RegisterMemberResponseDto registerMember(AbstractRegisterMemberRequestDto dto) {
         Member member = memberMapper.mapFrom(dto);
         memberRepository.save(member);
+        member.registered();
         return RegisterMemberResponseDto.of(member);
     }
 

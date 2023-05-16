@@ -13,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class BaseEntity {
 
     @CreatedDate
@@ -25,8 +24,8 @@ public abstract class BaseEntity {
     @Enumerated(EnumType.STRING)
     private BaseStatus status;
 
-    protected BaseEntity(BaseStatus status) {
-        this.status = status;
+    protected BaseEntity() {
+        this.status = BaseStatus.ACTIVE;
     }
 
     protected void delete(){

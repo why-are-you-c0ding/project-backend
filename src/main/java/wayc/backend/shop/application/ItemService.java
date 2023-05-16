@@ -18,11 +18,9 @@ import wayc.backend.shop.domain.Shop;
 @RequiredArgsConstructor
 public class ItemService {
 
-    private final ItemQueryRepositoryImpl itemQueryRepository;
     private final ShopRepository shopRepository;
     private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
-    private final OptionGroupService optionGroupService;
 
     @Transactional(readOnly = false)
     public RegisterItemResponseDto registerItem(Long ownerId, RegisterItemRequestDto dto){

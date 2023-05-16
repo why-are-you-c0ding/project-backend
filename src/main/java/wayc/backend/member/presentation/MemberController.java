@@ -22,10 +22,6 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    //TODO 나중에 도메인 이벤트로 빼버리자.
-    private final ShopService shopService;
-    private final CartService cartService;
-
     private final static String VERIFICATION_SUCCESS = "검증에 성공했습니다.";
 
     @PostMapping("/members/consumers")
@@ -33,7 +29,6 @@ public class MemberController {
             @RequestBody @Validated RegisterConsumerRequest request
     ){
         RegisterMemberResponseDto res = memberService.registerMember(RegisterConsumerRequest.toServiceDto(request));
-        cartService.create(res.getId());
         return ResponseEntity.ok(new RegisterMemberResponse());
     }
 
@@ -42,8 +37,6 @@ public class MemberController {
             @RequestBody @Validated RegisterSellerRequest request
     ){
         RegisterMemberResponseDto res = memberService.registerMember(RegisterSellerRequest.toServiceDto(request));
-        shopService.registerShop(res.getId(), res.getNickName());
-        cartService.create(res.getId());
         return ResponseEntity.ok(new RegisterMemberResponse());
     }
     

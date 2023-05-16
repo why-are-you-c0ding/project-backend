@@ -26,7 +26,8 @@ public class CartService {
     private final CartLineItemRepository cartLineItemRepository;
     private final CartMapper cartMapper;
 
-    public void create(Long memberId){
+    @Transactional(readOnly = false)
+    public void register(Long memberId){
         cartRepository.save(new Cart(memberId));
     }
 

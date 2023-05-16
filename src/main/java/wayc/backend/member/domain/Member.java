@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.event.Events;
+import wayc.backend.member.domain.event.MemberRegisteredEvent;
 import wayc.backend.security.role.Role;
 
 import javax.persistence.*;
@@ -43,6 +45,10 @@ public class Member extends BaseEntity {
         this.age = age;
         this.email = email;
         this.role = role;
+    }
+
+    public void registered() {
+        Events.raise(new MemberRegisteredEvent(id, nickName, role));
     }
 }
 
