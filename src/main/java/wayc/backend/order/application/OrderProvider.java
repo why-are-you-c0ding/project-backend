@@ -35,7 +35,7 @@ public class OrderProvider {
     private final ItemRepository itemRepository;
     private final PayRepository payRepository;
 
-    public FindPagingOrderResponseDto showCustomerOrders(Long memberId, Integer page) {
+    public FindPagingOrderResponseDto findCustomerOrders(Long memberId, Integer page) {
         PageRequest paging = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
         Slice<Order> pagingResult = orderRepository.findOrdersPagingByOrderingMemberId(memberId, paging);
         List<FindOrdersForCustomerResponseDto> result = pagingResult.stream()
@@ -52,7 +52,7 @@ public class OrderProvider {
         return new FindPagingOrderResponseDto(pagingResult.isLast(), result);
     }
 
-    public FindOrderResponseDto showOrder(Long memberId, Long orderId) {
+    public FindOrderResponseDto findOrder(Long memberId, Long orderId) {
         Order order = orderRepository.findOrderByOrderId(orderId)
                 .orElseThrow(NotExistsOrderException::new);
         Item item = itemRepository.findItemByItemId(order.getItemId())
@@ -63,22 +63,11 @@ public class OrderProvider {
         return FindOrderResponseDto.of(order, item, price);
     }
 
-    public FindPagingOrderResponseDto showSellerOrders(Long memberId, Integer page) {
+    public FindPagingOrderResponseDto findSellerOrders(Long memberId, Integer page) {
         PageRequest paging = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "created_at"));
         Page<OrderDto> pagingResult = orderRepository.findOrdersPagingByOwnerId(memberId, paging);
-
         List<FindOrdersForSellerResponseDto> result = pagingResult.stream()
-                .map(dto ->
-                        new FindOrdersForSellerResponseDto(
-                                dto.getItemImageUrl(),
-                                dto.getOrderId(),
-                                dto.getCount(),
-                                dto.getItemName(),
-                                dto.getCreatedAt(),
-                                dto.getItemId(),
-                                dto.getOrderStatus(),
-                                dto.getPrice()
-                        ))
+                .map(dto -> FindOrdersForSellerResponseDto.of(dto))
                 .collect(Collectors.toList());
 
         return new FindPagingOrderResponseDto(pagingResult.isLast(), result);

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import wayc.backend.shop.exception.NotExistsItemException;
+import wayc.backend.shop.domain.command.ItemRepository;
 
 import wayc.backend.order.exception.NotExistsOrderException;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
@@ -13,7 +14,6 @@ import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
 import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.order.domain.Order;
 
-import wayc.backend.shop.domain.command.ItemRepository;
 
 import java.util.List;
 
@@ -30,6 +30,7 @@ public class OrderService {
         List<Order> orders = orderMapper.mapFrom(dtoList, memberId);
 
         //TODO  order vadliation을 해야함.
+
         orderRepository.saveAll(orders);
         orderCreated(orders);
     }

@@ -13,11 +13,11 @@ import java.util.Optional;
 @Repository
 public interface ItemRepository extends JpaRepository <Item, Long> {
 
-    @EntityGraph(attributePaths = {"shop", "optionGroupSpecifications"})
+    @EntityGraph(attributePaths = {"shop", "optionGroups"})
     @Query("select i from Item i where i.id =:itemId and i.status = 'ACTIVE'")
     Optional<Item> findItemByItemId(Long itemId);
 
-    //@EntityGraph(attributePaths = {"shop", "optionGroupSpecifications"})
+    //@EntityGraph(attributePaths = {"shop", "optionGroups"})
     @Query("select distinct i from Item i where i.status = 'ACTIVE'")
     Slice<Item> findItemsPagingByStatus(PageRequest paging);
 

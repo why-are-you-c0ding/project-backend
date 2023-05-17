@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import wayc.backend.common.WithMockSeller;
-import wayc.backend.factory.Item.FindStocksResponseDtoFactory;
+import wayc.backend.factory.Item.dto.FindStocksResponseDtoFactory;
 import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
 import wayc.backend.shop.presentation.dto.request.RegisterStockInfoRequest;
 import wayc.backend.shop.presentation.dto.request.RegisterStockRequest;

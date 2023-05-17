@@ -7,9 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import wayc.backend.common.WithMockSeller;
-import wayc.backend.factory.order.RegisterOrderRequestDtoFactory;
+import wayc.backend.factory.order.CreateOrderRequestFactory;
 import wayc.backend.factory.order.FindOrderResponseDtoFactory;
-import wayc.backend.factory.order.ShowTotalOrderResponseDtoFactory;
+import wayc.backend.factory.order.FindPagingOrderResponseDtoFactory;
 import wayc.backend.order.application.dto.response.FindOrderResponseDto;
 import wayc.backend.order.application.dto.response.FindPagingOrderResponseDto;
 import wayc.backend.order.domain.OrderStatus;
@@ -37,7 +37,7 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void create_order() throws Exception {
         //given
-        List<CreateOrderRequest> req = RegisterOrderRequestDtoFactory.createSuccessCase();
+        List<CreateOrderRequest> req = CreateOrderRequestFactory.createSuccessCase();
         String value = mapper.writeValueAsString(req);
 
         //when
@@ -78,8 +78,8 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void show_customer_order() throws Exception {
         //given
-        FindPagingOrderResponseDto res = ShowTotalOrderResponseDtoFactory.createSuccessCaseForCustomer();
-        given(orderProvider.showCustomerOrders(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
+        FindPagingOrderResponseDto res = FindPagingOrderResponseDtoFactory.createSuccessCaseForCustomer();
+        given(orderProvider.findCustomerOrders(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/customers?page=0")
@@ -119,8 +119,8 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void show_seller_order() throws Exception {
         //given
-        FindPagingOrderResponseDto res = ShowTotalOrderResponseDtoFactory.createSuccessCaseForSeller();
-        given(orderProvider.showSellerOrders(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
+        FindPagingOrderResponseDto res = FindPagingOrderResponseDtoFactory.createSuccessCaseForSeller();
+        given(orderProvider.findSellerOrders(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/sellers?page=0")
@@ -157,7 +157,7 @@ public class OrderControllerTest extends ControllerTest {
     void show_order() throws Exception {
         //given
         FindOrderResponseDto res = FindOrderResponseDtoFactory.createSuccessCase();
-        given(orderProvider.showOrder(Mockito.any(Long.class), Mockito.any(Long.class))).willReturn(res);
+        given(orderProvider.findOrder(Mockito.any(Long.class), Mockito.any(Long.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/{orderId}",3)

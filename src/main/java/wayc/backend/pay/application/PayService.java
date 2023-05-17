@@ -27,6 +27,9 @@ public class PayService {
     public void createPay(Long memberId, CreatePayRequestDto dto) {
         Order order = orderRepository.findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(dto.getOrderId(), memberId)
                             .orElseThrow(NotExistsOrderException::new);
+
+        //TODO: 외부 결제사 연동.
+
         Pay pay = new Pay(dto.getPay(), dto.getOrderId());
         payRepository.save(pay);
         order.updateOrder(OrderStatus.ONGOING);
@@ -50,13 +53,4 @@ public class PayService {
         payRepository.saveAll(result);
     }
 }
-
-//    @Transactional(readOnly = false)
-//    public void createPay(Long memberId, Long orderId, Integer price) {
-//        Order order = orderRepository.findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(orderId, memberId)
-//                .orElseThrow(NotExistsOrderException::new);//검증
-//        Pay pay = new Pay(price, orderId);
-//        payRepository.save(pay);
-//        order.updateOrder(OrderStatus.ONGOING);
-//    }
 

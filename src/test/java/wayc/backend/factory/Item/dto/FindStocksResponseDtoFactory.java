@@ -1,4 +1,4 @@
-package wayc.backend.factory.Item;
+package wayc.backend.factory.Item.dto;
 
 import wayc.backend.shop.application.dto.response.find.FindStockResponseDto;
 import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;

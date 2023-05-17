@@ -5,7 +5,7 @@ import wayc.backend.order.domain.OrderStatus;
 
 import java.util.Arrays;
 
-public class ShowTotalOrderResponseDtoFactory {
+public class FindPagingOrderResponseDtoFactory {
 
 
     public static FindPagingOrderResponseDto createSuccessCaseForCustomer(){
@@ -34,7 +34,7 @@ public class ShowTotalOrderResponseDtoFactory {
                 .itemImageUrl("www.image.com")
                 .shopName("맥 스토어")
                 .itemName("맥북")
-                .orderOptionGroups(Arrays.asList(optionGroup_color, optionGroup_size))
+                .orderOptionGroups(Arrays.asList(optionGroup_ram, optionGroup_ssd))
                 .count(2)
                 .shopId(2L)
                 .price(20000)

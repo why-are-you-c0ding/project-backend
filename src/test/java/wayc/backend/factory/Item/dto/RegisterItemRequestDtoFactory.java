@@ -1,4 +1,4 @@
-package wayc.backend.factory.Item;
+package wayc.backend.factory.Item.dto;
 
 import wayc.backend.shop.presentation.dto.request.RegisterItemRequest;
 import wayc.backend.shop.presentation.dto.request.RegisterOptionGroupRequest;

@@ -9,7 +9,7 @@ import wayc.backend.order.presentation.dto.request.CreateOrderOptionRequest;
 import java.util.Arrays;
 import java.util.List;
 
-public class RegisterOrderRequestDtoFactory {
+public class CreateOrderRequestFactory {
 
     public static List<CreateOrderRequest> createSuccessCase(){
 

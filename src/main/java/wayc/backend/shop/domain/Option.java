@@ -13,6 +13,7 @@ import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Table(name = "option_spec")
 @Entity
 public class Option extends BaseEntity {
 
