@@ -32,7 +32,6 @@ public class PayService {
 
         Pay pay = new Pay(dto.getPay(), dto.getOrderId());
         payRepository.save(pay);
-        order.updateOrder(OrderStatus.ONGOING);
     }
 
     @Transactional(readOnly = false)

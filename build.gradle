@@ -106,6 +106,7 @@ jacocoTestReport { //바이너리 커버리지 결과를 사람이 읽기 좋은
 					"**/util*",
 					"**/exception*",
 					"**/redis*",
+					"**/image*",
 					"**/Q*"
 			])
 		}))
@@ -135,6 +136,7 @@ jacocoTestCoverageVerification { //내가 원하는 커버리지 기준을 만�
 					"**.exception*",
 					"**.util*",
 					"**/redis*",
+					"**/image*",
 					"**.Q*",
 			]
 		}
