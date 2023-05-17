@@ -1,4 +1,4 @@
-package wayc.backend.order.domain.pay;
+package wayc.backend.order.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
