@@ -1,33 +1,40 @@
 package wayc.backend.integration.cart;
 
-import org.assertj.core.api.AbstractThrowableAssert;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import wayc.backend.cart.application.CartProvider;
-import wayc.backend.factory.member.domain.MemberFactory;
+import wayc.backend.cart.application.CartService;
+import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
+import wayc.backend.cart.application.dto.response.FindCartResponseDto;
+import wayc.backend.cart.domain.repository.CartRepository;
+import wayc.backend.factory.cart.RegisterCartLineItemRequestFactory;
 import wayc.backend.integration.IntegrationTest;
-import wayc.backend.member.application.MemberProvider;
-import wayc.backend.member.domain.Member;
-import wayc.backend.member.domain.repository.MemberRepository;
-import wayc.backend.member.exception.DuplicatedLoginIdException;
-import wayc.backend.member.exception.DuplicatedNickNameException;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CartProviderIntegrationTest extends IntegrationTest {
 
     @Autowired
-    private CartProvider memberProvider;
+    private CartProvider cartProvider;
 
+    @Autowired
+    private CartService cartService;
 
     @Test
     @DisplayName("카트의 내용을 조회한다.")
     void findCart(){
+
         //given
+        RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.createSuccessCase().toServiceDto();
+        cartService.register(1L);
+        cartService.registerCartLineItem(1L, dto);
 
         //when
+        FindCartResponseDto result = cartProvider.findCart(1L);
 
         //then
+        Assertions.assertThat(result.getCartLineItems().size()).isEqualTo(1);
     }
 }
