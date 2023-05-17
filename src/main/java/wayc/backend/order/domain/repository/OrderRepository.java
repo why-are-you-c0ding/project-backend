@@ -6,8 +6,8 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
 import wayc.backend.order.domain.Order;
-import wayc.backend.order.infrastructure.dto.OrderDto;
 
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             countQuery = "select count(*) from orders",
             value =
             "select i.id as itemId, i.image_url as itemImageUrl, i.name as itemName, o.count, " +
-                    " o.id as orderId, o.created_at as createdAt, o.order_status as orderStatus, pay.price as price from orders as o " +
+                    " o.id as orderId, o.created_at as createdAt, o.order_status as orderStatus, pay.pay as price from orders as o " +
                     " join( select i.id, i.image_url, i.name, i.status  from item i where i.shop_id = " +
                     "                                   (select shop.id from shop where shop.owner_id =:ownerId) ) " +
                     "    as i on i.id = o.item_id and i.status = 'ACTIVE' " +

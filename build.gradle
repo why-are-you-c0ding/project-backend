@@ -27,6 +27,7 @@ ext {
 }
 
 dependencies {
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -68,9 +69,11 @@ dependencies {
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
+
+	testImplementation 'org.mockito:mockito-inline:3.6.0' //static 메서드를 모킹하기 위해 필요
+
 }
 
-//--spring rest docs --//
 
 test {
 	useJUnitPlatform()
@@ -102,6 +105,7 @@ jacocoTestReport { //바이너리 커버리지 결과를 사람이 읽기 좋은
 					"**/security*",
 					"**/util*",
 					"**/exception*",
+					"**/redis*",
 					"**/Q*"
 			])
 		}))
@@ -120,7 +124,7 @@ jacocoTestCoverageVerification { //내가 원하는 커버리지 기준을 만�
 			limit {
 				counter = 'LINE'
 				value = 'COVEREDRATIO'
-				minimum = 0.80
+				minimum = 0.90
 			}
 
 			excludes = [
@@ -130,6 +134,7 @@ jacocoTestCoverageVerification { //내가 원하는 커버리지 기준을 만�
 					"**.security*",
 					"**.exception*",
 					"**.util*",
+					"**/redis*",
 					"**.Q*",
 			]
 		}

@@ -27,11 +27,12 @@ public class Cart extends BaseEntity {
         this.memberId = memberId;
     }
 
-    public void addCartLineItem(CartLineItem lineItem) {
+    public void addCartLineItem(CartLineItem cartLineItem) {
 
         //TODO 카트 라인 아이템과 상점의 옵션이 동일한지 검증하는 로직이 필요함.
 
-        cartLineItems.add(lineItem);
+        cartLineItems.add(cartLineItem);
+        cartLineItem.addCart(this);
     }
 
     public void deleteCartLineItem(CartLineItem cartLineItem) {
@@ -43,10 +44,5 @@ public class Cart extends BaseEntity {
         if(cartLineItems.contains(cartLineItem)){
             cartLineItem.update(count);
         }
-    }
-
-    public void add(CartLineItem cartLineItem){
-        this.cartLineItems.add(cartLineItem);
-        cartLineItem.addCart(this);
     }
 }

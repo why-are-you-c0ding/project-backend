@@ -72,7 +72,7 @@ public class CartControllerTest extends ControllerTest {
         //given
 
         FindCartResponseDto res = FindCartResponseDtoFactory.createSuccessCase();
-        given(cartService.findCart(Mockito.any(Long.class))).willReturn(res);
+        given(cartProvider.findCart(Mockito.any(Long.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/carts")

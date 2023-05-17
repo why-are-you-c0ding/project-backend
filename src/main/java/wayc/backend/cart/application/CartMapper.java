@@ -1,6 +1,7 @@
 package wayc.backend.cart.application;
 
 import org.springframework.stereotype.Component;
+
 import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
 import wayc.backend.cart.application.dto.request.RegisterOptionGroupRequestDto;
 import wayc.backend.cart.application.dto.request.RegisterOptionRequestDto;
@@ -30,7 +31,6 @@ public class CartMapper {
                                 .collect(Collectors.toList())
                 )
                 .build();
-        cart.add(cartLineItem);
         return cartLineItem;
     }
 

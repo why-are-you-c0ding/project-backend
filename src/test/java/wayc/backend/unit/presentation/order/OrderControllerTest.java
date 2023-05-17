@@ -7,14 +7,14 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import wayc.backend.common.WithMockSeller;
-import wayc.backend.factory.order.RegisterOrderRequestDtoFactory;
+import wayc.backend.factory.order.CreateOrderRequestFactory;
 import wayc.backend.factory.order.FindOrderResponseDtoFactory;
-import wayc.backend.factory.order.ShowTotalOrderResponseDtoFactory;
-import wayc.backend.order.application.dto.response.ShowOrderResponseDto;
-import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
+import wayc.backend.factory.order.FindPagingOrderResponseDtoFactory;
+import wayc.backend.order.application.dto.response.FindOrderResponseDto;
+import wayc.backend.order.application.dto.response.FindPagingOrderResponseDto;
 import wayc.backend.order.domain.OrderStatus;
-import wayc.backend.order.presentation.dto.request.PatchOrderRequestDto;
-import wayc.backend.order.presentation.dto.request.PostOrderRequestDto;
+import wayc.backend.order.presentation.dto.request.UpdateOrderRequest;
+import wayc.backend.order.presentation.dto.request.CreateOrderRequest;
 import wayc.backend.unit.presentation.ControllerTest;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void create_order() throws Exception {
         //given
-        List<PostOrderRequestDto> req = RegisterOrderRequestDtoFactory.createSuccessCase();
+        List<CreateOrderRequest> req = CreateOrderRequestFactory.createSuccessCase();
         String value = mapper.writeValueAsString(req);
 
         //when
@@ -78,8 +78,8 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void show_customer_order() throws Exception {
         //given
-        ShowTotalOrderResponseDto res = ShowTotalOrderResponseDtoFactory.createSuccessCaseForCustomer();
-        given(orderService.showCustomerOrders(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
+        FindPagingOrderResponseDto res = FindPagingOrderResponseDtoFactory.createSuccessCaseForCustomer();
+        given(orderProvider.findCustomerOrders(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/customers?page=0")
@@ -119,8 +119,8 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void show_seller_order() throws Exception {
         //given
-        ShowTotalOrderResponseDto res = ShowTotalOrderResponseDtoFactory.createSuccessCaseForSeller();
-        given(orderService.showSellerOrders(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
+        FindPagingOrderResponseDto res = FindPagingOrderResponseDtoFactory.createSuccessCaseForSeller();
+        given(orderProvider.findSellerOrders(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/sellers?page=0")
@@ -156,8 +156,8 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void show_order() throws Exception {
         //given
-        ShowOrderResponseDto res = FindOrderResponseDtoFactory.createSuccessCase();
-        given(orderService.showOrder(Mockito.any(Long.class), Mockito.any(Long.class))).willReturn(res);
+        FindOrderResponseDto res = FindOrderResponseDtoFactory.createSuccessCase();
+        given(orderProvider.findOrder(Mockito.any(Long.class), Mockito.any(Long.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/{orderId}",3)
@@ -201,7 +201,7 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void update_order() throws Exception {
         //given
-        PatchOrderRequestDto req = new PatchOrderRequestDto(2L, 3L, OrderStatus.COMPLETED);
+        UpdateOrderRequest req = new UpdateOrderRequest(2L, 3L, OrderStatus.COMPLETED);
         String value = mapper.writeValueAsString(req);
 
         //when

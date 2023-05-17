@@ -25,6 +25,7 @@ public class OrderMapper {
                                 .count(orderDto.getCount())
                                 .address(orderDto.toAddress())
                                 .orderStatus(OrderStatus.BEFORE_PAY)
+                                .payment(orderDto.getPayment())
                                 .orderOptionGroups(orderDto
                                         .getOrderOptionGroupsDto()
                                         .stream()

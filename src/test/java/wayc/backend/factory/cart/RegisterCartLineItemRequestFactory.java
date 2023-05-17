@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 public class RegisterCartLineItemRequestFactory {
 
-
     public static RegisterCartLineItemRequest createSuccessCase(){
 
         RegisterCartOptionRequest option_1 = new RegisterCartOptionRequest("basic", 20000);

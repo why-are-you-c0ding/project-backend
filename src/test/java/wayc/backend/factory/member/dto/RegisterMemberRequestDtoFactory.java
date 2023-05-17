@@ -28,4 +28,16 @@ public class RegisterMemberRequestDtoFactory {
                 .authKey("999999")
                 .build();
     }
+
+    static public RegisterSellerRequestDto createFailMemberDto(){
+        return RegisterSellerRequestDto.builder()
+                .nickName("nickName")
+                .email("123@gmail.com")
+                .loginId("loginId")
+                .password("1q2w3e4r!")
+                .checkPassword("1q2w3e4r!11")
+                .age(24)
+                .authKey("999999")
+                .build();
+    }
 }

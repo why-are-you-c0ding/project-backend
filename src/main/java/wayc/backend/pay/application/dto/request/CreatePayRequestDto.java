@@ -9,23 +9,23 @@ import java.util.List;
 @Getter
 public class CreatePayRequestDto {
 
-    @NotNull
-    private Integer price;
 
     @NotNull
     private Long orderId;
 
-    public CreatePayRequestDto(Integer price, Long orderId) {
-        this.price = price;
+    @NotNull
+    private Integer pay;
+
+    public CreatePayRequestDto(Long orderId, Integer pay) {
         this.orderId = orderId;
+        this.pay = pay;
     }
 
     public static List<CreatePayRequestDto> from(List<Long> idList, List<Integer> priceList) {
         List<CreatePayRequestDto> result = new ArrayList<>();
         for (int i = 0; i < idList.size(); i++) {
-            result.add(new CreatePayRequestDto(priceList.get(i), idList.get(i) ));
+            result.add(new CreatePayRequestDto(idList.get(i), priceList.get(i)));
         }
-
         return result;
     }
 

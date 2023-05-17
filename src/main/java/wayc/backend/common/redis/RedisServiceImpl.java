@@ -20,7 +20,7 @@ public class RedisServiceImpl implements RedisService{
     public <T> Optional<T> get(String key, Class<T> type) {
         String serializedValue = redisTemplate.opsForValue().get(key);
         try {
-            return Optional.of(objectMapper.readValue(serializedValue, type));
+            return Optional.of(objectMapper.readValue(serializedValue, type)); //내부에서 null 검사를 다 해준다.
         } catch (Exception e) {
             throw new RuntimeException("JSON 파싱 에러입니다.");
         }

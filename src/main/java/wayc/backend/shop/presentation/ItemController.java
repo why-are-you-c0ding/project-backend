@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import wayc.backend.shop.application.ItemProvider;
 import wayc.backend.shop.application.ItemService;
-import wayc.backend.shop.application.dto.response.find.FindItemDto;
 import wayc.backend.shop.application.dto.response.find.FindItemResponseDto;
 import wayc.backend.shop.application.dto.response.find.FindPagingItemResponseDto;
 

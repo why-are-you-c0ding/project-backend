@@ -14,6 +14,7 @@ import wayc.backend.member.exception.email.WrongEmailAuthKeyException;
 import wayc.backend.member.presentation.dto.response.ValidateEmailResponse;
 
 import java.time.Duration;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,22 +28,15 @@ public class EmailService {
     @Transactional(readOnly = false)
     public void verifyEmail(String receiveEmail, String authKey) {
 
-        if(notExistsEmail(receiveEmail)){
-            throw new NotExistsEmailException();
-        }
-
         if(wrongAuthKey(receiveEmail, authKey)){
             throw new WrongEmailAuthKeyException();
         }
         emailRepository.save(new Email(receiveEmail, authKey));
     }
 
-    private boolean notExistsEmail(String receiveEmail) {
-        return !redisService.hasKey(receiveEmail);
-    }
-
     private boolean wrongAuthKey(String receiveEmail, String certificationNumber) {
-        return !redisService.get(receiveEmail, String.class).get().equals(certificationNumber);
+        String authKey = redisService.get(receiveEmail, String.class).get();
+        return !authKey.equals(certificationNumber);
     }
 
     public void sendVerificationEmail(String receiveEmail) {

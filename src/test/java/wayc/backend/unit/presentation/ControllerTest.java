@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+import wayc.backend.cart.application.CartProvider;
 import wayc.backend.cart.application.CartService;
 import wayc.backend.cart.presentation.CartController;
 import wayc.backend.config.WebMvcConfig;
@@ -24,18 +25,19 @@ import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
 import wayc.backend.common.exception.ExceptionExampleController;
 import wayc.backend.member.application.EmailService;
+import wayc.backend.member.application.MemberProvider;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.presentation.EmailController;
 import wayc.backend.member.presentation.MemberController;
+import wayc.backend.order.application.OrderProvider;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.presentation.OrderController;
-import wayc.backend.pay.application.PayServiceImpl;
+import wayc.backend.pay.application.PayService;
 import wayc.backend.security.SecurityConfig;
 import wayc.backend.security.jwt.JwtProvider;
 import wayc.backend.shop.application.*;
 import wayc.backend.shop.presentation.ItemController;
-import wayc.backend.shop.presentation.ShopController;
 import wayc.backend.shop.presentation.StockController;
 import wayc.backend.member.infrastructure.SendEmailServiceImpl;
 
@@ -51,7 +53,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
         ExceptionExampleController.class,
         ImageController.class,
         ItemController.class,
-        ShopController.class,
+//        ShopController.class,
         StockController.class,
         CartController.class,
         OrderController.class,
@@ -102,13 +104,22 @@ public abstract class ControllerTest {
     protected OrderService orderService;
 
     @MockBean
-    protected PayServiceImpl payService;
+    protected PayService payService;
 
     @MockBean
     protected EmailService emailService;
 
     @MockBean
     protected ItemProvider itemProvider;
+
+    @MockBean
+    protected MemberProvider memberProvider;
+
+    @MockBean
+    protected CartProvider cartProvider;
+
+    @MockBean
+    protected OrderProvider orderProvider;
 
     public void setUp(
             WebApplicationContext webApplicationContext,
