@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
-public class ShowOrdersForCustomerResponseDto {
+public class FindOrdersForCustomerResponseDto {
 
     private String itemImageUrl;
     private String shopName;
     private String itemName;
-    private List<ShowOrderOptionGroupResponseDto> orderOptionGroups = new ArrayList<>();
+    private List<FindOrderOptionGroupResponseDto> orderOptionGroups = new ArrayList<>();
     private Integer count;
     private Long shopId;
     private Long itemId;
@@ -27,7 +27,7 @@ public class ShowOrdersForCustomerResponseDto {
     private Integer price;
 
     @Builder
-    public ShowOrdersForCustomerResponseDto(String itemImageUrl, String shopName, String itemName, List<ShowOrderOptionGroupResponseDto> orderOptionGroups, Integer count, Long shopId, Long itemId, Long orderId, OrderStatus orderStatus, Integer price) {
+    public FindOrdersForCustomerResponseDto(String itemImageUrl, String shopName, String itemName, List<FindOrderOptionGroupResponseDto> orderOptionGroups, Integer count, Long shopId, Long itemId, Long orderId, OrderStatus orderStatus, Integer price) {
         this.itemImageUrl = itemImageUrl;
         this.shopName = shopName;
         this.itemName = itemName;
@@ -42,8 +42,8 @@ public class ShowOrdersForCustomerResponseDto {
 
 
 
-    public static ShowOrdersForCustomerResponseDto of(Order order, Item item, Integer price) {
-        return ShowOrdersForCustomerResponseDto
+    public static FindOrdersForCustomerResponseDto of(Order order, Item item, Integer price) {
+        return FindOrdersForCustomerResponseDto
                 .builder()
                 .itemImageUrl(item.getImageUrl())
                 .shopName(item.getShop().getShopName())
@@ -58,9 +58,9 @@ public class ShowOrdersForCustomerResponseDto {
                         order.getOrderOptionGroups()
                                 .stream()
                                 .map(orderOptionGroup ->
-                                        new ShowOrderOptionGroupResponseDto(
+                                        new FindOrderOptionGroupResponseDto(
                                                 orderOptionGroup.getName(),
-                                                new ShowOrderOptionResponseDto(
+                                                new FindOrderOptionResponseDto(
                                                         orderOptionGroup.getOrderOptions().getOptionName()
                                                 )
                                         )

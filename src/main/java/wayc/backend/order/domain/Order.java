@@ -3,6 +3,8 @@ package wayc.backend.order.domain;
 import lombok.*;
 
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.event.Events;
+import wayc.backend.order.application.OrderCreatedEvent;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -31,15 +33,23 @@ public class Order extends BaseEntity {
 
     private Integer count;
 
+    private Integer payment;
+
     @Embedded
     private Address address;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-
     @Builder
-    public Order(Long id, List<OrderOptionGroup> orderOptionGroups, Long orderingMemberId, Long itemId, String name, Integer count, Address address, OrderStatus orderStatus) {
+    public Order(Long id,
+                 List<OrderOptionGroup> orderOptionGroups,
+                 Long orderingMemberId, Long itemId,
+                 String name, Integer count,
+                 Address address,
+                 OrderStatus orderStatus,
+                 Integer payment
+    ) {
         this.id = id;
         this.orderOptionGroups = orderOptionGroups;
         this.orderingMemberId = orderingMemberId;
@@ -48,9 +58,14 @@ public class Order extends BaseEntity {
         this.count = count;
         this.address = address;
         this.orderStatus = orderStatus;
+        this.payment = payment;
     }
 
     public void updateOrder(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public void created() {
+        Events.raise(new OrderCreatedEvent(orderingMemberId, id, payment));
     }
 }

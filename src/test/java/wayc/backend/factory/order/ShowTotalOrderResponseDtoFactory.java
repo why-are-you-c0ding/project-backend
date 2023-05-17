@@ -8,12 +8,12 @@ import java.util.Arrays;
 public class ShowTotalOrderResponseDtoFactory {
 
 
-    public static ShowTotalOrderResponseDto createSuccessCaseForCustomer(){
+    public static FindPagingOrderResponseDto createSuccessCaseForCustomer(){
 
-        ShowOrderOptionGroupResponseDto optionGroup_size = new ShowOrderOptionGroupResponseDto("size", new ShowOrderOptionResponseDto("Large"));
-        ShowOrderOptionGroupResponseDto optionGroup_color = new ShowOrderOptionGroupResponseDto("color", new ShowOrderOptionResponseDto("Black"));
+        FindOrderOptionGroupResponseDto optionGroup_size = new FindOrderOptionGroupResponseDto("size", new FindOrderOptionResponseDto("Large"));
+        FindOrderOptionGroupResponseDto optionGroup_color = new FindOrderOptionGroupResponseDto("color", new FindOrderOptionResponseDto("Black"));
 
-        ShowOrdersForCustomerResponseDto order_1 = ShowOrdersForCustomerResponseDto.builder()
+        FindOrdersForCustomerResponseDto order_1 = FindOrdersForCustomerResponseDto.builder()
                 .itemImageUrl("www.image.com")
                 .shopName("멋쟁이 옷 가게")
                 .itemName("멋쟁이 옷")
@@ -27,10 +27,10 @@ public class ShowTotalOrderResponseDtoFactory {
                 .build();
 
 
-        ShowOrderOptionGroupResponseDto optionGroup_ram = new ShowOrderOptionGroupResponseDto("Ram", new ShowOrderOptionResponseDto("16GB"));
-        ShowOrderOptionGroupResponseDto optionGroup_ssd = new ShowOrderOptionGroupResponseDto("SSD", new ShowOrderOptionResponseDto("512GB"));
+        FindOrderOptionGroupResponseDto optionGroup_ram = new FindOrderOptionGroupResponseDto("Ram", new FindOrderOptionResponseDto("16GB"));
+        FindOrderOptionGroupResponseDto optionGroup_ssd = new FindOrderOptionGroupResponseDto("SSD", new FindOrderOptionResponseDto("512GB"));
 
-        ShowOrdersForCustomerResponseDto order_2 = ShowOrdersForCustomerResponseDto.builder()
+        FindOrdersForCustomerResponseDto order_2 = FindOrdersForCustomerResponseDto.builder()
                 .itemImageUrl("www.image.com")
                 .shopName("맥 스토어")
                 .itemName("맥북")
@@ -43,22 +43,22 @@ public class ShowTotalOrderResponseDtoFactory {
                 .orderStatus(OrderStatus.COMPLETED)
                 .build();
 
-        return new ShowTotalOrderResponseDto(true, Arrays.asList(order_1, order_2));
+        return new FindPagingOrderResponseDto(true, Arrays.asList(order_1, order_2));
     }
 
 
-    public static ShowTotalOrderResponseDto createSuccessCaseForSeller(){
+    public static FindPagingOrderResponseDto createSuccessCaseForSeller(){
 
-        ShowOrdersForSellerResponseDto dto_1 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 1L, 2, "멋진 옷", "2022-10-19 16:03:08", 39L, OrderStatus.ONGOING, 5000);
-        ShowOrdersForSellerResponseDto dto_2 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 2L, 3, "닭가슴살 패키지", "2022-10-19 16:03:08", 40L, OrderStatus.ONGOING, 4000);
-        ShowOrdersForSellerResponseDto dto_3 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 3L, 4, "소시지", "2022-10-19 16:03:08", 32L, OrderStatus.ONGOING, 4000);
-        ShowOrdersForSellerResponseDto dto_4 =
-                new ShowOrdersForSellerResponseDto("www.image.com", 4L, 1, "맥북", "2022-10-19 16:03:08", 42L, OrderStatus.COMPLETED, 100000);
+        FindOrdersForSellerResponseDto dto_1 =
+                new FindOrdersForSellerResponseDto("www.image.com", 1L, 2, "멋진 옷", "2022-10-19 16:03:08", 39L, OrderStatus.ONGOING, 5000);
+        FindOrdersForSellerResponseDto dto_2 =
+                new FindOrdersForSellerResponseDto("www.image.com", 2L, 3, "닭가슴살 패키지", "2022-10-19 16:03:08", 40L, OrderStatus.ONGOING, 4000);
+        FindOrdersForSellerResponseDto dto_3 =
+                new FindOrdersForSellerResponseDto("www.image.com", 3L, 4, "소시지", "2022-10-19 16:03:08", 32L, OrderStatus.ONGOING, 4000);
+        FindOrdersForSellerResponseDto dto_4 =
+                new FindOrdersForSellerResponseDto("www.image.com", 4L, 1, "맥북", "2022-10-19 16:03:08", 42L, OrderStatus.COMPLETED, 100000);
 
 
-        return new ShowTotalOrderResponseDto(true, Arrays.asList(dto_1, dto_2, dto_3, dto_4));
+        return new FindPagingOrderResponseDto(true, Arrays.asList(dto_1, dto_2, dto_3, dto_4));
     }
 }

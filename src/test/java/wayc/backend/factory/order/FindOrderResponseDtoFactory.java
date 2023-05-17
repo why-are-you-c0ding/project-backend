@@ -8,17 +8,17 @@ import java.util.Arrays;
 
 public class FindOrderResponseDtoFactory {
 
-    public static ShowOrderResponseDto createSuccessCase(){
+    public static FindOrderResponseDto createSuccessCase(){
 
-        ShowOrderOptionGroupResponseDto optionGroup_1 = new ShowOrderOptionGroupResponseDto(
-                "ram", new ShowOrderOptionResponseDto("16GB")
+        FindOrderOptionGroupResponseDto optionGroup_1 = new FindOrderOptionGroupResponseDto(
+                "ram", new FindOrderOptionResponseDto("16GB")
         );
 
-        ShowOrderOptionGroupResponseDto optionGroup_2 = new ShowOrderOptionGroupResponseDto(
-                "ssd", new ShowOrderOptionResponseDto("512GB")
+        FindOrderOptionGroupResponseDto optionGroup_2 = new FindOrderOptionGroupResponseDto(
+                "ssd", new FindOrderOptionResponseDto("512GB")
         );
 
-        return  ShowOrderResponseDto
+        return  FindOrderResponseDto
                 .builder()
                 .orderId(1L)
                 .itemId(2L)

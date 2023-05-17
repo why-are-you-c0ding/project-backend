@@ -1,4 +1,4 @@
-package wayc.backend.pay.domain;
+package wayc.backend.order.domain.pay;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,12 +18,12 @@ public class Pay extends BaseEntity {
     @GeneratedValue
     private Long id;
 
-    private Integer price;
+    private Integer pay;
 
     private Long orderId;
 
-    public Pay(Integer price, Long orderId) {
-        this.price = price;
+    public Pay(Integer pay, Long orderId) {
+        this.pay = pay;
         this.orderId = orderId;
     }
 }

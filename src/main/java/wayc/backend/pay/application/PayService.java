@@ -5,28 +5,35 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import wayc.backend.order.exception.NotExistsOrderException;
-import wayc.backend.order.application.PayService;
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.order.domain.repository.OrderRepository;
+import wayc.backend.order.domain.pay.Pay;
+import wayc.backend.order.domain.repository.PayRepository;
 
 import wayc.backend.pay.application.dto.request.CreatePayRequestDto;
-import wayc.backend.pay.domain.Pay;
-import wayc.backend.pay.domain.repository.PayRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class PayServiceImpl implements PayService {
+public class PayService {
 
     private final PayRepository payRepository;
     private final OrderRepository orderRepository;
 
     @Transactional(readOnly = false)
-    public void createPay(Long memberId, List<CreatePayRequestDto> dtoList ) {
+    public void createPay(Long memberId, CreatePayRequestDto dto) {
+        Order order = orderRepository.findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(dto.getOrderId(), memberId)
+                            .orElseThrow(NotExistsOrderException::new);
+        Pay pay = new Pay(dto.getPay(), dto.getOrderId());
+        payRepository.save(pay);
+        order.updateOrder(OrderStatus.ONGOING);
+    }
 
+    @Transactional(readOnly = false)
+    public void createPays(Long memberId, List<CreatePayRequestDto> dtoList ) {
         List<Pay> result = dtoList
                 .stream()
                 .map(dto -> {
@@ -37,7 +44,7 @@ public class PayServiceImpl implements PayService {
                             )
                             .orElseThrow(NotExistsOrderException::new);
                     order.updateOrder(OrderStatus.ONGOING);
-                    return new Pay(dto.getPrice(), dto.getOrderId());
+                    return new Pay(dto.getPay(), dto.getOrderId());
                 })
                 .collect(Collectors.toList());
         payRepository.saveAll(result);

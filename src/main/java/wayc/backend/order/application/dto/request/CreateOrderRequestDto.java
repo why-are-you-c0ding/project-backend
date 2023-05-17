@@ -21,16 +21,20 @@ public class CreateOrderRequestDto {
 
     private CreateAddressRequestDto address;
 
-    private Integer price;
+    private Integer payment;
 
-
-    public CreateOrderRequestDto(Long itemId, String name, Integer count, List<CreateOrderOptionGroupRequestDto> orderOptionGroupsDto, CreateAddressRequestDto address, Integer price) {
+    public CreateOrderRequestDto(Long itemId,
+                                 String name,
+                                 Integer count,
+                                 List<CreateOrderOptionGroupRequestDto> orderOptionGroupsDto,
+                                 CreateAddressRequestDto address,
+                                 Integer payment) {
         this.itemId = itemId;
         this.name = name;
         this.count = count;
         this.orderOptionGroupsDto = orderOptionGroupsDto;
         this.address = address;
-        this.price = price;
+        this.payment = payment;
     }
 
     public Address toAddress(){

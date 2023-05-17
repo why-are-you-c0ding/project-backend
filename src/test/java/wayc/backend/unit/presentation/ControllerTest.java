@@ -30,9 +30,10 @@ import wayc.backend.member.application.MemberService;
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.presentation.EmailController;
 import wayc.backend.member.presentation.MemberController;
+import wayc.backend.order.application.OrderProvider;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.presentation.OrderController;
-import wayc.backend.pay.application.PayServiceImpl;
+import wayc.backend.pay.application.PayService;
 import wayc.backend.security.SecurityConfig;
 import wayc.backend.security.jwt.JwtProvider;
 import wayc.backend.shop.application.*;
@@ -103,7 +104,7 @@ public abstract class ControllerTest {
     protected OrderService orderService;
 
     @MockBean
-    protected PayServiceImpl payService;
+    protected PayService payService;
 
     @MockBean
     protected EmailService emailService;
@@ -116,6 +117,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected CartProvider cartProvider;
+
+    @MockBean
+    protected OrderProvider orderProvider;
 
     public void setUp(
             WebApplicationContext webApplicationContext,

@@ -2,15 +2,12 @@ package wayc.backend.order.presentation.dto.response;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
-public class PostOrderResponseDto {
+public class CreateOrderResponse {
 
     private String message;
 
-    public PostOrderResponseDto() {
+    public CreateOrderResponse() {
         this.message = "주문 생성에 성공하셨습니다.";
     }
 }

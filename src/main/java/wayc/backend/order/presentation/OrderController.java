@@ -8,16 +8,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import wayc.backend.order.application.OrderProvider;
 import wayc.backend.order.application.OrderService;
-import wayc.backend.order.application.PayService;
-import wayc.backend.order.application.dto.response.ShowOrderResponseDto;
-import wayc.backend.order.application.dto.response.ShowTotalOrderResponseDto;
+import wayc.backend.order.application.dto.response.FindPagingOrderResponseDto;
 import wayc.backend.order.application.dto.response.UpdateOrderResponseDto;
 
-import wayc.backend.order.presentation.dto.request.PatchOrderRequestDto;
-import wayc.backend.order.presentation.dto.request.PostOrderRequestDto;
-import wayc.backend.order.presentation.dto.response.PostOrderResponseDto;
-import wayc.backend.pay.application.dto.request.CreatePayRequestDto;
+import wayc.backend.order.presentation.dto.request.UpdateOrderRequest;
+import wayc.backend.order.presentation.dto.request.CreateOrderRequest;
+import wayc.backend.order.presentation.dto.response.CreateOrderResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,10 +26,11 @@ import java.util.stream.Collectors;
 public class OrderController {
 
     private final OrderService orderService;
+    private final OrderProvider orderProvider;
 
     @PostMapping
-    public ResponseEntity registerOrder(@AuthenticationPrincipal Long memberId,
-                                    @Validated @RequestBody List<PostOrderRequestDto> request){
+    public ResponseEntity createOrder(@AuthenticationPrincipal Long memberId,
+                                        @Validated @RequestBody List<CreateOrderRequest> request){
        orderService.createOrder(
                memberId,
                request
@@ -39,35 +38,32 @@ public class OrderController {
                        .map(dto -> dto.toServiceDto())
                        .collect(Collectors.toList())
                 );
-
-        return new ResponseEntity(new PostOrderResponseDto(), HttpStatus.CREATED);
+        return new ResponseEntity(new CreateOrderResponse(), HttpStatus.CREATED);
     }
 
     @GetMapping("/customers")
-    public ResponseEntity<ShowTotalOrderResponseDto> getCustomerOrders(
-            @RequestParam Integer page,
-            @AuthenticationPrincipal Long id
-    ){
-        ShowTotalOrderResponseDto res = orderService.showCustomerOrders(id, page);
+    public ResponseEntity<FindPagingOrderResponseDto> findCustomerOrders(@RequestParam Integer page,
+                                                                        @AuthenticationPrincipal Long id){
+        FindPagingOrderResponseDto res = orderProvider.showCustomerOrders(id, page);
         return ResponseEntity.ok(res);
     }
 
 
     @GetMapping("/sellers")
-    public ResponseEntity getSellerOrders(@RequestParam Integer page,
+    public ResponseEntity findSellerOrders(@RequestParam Integer page,
                                           @AuthenticationPrincipal Long id){
-        return new ResponseEntity(orderService.showSellerOrders(id, page), HttpStatus.OK);
+        return new ResponseEntity(orderProvider.showSellerOrders(id, page), HttpStatus.OK);
     }
 
 
     @GetMapping("/{orderId}")
-    public ResponseEntity getOrder(@PathVariable Long orderId,
-                                                         @AuthenticationPrincipal Long id){
-        return new ResponseEntity(orderService.showOrder(id, orderId) , HttpStatus.OK);
+    public ResponseEntity findOrder(@PathVariable Long orderId,
+                                   @AuthenticationPrincipal Long id){
+        return new ResponseEntity(orderProvider.showOrder(id, orderId) , HttpStatus.OK);
     }
 
     @PatchMapping
-    public ResponseEntity updateOrder(@RequestBody PatchOrderRequestDto request,
+    public ResponseEntity updateOrder(@RequestBody UpdateOrderRequest request,
                                       @AuthenticationPrincipal Long id) {
         orderService.updateOrder(id, request.toServiceDto());
         return ResponseEntity.ok(new UpdateOrderResponseDto());

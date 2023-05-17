@@ -6,7 +6,7 @@ import wayc.backend.order.domain.OrderStatus;
 
 @NoArgsConstructor
 @Getter
-public class ShowOrdersForSellerResponseDto {
+public class FindOrdersForSellerResponseDto {
 
     private String itemImageUrl;
     private Long orderId;
@@ -17,7 +17,7 @@ public class ShowOrdersForSellerResponseDto {
     private OrderStatus orderStatus;
     private Integer price;
 
-    public ShowOrdersForSellerResponseDto(String itemImageUrl, Long orderId, Integer count, String itemName, String createdAt, Long itemId, OrderStatus orderStatus, Integer price) {
+    public FindOrdersForSellerResponseDto(String itemImageUrl, Long orderId, Integer count, String itemName, String createdAt, Long itemId, OrderStatus orderStatus, Integer price) {
         this.itemImageUrl = itemImageUrl;
         this.orderId = orderId;
         this.count = count;
