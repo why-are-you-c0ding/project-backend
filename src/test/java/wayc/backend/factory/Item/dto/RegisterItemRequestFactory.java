@@ -6,7 +6,7 @@ import wayc.backend.shop.presentation.dto.request.RegisterOptionRequest;
 
 import java.util.Arrays;
 
-public class RegisterItemRequestDtoFactory {
+public class RegisterItemRequestFactory {
 
     public static RegisterItemRequest createSuccessCase(){
 

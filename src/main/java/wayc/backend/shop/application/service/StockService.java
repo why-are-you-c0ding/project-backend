@@ -1,10 +1,12 @@
-package wayc.backend.shop.application;
+package wayc.backend.shop.application.service;
 
 
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
+import wayc.backend.shop.application.provider.OptionProvider;
 import wayc.backend.shop.domain.Option;
 import wayc.backend.shop.domain.command.OptionRepository;
 import wayc.backend.shop.exception.NotExistsOptionSpecificationException;
@@ -23,13 +25,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StockService {
 
-    private final OptionService optionSpecificationService;
-
-    private final OptionRepository optionSpecificationRepository;
-    private final StockQueryRepositoryImpl stockQueryRepository;
     private final StockRepository stockRepository;
+    private final OptionRepository optionRepository;
 
-    public void create(RegisterStockRequestDto dto) {
+
+    @Transactional(readOnly = false)
+    public void createStock(RegisterStockRequestDto dto) {
         dto
                 .getStockInfos()
                 .forEach(stockInfoDto -> {
@@ -43,22 +44,10 @@ public class StockService {
         return optionIdList
                 .stream()
                 .map(id ->
-                        optionSpecificationRepository
+                        optionRepository
                         .findByIdAndStatus(id)
                         .orElseThrow(NotExistsOptionSpecificationException::new)
                 )
                 .collect(Collectors.toList());
-    }
-
-    public FindStocksResponseDto get(List<FindOptionIdRequest> optionIdList) {
-        return new FindStocksResponseDto(
-                optionIdList
-                        .stream()
-                        .map(ids ->
-                                new FindStockResponseDto(
-                                stockQueryRepository.findStocks(optionSpecificationService.getOptions(ids.getIdList()))
-                        ))
-                        .collect(Collectors.toList())
-        );
     }
 }

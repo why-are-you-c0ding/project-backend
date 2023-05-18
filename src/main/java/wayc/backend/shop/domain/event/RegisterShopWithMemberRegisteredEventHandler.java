@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import wayc.backend.member.domain.event.MemberRegisteredEvent;
-import wayc.backend.shop.application.ShopService;
+import wayc.backend.shop.application.service.ShopService;
 
 import static wayc.backend.security.role.Role.*;
 

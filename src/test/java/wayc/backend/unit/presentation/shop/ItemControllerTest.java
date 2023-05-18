@@ -11,7 +11,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.dto.FindItemResponseDtoFactory;
 import wayc.backend.factory.Item.dto.FindPagingItemResponseDtoFactory;
-import wayc.backend.factory.Item.dto.RegisterItemRequestDtoFactory;
+import wayc.backend.factory.Item.dto.RegisterItemRequestFactory;
 import wayc.backend.shop.application.dto.request.RegisterItemRequestDto;
 import wayc.backend.shop.application.dto.response.RegisterItemResponseDto;
 import wayc.backend.shop.application.dto.response.find.*;
@@ -36,9 +36,8 @@ public class ItemControllerTest extends ControllerTest {
     @WithMockSeller
     void register_item() throws Exception {
         //given
-        RegisterItemRequest req = RegisterItemRequestDtoFactory.createSuccessCase();
+        RegisterItemRequest req = RegisterItemRequestFactory.createSuccessCase();
         RegisterItemResponseDto res = new RegisterItemResponseDto(1L);
-        given(itemService.registerItem(Mockito.any(Long.class), Mockito.any(RegisterItemRequestDto.class))).willReturn(res);
 
         String value = mapper.writeValueAsString(req);
 
@@ -65,10 +64,7 @@ public class ItemControllerTest extends ControllerTest {
                                         subsectionWithPath("optionGroups[].options").type(ARRAY).description("옵션"),
                                         subsectionWithPath("optionGroups[].options[].optionName").type(STRING).description("옵션 이름"),
                                         subsectionWithPath("optionGroups[].options[].price").type(NUMBER).description("상품 가격")
-                                        ),
-                                responseFields(
-                                        fieldWithPath("itemId").type(NUMBER).description("아이템 id")
-                                )
+                                        )
                         ));
     }
 

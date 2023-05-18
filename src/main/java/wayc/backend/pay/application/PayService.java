@@ -33,25 +33,27 @@ public class PayService {
 
         Pay pay = new Pay(dto.getPay(), dto.getOrderId());
         payRepository.save(pay);
+
+        //아래도 분리해야할 거 같은데..?!
         order.updateOrder(OrderStatus.ONGOING);
     }
 
-    @Transactional(readOnly = false)
-    public void createPays(Long memberId, List<CreatePayRequestDto> dtoList ) {
-        List<Pay> result = dtoList
-                .stream()
-                .map(dto -> {
-                    Order order = orderRepository
-                            .findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(
-                                    dto.getOrderId(),
-                                    memberId
-                            )
-                            .orElseThrow(NotExistsOrderException::new);
-                    order.updateOrder(OrderStatus.ONGOING);
-                    return new Pay(dto.getPay(), dto.getOrderId());
-                })
-                .collect(Collectors.toList());
-        payRepository.saveAll(result);
-    }
+//    @Transactional(readOnly = false)
+//    public void createPays(Long memberId, List<CreatePayRequestDto> dtoList ) {
+//        List<Pay> result = dtoList
+//                .stream()
+//                .map(dto -> {
+//                    Order order = orderRepository
+//                            .findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(
+//                                    dto.getOrderId(),
+//                                    memberId
+//                            )
+//                            .orElseThrow(NotExistsOrderException::new);
+//                    order.updateOrder(OrderStatus.ONGOING);
+//                    return new Pay(dto.getPay(), dto.getOrderId());
+//                })
+//                .collect(Collectors.toList());
+//        payRepository.saveAll(result);
+//    }
 }
 

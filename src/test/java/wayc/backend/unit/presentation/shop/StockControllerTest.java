@@ -74,7 +74,7 @@ public class StockControllerTest extends ControllerTest {
         //given
         FindStocksResponseDto res = FindStocksResponseDtoFactory.createSuccessCaseDto();
 
-        given(stockService.get(Mockito.any(List.class))).willReturn(res);
+        given(stockProvider.findStock(Mockito.any(List.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/stocks?optionGroup1=21,32&optionGroup2=29,32")

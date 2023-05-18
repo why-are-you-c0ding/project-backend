@@ -1,4 +1,4 @@
-package wayc.backend.shop.application;
+package wayc.backend.shop.application.provider;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +23,7 @@ public class ItemProvider {
 
     private final ItemQueryRepositoryImpl itemQueryRepository;
     private final ItemRepository itemRepository;
-    private final OptionGroupService optionGroupService;
+    private final OptionGroupProvider optionGroupService;
 
     public FindItemResponseDto findItem(Long itemId) {
         Item item = itemRepository.findItemByItemId(itemId).orElseThrow(NotExistsItemException::new);
