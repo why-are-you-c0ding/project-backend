@@ -23,7 +23,7 @@ public class CartService {
     private final CartLineItemRepository cartLineItemRepository;
     private final CartMapper cartMapper;
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    @Transactional(readOnly = false)
     public void register(Long memberId){
         cartRepository.save(new Cart(memberId));
     }
