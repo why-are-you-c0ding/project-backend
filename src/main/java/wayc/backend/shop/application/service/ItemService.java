@@ -27,5 +27,9 @@ public class ItemService {
                 .orElseThrow(NotExistsShopException::new);
         Item item = itemMapper.mapOf(dto, shop);
         itemRepository.save(item);
+        Thread currentThread = Thread.currentThread();
+        String threadName = currentThread.getName();
+        System.out.println("현재 실행 중인 스레드 이름: " + threadName);
+        item.registered();
     }
 }

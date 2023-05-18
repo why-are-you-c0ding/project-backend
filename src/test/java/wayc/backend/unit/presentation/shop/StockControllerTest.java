@@ -9,8 +9,8 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.dto.FindStocksResponseDtoFactory;
 import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
-import wayc.backend.shop.presentation.dto.request.RegisterStockInfoRequest;
-import wayc.backend.shop.presentation.dto.request.RegisterStockRequest;
+import wayc.backend.shop.presentation.dto.request.FillStockInfoRequest;
+import wayc.backend.shop.presentation.dto.request.FillStockRequest;
 
 import wayc.backend.unit.presentation.ControllerTest;
 
@@ -37,10 +37,10 @@ public class StockControllerTest extends ControllerTest {
     void create_stock() throws Exception {
         //given
 
-        RegisterStockInfoRequest req_1 = new RegisterStockInfoRequest(Arrays.asList(29L, 31L), 1000);
-        RegisterStockInfoRequest req_2 = new RegisterStockInfoRequest(Arrays.asList(32L, 34L), 500);
+        FillStockInfoRequest req_1 = new FillStockInfoRequest(Arrays.asList(29L, 31L), 1000);
+        FillStockInfoRequest req_2 = new FillStockInfoRequest(Arrays.asList(32L, 34L), 500);
 
-        RegisterStockRequest req = new RegisterStockRequest(Arrays.asList(req_1, req_2));
+        FillStockRequest req = new FillStockRequest(Arrays.asList(req_1, req_2));
 
         String value = mapper.writeValueAsString(req);
 

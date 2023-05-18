@@ -10,7 +10,7 @@ import wayc.backend.shop.application.service.StockService;
 import wayc.backend.shop.presentation.dto.request.FindStockRequest;
 import wayc.backend.shop.presentation.dto.response.RegisterStockResponse;
 import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
-import wayc.backend.shop.presentation.dto.request.RegisterStockRequest;
+import wayc.backend.shop.presentation.dto.request.FillStockRequest;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -23,8 +23,8 @@ public class StockController {
     private final StockProvider stockProvider;
 
     @PostMapping
-    public ResponseEntity<RegisterStockResponse> registerStock(@RequestBody RegisterStockRequest request){
-        stockService.createStock(request.toServiceDto());
+    public ResponseEntity<RegisterStockResponse> registerStock(@RequestBody FillStockRequest request){
+        stockService.fillStock(request.toServiceDto());
         return new ResponseEntity(new RegisterStockResponse(), CREATED);
     }
 

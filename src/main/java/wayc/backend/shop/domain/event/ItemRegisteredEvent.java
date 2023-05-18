@@ -3,15 +3,17 @@ package wayc.backend.shop.domain.event;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import wayc.backend.common.event.Event;
+import wayc.backend.shop.application.dto.request.FillStockRequestDto;
+
 
 @Getter
 @NoArgsConstructor
-public class ItemRegisteredEvent {
+public class ItemRegisteredEvent extends Event {
 
-    private List<String> stockOption;
+    private FillStockRequestDto dto;
 
-    public ItemRegisteredEvent(List<String> stockOption) {
-        this.stockOption = stockOption;
+    public ItemRegisteredEvent(FillStockRequestDto dto) {
+        this.dto = dto;
     }
 }

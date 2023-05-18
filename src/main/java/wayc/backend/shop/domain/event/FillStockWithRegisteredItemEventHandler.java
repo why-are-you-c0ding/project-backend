@@ -2,11 +2,12 @@ package wayc.backend.shop.domain.event;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.event.EventListener;
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionalEventListener;
+
 import wayc.backend.shop.application.service.StockService;
-import wayc.backend.shop.application.dto.request.RegisterStockRequestDto;
 
 @Component
 @RequiredArgsConstructor
@@ -14,14 +15,11 @@ public class FillStockWithRegisteredItemEventHandler{
 
     private final StockService stockService;
 
-
     @Async
-    @EventListener
+    @TransactionalEventListener(ItemRegisteredEvent.class)
     public void handle(ItemRegisteredEvent event){
         if(event != null){
-            stockService.createStock(new RegisterStockRequestDto());
+            stockService.fillStock(event.getDto());
         }
     }
-
-
 }

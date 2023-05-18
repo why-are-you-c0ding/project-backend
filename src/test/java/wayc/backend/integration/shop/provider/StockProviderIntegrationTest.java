@@ -1,18 +1,15 @@
 package wayc.backend.integration.shop.provider;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import wayc.backend.factory.Item.dto.RegisterItemRequestFactory;
 import wayc.backend.integration.IntegrationTest;
 import wayc.backend.shop.application.dto.request.RegisterItemRequestDto;
-import wayc.backend.shop.application.dto.request.RegisterStockInfoRequestDto;
-import wayc.backend.shop.application.dto.request.RegisterStockRequestDto;
+import wayc.backend.shop.application.dto.request.FillStockInfoRequestDto;
+import wayc.backend.shop.application.dto.request.FillStockRequestDto;
 import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
 import wayc.backend.shop.application.provider.StockProvider;
 import wayc.backend.shop.application.service.ItemMapper;
-import wayc.backend.shop.application.service.ItemService;
 import wayc.backend.shop.application.service.StockService;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.Option;
@@ -20,7 +17,6 @@ import wayc.backend.shop.domain.OptionGroup;
 import wayc.backend.shop.domain.Shop;
 import wayc.backend.shop.domain.command.ItemRepository;
 import wayc.backend.shop.domain.command.ShopRepository;
-import wayc.backend.shop.domain.command.StockRepository;
 import wayc.backend.shop.presentation.dto.request.FindOptionIdRequest;
 
 import java.util.List;
@@ -57,13 +53,13 @@ public class StockProviderIntegrationTest extends IntegrationTest {
         Option option3 = optionGroup1.getOptions().get(0);
         Option option4 = optionGroup1.getOptions().get(1);
 
-        stockService.createStock(
-                new RegisterStockRequestDto(
+        stockService.fillStock(
+                new FillStockRequestDto(
                         List.of(
-                                new RegisterStockInfoRequestDto(List.of(option1.getId(), option3.getId()), 5),
-                                new RegisterStockInfoRequestDto(List.of(option1.getId(), option4.getId()), 5),
-                                new RegisterStockInfoRequestDto(List.of(option2.getId(), option3.getId()), 5),
-                                new RegisterStockInfoRequestDto(List.of(option2.getId(), option4.getId()), 5)
+                                new FillStockInfoRequestDto(List.of(option1.getId(), option3.getId()), 5),
+                                new FillStockInfoRequestDto(List.of(option1.getId(), option4.getId()), 5),
+                                new FillStockInfoRequestDto(List.of(option2.getId(), option3.getId()), 5),
+                                new FillStockInfoRequestDto(List.of(option2.getId(), option4.getId()), 5)
                         )
                 )
         );

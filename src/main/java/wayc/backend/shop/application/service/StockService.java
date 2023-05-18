@@ -5,18 +5,14 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import wayc.backend.shop.application.provider.OptionProvider;
 import wayc.backend.shop.domain.Option;
 import wayc.backend.shop.domain.command.OptionRepository;
 import wayc.backend.shop.exception.NotExistsOptionSpecificationException;
-import wayc.backend.shop.application.dto.request.RegisterStockRequestDto;
-import wayc.backend.shop.application.dto.response.find.FindStockResponseDto;
-import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
-import wayc.backend.shop.infrastructure.StockQueryRepositoryImpl;
+import wayc.backend.shop.application.dto.request.FillStockRequestDto;
 import wayc.backend.shop.domain.command.StockRepository;
 import wayc.backend.shop.domain.Stock;
-import wayc.backend.shop.presentation.dto.request.FindOptionIdRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,8 +25,11 @@ public class StockService {
     private final OptionRepository optionRepository;
 
 
-    @Transactional(readOnly = false)
-    public void createStock(RegisterStockRequestDto dto) {
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public void fillStock(FillStockRequestDto dto) {
+        Thread currentThread = Thread.currentThread();
+        String threadName = currentThread.getName();
+        System.out.println("현재 실행 중인 스레드 이름: " + threadName);
         dto
                 .getStockInfos()
                 .forEach(stockInfoDto -> {
