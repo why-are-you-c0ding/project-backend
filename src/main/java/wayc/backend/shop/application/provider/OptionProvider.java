@@ -1,4 +1,4 @@
-package wayc.backend.shop.application;
+package wayc.backend.shop.application.provider;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class OptionService {
+public class OptionProvider {
 
     private final OptionRepository optionSpecificationRepository;
 

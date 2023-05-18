@@ -3,6 +3,7 @@ package wayc.backend.cart.application;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
@@ -22,6 +23,7 @@ public class CartService {
     private final CartLineItemRepository cartLineItemRepository;
     private final CartMapper cartMapper;
 
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public void register(Long memberId){
         cartRepository.save(new Cart(memberId));
     }

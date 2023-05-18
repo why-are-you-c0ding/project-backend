@@ -1,4 +1,4 @@
-package wayc.backend.shop.application;
+package wayc.backend.shop.application.service;
 
 import org.springframework.stereotype.Component;
 

@@ -7,8 +7,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import wayc.backend.shop.application.ItemProvider;
-import wayc.backend.shop.application.ItemService;
+import wayc.backend.shop.application.provider.ItemProvider;
+import wayc.backend.shop.application.service.ItemService;
 import wayc.backend.shop.application.dto.response.find.FindItemResponseDto;
 import wayc.backend.shop.application.dto.response.find.FindPagingItemResponseDto;
 
@@ -28,7 +28,8 @@ public class ItemController {
     @PostMapping
     public ResponseEntity registerItem(@AuthenticationPrincipal Long id,
                                        @Validated @RequestBody RegisterItemRequest request){
-        return new ResponseEntity(itemService.registerItem(id, request.toServiceDto()), CREATED);
+        itemService.registerItem(id, request.toServiceDto());
+        return new ResponseEntity(CREATED);
     }
 
     @GetMapping("/{itemId}")

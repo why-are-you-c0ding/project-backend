@@ -9,7 +9,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
-public class RegisterStockInfoRequest {
+public class FillStockInfoRequest {
 
     @NotEmpty
     private List<Long> optionIdList;
@@ -17,7 +17,7 @@ public class RegisterStockInfoRequest {
     @Min(1)
     private Integer quantity;
 
-    public RegisterStockInfoRequest(List<Long> optionIdList, Integer quantity) {
+    public FillStockInfoRequest(List<Long> optionIdList, Integer quantity) {
         this.optionIdList = optionIdList;
         this.quantity = quantity;
     }

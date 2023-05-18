@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import wayc.backend.order.domain.pay.Pay;
+import wayc.backend.order.domain.Pay;
 
 import java.util.Optional;
 

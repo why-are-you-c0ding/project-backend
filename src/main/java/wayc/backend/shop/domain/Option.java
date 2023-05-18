@@ -34,6 +34,7 @@ public class Option extends BaseEntity {
         this.price = price;
     }
 
+
     @OneToMany(mappedBy = "option")
     private List<StockOption> stockOptions = new ArrayList<>();
 

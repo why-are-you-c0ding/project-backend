@@ -1,22 +1,17 @@
 package wayc.backend.integration.order;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import wayc.backend.factory.Item.ItemFactory;
-import wayc.backend.factory.order.CreateOrderRequestFactory;
 import wayc.backend.factory.order.OrderFactory;
 import wayc.backend.factory.shop.ShopFactory;
 import wayc.backend.integration.IntegrationTest;
 import wayc.backend.order.application.OrderProvider;
-import wayc.backend.order.application.OrderService;
-import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.response.FindOrderResponseDto;
 import wayc.backend.order.application.dto.response.FindPagingOrderResponseDto;
 import wayc.backend.order.domain.Order;
-import wayc.backend.order.domain.OrderStatus;
-import wayc.backend.order.domain.pay.Pay;
+import wayc.backend.order.domain.Pay;
 import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.order.domain.repository.PayRepository;
 import wayc.backend.shop.domain.Item;
@@ -24,10 +19,6 @@ import wayc.backend.shop.domain.Shop;
 import wayc.backend.shop.domain.command.ItemRepository;
 import wayc.backend.shop.domain.command.ShopRepository;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 

@@ -1,4 +1,4 @@
-package wayc.backend.shop.application;
+package wayc.backend.shop.application.provider;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class OptionGroupService {
+public class OptionGroupProvider {
 
     private final OptionGroupRepository optionGroupRepository;
 

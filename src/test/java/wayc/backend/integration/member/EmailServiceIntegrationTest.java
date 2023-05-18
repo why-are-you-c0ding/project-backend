@@ -46,7 +46,6 @@ public class EmailServiceIntegrationTest extends IntegrationTest {
     @DisplayName("인증을 진행하지 않은 이메일로 인증을 시도하므로 실패.")
     void failVerifyEmailCase1(){
 
-        //given
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
             emailService.verifyEmail("123466@gmail.com", "112233");
