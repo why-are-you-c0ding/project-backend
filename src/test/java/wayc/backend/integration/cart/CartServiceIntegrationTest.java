@@ -26,9 +26,6 @@ public class CartServiceIntegrationTest extends IntegrationTest {
     private CartRepository cartRepository;
 
     @Autowired
-    private CartLineItemRepository cartLineItemRepository;
-
-    @Autowired
     EntityManager em;
 
     @Test
@@ -50,14 +47,13 @@ public class CartServiceIntegrationTest extends IntegrationTest {
     void updateCartLineItem(){
 
         //given
-        Cart cart = CartFactory.createCart();
         RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.createSuccessCase().toServiceDto();
-        cartRepository.save(cart);
-        cartService.registerCartLineItem(1L, dto);
+        Cart cart = cartRepository.save(CartFactory.createCart());
+        cartService.registerCartLineItem(cart.getMemberId(), dto);
 
         //when
         em.flush();
-        cartService.updateCartLineItem(1L, cart.getCartLineItems().get(0).getId(), 3);
+        cartService.updateCartLineItem(cart.getMemberId(), cart.getCartLineItems().get(0).getId(), 3);
 
         //then
         assertThat(cart.getCartLineItems().get(0).getCount()).isEqualTo(3);
@@ -67,14 +63,13 @@ public class CartServiceIntegrationTest extends IntegrationTest {
     void deleteCartLineItem(){
 
         //given
-        Cart cart = CartFactory.createCart();
         RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.createSuccessCase().toServiceDto();
-        cartRepository.save(cart);
-        cartService.registerCartLineItem(1L, dto);
+        Cart cart = cartRepository.save(CartFactory.createCart());
+        cartService.registerCartLineItem(cart.getMemberId(), dto);
 
         //when
         em.flush();
-        cartService.deleteCartLineItem(1L, cart.getCartLineItems().get(0).getId());
+        cartService.deleteCartLineItem(cart.getMemberId(), cart.getCartLineItems().get(0).getId());
 
         //then
         assertThat(cart.getCartLineItems().size()).isEqualTo(0);
