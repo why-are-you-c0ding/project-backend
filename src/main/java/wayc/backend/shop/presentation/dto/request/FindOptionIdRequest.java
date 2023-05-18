@@ -25,4 +25,8 @@ public class FindOptionIdRequest {
                             .forEach(id -> idList.add(Long.valueOf(id)));
                 });
     }
+
+    public FindOptionIdRequest(List<Long> idList) {
+        this.idList = idList;
+    }
 }
