@@ -27,9 +27,6 @@ public class StockService {
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public void fillStock(FillStockRequestDto dto) {
-        Thread currentThread = Thread.currentThread();
-        String threadName = currentThread.getName();
-        System.out.println("현재 실행 중인 스레드 이름: " + threadName);
         dto
                 .getStockInfos()
                 .forEach(stockInfoDto -> {
