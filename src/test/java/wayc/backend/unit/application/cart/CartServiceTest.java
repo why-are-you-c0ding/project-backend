@@ -1,5 +1,6 @@
 package wayc.backend.unit.application.cart;
 
+import org.assertj.core.api.AbstractThrowableAssert;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,10 +20,13 @@ import wayc.backend.cart.presentation.dto.request.RegisterCartLineItemRequest;
 import wayc.backend.factory.Item.ItemFactory;
 import wayc.backend.factory.cart.CartFactory;
 import wayc.backend.factory.cart.RegisterCartLineItemRequestFactory;
+import wayc.backend.factory.order.OrderFactory;
+import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.command.ItemRepository;
 import wayc.backend.unit.application.UnitTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -53,15 +57,79 @@ public class CartServiceTest extends UnitTest {
         //given
         Cart cart = CartFactory.createCart();
         Item item = ItemFactory.createMacBook();
-        RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.registerMacBook().toServiceDto();
         given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
         given(cartRepository.findByIdAndStatus(1L)).willReturn(Optional.of(cart));
+        RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.registerMacBook().toServiceDto();
 
         //when
         cartService.registerCartLineItem(1L, dto);
 
         //then
         assertThat(cart.getCartLineItems().size()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("장바구니에 상품을 등록할 때 기존의 상품 옵션과 달라서 장바구니 상품을 담는 것에 실패한다.")
+    void failRegisterCartLineItemCase1(){
+
+        //given
+        Cart cart = CartFactory.createCart();
+        Item item = ItemFactory.createMacBook();
+        given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
+        given(cartRepository.findByIdAndStatus(1L)).willReturn(Optional.of(cart));
+        RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.createFailCase1CaseMackBookDto().toServiceDto();
+
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = Assertions.assertThatThrownBy(() -> {
+            cartService.registerCartLineItem(1L, dto);
+        });
+
+        //then
+        result.isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("장바구니에 상픔을 등록할 때 상품 이름이 달라 장바구니 상품을 담는 것에 실패한다.")
+    void failRegisterCartLineItemCase2(){
+
+        //given
+        Cart cart = CartFactory.createCart();
+        Item item = ItemFactory.createMacBook();
+        given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
+        given(cartRepository.findByIdAndStatus(1L)).willReturn(Optional.of(cart));
+        RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.createFailCase2CaseMackBookDto().toServiceDto();
+
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = Assertions.assertThatThrownBy(() -> {
+            cartService.registerCartLineItem(1L, dto);
+        });
+
+        //then
+        result.isInstanceOf(IllegalArgumentException.class);
+        result.hasMessage("상품 이름이 변경되었습니다.");
+    }
+
+    @Test
+    @DisplayName("장바구니에 상픔을 등록할 때 상품 옵션이 달라 장바구니 상품을 담는 것에 실패한다.")
+    void failCreateOrderCase3(){
+
+        //given
+        Cart cart = CartFactory.createCart();
+        Item item = ItemFactory.createMacBook();
+        given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
+        given(cartRepository.findByIdAndStatus(1L)).willReturn(Optional.of(cart));
+        RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.createFailCase3CaseMackBookDto().toServiceDto();
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = Assertions.assertThatThrownBy(() -> {
+            cartService.registerCartLineItem(1L, dto);
+        });
+
+        //then
+        result.isInstanceOf(IllegalArgumentException.class);
+        result.hasMessage("상품 옵션이 변경됐습니다.");
     }
 
     @Test
