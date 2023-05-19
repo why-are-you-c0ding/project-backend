@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import wayc.backend.order.domain.validator.OrderValidator;
 import wayc.backend.shop.exception.NotExistsItemException;
 import wayc.backend.shop.domain.command.ItemRepository;
 
@@ -24,15 +25,20 @@ public class OrderService {
     private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
+    private final OrderValidator orderValidator;
 
     @Transactional(readOnly = false)
     public void createOrder(Long memberId, List<CreateOrderRequestDto> dtoList) {
         List<Order> orders = orderMapper.mapFrom(dtoList, memberId);
-
-        //TODO  order vadliation을 해야함.
-
+        validOrders(orders);
         orderRepository.saveAll(orders);
         orderCreated(orders);
+    }
+
+    private void validOrders(List<Order> orders) {
+        for (Order order : orders) {
+            order.place(orderValidator);
+        }
     }
 
     private void orderCreated(List<Order> orders) {

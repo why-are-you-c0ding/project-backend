@@ -4,11 +4,14 @@ import lombok.*;
 
 import wayc.backend.common.domain.BaseEntity;
 import wayc.backend.common.event.Events;
-import wayc.backend.order.application.OrderCreatedEvent;
+import wayc.backend.order.domain.event.DecreasedStockEvent;
+import wayc.backend.order.domain.event.OrderPayedEvent;
+import wayc.backend.order.domain.validator.OrderValidator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -66,6 +69,15 @@ public class Order extends BaseEntity {
     }
 
     public void created() {
-        Events.raise(new OrderCreatedEvent(orderingMemberId, id, payment));
+        Events.raise(new OrderPayedEvent(orderingMemberId, id, payment));
+        Events.raise(new DecreasedStockEvent(count, extractOptionGroupIdList()));
+    }
+
+    private List<Long> extractOptionGroupIdList() {
+        return orderOptionGroups.stream().map(OrderOptionGroup::getId).collect(Collectors.toList());
+    }
+
+    public void place(OrderValidator orderValidator){
+        orderValidator.validate(this);
     }
 }

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.transaction.event.TransactionalEventListener;
 
-import wayc.backend.order.application. OrderCreatedEvent;
+import wayc.backend.order.domain.event.OrderPayedEvent;
 import wayc.backend.pay.application.PayService;
 import wayc.backend.pay.application.dto.request.CreatePayRequestDto;
 
@@ -15,8 +15,8 @@ public class CompletePayWithCreatedOrderEventHandler {
 
     private final PayService payService;
 
-    @TransactionalEventListener(OrderCreatedEvent.class)
-    public void handle(OrderCreatedEvent event){
+    @TransactionalEventListener(OrderPayedEvent.class)
+    public void handle(OrderPayedEvent event){
         payService.createPay(event.getOrderingMemberId(), new CreatePayRequestDto(event.getOrderId(), event.getPayment()));
     }
 }

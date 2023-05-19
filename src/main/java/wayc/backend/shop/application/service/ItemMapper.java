@@ -7,6 +7,8 @@ import wayc.backend.shop.application.dto.request.RegisterOptionGroupRequestDto;
 
 import wayc.backend.shop.application.dto.request.RegisterOptionRequestDto;
 import wayc.backend.shop.domain.*;
+import wayc.backend.shop.domain.Option;
+import wayc.backend.shop.domain.OptionGroup;
 
 import java.util.stream.Collectors;
 

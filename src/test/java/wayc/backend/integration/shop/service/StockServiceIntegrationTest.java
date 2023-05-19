@@ -1,7 +1,6 @@
 package wayc.backend.integration.shop.service;
 
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import wayc.backend.factory.Item.dto.RegisterItemRequestFactory;
@@ -15,6 +14,8 @@ import wayc.backend.shop.domain.*;
 import wayc.backend.shop.domain.command.ItemRepository;
 import wayc.backend.shop.domain.command.ShopRepository;
 import wayc.backend.shop.domain.command.StockRepository;
+import wayc.backend.shop.domain.Option;
+import wayc.backend.shop.domain.OptionGroup;
 import wayc.backend.shop.utils.OptionUtils;
 
 import javax.persistence.EntityManager;

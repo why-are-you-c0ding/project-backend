@@ -12,17 +12,17 @@ public class FindCartResponseDtoFactory {
 
     public static FindCartResponseDto createSuccessCase(){
 
-        FindCartOptionResponseDto option_1 = FindCartOptionResponseDto.builder().id(1L).name("Large").price(2000).build();
-        FindCartOptionResponseDto option_2 = FindCartOptionResponseDto.builder().id(2L).name("Black").price(1000).build();
-        FindCartOptionResponseDto option_3 = FindCartOptionResponseDto.builder().id(3L).name("Large").price(2000).build();
+        FindCartOptionResponseDto option_1 = FindCartOptionResponseDto.builder().name("Large").price(2000).build();
+        FindCartOptionResponseDto option_2 = FindCartOptionResponseDto.builder().name("Black").price(1000).build();
+        FindCartOptionResponseDto option_3 = FindCartOptionResponseDto.builder().name("Large").price(2000).build();
 
 
         FindCartOptionGroupResponseDto optionGroup_1 =
-                FindCartOptionGroupResponseDto.builder().id(11L).name("기초 옵션").cartOptions(Arrays.asList(option_1)).build();
+                FindCartOptionGroupResponseDto.builder().id(11L).name("기초 옵션").cartOption(option_1).build();
         FindCartOptionGroupResponseDto optionGrout_2 =
-                FindCartOptionGroupResponseDto.builder().id(12L).name("Color").cartOptions(Arrays.asList(option_2)).build();
+                FindCartOptionGroupResponseDto.builder().id(12L).name("Color").cartOption(option_2).build();
         FindCartOptionGroupResponseDto optionGroup_3 =
-                FindCartOptionGroupResponseDto.builder().id(13L).name("Sizee").cartOptions(Arrays.asList(option_3)).build();
+                FindCartOptionGroupResponseDto.builder().id(13L).name("Sizee").cartOption(option_3).build();
 
         FindCartLineItemResponseDto cartLineItem = FindCartLineItemResponseDto.builder().id(20L).itemId(29L).name("멋쟁이 옷")
                 .imageUrl("www.image.url")

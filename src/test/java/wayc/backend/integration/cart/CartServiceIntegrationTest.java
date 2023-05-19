@@ -4,14 +4,19 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import wayc.backend.cart.application.CartMapper;
 import wayc.backend.cart.application.CartService;
 import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
 import wayc.backend.cart.domain.Cart;
+import wayc.backend.cart.domain.CartLineItem;
 import wayc.backend.cart.domain.repository.CartLineItemRepository;
 import wayc.backend.cart.domain.repository.CartRepository;
+import wayc.backend.factory.Item.ItemFactory;
 import wayc.backend.factory.cart.CartFactory;
 import wayc.backend.factory.cart.RegisterCartLineItemRequestFactory;
 import wayc.backend.integration.IntegrationTest;
+import wayc.backend.shop.domain.Item;
+import wayc.backend.shop.domain.command.ItemRepository;
 
 import javax.persistence.EntityManager;
 
@@ -26,15 +31,19 @@ public class CartServiceIntegrationTest extends IntegrationTest {
     private CartRepository cartRepository;
 
     @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
     EntityManager em;
 
     @Test
     void registerCartLineItem(){
 
         //given
+        Item item = itemRepository.save(ItemFactory.createMacBook());
         Cart cart = CartFactory.createCart();
-        RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.createSuccessCase().toServiceDto();
         cartRepository.save(cart);
+        RegisterCartLineItemRequestDto dto = CartFactory.macBookLineItemDto(item.getId());
 
         //when
         cartService.registerCartLineItem(1L, dto);
@@ -47,9 +56,11 @@ public class CartServiceIntegrationTest extends IntegrationTest {
     void updateCartLineItem(){
 
         //given
-        RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.createSuccessCase().toServiceDto();
-        Cart cart = cartRepository.save(CartFactory.createCart());
-        cartService.registerCartLineItem(cart.getMemberId(), dto);
+        Item item = itemRepository.save(ItemFactory.createMacBook());
+        Cart cart = CartFactory.createCart();
+        cartRepository.save(cart);
+        RegisterCartLineItemRequestDto dto = CartFactory.macBookLineItemDto(item.getId());
+        cartService.registerCartLineItem(1L, dto);
 
         //when
         em.flush();
@@ -63,9 +74,11 @@ public class CartServiceIntegrationTest extends IntegrationTest {
     void deleteCartLineItem(){
 
         //given
-        RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.createSuccessCase().toServiceDto();
-        Cart cart = cartRepository.save(CartFactory.createCart());
-        cartService.registerCartLineItem(cart.getMemberId(), dto);
+        Item item = itemRepository.save(ItemFactory.createMacBook());
+        Cart cart = CartFactory.createCart();
+        cartRepository.save(cart);
+        RegisterCartLineItemRequestDto dto = CartFactory.macBookLineItemDto(item.getId());
+        cartService.registerCartLineItem(1L, dto);
 
         //when
         em.flush();
@@ -74,4 +87,6 @@ public class CartServiceIntegrationTest extends IntegrationTest {
         //then
         assertThat(cart.getCartLineItems().size()).isEqualTo(0);
     }
+
+
 }

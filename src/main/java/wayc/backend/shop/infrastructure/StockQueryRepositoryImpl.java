@@ -3,6 +3,7 @@ package wayc.backend.shop.infrastructure;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 import wayc.backend.shop.domain.*;
+import wayc.backend.shop.domain.Option;
 import wayc.backend.shop.domain.query.StockQueryRepository;
 
 import javax.persistence.EntityManager;

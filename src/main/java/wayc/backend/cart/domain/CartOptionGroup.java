@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.shop.domain.OptionGroupValidator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,19 +24,23 @@ public class CartOptionGroup extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private CartLineItem cartLineItem;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartOptionGroup")
-    private List<CartOption> cartOptions = new ArrayList<>();
+    @Embedded
+    private CartOption cartOption;
 
     private String name;
 
     @Builder
-    public CartOptionGroup(List<CartOption> cartOptions, String name) {
-        this.cartOptions = cartOptions;
+    public CartOptionGroup(CartOption cartOption, String name) {
+        this.cartOption = cartOption;
         this.name = name;
-        cartOptions.forEach(option -> option.addCartOptionGroup(this));
     }
 
     public void addCartLineItem(CartLineItem cartLineItem){
         this.cartLineItem = cartLineItem;
+    }
+
+    public OptionGroupValidator convertToOptionGroupValidator() {
+        return new OptionGroupValidator(name, cartOption.convertToOptionValidator());
+
     }
 }

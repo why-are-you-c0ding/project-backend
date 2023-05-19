@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
+import wayc.backend.cart.domain.CartValidator;
 import wayc.backend.cart.domain.repository.CartLineItemRepository;
 import wayc.backend.cart.domain.repository.CartRepository;
 import wayc.backend.cart.domain.Cart;
@@ -22,6 +23,7 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartLineItemRepository cartLineItemRepository;
     private final CartMapper cartMapper;
+    private final CartValidator cartValidator;
 
     @Transactional(readOnly = false)
     public void register(Long memberId){
@@ -32,6 +34,7 @@ public class CartService {
         Cart cart = cartRepository.findByIdAndStatus(memberId)
                 .orElseThrow(NotExistsCartException::new);
         CartLineItem lineItem = cartMapper.toLineItem(dto, cart);
+        cart.place(cartValidator, lineItem);
         cart.addCartLineItem(lineItem);
     }
 

@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 public class FindCartOptionGroupResponseDto {
 
     private Long id;
-    private List<FindCartOptionResponseDto> cartOptions = new ArrayList<>();
+    private FindCartOptionResponseDto cartOption;
     private String name;
 
     @Builder
-    public FindCartOptionGroupResponseDto(Long id, List<FindCartOptionResponseDto> cartOptions, String name) {
+    public FindCartOptionGroupResponseDto(Long id, FindCartOptionResponseDto cartOption, String name) {
         this.id = id;
-        this.cartOptions = cartOptions;
+        this.cartOption = cartOption;
         this.name = name;
     }
 
@@ -29,16 +29,11 @@ public class FindCartOptionGroupResponseDto {
                 .builder()
                 .id(cartOptionGroup.getId())
                 .name(cartOptionGroup.getName())
-                .cartOptions(cartOptionGroup.getCartOptions()
-                        .stream()
-                        .map(cartOption ->
-                                FindCartOptionResponseDto
-                                        .builder()
-                                        .id(cartOption.getId())
-                                        .name(cartOption.getName())
-                                        .price(cartOption.getPrice())
-                                        .build()
-                        ).collect(Collectors.toList())
+                .cartOption(
+                        new FindCartOptionResponseDto(
+                                cartOptionGroup.getCartOption().getOptionName(),
+                                cartOptionGroup.getCartOption().getPrice()
+                        )
                 ).build();
     }
 }

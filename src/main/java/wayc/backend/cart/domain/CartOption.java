@@ -5,34 +5,27 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.shop.domain.OptionValidator;
 
 import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Entity
-public class CartOption extends BaseEntity {
+@Embeddable
+public class CartOption{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
+    private String optionName;
 
     private Integer price;
 
-    @JoinColumn(name = "cart_option_group_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CartOptionGroup cartOptionGroup;
-
     @Builder
     public CartOption(String name, Integer price) {
-        this.name = name;
+        this.optionName= name;
         this.price = price;
     }
 
-    public void addCartOptionGroup(CartOptionGroup cartOptionGroup) {
-        this.cartOptionGroup = cartOptionGroup;
+    public OptionValidator convertToOptionValidator() {
+        return new OptionValidator(optionName, price);
     }
 }
 
