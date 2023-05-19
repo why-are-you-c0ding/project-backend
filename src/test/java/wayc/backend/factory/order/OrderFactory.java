@@ -1,6 +1,9 @@
 package wayc.backend.factory.order;
 
 import wayc.backend.order.application.OrderMapper;
+import wayc.backend.order.application.dto.request.CreateAddressRequestDto;
+import wayc.backend.order.application.dto.request.CreateOrderOptionGroupRequestDto;
+import wayc.backend.order.application.dto.request.CreateOrderOptionRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.domain.*;
 
@@ -25,6 +28,95 @@ public class OrderFactory {
                         new OrderOptionGroup(new OrderOption("512GB", 80000), "SSD")
                 ))
                 .build();
+    }
+
+    public static List<CreateOrderRequestDto> createSuccessCaseMackBookDto(){
+        return List.of(
+                new CreateOrderRequestDto(
+                        1L,
+                        "맥북",
+                        3,
+                        List.of(
+                                new CreateOrderOptionGroupRequestDto(
+                                        "RAM",
+                                      new CreateOrderOptionRequestDto("16GB", 80000)
+                                ),
+                                new CreateOrderOptionGroupRequestDto(
+                                        "SSD",
+                                        new CreateOrderOptionRequestDto("512GB", 80000)
+                                )
+                        ),
+                        new CreateAddressRequestDto("major", "detail", "111111"),
+                        1000000
+                )
+        );
+    }
+
+
+    public static List<CreateOrderRequestDto> createFailCase1CaseMackBookDto(){
+        return List.of(
+                new CreateOrderRequestDto(
+                        1L,
+                        "맥북",
+                        3,
+                        List.of(
+                                new CreateOrderOptionGroupRequestDto(
+                                        "RAM",
+                                        new CreateOrderOptionRequestDto("16GB", 80000)
+                                ),
+                                new CreateOrderOptionGroupRequestDto(
+                                        "SSO",
+                                        new CreateOrderOptionRequestDto("512GB", 80000)
+                                )
+                        ),
+                        new CreateAddressRequestDto("major", "detail", "111111"),
+                        1000000
+                )
+        );
+    }
+
+    public static List<CreateOrderRequestDto> createFailCase2CaseMackBookDto(){
+        return List.of(
+                new CreateOrderRequestDto(
+                        1L,
+                        "맥북1",
+                        3,
+                        List.of(
+                                new CreateOrderOptionGroupRequestDto(
+                                        "RAM",
+                                        new CreateOrderOptionRequestDto("64GB", 80000)
+                                ),
+                                new CreateOrderOptionGroupRequestDto(
+                                        "SSD",
+                                        new CreateOrderOptionRequestDto("512GB", 80000)
+                                )
+                        ),
+                        new CreateAddressRequestDto("major", "detail", "111111"),
+                        1000000
+                )
+        );
+    }
+
+    public static List<CreateOrderRequestDto> createFailCase3CaseMackBookDto(){
+        return List.of(
+                new CreateOrderRequestDto(
+                        1L,
+                        "맥북",
+                        3,
+                        List.of(
+                                new CreateOrderOptionGroupRequestDto(
+                                        "RAM",
+                                        new CreateOrderOptionRequestDto("64GB", 240000)
+                                ),
+                                new CreateOrderOptionGroupRequestDto(
+                                        "SSD",
+                                        new CreateOrderOptionRequestDto("512GB", 80000)
+                                )
+                        ),
+                        new CreateAddressRequestDto("major", "detail", "111111"),
+                        1000000
+                )
+        );
     }
 
     public static List<CreateOrderRequestDto> createServiceDto(){

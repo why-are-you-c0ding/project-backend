@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.shop.domain.OptionGroupValidator;
 
 import javax.persistence.*;
 
@@ -25,5 +26,9 @@ public class OrderOptionGroup extends BaseEntity {
     public OrderOptionGroup(OrderOption orderOption, String name) {
         this.orderOptions = orderOption;
         this.name = name;
+    }
+
+    public OptionGroupValidator convertToOptionGroupValidator() {
+        return new OptionGroupValidator(name, orderOptions.convertToOptionValidator());
     }
 }

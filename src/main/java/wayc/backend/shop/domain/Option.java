@@ -9,6 +9,7 @@ import wayc.backend.common.domain.BaseEntity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -46,4 +47,9 @@ public class Option extends BaseEntity {
     /**
      * validation 로직 추가
      */
+
+    public boolean isSatisfiedBy(OptionValidator option) {
+        if(name.equals(option.getName()) && Objects.equals(price, option.getPrice())) return true;
+        return false;
+    }
 }
