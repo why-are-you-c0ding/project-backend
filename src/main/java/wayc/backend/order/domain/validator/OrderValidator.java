@@ -20,6 +20,10 @@ public class OrderValidator {
     public void validate(Order order) {
         Item item = itemRepository.findItemByItemId(order.getItemId()).orElseThrow(NotExistsItemException::new);
 
+        /**
+         * 상품 검증 로직
+         */
+
         if(!item.getName().equals(order.getName())){
             throw new IllegalArgumentException("상품 이름이 변경되었습니다.");
         }
@@ -27,6 +31,10 @@ public class OrderValidator {
         for (OptionGroup optionGroup : item.getOptionGroups()) {
             validateOrderOptionGroup(optionGroup, order.getOrderOptionGroups());
         }
+
+        /**
+         * TODO 재고 검증 로직 및 감소
+         */
     }
 
     private void validateOrderOptionGroup(OptionGroup optionGroup, List<OrderOptionGroup> orderOptionGroups) {

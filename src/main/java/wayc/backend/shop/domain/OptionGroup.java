@@ -61,15 +61,15 @@ public class OptionGroup extends BaseEntity {
     }
 
     private boolean isSatisfied(String groupName, List<Option> satisfied) {
-        if (!name.equals(groupName)) {
+        if (!name.equals(groupName)) { //그룹 이름이 다르면 문제가 있음.
             return false;
         }
 
-        if (satisfied.isEmpty()) {
+        if (satisfied.isEmpty()) {  //하나도 검증이 안되면 문제가 있음
             return false;
         }
 
-        if (satisfied.size() > 1) {
+        if (satisfied.size() > 1) {  //1개 이상이 같으면 문제가 있음
             return false;
         }
 

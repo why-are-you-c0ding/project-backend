@@ -12,6 +12,7 @@ import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
 import wayc.backend.cart.application.dto.response.FindCartResponseDto;
 import wayc.backend.cart.domain.Cart;
 import wayc.backend.cart.domain.repository.CartRepository;
+import wayc.backend.factory.Item.ItemFactory;
 import wayc.backend.factory.cart.RegisterCartLineItemRequestFactory;
 import wayc.backend.integration.IntegrationTest;
 
@@ -32,7 +33,9 @@ public class CartProviderIntegrationTest extends IntegrationTest {
 
         //given
         RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.createSuccessCase().toServiceDto();
+
         cartRepository.save(new Cart(1L));
+
         cartService.registerCartLineItem(1L, dto);
 
         //when

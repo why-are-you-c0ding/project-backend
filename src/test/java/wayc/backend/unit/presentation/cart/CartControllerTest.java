@@ -53,10 +53,10 @@ public class CartControllerTest extends ControllerTest {
                                         fieldWithPath("count").type(NUMBER).description("장바구니에 넣은 상품 개수"),
                                         fieldWithPath("cartOptionGroups").type(ARRAY).description("장바구니에 넣은 상품의 옵션 그룹"),
                                         fieldWithPath("imageUrl").type(STRING).description("장바구니에 넣은 상품의 이미지 Url"),
-                                        subsectionWithPath("cartOptionGroups[].cartOptions").type(ARRAY).description("장바구니에 넣은 상품의 옵션 그룹의 옵션"),
+                                        subsectionWithPath("cartOptionGroups[].cartOption").type(OBJECT).description("장바구니에 넣은 상품의 옵션 그룹의 옵션"),
                                         subsectionWithPath("cartOptionGroups[].name").type(STRING).description("장바구니에 넣은 상품의 옵션 그룹의 이름"),
-                                        subsectionWithPath("cartOptionGroups[].cartOptions[].name").type(STRING).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 이름"),
-                                        subsectionWithPath("cartOptionGroups[].cartOptions[].price").type(NUMBER).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 가격")
+                                        subsectionWithPath("cartOptionGroups[].cartOption.name").type(STRING).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 이름"),
+                                        subsectionWithPath("cartOptionGroups[].cartOption.price").type(NUMBER).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 가격")
                                 ),
                                 responseFields(
                                         fieldWithPath("message").type(STRING).description("요청 성공 메시지")
@@ -93,10 +93,9 @@ public class CartControllerTest extends ControllerTest {
                                 fieldWithPath("cartLineItems[].cartOptionGroups").type(ARRAY).description("장바구니에 넣은 상품의 옵션 그룹"),
                                 subsectionWithPath("cartLineItems[].cartOptionGroups[].name").type(STRING).description("장바구니에 넣은 상품의 옵션 그룹의 이름"),
                                 subsectionWithPath("cartLineItems[].cartOptionGroups[].id").type(NUMBER).description("장바구니에 넣은 상품의 옵션 그룹의 아이디"),
-                                subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOptions").type(ARRAY).description("장바구니에 넣은 상품의 옵션 그룹의 옵션"),
-                                subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOptions[].id").type(NUMBER).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 아이디"),
-                                subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOptions[].name").type(STRING).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 이름"),
-                                subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOptions[].price").type(NUMBER).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 가격")
+                                subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOption").type(OBJECT).description("장바구니에 넣은 상품의 옵션 그룹의 옵션"),
+                                subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOption.name").type(STRING).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 이름"),
+                                subsectionWithPath("cartLineItems[].cartOptionGroups[].cartOption.price").type(NUMBER).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 가격")
                         )
                 ));
     }

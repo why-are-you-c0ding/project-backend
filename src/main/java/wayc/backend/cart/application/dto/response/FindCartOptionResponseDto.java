@@ -8,15 +8,12 @@ import lombok.NoArgsConstructor;
 @Getter
 public class FindCartOptionResponseDto {
 
-    private Long id;
-
     private String name;
 
     private Integer price;
 
     @Builder
-    public FindCartOptionResponseDto(Long id, String name, Integer price) {
-        this.id = id;
+    public FindCartOptionResponseDto(String name, Integer price) {
         this.name = name;
         this.price = price;
     }

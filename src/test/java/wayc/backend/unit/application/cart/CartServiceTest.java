@@ -2,6 +2,7 @@ package wayc.backend.unit.application.cart;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.mockito.Mock;
@@ -11,10 +12,15 @@ import wayc.backend.cart.application.CartService;
 import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
 import wayc.backend.cart.domain.Cart;
 import wayc.backend.cart.domain.CartLineItem;
+import wayc.backend.cart.domain.CartValidator;
 import wayc.backend.cart.domain.repository.CartLineItemRepository;
 import wayc.backend.cart.domain.repository.CartRepository;
+import wayc.backend.cart.presentation.dto.request.RegisterCartLineItemRequest;
+import wayc.backend.factory.Item.ItemFactory;
 import wayc.backend.factory.cart.CartFactory;
 import wayc.backend.factory.cart.RegisterCartLineItemRequestFactory;
+import wayc.backend.shop.domain.Item;
+import wayc.backend.shop.domain.command.ItemRepository;
 import wayc.backend.unit.application.UnitTest;
 
 import java.util.Optional;
@@ -32,17 +38,23 @@ public class CartServiceTest extends UnitTest {
    @Mock
    CartLineItemRepository cartLineItemRepository;
 
+   @Mock
+   ItemRepository itemRepository;
+
     @BeforeEach
     void beforeEach(){
-        this.cartService = new CartService(cartRepository, cartLineItemRepository, new CartMapper());
+        this.cartService = new CartService(cartRepository, cartLineItemRepository, new CartMapper(), new CartValidator(itemRepository));
     }
 
     @Test
+    @DisplayName("장바구니에 상품 등록을 성공한다.")
     void registerCartLineItem(){
 
         //given
         Cart cart = CartFactory.createCart();
-        RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.createSuccessCase().toServiceDto();
+        Item item = ItemFactory.createMacBook();
+        RegisterCartLineItemRequestDto dto = RegisterCartLineItemRequestFactory.registerMacBook().toServiceDto();
+        given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
         given(cartRepository.findByIdAndStatus(1L)).willReturn(Optional.of(cart));
 
         //when

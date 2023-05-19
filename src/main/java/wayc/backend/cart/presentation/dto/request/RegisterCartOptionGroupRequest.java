@@ -3,21 +3,18 @@ package wayc.backend.cart.presentation.dto.request;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.cart.application.dto.request.RegisterOptionGroupRequestDto;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import wayc.backend.cart.application.dto.request.RegisterOptionRequestDto;
 
 @NoArgsConstructor
 @Getter
 public class RegisterCartOptionGroupRequest {
 
-    private List<RegisterCartOptionRequest> cartOptions = new ArrayList<>();
+    private RegisterCartOptionRequest cartOption;
 
     private String name;
 
-    public RegisterCartOptionGroupRequest(List<RegisterCartOptionRequest> cartOptions, String name) {
-        this.cartOptions = cartOptions;
+    public RegisterCartOptionGroupRequest(RegisterCartOptionRequest cartOption, String name) {
+        this.cartOption = cartOption;
         this.name = name;
     }
 
@@ -26,10 +23,7 @@ public class RegisterCartOptionGroupRequest {
                 .builder()
                 .name(name)
                 .cartOptions(
-                        cartOptions
-                                .stream()
-                                .map(RegisterCartOptionRequest::toServiceDto)
-                                .collect(Collectors.toList())
+                        new RegisterOptionRequestDto(cartOption.getName(), cartOption.getPrice())
                 )
                 .build();
     }

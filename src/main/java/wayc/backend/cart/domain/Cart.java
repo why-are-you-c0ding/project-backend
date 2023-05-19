@@ -45,4 +45,8 @@ public class Cart extends BaseEntity {
             cartLineItem.update(count);
         }
     }
+
+    public void place(CartValidator cartValidator, CartLineItem lineItem) {
+        cartValidator.validate(lineItem);
+    }
 }

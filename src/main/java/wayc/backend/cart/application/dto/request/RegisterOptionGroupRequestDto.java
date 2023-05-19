@@ -11,12 +11,12 @@ import java.util.List;
 @Getter
 public class RegisterOptionGroupRequestDto {
 
-    private List<RegisterOptionRequestDto> cartOptions = new ArrayList<>();
+    private RegisterOptionRequestDto cartOptions;
 
     private String name;
 
     @Builder
-    public RegisterOptionGroupRequestDto(List<RegisterOptionRequestDto> cartOptions, String name) {
+    public RegisterOptionGroupRequestDto(RegisterOptionRequestDto cartOptions, String name) {
         this.cartOptions = cartOptions;
         this.name = name;
     }
