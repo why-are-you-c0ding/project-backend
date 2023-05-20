@@ -27,7 +27,7 @@ public class OptionGroup extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Item item;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "optionGroup")
     private List<Option> options = new ArrayList<>();
 
     private String name;
