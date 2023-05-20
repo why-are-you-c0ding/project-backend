@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.shop.domain.Option;
 import wayc.backend.shop.domain.command.OptionRepository;
+import wayc.backend.shop.domain.query.StockQueryRepository;
 import wayc.backend.shop.exception.NotExistsOptionSpecificationException;
 import wayc.backend.shop.application.dto.request.FillStockRequestDto;
 import wayc.backend.shop.domain.command.StockRepository;
@@ -45,5 +46,10 @@ public class StockService {
                         .orElseThrow(NotExistsOptionSpecificationException::new)
                 )
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = false)
+    public void takeOutStock(){
+        stockRepository.findStockByOptionsId();
     }
 }

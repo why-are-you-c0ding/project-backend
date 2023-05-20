@@ -4,7 +4,7 @@ import lombok.*;
 
 import wayc.backend.common.domain.BaseEntity;
 import wayc.backend.common.event.Events;
-import wayc.backend.order.domain.event.DecreasedStockEvent;
+import wayc.backend.order.domain.event.TookOutStockEvent;
 import wayc.backend.order.domain.event.OrderPayedEvent;
 import wayc.backend.order.domain.validator.OrderValidator;
 
@@ -70,7 +70,7 @@ public class Order extends BaseEntity {
 
     public void created() {
         Events.raise(new OrderPayedEvent(orderingMemberId, id, payment));
-        Events.raise(new DecreasedStockEvent(count, extractOptionGroupIdList()));
+        Events.raise(new TookOutStockEvent(count, extractOptionGroupIdList()));
     }
 
     private List<Long> extractOptionGroupIdList() {
