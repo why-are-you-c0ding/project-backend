@@ -50,6 +50,6 @@ public class StockService {
 
     @Transactional(readOnly = false)
     public void takeOutStock(){
-        stockRepository.findStockByOptionsId();
+//        stockRepository.findStockByOptionsId();
     }
 }
