@@ -48,6 +48,21 @@ public class StockService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 테스트에서만 사용
+     * @param dto
+     */
+    @Transactional(readOnly = false)
+    public void fillStockUseOnlyTest(FillStockRequestDto dto) {
+        dto
+                .getStockInfos()
+                .forEach(stockInfoDto -> {
+                    List<Option> options = makeOptions(stockInfoDto.getOptionIdList());
+                    Stock stock = new Stock(options, stockInfoDto.getQuantity());
+                    stockRepository.save(stock);
+                });
+    }
+
     @Transactional(readOnly = false)
     public void takeOutStock(){
 //        stockRepository.findStockByOptionsId();

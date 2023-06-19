@@ -37,9 +37,6 @@ public class StockServiceIntegrationTest extends IntegrationTest {
     @Autowired
     private StockRepository stockRepository;
 
-    @Autowired
-    private EntityManager em;
-
     @Test
     void createStock(){
 
@@ -59,7 +56,7 @@ public class StockServiceIntegrationTest extends IntegrationTest {
 
 
         //when
-        stockService.fillStock(
+        stockService.fillStockUseOnlyTest(
                 new FillStockRequestDto(
                         List.of(
                                 new FillStockInfoRequestDto(List.of(option1.getId(), option3.getId()), 5),
@@ -110,9 +107,9 @@ public class StockServiceIntegrationTest extends IntegrationTest {
         itemRepository.save(item);
 
         //when
-        em.flush();
+
         FillStockRequestDto requestDto = OptionUtils.createNumberOfAllOptionsToFillStock(item.getOptionGroups());
-        stockService.fillStock(requestDto); // 트랜잭션 전파 설정으로 실패함 우짠다냐...
+        stockService.fillStockUseOnlyTest(requestDto);
 
         //then
         assertThat(stockRepository.findAll().size()).isEqualTo(27);

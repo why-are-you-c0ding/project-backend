@@ -42,7 +42,8 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     void createOrder() {
 
         //given
-        List<CreateOrderRequestDto> dtoList = OrderFactory.createServiceDto();
+        Item saveItem = itemRepository.save(ItemFactory.createMacBook());
+        List<CreateOrderRequestDto> dtoList = OrderFactory.createSuccessCaseMackBookDtoWithId(saveItem.getId());
 
         //when
         orderService.createOrder(1L, dtoList);

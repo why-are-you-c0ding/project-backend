@@ -19,7 +19,7 @@ import wayc.backend.shop.domain.command.ShopRepository;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class ItemProviderIntegrationTest extends IntegrationTest {
+public class  ItemProviderIntegrationTest extends IntegrationTest {
 
     @Autowired
     private ItemProvider itemProvider;

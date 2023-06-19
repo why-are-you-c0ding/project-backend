@@ -38,7 +38,7 @@ public class StockProviderIntegrationTest extends IntegrationTest {
     private StockService stockService;
 
     @Test
-    void createItem(){
+    void findStock(){
 
         //given
         RegisterItemRequestDto dto = RegisterItemRequestFactory.createSuccessCase().toServiceDto();
@@ -53,7 +53,7 @@ public class StockProviderIntegrationTest extends IntegrationTest {
         Option option3 = optionGroup1.getOptions().get(0);
         Option option4 = optionGroup1.getOptions().get(1);
 
-        stockService.fillStock(
+        stockService.fillStockUseOnlyTest(
                 new FillStockRequestDto(
                         List.of(
                                 new FillStockInfoRequestDto(List.of(option1.getId(), option3.getId()), 5),
