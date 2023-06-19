@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.shop.domain.port.ItemComparator;
+import wayc.backend.shop.domain.port.ItemComparisonValidator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,9 +30,6 @@ public class Cart extends BaseEntity {
     }
 
     public void addCartLineItem(CartLineItem cartLineItem) {
-
-        //TODO 카트 라인 아이템과 상점의 옵션이 동일한지 검증하는 로직이 필요함.
-
         cartLineItems.add(cartLineItem);
         cartLineItem.addCart(this);
     }
@@ -46,7 +45,7 @@ public class Cart extends BaseEntity {
         }
     }
 
-    public void place(CartValidator cartValidator, CartLineItem lineItem) {
-        cartValidator.validate(lineItem);
+    public void place(ItemComparisonValidator<CartLineItem> itemComparisonValidator, CartLineItem lineItem) {
+        itemComparisonValidator.validate(lineItem);
     }
 }

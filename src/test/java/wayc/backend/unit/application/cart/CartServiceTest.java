@@ -5,7 +5,6 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import wayc.backend.cart.application.CartMapper;
@@ -13,20 +12,18 @@ import wayc.backend.cart.application.CartService;
 import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
 import wayc.backend.cart.domain.Cart;
 import wayc.backend.cart.domain.CartLineItem;
-import wayc.backend.cart.domain.CartValidator;
 import wayc.backend.cart.domain.repository.CartLineItemRepository;
 import wayc.backend.cart.domain.repository.CartRepository;
-import wayc.backend.cart.presentation.dto.request.RegisterCartLineItemRequest;
 import wayc.backend.factory.Item.ItemFactory;
 import wayc.backend.factory.cart.CartFactory;
 import wayc.backend.factory.cart.RegisterCartLineItemRequestFactory;
-import wayc.backend.factory.order.OrderFactory;
-import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
+
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.command.ItemRepository;
+import wayc.backend.shop.domain.port.ItemComparisonValidator;
+
 import wayc.backend.unit.application.UnitTest;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -47,7 +44,7 @@ public class CartServiceTest extends UnitTest {
 
     @BeforeEach
     void beforeEach(){
-        this.cartService = new CartService(cartRepository, cartLineItemRepository, new CartMapper(), new CartValidator(itemRepository));
+        this.cartService = new CartService(cartRepository, cartLineItemRepository, new CartMapper(), new ItemComparisonValidator(itemRepository));
     }
 
     @Test

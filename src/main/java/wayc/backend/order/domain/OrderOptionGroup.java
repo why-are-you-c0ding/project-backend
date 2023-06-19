@@ -4,14 +4,15 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
-import wayc.backend.shop.domain.OptionGroupValidator;
+import wayc.backend.shop.domain.port.OptionGroupComparator;
+import wayc.backend.shop.domain.port.OptionGroupValidator;
 
 import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class OrderOptionGroup extends BaseEntity {
+public class OrderOptionGroup extends BaseEntity implements OptionGroupComparator {
 
     @Id
     @Column(name = "order_option_group_id")

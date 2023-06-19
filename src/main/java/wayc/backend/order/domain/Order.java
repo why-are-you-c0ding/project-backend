@@ -7,6 +7,9 @@ import wayc.backend.common.event.Events;
 import wayc.backend.order.domain.event.TookOutStockEvent;
 import wayc.backend.order.domain.event.OrderPayedEvent;
 import wayc.backend.order.domain.validator.OrderValidator;
+import wayc.backend.shop.domain.port.ItemComparator;
+import wayc.backend.shop.domain.port.ItemComparisonValidator;
+import wayc.backend.shop.domain.port.OptionGroupComparator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "orders")
 @ToString
-public class Order extends BaseEntity {
+public class Order extends BaseEntity implements ItemComparator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,7 +80,15 @@ public class Order extends BaseEntity {
         return orderOptionGroups.stream().map(OrderOptionGroup::getId).collect(Collectors.toList());
     }
 
-    public void place(OrderValidator orderValidator){
-        orderValidator.validate(this);
+    public void place(ItemComparisonValidator<Order> itemComparisonValidator){
+        itemComparisonValidator.validate(this);
+    }
+
+    @Override
+    public List<OptionGroupComparator> getComparisonOrderOptionGroups() {
+        return orderOptionGroups
+                .stream()
+                .map(orderOptionGroup -> (OptionGroupComparator) orderOptionGroup)
+                .collect(Collectors.toList());
     }
 }

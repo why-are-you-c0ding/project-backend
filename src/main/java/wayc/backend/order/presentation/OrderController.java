@@ -30,7 +30,7 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity createOrder(@AuthenticationPrincipal Long memberId,
-                                        @Validated @RequestBody List<CreateOrderRequest> request){
+                                      @Validated @RequestBody List<CreateOrderRequest> request){
        orderService.createOrder(
                memberId,
                request
@@ -43,7 +43,7 @@ public class OrderController {
 
     @GetMapping("/customers")
     public ResponseEntity<FindPagingOrderResponseDto> findCustomerOrders(@RequestParam Integer page,
-                                                                        @AuthenticationPrincipal Long id){
+                                                                         @AuthenticationPrincipal Long id){
         FindPagingOrderResponseDto res = orderProvider.findCustomerOrders(id, page);
         return ResponseEntity.ok(res);
     }
@@ -51,14 +51,14 @@ public class OrderController {
 
     @GetMapping("/sellers")
     public ResponseEntity findSellerOrders(@RequestParam Integer page,
-                                          @AuthenticationPrincipal Long id){
+                                           @AuthenticationPrincipal Long id){
         return new ResponseEntity(orderProvider.findSellerOrders(id, page), HttpStatus.OK);
     }
 
 
     @GetMapping("/{orderId}")
     public ResponseEntity findOrder(@PathVariable Long orderId,
-                                   @AuthenticationPrincipal Long id){
+                                    @AuthenticationPrincipal Long id){
         return new ResponseEntity(orderProvider.findOrder(id, orderId) , HttpStatus.OK);
     }
 

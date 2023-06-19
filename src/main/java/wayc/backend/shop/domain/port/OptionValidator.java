@@ -1,4 +1,4 @@
-package wayc.backend.shop.domain;
+package wayc.backend.shop.domain.port;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

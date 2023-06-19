@@ -36,5 +36,4 @@ public class CartValidator {
         }
         throw new IllegalArgumentException("상품 옵션이 변경됐습니다.");
     }
-
 }

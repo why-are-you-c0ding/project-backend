@@ -24,6 +24,7 @@ import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.order.domain.validator.OrderValidator;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.command.ItemRepository;
+import wayc.backend.shop.domain.port.ItemComparisonValidator;
 import wayc.backend.unit.application.UnitTest;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class OrderServiceTest extends UnitTest {
 
     @BeforeEach
     void beforeEach(){
-        this.orderService = new OrderService(itemRepository, orderRepository, new OrderMapper(), new OrderValidator(itemRepository));
+        this.orderService = new OrderService(itemRepository, orderRepository, new OrderMapper(), new ItemComparisonValidator<>(itemRepository));
         mockEvents = mockStatic(Events.class);
     }
 

@@ -1,9 +1,7 @@
-package wayc.backend.shop.domain;
+package wayc.backend.shop.domain.port;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -16,7 +14,4 @@ public class OptionGroupValidator {
         this.name = name;
         this.option = options;
     }
-
-
-
 }

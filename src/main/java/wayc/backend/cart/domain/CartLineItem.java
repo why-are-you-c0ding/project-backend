@@ -6,15 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.shop.domain.port.ItemComparator;
+import wayc.backend.shop.domain.port.OptionGroupComparator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class CartLineItem extends BaseEntity {
+public class CartLineItem extends BaseEntity implements ItemComparator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,5 +65,12 @@ public class CartLineItem extends BaseEntity {
 
     public void addCart(Cart cart) {
         this.cart = cart;
+    }
+
+    @Override
+    public List<OptionGroupComparator> getComparisonOrderOptionGroups() {
+        return cartOptionGroups.stream()
+                .map(cartOptionGroup ->  (OptionGroupComparator) cartOptionGroup)
+                .collect(Collectors.toList());
     }
 }
