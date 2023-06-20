@@ -2,8 +2,10 @@ package wayc.backend.unit.application.shop;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import wayc.backend.shop.application.dto.request.FillStockRequestDto;
 import wayc.backend.shop.application.service.StockService;
 import wayc.backend.shop.domain.Option;
@@ -21,18 +23,14 @@ import static org.mockito.BDDMockito.*;
 
 public class StockServiceTest extends UnitTest {
 
+    @InjectMocks
     private StockService stockService;
 
     @Mock
     private StockRepository stockRepository;
 
-    @Mock
+    @Spy
     private OptionRepository optionRepository;
-
-    @BeforeEach
-    void beforeEach(){
-        this.stockService = new StockService(stockRepository, optionRepository);
-    }
 
     @Test
     void createStock(){

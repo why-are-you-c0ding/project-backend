@@ -5,8 +5,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import wayc.backend.cart.application.CartMapper;
 import wayc.backend.cart.application.CartService;
 import wayc.backend.cart.application.dto.request.RegisterCartLineItemRequestDto;
@@ -33,13 +33,13 @@ public class CartServiceTest extends UnitTest {
 
    CartService cartService;
 
-   @Mock
+   @Spy
    CartRepository cartRepository;
 
-   @Mock
+   @Spy
    CartLineItemRepository cartLineItemRepository;
 
-   @Mock
+   @Spy
    ItemRepository itemRepository;
 
     @BeforeEach

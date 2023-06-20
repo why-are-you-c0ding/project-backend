@@ -42,8 +42,8 @@ public class StockService {
                 .stream()
                 .map(id ->
                         optionRepository
-                        .findByIdAndStatus(id)
-                        .orElseThrow(NotExistsOptionSpecificationException::new)
+                                .findByIdAndStatus(id)
+                                .orElseThrow(NotExistsOptionSpecificationException::new)
                 )
                 .collect(Collectors.toList());
     }
