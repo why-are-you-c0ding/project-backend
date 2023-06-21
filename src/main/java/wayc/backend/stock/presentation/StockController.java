@@ -1,16 +1,16 @@
-package wayc.backend.shop.presentation;
+package wayc.backend.stock.presentation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import wayc.backend.config.argumentresolver.GetStock;
-import wayc.backend.shop.application.provider.StockProvider;
-import wayc.backend.shop.application.service.StockService;
-import wayc.backend.shop.presentation.dto.request.FindStockRequest;
-import wayc.backend.shop.presentation.dto.response.RegisterStockResponse;
-import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
-import wayc.backend.shop.presentation.dto.request.FillStockRequest;
+import wayc.backend.stock.application.dto.response.find.FindStocksResponseDto;
+import wayc.backend.stock.application.provider.StockProvider;
+import wayc.backend.stock.application.service.StockService;
+import wayc.backend.stock.presentation.dto.request.FillStockRequest;
+import wayc.backend.stock.presentation.dto.request.FindStockRequest;
+import wayc.backend.stock.presentation.dto.response.RegisterStockResponse;
 
 import static org.springframework.http.HttpStatus.*;
 

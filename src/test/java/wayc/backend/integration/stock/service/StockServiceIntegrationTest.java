@@ -1,4 +1,4 @@
-package wayc.backend.integration.shop.service;
+package wayc.backend.integration.stock.service;
 
 
 import org.junit.jupiter.api.Test;
@@ -6,22 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import wayc.backend.factory.Item.dto.RegisterItemRequestFactory;
 import wayc.backend.integration.IntegrationTest;
 import wayc.backend.shop.application.dto.request.RegisterItemRequestDto;
-import wayc.backend.shop.application.dto.request.FillStockInfoRequestDto;
-import wayc.backend.shop.application.dto.request.FillStockRequestDto;
 import wayc.backend.shop.application.service.ItemMapper;
-import wayc.backend.shop.application.service.StockService;
 import wayc.backend.shop.domain.*;
 import wayc.backend.shop.domain.command.ItemRepository;
 import wayc.backend.shop.domain.command.ShopRepository;
-import wayc.backend.shop.domain.command.StockRepository;
 import wayc.backend.shop.domain.Option;
 import wayc.backend.shop.domain.OptionGroup;
 import wayc.backend.shop.utils.OptionUtils;
+import wayc.backend.stock.application.dto.request.FillStockInfoRequestDto;
+import wayc.backend.stock.application.dto.request.FillStockRequestDto;
+import wayc.backend.stock.application.service.StockService;
+import wayc.backend.stock.domain.command.StockRepository;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class StockServiceIntegrationTest extends IntegrationTest {
 
@@ -40,29 +39,14 @@ public class StockServiceIntegrationTest extends IntegrationTest {
     @Test
     void createStock(){
 
-        //given
-        RegisterItemRequestDto dto = RegisterItemRequestFactory.createSuccessCase().toServiceDto();
-        Shop findShop = shopRepository.save(new Shop(1L, "shop"));
-        Item item = itemRepository.save(new ItemMapper().mapOf(dto, findShop));
-
-
-        OptionGroup optionGroup = item.getOptionGroups().get(0);
-        Option option1 = optionGroup.getOptions().get(0); //white
-        Option option2 = optionGroup.getOptions().get(1); //black
-
-        OptionGroup optionGroup1 = item.getOptionGroups().get(1);
-        Option option3 = optionGroup1.getOptions().get(0); // s
-        Option option4 = optionGroup1.getOptions().get(1); // m
-
-
         //when
         stockService.fillStockUseOnlyTest(
                 new FillStockRequestDto(
                         List.of(
-                                new FillStockInfoRequestDto(List.of(option1.getId(), option3.getId()), 5),
-                                new FillStockInfoRequestDto(List.of(option1.getId(), option4.getId()), 5),
-                                new FillStockInfoRequestDto(List.of(option2.getId(), option3.getId()), 5),
-                                new FillStockInfoRequestDto(List.of(option2.getId(), option4.getId()), 5)
+                                new FillStockInfoRequestDto(List.of(1L, 2L), 5),
+                                new FillStockInfoRequestDto(List.of(1L, 3L), 4),
+                                new FillStockInfoRequestDto(List.of(2L, 3L), 3),
+                                new FillStockInfoRequestDto(List.of(3L, 4L), 2)
                         )
                 )
         );

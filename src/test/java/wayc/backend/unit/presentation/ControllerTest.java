@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.restdocs.RestDocumentationContextProvider;
@@ -26,7 +25,6 @@ import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
 import wayc.backend.common.exception.ExceptionExampleController;
 import wayc.backend.member.application.EmailService;
-import wayc.backend.member.application.MemberMapper;
 import wayc.backend.member.application.MemberProvider;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.domain.repository.MemberRepository;
@@ -40,13 +38,13 @@ import wayc.backend.security.SecurityConfig;
 import wayc.backend.security.jwt.JwtProvider;
 import wayc.backend.shop.application.provider.ItemProvider;
 import wayc.backend.shop.application.provider.OptionGroupProvider;
-import wayc.backend.shop.application.provider.StockProvider;
 import wayc.backend.shop.application.service.ItemService;
 import wayc.backend.shop.application.service.ShopService;
-import wayc.backend.shop.application.service.StockService;
 import wayc.backend.shop.presentation.ItemController;
-import wayc.backend.shop.presentation.StockController;
 import wayc.backend.member.infrastructure.SendEmailServiceImpl;
+import wayc.backend.stock.application.provider.StockProvider;
+import wayc.backend.stock.application.service.StockService;
+import wayc.backend.stock.presentation.StockController;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -130,18 +128,6 @@ public abstract class ControllerTest {
 
     @MockBean
     protected StockProvider stockProvider;
-
-    public void setUp(
-            WebApplicationContext webApplicationContext,
-            RestDocumentationContextProvider restDocumentationContextProvider
-    ) {
-        this.mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .addFilters(new CharacterEncodingFilter("UTF-8", true))
-                .apply(documentationConfiguration(restDocumentationContextProvider))
-                .apply(springSecurity())
-                .build();
-    }
 }
 
 //https://www.baeldung.com/spring-rest-docs

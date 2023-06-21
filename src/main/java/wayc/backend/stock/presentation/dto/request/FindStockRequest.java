@@ -1,4 +1,4 @@
-package wayc.backend.shop.presentation.dto.request;
+package wayc.backend.stock.presentation.dto.request;
 
 import lombok.Getter;
 

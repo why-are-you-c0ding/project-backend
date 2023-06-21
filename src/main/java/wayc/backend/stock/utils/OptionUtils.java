@@ -1,10 +1,9 @@
-package wayc.backend.shop.utils;
+package wayc.backend.stock.utils;
 
 import wayc.backend.shop.domain.Option;
 import wayc.backend.shop.domain.OptionGroup;
 import wayc.backend.stock.application.dto.request.FillStockInfoRequestDto;
 import wayc.backend.stock.application.dto.request.FillStockRequestDto;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ public class OptionUtils {
         return selectOptions(optionGroups);
     }
 
-    private static FillStockRequestDto  selectOptions(List<OptionGroup> optionGroups) {
+    private static FillStockRequestDto selectOptions(List<OptionGroup> optionGroups) {
         FillStockRequestDto request = new FillStockRequestDto();
         selectOptionsRecursive(optionGroups, new ArrayList<>(), 0, request);
         return request;

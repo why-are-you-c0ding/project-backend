@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import wayc.backend.common.event.Event;
-import wayc.backend.shop.application.dto.request.FillStockRequestDto;
+import wayc.backend.stock.application.dto.request.FillStockRequestDto;
 
 
 @Getter

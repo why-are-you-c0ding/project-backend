@@ -1,11 +1,13 @@
-package wayc.backend.shop.application.provider;
+package wayc.backend.stock.application.provider;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
-import wayc.backend.shop.application.dto.response.find.FindStockResponseDto;
-import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
-import wayc.backend.shop.infrastructure.StockQueryRepositoryImpl;
-import wayc.backend.shop.presentation.dto.request.FindOptionIdRequest;
+
+import wayc.backend.stock.application.dto.response.find.FindStockResponseDto;
+import wayc.backend.stock.application.dto.response.find.FindStocksResponseDto;
+import wayc.backend.stock.domain.query.StockQueryRepository;
+import wayc.backend.stock.presentation.dto.request.FindOptionIdRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,8 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StockProvider {
 
-    private final OptionProvider optionProvider;
-    private final StockQueryRepositoryImpl stockQueryRepository;
+    private final StockQueryRepository stockQueryRepository;
 
     public FindStocksResponseDto findStock(List<FindOptionIdRequest> optionIdList) {
         return new FindStocksResponseDto(
@@ -23,7 +24,7 @@ public class StockProvider {
                         .stream()
                         .map(ids ->
                                 new FindStockResponseDto(
-                                        stockQueryRepository.findStocks(optionProvider.getOptions(ids.getIdList()))
+                                        stockQueryRepository.findStocks(ids.getIdList())
                                 ))
                         .collect(Collectors.toList())
         );

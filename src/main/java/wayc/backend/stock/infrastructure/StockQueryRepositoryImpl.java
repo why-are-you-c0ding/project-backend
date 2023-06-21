@@ -1,15 +1,16 @@
-package wayc.backend.shop.infrastructure;
+package wayc.backend.stock.infrastructure;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
 import org.springframework.stereotype.Repository;
-import wayc.backend.shop.domain.*;
-import wayc.backend.shop.domain.Option;
-import wayc.backend.shop.domain.query.StockQueryRepository;
+
+import wayc.backend.stock.domain.query.StockQueryRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static wayc.backend.shop.domain.QStockOption.stockOption;
+import static wayc.backend.stock.domain.QStock.*;
+import static wayc.backend.stock.domain.QStockOption.stockOption;
 
 
 @Repository
@@ -21,18 +22,18 @@ public class StockQueryRepositoryImpl implements StockQueryRepository {
         this.query = new JPAQueryFactory(em);
     }
 
-    public Stock findStocks(List<Option> options) {
+    public Integer findStocks(List<Long> options) {
         return query
-                .select(stockOption.stock)
+                .select(stock.quantity)
                 .from(stockOption)
+                .join(stock).on(stockOption.stockId.eq(stock.id))
                 .where(
-                        stockOption.option.in(options)
+                        stockOption.optionId.in(options)
                 )
-                .groupBy(stockOption.stock.id)
-                .orderBy(stockOption.stock.id.count().desc())
+                .groupBy(stockOption.stockId)
+                .orderBy(stockOption.stockId.count().desc())
                 .limit(1)
                 .fetchFirst();
-
     }
 }
 

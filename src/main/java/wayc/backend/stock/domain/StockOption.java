@@ -1,4 +1,4 @@
-package wayc.backend.shop.domain;
+package wayc.backend.stock.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,16 +17,12 @@ public class StockOption extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "stock_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Stock stock;
+    private Long stockId;
 
-    @JoinColumn(name = "option_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Option option;
+    private Long optionId;
 
-    public StockOption(Stock stock, Option option) {
-        this.stock = stock;
-        this.option = option;
+    public StockOption(Long stockId, Long optionId) {
+        this.stockId = stockId;
+        this.optionId = optionId;
     }
 }

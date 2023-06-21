@@ -1,4 +1,4 @@
-package wayc.backend.shop.application.dto.request;
+package wayc.backend.stock.application.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +18,5 @@ public class FillStockRequestDto {
 
     public void addDto(FillStockInfoRequestDto dto){
         this.stockInfos.add(dto);
-    }
-
-
-    @Override
-    public String toString() {
-        return "FillStockRequestDto{" +
-                "stockInfos=" + stockInfos +
-                '}';
     }
 }

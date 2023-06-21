@@ -1,17 +1,16 @@
-package wayc.backend.unit.presentation.shop;
+package wayc.backend.unit.presentation.stock;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import wayc.backend.common.WithMockSeller;
 import wayc.backend.factory.Item.dto.FindStocksResponseDtoFactory;
-import wayc.backend.shop.application.dto.response.find.FindStocksResponseDto;
-import wayc.backend.shop.presentation.dto.request.FillStockInfoRequest;
-import wayc.backend.shop.presentation.dto.request.FillStockRequest;
 
+import wayc.backend.stock.application.dto.response.find.FindStocksResponseDto;
+import wayc.backend.stock.presentation.dto.request.FillStockInfoRequest;
+import wayc.backend.stock.presentation.dto.request.FillStockRequest;
 import wayc.backend.unit.presentation.ControllerTest;
 
 import java.util.Arrays;
@@ -19,6 +18,7 @@ import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -45,7 +45,7 @@ public class StockControllerTest extends ControllerTest {
         String value = mapper.writeValueAsString(req);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.post("/stocks")
+        mockMvc.perform(post("/stocks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(value)
@@ -77,7 +77,7 @@ public class StockControllerTest extends ControllerTest {
         given(stockProvider.findStock(Mockito.any(List.class))).willReturn(res);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/stocks?optionGroup1=21,32&optionGroup2=29,32")
+        mockMvc.perform(get("/stocks?optionGroup1=21,32&optionGroup2=29,32")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().is2xxSuccessful())
@@ -92,7 +92,6 @@ public class StockControllerTest extends ControllerTest {
                         ,
                         responseFields(
                                 fieldWithPath("stockList").type(ARRAY).description("재고 정보 리스트"),
-                                fieldWithPath("stockList[].stockId").type(NUMBER).description("재고 아이디"),
                                 fieldWithPath("stockList[].quantity").type(NUMBER).description("재고 수량")
                         )
                 ));

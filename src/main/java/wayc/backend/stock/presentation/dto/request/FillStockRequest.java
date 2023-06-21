@@ -1,9 +1,9 @@
-package wayc.backend.shop.presentation.dto.request;
+package wayc.backend.stock.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.shop.application.dto.request.FillStockInfoRequestDto;
-import wayc.backend.shop.application.dto.request.FillStockRequestDto;
+import wayc.backend.stock.application.dto.request.FillStockInfoRequestDto;
+import wayc.backend.stock.application.dto.request.FillStockRequestDto;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;

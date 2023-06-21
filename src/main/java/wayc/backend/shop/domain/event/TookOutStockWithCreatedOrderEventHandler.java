@@ -5,7 +5,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import wayc.backend.order.domain.event.TookOutStockEvent;
-import wayc.backend.shop.application.service.StockService;
+import wayc.backend.stock.application.service.StockService;
 
 
 @Component

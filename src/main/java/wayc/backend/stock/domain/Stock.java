@@ -1,4 +1,4 @@
-package wayc.backend.shop.domain;
+package wayc.backend.stock.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,16 +21,17 @@ public class Stock extends BaseEntity { //옵션과 Stock은 N:M 인듯
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "stock", cascade = CascadeType.ALL)
-    private List<StockOption> stockOptions = new ArrayList<>();
-
     private Integer quantity;
 
-    public Stock(List<Option> options, Integer quantity) {
-        this.stockOptions = options
-                .stream()
-                .map(option-> new StockOption(this, option))
-                .collect(Collectors.toList());
+    public Stock(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    /**
+     * 테스트에서만 사용할 것
+     */
+    public Stock(Long id, Integer quantity) {
+        this.id = id;
         this.quantity = quantity;
     }
 }

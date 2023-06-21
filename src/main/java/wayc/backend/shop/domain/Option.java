@@ -36,18 +36,9 @@ public class Option extends BaseEntity {
         this.price = price;
     }
 
-
-    @OneToMany(mappedBy = "option")
-    private List<StockOption> stockOptions = new ArrayList<>();
-
     public void add(OptionGroup optionGroup) {
         this.optionGroup = optionGroup;
     }
-
-
-    /**
-     * validation 로직 추가
-     */
 
     public boolean isSatisfiedBy(OptionValidator option) {
         if(name.equals(option.getName()) && Objects.equals(price, option.getPrice())) return true;
