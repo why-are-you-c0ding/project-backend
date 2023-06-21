@@ -64,7 +64,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
 
 
         //when
-        orderService.updateOrder(saveShop.getOwnerId(), new UpdateOrderRequestDto(
+        orderService.updateOrder(saveShop.getOwner().getMemberId(), new UpdateOrderRequestDto(
                 saveOrder.getId(),
                 saveOrder.getItemId(),
                 OrderStatus.COMPLETED)

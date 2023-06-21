@@ -21,7 +21,8 @@ public class Shop extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long ownerId;
+    @Embedded
+    private ShopOwner owner;
 
     private String shopName;
 
@@ -30,11 +31,10 @@ public class Shop extends BaseEntity {
 
     @Builder
     public Shop(Long ownerId, String shopName) {
-        this.ownerId = ownerId;
+        this.owner = new ShopOwner(ownerId);
         this.shopName = shopName;
         this.items = new ArrayList<>();;
     }
-
 
     public void addItem(Item item) {
         this.items.add(item);

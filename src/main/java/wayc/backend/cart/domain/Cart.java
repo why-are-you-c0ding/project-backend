@@ -20,13 +20,14 @@ public class Cart extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long memberId;
+    @Embedded
+    private CartOwner cartOwner;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartLineItem> cartLineItems = new ArrayList<>();
 
     public Cart(Long memberId) {
-        this.memberId = memberId;
+        this.cartOwner = new CartOwner(memberId);
     }
 
     public void addCartLineItem(CartLineItem cartLineItem) {

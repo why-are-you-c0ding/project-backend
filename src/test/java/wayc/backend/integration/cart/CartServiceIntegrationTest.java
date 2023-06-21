@@ -64,7 +64,7 @@ public class CartServiceIntegrationTest extends IntegrationTest {
 
         //when
         em.flush();
-        cartService.updateCartLineItem(cart.getMemberId(), cart.getCartLineItems().get(0).getId(), 3);
+        cartService.updateCartLineItem(cart.getCartOwner().getMemberId(), cart.getCartLineItems().get(0).getId(), 3);
 
         //then
         assertThat(cart.getCartLineItems().get(0).getCount()).isEqualTo(3);
@@ -82,7 +82,7 @@ public class CartServiceIntegrationTest extends IntegrationTest {
 
         //when
         em.flush();
-        cartService.deleteCartLineItem(cart.getMemberId(), cart.getCartLineItems().get(0).getId());
+        cartService.deleteCartLineItem(cart.getCartOwner().getMemberId(), cart.getCartLineItems().get(0).getId());
 
         //then
         assertThat(cart.getCartLineItems().size()).isEqualTo(0);

@@ -65,7 +65,7 @@ public class  ItemProviderIntegrationTest extends IntegrationTest {
         Shop shop = shopRepository.save(new Shop(1L, "shop"));
         Item item = itemRepository.save(new ItemMapper().mapOf(dto, shop));
 
-        FindPagingItemResponseDto res = itemProvider.findSellerItems(item.getShop().getOwnerId(), 0);
+        FindPagingItemResponseDto res = itemProvider.findSellerItems(item.getShop().getOwner().getMemberId(), 0);
 
         assertThat(res.getItems().size()).isEqualTo(1);
         assertThat(res.isFinalPage()).isEqualTo(true);

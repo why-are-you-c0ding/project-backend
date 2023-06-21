@@ -22,12 +22,12 @@ public interface ItemRepository extends JpaRepository <Item, Long> {
     Slice<Item> findItemsPagingByStatus(PageRequest paging);
 
     @EntityGraph(attributePaths = {"shop"})
-    @Query("select i from Item i where i.shop.ownerId =:ownerId and i.status = 'ACTIVE'")
+    @Query("select i from Item i where i.shop.owner.memberId = :ownerId and i.status = 'ACTIVE'")
     Slice<Item> findItemPagingByShopOwnerId(Long ownerId, PageRequest paging);
 
     //TODO 추후에 이런 방식과 shop에서 list로 한번에 가져오는 것 성능 비교해보기.
 
     @EntityGraph(attributePaths = {"shop"})
-    @Query("select i from Item i where i.shop.ownerId = :ownerId and i.id = :itemId and i.status = 'ACTIVE'")
+    @Query("select i from Item i where i.shop.owner.memberId = :ownerId and i.id = :itemId and i.status = 'ACTIVE'")
     Optional<Item> findItemByShopOwnerIdAndItemId(Long ownerId, Long itemId);
 }

@@ -31,7 +31,8 @@ public class Order extends BaseEntity implements ItemComparator {
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderOptionGroup> orderOptionGroups = new ArrayList<>();
 
-    private Long orderingMemberId;
+    @Embedded
+    private Orderer orderer;
 
     private Long itemId;
 
@@ -58,7 +59,7 @@ public class Order extends BaseEntity implements ItemComparator {
     ) {
         this.id = id;
         this.orderOptionGroups = orderOptionGroups;
-        this.orderingMemberId = orderingMemberId;
+        this.orderer = new Orderer(orderingMemberId);
         this.itemId = itemId;
         this.name = name;
         this.count = count;
@@ -72,7 +73,7 @@ public class Order extends BaseEntity implements ItemComparator {
     }
 
     public void created() {
-        Events.raise(new OrderPayedEvent(orderingMemberId, id, payment));
+        Events.raise(new OrderPayedEvent(orderer.getMemberId(), id, payment));
         Events.raise(new TookOutStockEvent(count, extractOptionGroupIdList()));
     }
 

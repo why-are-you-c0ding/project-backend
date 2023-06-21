@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    @Query("select o from Order o where o.orderingMemberId =:memberId and o.status = 'ACTIVE'")
+    @Query("select o from Order o where o.orderer.memberId =:memberId and o.status = 'ACTIVE'")
     Slice<Order> findOrdersPagingByOrderingMemberId(Long memberId, Pageable pageable);
 
     @Query(nativeQuery = true,
@@ -33,7 +33,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select distinct o from Order o join fetch o.orderOptionGroups where o.id = :orderId and o.status = 'ACTIVE'")
     Optional<Order> findOrderByOrderId(Long orderId);
 
-    @Query("select o from Order o  where o.id = :orderId and o.orderingMemberId = :memberId and o.orderStatus = 'BEFORE_PAY' and o.status = 'ACTIVE'")
+    @Query("select o from Order o  where o.id = :orderId and o.orderer.memberId = :memberId and o.orderStatus = 'BEFORE_PAY' and o.status = 'ACTIVE'")
     Optional<Order> findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(Long orderId, Long memberId);
 
     @Query("select o from Order o where o.id = :orderId and o.itemId = :itemId and o.status = 'ACTIVE'")
