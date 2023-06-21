@@ -4,8 +4,8 @@ import lombok.*;
 
 import wayc.backend.common.domain.BaseEntity;
 import wayc.backend.common.event.Events;
+
 import wayc.backend.shop.domain.event.ItemRegisteredEvent;
-import wayc.backend.shop.utils.OptionUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -56,6 +56,6 @@ public class Item extends BaseEntity {
     }
 
     public void registered() {
-        Events.raise(new ItemRegisteredEvent(OptionUtils.createNumberOfAllOptionsToFillStock(optionGroups)));
+        Events.raise(new ItemRegisteredEvent(optionGroups));
     }
 }
