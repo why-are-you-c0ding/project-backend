@@ -1,24 +1,33 @@
 package wayc.backend.integration.stock.service;
 
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import wayc.backend.factory.Item.dto.RegisterItemRequestFactory;
+
+import org.springframework.test.annotation.Commit;
 import wayc.backend.integration.IntegrationTest;
-import wayc.backend.shop.application.dto.request.RegisterItemRequestDto;
-import wayc.backend.shop.application.service.ItemMapper;
-import wayc.backend.shop.domain.*;
+
+import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.command.ItemRepository;
-import wayc.backend.shop.domain.command.ShopRepository;
 import wayc.backend.shop.domain.Option;
 import wayc.backend.shop.domain.OptionGroup;
-import wayc.backend.shop.utils.OptionUtils;
+
 import wayc.backend.stock.application.dto.request.FillStockInfoRequestDto;
 import wayc.backend.stock.application.dto.request.FillStockRequestDto;
 import wayc.backend.stock.application.service.StockService;
-import wayc.backend.stock.domain.command.StockRepository;
 
+import wayc.backend.stock.domain.Stock;
+import wayc.backend.stock.domain.StockOption;
+import wayc.backend.stock.domain.command.StockOptionRepository;
+import wayc.backend.stock.domain.command.StockRepository;
+import wayc.backend.stock.utils.OptionUtils;
+
+import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,16 +40,19 @@ public class StockServiceIntegrationTest extends IntegrationTest {
     private ItemRepository itemRepository;
 
     @Autowired
-    private ShopRepository shopRepository;
+    private StockRepository stockRepository;
 
     @Autowired
-    private StockRepository stockRepository;
+    private StockOptionRepository stockOptionRepository;
+
+    @Autowired
+    EntityManager em;
 
     @Test
     void createStock(){
 
         //when
-        stockService.fillStockUseOnlyTest(
+        stockService.fillStock(
                 new FillStockRequestDto(
                         List.of(
                                 new FillStockInfoRequestDto(List.of(1L, 2L), 5),
@@ -93,9 +105,46 @@ public class StockServiceIntegrationTest extends IntegrationTest {
         //when
 
         FillStockRequestDto requestDto = OptionUtils.createNumberOfAllOptionsToFillStock(item.getOptionGroups());
-        stockService.fillStockUseOnlyTest(requestDto);
+        stockService.fillStock(requestDto);
 
         //then
         assertThat(stockRepository.findAll().size()).isEqualTo(27);
+    }
+
+    @Test
+    void 재고_감소() throws InterruptedException {
+
+        //given
+        Long id = 재고_감소_테서트_전에_실행();
+
+        int threadCount = 100;
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch latch = new CountDownLatch(threadCount);
+
+        //when
+        for (int i = 0; i < threadCount; i++) {
+            executorService.submit(() -> {
+                try {
+                    stockService.decreaseStock(1, List.of(1L));
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        latch.await(); //대기
+
+        //then
+        em.clear();
+        Assertions.assertThat(stockRepository.findById(id).get().getQuantity()).isEqualTo(0);
+
+        stockRepository.deleteAll();
+        stockOptionRepository.deleteAll();
+    }
+
+    Long 재고_감소_테서트_전에_실행(){
+        Stock stock = stockRepository.saveAndFlush(new Stock(100));
+        stockOptionRepository.saveAndFlush(new StockOption(stock.getId(), stock.getId()));// 옵션 아이디를 stock id로 가정
+        return stock.getId();
     }
 }

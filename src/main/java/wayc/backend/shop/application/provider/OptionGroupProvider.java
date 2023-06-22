@@ -45,11 +45,7 @@ public class OptionGroupProvider {
         );
     }
 
-    private FindOptionResponseDto toOptionDto(Option optionSpecification) {
-        return new FindOptionResponseDto(
-                optionSpecification.getId(),
-                optionSpecification.getName(),
-                optionSpecification.getPrice()
-        );
+    private FindOptionResponseDto toOptionDto(Option option) {
+        return new FindOptionResponseDto(option.getId(), option.getName(), option.getPrice());
     }
 }

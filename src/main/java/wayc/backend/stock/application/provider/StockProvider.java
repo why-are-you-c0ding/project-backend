@@ -22,10 +22,7 @@ public class StockProvider {
         return new FindStocksResponseDto(
                 optionIdList
                         .stream()
-                        .map(ids ->
-                                new FindStockResponseDto(
-                                        stockQueryRepository.findStocks(ids.getIdList())
-                                ))
+                        .map(dto -> new FindStockResponseDto(stockQueryRepository.findStocks(dto.getIdList())))
                         .collect(Collectors.toList())
         );
     }

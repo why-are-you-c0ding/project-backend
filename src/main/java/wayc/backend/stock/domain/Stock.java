@@ -34,4 +34,10 @@ public class Stock extends BaseEntity { //옵션과 Stock은 N:M 인듯
         this.id = id;
         this.quantity = quantity;
     }
+
+    public void decrease(Integer quantity) {
+        if(this.quantity - quantity >= 0){
+           this.quantity -= quantity;
+        }
+    }
 }

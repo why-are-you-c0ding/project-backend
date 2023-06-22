@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import wayc.backend.stock.application.dto.request.FillStockRequestDto;
-import wayc.backend.stock.application.service.StockService;
+import wayc.backend.stock.application.service.StockServiceImpl;
 import wayc.backend.stock.domain.Stock;
 import wayc.backend.stock.domain.StockOption;
 import wayc.backend.stock.domain.command.StockOptionRepository;
@@ -23,7 +23,7 @@ import static org.mockito.BDDMockito.*;
 public class StockServiceTest extends UnitTest {
 
     @InjectMocks
-    private StockService stockService;
+    private StockServiceImpl stockService;
 
     @Mock
     private StockRepository stockRepository;

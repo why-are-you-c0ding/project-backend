@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import wayc.backend.config.argumentresolver.GetStock;
+
 import wayc.backend.stock.application.dto.response.find.FindStocksResponseDto;
 import wayc.backend.stock.application.provider.StockProvider;
 import wayc.backend.stock.application.service.StockService;

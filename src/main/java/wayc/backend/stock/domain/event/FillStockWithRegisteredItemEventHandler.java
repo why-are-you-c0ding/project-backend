@@ -8,20 +8,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import wayc.backend.shop.domain.event.ItemRegisteredEvent;
-import wayc.backend.shop.utils.OptionUtils;
-import wayc.backend.stock.application.service.StockService;
+import wayc.backend.stock.application.service.StockServiceImpl;
+
+import wayc.backend.stock.utils.OptionUtils;
 
 @Component
 @RequiredArgsConstructor
 public class FillStockWithRegisteredItemEventHandler{
 
-    private final StockService stockService;
+    private final StockServiceImpl stockService;
 
     @Async
     @TransactionalEventListener(ItemRegisteredEvent.class)
     public void handle(ItemRegisteredEvent event){
         if(event != null){
-            stockService.fillStock(OptionUtils.createNumberOfAllOptionsToFillStock(event.getGroups()));
+            stockService.fillStockByEvent(OptionUtils.createNumberOfAllOptionsToFillStock(event.getGroups()));
         }
     }
 }

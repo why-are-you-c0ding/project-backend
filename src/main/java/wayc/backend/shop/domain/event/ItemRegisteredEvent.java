@@ -8,7 +8,6 @@ import wayc.backend.shop.domain.OptionGroup;
 
 import java.util.List;
 
-
 @Getter
 @NoArgsConstructor
 public class ItemRegisteredEvent extends Event {
