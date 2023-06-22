@@ -28,9 +28,7 @@ import wayc.backend.stock.utils.OptionUtils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -142,15 +140,12 @@ public class StockServiceIntegrationTest extends IntegrationTest {
         //when
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
-                transactionTemplate.execute((status -> {
-                    try {
-                        stockService.decreaseStock(1, List.of(1L));
-                    } finally {
-                        latch.countDown();
-                    }
-                    return null;
-                }));
-
+                try{
+                    stockService.decreaseStock(1, List.of(1L));
+                }
+                finally {
+                    latch.countDown();
+                }
             });
         }
 
