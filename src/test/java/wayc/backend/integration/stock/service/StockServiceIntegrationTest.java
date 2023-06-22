@@ -1,11 +1,13 @@
 package wayc.backend.integration.stock.service;
 
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.test.annotation.Commit;
+
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.support.TransactionTemplate;
 import wayc.backend.integration.IntegrationTest;
 
 import wayc.backend.shop.domain.Item;
@@ -21,6 +23,7 @@ import wayc.backend.stock.domain.Stock;
 import wayc.backend.stock.domain.StockOption;
 import wayc.backend.stock.domain.command.StockOptionRepository;
 import wayc.backend.stock.domain.command.StockRepository;
+import wayc.backend.stock.domain.query.StockQueryRepository;
 import wayc.backend.stock.utils.OptionUtils;
 
 import javax.persistence.EntityManager;
@@ -46,7 +49,10 @@ public class StockServiceIntegrationTest extends IntegrationTest {
     private StockOptionRepository stockOptionRepository;
 
     @Autowired
-    EntityManager em;
+    private StockQueryRepository stockQueryRepository;
+
+    @Autowired
+    private PlatformTransactionManager transactionManager;
 
     @Test
     void createStock(){
@@ -111,11 +117,23 @@ public class StockServiceIntegrationTest extends IntegrationTest {
         assertThat(stockRepository.findAll().size()).isEqualTo(27);
     }
 
+    /**
+     * 기존에는 한 트랜잭션에 몰려있으므로 executorService를 사용하면 다른 쓰레드에서 insert한 Row에 접근이 안됨.
+     * 따라서 트랜잭션 템플릿을 사용해 트랜잭션 전파를 바꾸고 다음과 같이 진행함.
+     * @throws InterruptedException
+     */
     @Test
     void 재고_감소() throws InterruptedException {
 
         //given
-        Long id = 재고_감소_테서트_전에_실행();
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+
+        transactionTemplate.execute(status -> {
+            Stock stock = stockRepository.save(new Stock(100));
+            stockOptionRepository.save(new StockOption(stock.getId(), 1L));
+            return null;
+        });
 
         int threadCount = 100;
         ExecutorService executorService = Executors.newFixedThreadPool(32);
@@ -124,27 +142,28 @@ public class StockServiceIntegrationTest extends IntegrationTest {
         //when
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
-                try {
-                    stockService.decreaseStock(1, List.of(1L));
-                } finally {
-                    latch.countDown();
-                }
+                transactionTemplate.execute((status -> {
+                    try {
+                        stockService.decreaseStock(1, List.of(1L));
+                    } finally {
+                        latch.countDown();
+                    }
+                    return null;
+                }));
+
             });
         }
 
         latch.await(); //대기
 
         //then
-        em.clear();
-        Assertions.assertThat(stockRepository.findById(id).get().getQuantity()).isEqualTo(0);
 
-        stockRepository.deleteAll();
-        stockOptionRepository.deleteAll();
-    }
+        Assertions.assertThat(stockQueryRepository.findStock(List.of(1L)).getQuantity()).isEqualTo(0);
 
-    Long 재고_감소_테서트_전에_실행(){
-        Stock stock = stockRepository.saveAndFlush(new Stock(100));
-        stockOptionRepository.saveAndFlush(new StockOption(stock.getId(), stock.getId()));// 옵션 아이디를 stock id로 가정
-        return stock.getId();
+        transactionTemplate.execute(status -> {
+            stockRepository.deleteAll();
+            stockOptionRepository.deleteAll();
+            return null;
+        });
     }
 }
