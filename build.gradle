@@ -72,6 +72,9 @@ dependencies {
 
 	testImplementation 'org.mockito:mockito-inline:3.6.0' //static 메서드를 모킹하기 위해 필요
 
+	implementation 'org.redisson:redisson-spring-boot-starter:3.17.4'
+
+
 }
 
 
