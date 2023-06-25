@@ -5,6 +5,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import wayc.backend.order.domain.event.TookOutStockEvent;
+import wayc.backend.stock.application.service.StockService;
 import wayc.backend.stock.application.service.StockServiceImpl;
 
 
@@ -12,7 +13,7 @@ import wayc.backend.stock.application.service.StockServiceImpl;
 @RequiredArgsConstructor
 public class TookOutStockWithCreatedOrderEventHandler {
 
-    private final StockServiceImpl stockService;
+    private final StockService stockService;
 
     @EventListener(TookOutStockEvent.class)
     public void handle(TookOutStockEvent event){

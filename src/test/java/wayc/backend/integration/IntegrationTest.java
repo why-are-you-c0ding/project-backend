@@ -13,8 +13,4 @@ public class IntegrationTest {
     @Autowired
     ShopRepository shopRepository;
 
-    @AfterEach
-    void afterEach(){
-        shopRepository.deleteAll();
-    }
 }

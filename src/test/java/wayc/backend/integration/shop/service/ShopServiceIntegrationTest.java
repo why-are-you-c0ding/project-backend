@@ -1,5 +1,6 @@
 package wayc.backend.integration.shop.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,5 +30,10 @@ public class ShopServiceIntegrationTest extends IntegrationTest {
 
         //then
         assertThat(shopRepository.findAll().size()).isEqualTo(1);
+    }
+
+    @AfterEach
+    void afterEach(){
+        shopRepository.deleteAll();
     }
 }

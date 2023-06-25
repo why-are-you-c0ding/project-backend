@@ -18,7 +18,7 @@ public class RegisterItemRequestFactory {
         RegisterOptionGroupRequest dto1 = new RegisterOptionGroupRequest(Arrays.asList(option1, option2), "color", true);
         RegisterOptionGroupRequest dto2 = new RegisterOptionGroupRequest(Arrays.asList(option3, option4), "sizee", false);
 
-        return new RegisterItemRequest("item1", "www.google.com", "information1", Arrays.asList(dto1, dto2), "Clothing");
+        return new RegisterItemRequest("item1", "www.google.com", "information1", Arrays.asList(dto1, dto2), "Clothing", 2000);
     }
 }
 

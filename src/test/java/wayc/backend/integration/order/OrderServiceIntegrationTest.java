@@ -38,6 +38,10 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     @Autowired
     private ItemRepository itemRepository;
 
+    /**
+     * EventListener를 단순하게 사용하는 통합테스트는 일단 도메인 이벤트가 진행된다.
+     */
+
     @Test
     void createOrder() {
 
@@ -51,7 +55,6 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
         //then
         List<Order> result = orderRepository.findAll();
         assertThat(result.size()).isEqualTo(1);
-        //assertThat(result.get(0).getOrderStatus()).isSameAs(OrderStatus.ONGOING); 도메인 이벤트는 진행되지 않는건가?
     }
 
     @Test

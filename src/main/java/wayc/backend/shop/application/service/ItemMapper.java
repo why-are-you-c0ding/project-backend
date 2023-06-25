@@ -29,6 +29,7 @@ public class ItemMapper {
                 .imageUrl(dto.getImageUrl())
                 .information(dto.getInformation())
                 .category(dto.getCategory())
+                .price(dto.getPrice())
                 .build();
         shop.addItem(item);
         return item;

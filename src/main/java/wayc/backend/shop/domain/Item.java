@@ -35,19 +35,23 @@ public class Item extends BaseEntity {
 
     private String category;
 
+    private Integer price;
+
     @Builder
     public Item(Shop shop,
                 List<OptionGroup> optionGroups,
                 String name,
                 String imageUrl,
                 String information,
-                String category) {
+                String category,
+                Integer price) {
         this.shop = shop;
         this.optionGroups = optionGroups;
         this.name = name;
         this.imageUrl = imageUrl;
         this.information = information;
         this.category = category;
+        this.price = price;
         optionGroups.forEach(optionGroup ->  optionGroup.add(this));
     }
 
