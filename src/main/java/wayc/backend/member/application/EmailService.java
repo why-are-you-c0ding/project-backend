@@ -6,15 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import wayc.backend.common.redis.RedisService;
+
 import wayc.backend.member.domain.Email;
 import wayc.backend.member.domain.repository.EmailRepository;
 import wayc.backend.member.domain.service.SendEmailService;
-import wayc.backend.member.exception.email.NotExistsEmailException;
 import wayc.backend.member.exception.email.WrongEmailAuthKeyException;
 import wayc.backend.member.presentation.dto.response.ValidateEmailResponse;
 
 import java.time.Duration;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

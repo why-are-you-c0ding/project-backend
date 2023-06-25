@@ -34,20 +34,10 @@ public class OptionGroup extends BaseEntity {
 
     private String name;
 
-    private Boolean basic;
-
-    public OptionGroup(List<Option> options, String name, Boolean basic) {
+    public OptionGroup(List<Option> options, String name) {
         this.options = options;
         this.name = name;
-        this.basic = basic;
         options.forEach(option -> option.add(this));
-    }
-
-    public Integer getBasicPrice(){
-        if(basic == true){
-            return options.get(0).getPrice();
-        }
-        return -1;
     }
 
     public void add(Item item) {

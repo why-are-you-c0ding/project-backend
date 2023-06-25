@@ -3,10 +3,7 @@ package wayc.backend.shop.application.dto.request;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import wayc.backend.shop.presentation.dto.request.RegisterOptionGroupRequest;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
@@ -19,7 +16,7 @@ public class RegisterItemRequestDto {
     private String category;
     private Integer price;
 
-    public RegisterItemRequestDto(List<RegisterOptionGroupRequest> dtos,
+    public RegisterItemRequestDto(List<RegisterOptionGroupRequestDto> dtos,
                                   String itemName,
                                   String imageUrl,
                                   String information,
@@ -30,9 +27,6 @@ public class RegisterItemRequestDto {
         this.information = information;
         this.category = category;
         this.price = price;
-        this.optionGroups = dtos
-                .stream()
-                .map(dto -> new RegisterOptionGroupRequestDto(dto.getOptions(), dto.getOptionGroupName(), dto.getBasic()))
-                .collect(Collectors.toList());
+        this.optionGroups = dtos;
     }
 }

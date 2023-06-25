@@ -1,12 +1,9 @@
 package wayc.backend.order.application;
 
-import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import wayc.backend.order.domain.validator.OrderValidator;
-import wayc.backend.shop.domain.port.ItemComparator;
 import wayc.backend.shop.domain.port.ItemComparisonValidator;
 import wayc.backend.shop.exception.NotExistsItemException;
 import wayc.backend.shop.domain.command.ItemRepository;

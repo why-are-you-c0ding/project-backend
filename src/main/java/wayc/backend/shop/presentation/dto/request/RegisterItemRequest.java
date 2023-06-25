@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import wayc.backend.shop.application.dto.request.RegisterItemRequestDto;
+import wayc.backend.shop.application.dto.request.RegisterOptionGroupRequestDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +13,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @NoArgsConstructor
 @Getter
@@ -37,7 +41,14 @@ public class RegisterItemRequest {
     private List<RegisterOptionGroupRequest> optionGroups;
 
     public RegisterItemRequestDto toServiceDto(){
-        return new RegisterItemRequestDto(optionGroups, itemName, imageUrl, information, category, price);
+        return new RegisterItemRequestDto(makeOptionGroups(), itemName, imageUrl, information, category, price);
+
+    }
+
+    private List<RegisterOptionGroupRequestDto> makeOptionGroups() {
+        return optionGroups.stream()
+                .map(optionGroup -> optionGroup.toServiceDto())
+                .collect(toList());
     }
 
     public RegisterItemRequest(String itemName,

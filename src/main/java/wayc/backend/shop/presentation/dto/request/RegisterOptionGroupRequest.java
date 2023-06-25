@@ -2,12 +2,14 @@ package wayc.backend.shop.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import wayc.backend.shop.application.dto.request.RegisterOptionGroupRequestDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+
+import static java.util.stream.Collectors.*;
 
 @NoArgsConstructor
 @Getter
@@ -20,12 +22,19 @@ public class RegisterOptionGroupRequest {
     @Size(min = 5)
     private String optionGroupName;
 
-    @NotNull
-    private Boolean basic;
-
-    public RegisterOptionGroupRequest(List<RegisterOptionRequest> optionRequests, String optionGroupName, Boolean basic) {
+    public RegisterOptionGroupRequest(List<RegisterOptionRequest> optionRequests,
+                                      String optionGroupName) {
         this.options = optionRequests;
         this.optionGroupName = optionGroupName;
-        this.basic = basic;
+    }
+
+    public RegisterOptionGroupRequestDto toServiceDto(){
+        return new RegisterOptionGroupRequestDto(
+                options
+                        .stream()
+                        .map(option -> option.toServiceDto())
+                        .collect(toList()),
+                optionGroupName
+        );
     }
 }
