@@ -4,7 +4,7 @@ package wayc.backend.order.application;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import wayc.backend.shop.domain.port.ItemComparisonValidator;
+import wayc.backend.shop.domain.valid.ItemComparisonValidator;
 import wayc.backend.shop.exception.NotExistsItemException;
 import wayc.backend.shop.domain.command.ItemRepository;
 

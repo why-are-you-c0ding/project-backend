@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.shop.domain.port.OptionValidator;
+import wayc.backend.shop.domain.valid.OptionValidator;
 
 import javax.persistence.*;
 

@@ -81,8 +81,7 @@ public class StockServiceIntegrationTest extends IntegrationTest {
                                 new Option("16GB", 80000),
                                 new Option("32GB", 160000)
                         ),
-                        "ram",
-                        true
+                        "ram"
                 ),
                 new OptionGroup(
                         List.of(
@@ -90,8 +89,7 @@ public class StockServiceIntegrationTest extends IntegrationTest {
                                 new Option("512GB", 8000),
                                 new Option("1024GB", 160000)
                         ),
-                        "ssd",
-                        false
+                        "ssd"
                 ),
                 new OptionGroup(
                         List.of(
@@ -99,8 +97,7 @@ public class StockServiceIntegrationTest extends IntegrationTest {
                                 new Option("WHITE", 5000),
                                 new Option("GRAY", 5000)
                         ),
-                        "color",
-                        false
+                        "color"
                 )
         );
         Item item = Item.builder().optionGroups(optionGroups).build();

@@ -6,10 +6,9 @@ import wayc.backend.common.domain.BaseEntity;
 import wayc.backend.common.event.Events;
 import wayc.backend.order.domain.event.TookOutStockEvent;
 import wayc.backend.order.domain.event.OrderPayedEvent;
-import wayc.backend.order.domain.validator.OrderValidator;
-import wayc.backend.shop.domain.port.ItemComparator;
-import wayc.backend.shop.domain.port.ItemComparisonValidator;
-import wayc.backend.shop.domain.port.OptionGroupComparator;
+import wayc.backend.shop.domain.valid.ItemComparator;
+import wayc.backend.shop.domain.valid.ItemComparisonValidator;
+import wayc.backend.shop.domain.valid.OptionGroupComparator;
 
 import javax.persistence.*;
 import java.util.ArrayList;

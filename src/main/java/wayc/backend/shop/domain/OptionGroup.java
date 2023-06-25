@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import wayc.backend.common.domain.BaseEntity;
-import wayc.backend.shop.domain.port.OptionGroupValidator;
-import wayc.backend.shop.domain.port.OptionValidator;
+import wayc.backend.shop.domain.valid.OptionGroupValidator;
+import wayc.backend.shop.domain.valid.OptionValidator;
 
 import javax.persistence.*;
 

@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import wayc.backend.common.domain.BaseEntity;
-import wayc.backend.shop.domain.port.ItemComparator;
-import wayc.backend.shop.domain.port.OptionGroupComparator;
+import wayc.backend.shop.domain.valid.ItemComparator;
+import wayc.backend.shop.domain.valid.OptionGroupComparator;
 
 import javax.persistence.*;
 import java.util.ArrayList;

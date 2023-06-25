@@ -24,7 +24,7 @@ import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.command.ItemRepository;
-import wayc.backend.shop.domain.port.ItemComparisonValidator;
+import wayc.backend.shop.domain.valid.ItemComparisonValidator;
 import wayc.backend.unit.application.UnitTest;
 
 import java.util.ArrayList;

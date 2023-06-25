@@ -34,18 +34,9 @@ public class FindItemsResponseDto {
                 item.getId(),
                 item.getName(),
                 item.getShop().getShopName(),
-                findBasicGroupPrice(item.getOptionGroups()),
+                item.getPrice(),
                 item.getImageUrl(),
                 item.getCategory()
         );
-    }
-
-    private static Integer findBasicGroupPrice(List<OptionGroup> optionGroups){
-        return optionGroups
-                .stream()
-                .map(optionGroup -> optionGroup.getBasicPrice())
-                .filter(price -> price != -1)
-                .findFirst()
-                .orElseThrow(NotExistsOptionGroupSpecificationException::new);
     }
 }

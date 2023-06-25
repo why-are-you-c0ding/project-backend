@@ -11,7 +11,7 @@ import wayc.backend.cart.domain.CartLineItem;
 import wayc.backend.cart.exception.NotExistsCartException;
 import wayc.backend.cart.exception.NotExistsCartLineException;
 
-import wayc.backend.shop.domain.port.ItemComparisonValidator;
+import wayc.backend.shop.domain.valid.ItemComparisonValidator;
 
 @Service
 @Transactional(readOnly = false)

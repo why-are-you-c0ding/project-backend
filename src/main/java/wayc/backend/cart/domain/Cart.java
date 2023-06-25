@@ -4,8 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
-import wayc.backend.shop.domain.port.ItemComparator;
-import wayc.backend.shop.domain.port.ItemComparisonValidator;
+import wayc.backend.shop.domain.valid.ItemComparisonValidator;
 
 import javax.persistence.*;
 import java.util.ArrayList;

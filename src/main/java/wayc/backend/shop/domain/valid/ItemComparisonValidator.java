@@ -1,8 +1,7 @@
-package wayc.backend.shop.domain.port;
+package wayc.backend.shop.domain.valid;
 
 import org.springframework.stereotype.Component;
 
-import wayc.backend.order.domain.OrderOptionGroup;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.OptionGroup;
 import wayc.backend.shop.domain.command.ItemRepository;

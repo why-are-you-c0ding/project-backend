@@ -20,7 +20,7 @@ import wayc.backend.factory.cart.RegisterCartLineItemRequestFactory;
 
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.command.ItemRepository;
-import wayc.backend.shop.domain.port.ItemComparisonValidator;
+import wayc.backend.shop.domain.valid.ItemComparisonValidator;
 
 import wayc.backend.unit.application.UnitTest;
 

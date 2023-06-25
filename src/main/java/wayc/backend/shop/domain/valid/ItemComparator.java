@@ -1,4 +1,4 @@
-package wayc.backend.shop.domain.port;
+package wayc.backend.shop.domain.valid;
 
 import java.util.List;
 

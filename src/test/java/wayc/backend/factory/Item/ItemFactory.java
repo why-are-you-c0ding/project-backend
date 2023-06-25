@@ -31,8 +31,7 @@ public class ItemFactory {
                                                 new Option("512GB", 80000),
                                                 new Option("1024GB", 160000)
                                         ) ,
-                                        "SSD",
-                                        true
+                                        "SSD"
                                 ),
                                 new OptionGroup(
                                         List.of(
@@ -40,8 +39,7 @@ public class ItemFactory {
                                                 new Option("16GB", 80000),
                                                 new Option("32GB", 160000)
                                         ) ,
-                                        "RAM",
-                                        true
+                                        "RAM"
                                 )
                         )
                 )

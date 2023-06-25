@@ -36,10 +36,10 @@ public class FindItemResponseDtoFactory {
         FindOptionResponseDto optionRes4 = new FindOptionResponseDto(13L, "superLarge", 1000);
 
         FindOptionGroupResponseDto optionGroup1 =
-                new FindOptionGroupResponseDto(20L, "color", Arrays.asList(optionRes1, optionRes2), true);
+                new FindOptionGroupResponseDto(20L, "color", Arrays.asList(optionRes1, optionRes2));
 
         FindOptionGroupResponseDto optionGroup2 =
-                new FindOptionGroupResponseDto(21L, "size", Arrays.asList(optionRes3, optionRes4), false);
+                new FindOptionGroupResponseDto(21L, "size", Arrays.asList(optionRes3, optionRes4));
 
         return Arrays.asList(optionGroup1, optionGroup2);
     }
