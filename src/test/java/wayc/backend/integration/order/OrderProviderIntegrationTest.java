@@ -67,7 +67,7 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
         payRepository.save(new Pay(saveOrder.getPayment(), saveOrder.getId()));
 
         //when
-        FindPagingOrderResponseDto res = orderProvider.findSellerOrders(saveShop.getOwnerId(), 0);
+        FindPagingOrderResponseDto res = orderProvider.findSellerOrders(saveShop.getOwner().getMemberId(), 0);
 
         //then
         assertThat(res.isFinalPage()).isEqualTo(true);
@@ -84,7 +84,7 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
         payRepository.save(new Pay(saveOrder.getPayment(), saveOrder.getId()));
 
         //when
-        FindPagingOrderResponseDto res = orderProvider.findCustomerOrders(saveOrder.getOrderingMemberId(), 0);
+        FindPagingOrderResponseDto res = orderProvider.findCustomerOrders(saveOrder.getOrderer().getMemberId(), 0);
 
         //then
         assertThat(res.isFinalPage()).isEqualTo(true);

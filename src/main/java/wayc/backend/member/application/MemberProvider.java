@@ -2,6 +2,7 @@ package wayc.backend.member.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.exception.DuplicatedLoginIdException;
 import wayc.backend.member.exception.DuplicatedNickNameException;

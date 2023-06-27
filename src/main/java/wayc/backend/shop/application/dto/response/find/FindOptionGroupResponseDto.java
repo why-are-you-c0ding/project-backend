@@ -12,13 +12,14 @@ public class FindOptionGroupResponseDto {
     private Long optionGroupId;
     private String optionGroupName;
     private List<FindOptionResponseDto> options;
-    private Boolean basic;
 
-    public FindOptionGroupResponseDto(Long optionGroupId, String optionGroupName, List<FindOptionResponseDto> options, Boolean basic) {
+    public FindOptionGroupResponseDto(Long optionGroupId,
+                                      String optionGroupName,
+                                      List<FindOptionResponseDto> options) {
         this.optionGroupId = optionGroupId;
         this.optionGroupName = optionGroupName;
         this.options = options;
-        this.basic = basic;
+
     }
 }
 

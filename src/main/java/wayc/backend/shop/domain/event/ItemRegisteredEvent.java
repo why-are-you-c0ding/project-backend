@@ -4,16 +4,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import wayc.backend.common.event.Event;
-import wayc.backend.shop.application.dto.request.FillStockRequestDto;
+import wayc.backend.shop.domain.OptionGroup;
 
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
 public class ItemRegisteredEvent extends Event {
 
-    private FillStockRequestDto dto;
+    private List<OptionGroup> groups;
 
-    public ItemRegisteredEvent(FillStockRequestDto dto) {
-        this.dto = dto;
+    public ItemRegisteredEvent(List<OptionGroup> groups) {
+        this.groups = groups;
     }
 }

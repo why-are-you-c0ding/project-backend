@@ -1,6 +1,5 @@
 package wayc.backend.factory.order;
 
-import wayc.backend.order.application.OrderMapper;
 import wayc.backend.order.application.dto.request.CreateAddressRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionGroupRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionRequestDto;
@@ -124,5 +123,27 @@ public class OrderFactory {
                 .stream()
                 .map(dto -> dto.toServiceDto())
                 .collect(Collectors.toList());
+    }
+
+    public static List<CreateOrderRequestDto> createSuccessCaseMackBookDtoWithId(Long itemId){
+        return List.of(
+                new CreateOrderRequestDto(
+                        itemId,
+                        "맥북",
+                        3,
+                        List.of(
+                                new CreateOrderOptionGroupRequestDto(
+                                        "RAM",
+                                        new CreateOrderOptionRequestDto("16GB", 80000)
+                                ),
+                                new CreateOrderOptionGroupRequestDto(
+                                        "SSD",
+                                        new CreateOrderOptionRequestDto("512GB", 80000)
+                                )
+                        ),
+                        new CreateAddressRequestDto("major", "detail", "111111"),
+                        1000000
+                )
+        );
     }
 }

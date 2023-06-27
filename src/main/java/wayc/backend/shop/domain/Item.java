@@ -4,8 +4,8 @@ import lombok.*;
 
 import wayc.backend.common.domain.BaseEntity;
 import wayc.backend.common.event.Events;
+
 import wayc.backend.shop.domain.event.ItemRegisteredEvent;
-import wayc.backend.shop.utils.OptionUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -35,19 +35,23 @@ public class Item extends BaseEntity {
 
     private String category;
 
+    private Integer price;
+
     @Builder
     public Item(Shop shop,
                 List<OptionGroup> optionGroups,
                 String name,
                 String imageUrl,
                 String information,
-                String category) {
+                String category,
+                Integer price) {
         this.shop = shop;
         this.optionGroups = optionGroups;
         this.name = name;
         this.imageUrl = imageUrl;
         this.information = information;
         this.category = category;
+        this.price = price;
         optionGroups.forEach(optionGroup ->  optionGroup.add(this));
     }
 
@@ -56,6 +60,6 @@ public class Item extends BaseEntity {
     }
 
     public void registered() {
-        Events.raise(new ItemRegisteredEvent(OptionUtils.createNumberOfAllOptionsToFillStock(optionGroups)));
+        Events.raise(new ItemRegisteredEvent(optionGroups));
     }
 }

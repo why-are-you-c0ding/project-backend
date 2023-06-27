@@ -38,11 +38,16 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     @Autowired
     private ItemRepository itemRepository;
 
+    /**
+     * EventListener를 단순하게 사용하는 통합테스트는 일단 도메인 이벤트가 진행된다.
+     */
+
     @Test
     void createOrder() {
 
         //given
-        List<CreateOrderRequestDto> dtoList = OrderFactory.createServiceDto();
+        Item saveItem = itemRepository.save(ItemFactory.createMacBook());
+        List<CreateOrderRequestDto> dtoList = OrderFactory.createSuccessCaseMackBookDtoWithId(saveItem.getId());
 
         //when
         orderService.createOrder(1L, dtoList);
@@ -50,7 +55,6 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
         //then
         List<Order> result = orderRepository.findAll();
         assertThat(result.size()).isEqualTo(1);
-        //assertThat(result.get(0).getOrderStatus()).isSameAs(OrderStatus.ONGOING); 도메인 이벤트는 진행되지 않는건가?
     }
 
     @Test
@@ -63,7 +67,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
 
 
         //when
-        orderService.updateOrder(saveShop.getOwnerId(), new UpdateOrderRequestDto(
+        orderService.updateOrder(saveShop.getOwner().getMemberId(), new UpdateOrderRequestDto(
                 saveOrder.getId(),
                 saveOrder.getItemId(),
                 OrderStatus.COMPLETED)

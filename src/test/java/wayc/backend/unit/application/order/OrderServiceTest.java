@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
+import org.mockito.Spy;
 import wayc.backend.common.event.Events;
 import wayc.backend.factory.Item.ItemFactory;
 import wayc.backend.factory.order.OrderFactory;
@@ -21,9 +22,9 @@ import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.order.domain.repository.OrderRepository;
-import wayc.backend.order.domain.validator.OrderValidator;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.command.ItemRepository;
+import wayc.backend.shop.domain.valid.ItemComparisonValidator;
 import wayc.backend.unit.application.UnitTest;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class OrderServiceTest extends UnitTest {
 
     private OrderService orderService;
 
-    @Mock
+    @Spy
     private ItemRepository itemRepository;
 
     @Mock
@@ -45,10 +46,9 @@ public class OrderServiceTest extends UnitTest {
     private MockedStatic<Events> mockEvents;
 
 
-
     @BeforeEach
     void beforeEach(){
-        this.orderService = new OrderService(itemRepository, orderRepository, new OrderMapper(), new OrderValidator(itemRepository));
+        this.orderService = new OrderService(itemRepository, orderRepository, new OrderMapper(), new ItemComparisonValidator<>(itemRepository));
         mockEvents = mockStatic(Events.class);
     }
 

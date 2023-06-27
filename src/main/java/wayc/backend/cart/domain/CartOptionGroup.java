@@ -5,16 +5,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
-import wayc.backend.shop.domain.OptionGroupValidator;
+import wayc.backend.shop.domain.valid.OptionGroupComparator;
+import wayc.backend.shop.domain.valid.OptionGroupValidator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class CartOptionGroup extends BaseEntity {
+public class CartOptionGroup extends BaseEntity implements OptionGroupComparator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +41,5 @@ public class CartOptionGroup extends BaseEntity {
 
     public OptionGroupValidator convertToOptionGroupValidator() {
         return new OptionGroupValidator(name, cartOption.convertToOptionValidator());
-
     }
 }

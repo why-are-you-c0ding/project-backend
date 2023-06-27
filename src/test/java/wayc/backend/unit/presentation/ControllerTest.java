@@ -10,12 +10,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 import wayc.backend.cart.application.CartProvider;
 import wayc.backend.cart.application.CartService;
@@ -38,15 +34,14 @@ import wayc.backend.security.SecurityConfig;
 import wayc.backend.security.jwt.JwtProvider;
 import wayc.backend.shop.application.provider.ItemProvider;
 import wayc.backend.shop.application.provider.OptionGroupProvider;
-import wayc.backend.shop.application.provider.StockProvider;
 import wayc.backend.shop.application.service.ItemService;
 import wayc.backend.shop.application.service.ShopService;
-import wayc.backend.shop.application.service.StockService;
 import wayc.backend.shop.presentation.ItemController;
-import wayc.backend.shop.presentation.StockController;
 import wayc.backend.member.infrastructure.SendEmailServiceImpl;
+import wayc.backend.stock.application.provider.StockProvider;
+import wayc.backend.stock.application.service.StockServiceImpl;
+import wayc.backend.stock.presentation.StockController;
 
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @Import({
@@ -100,7 +95,7 @@ public abstract class ControllerTest {
     protected OptionGroupProvider optionGroupSpecificationService;
 
     @MockBean
-    protected StockService stockService;
+    protected StockServiceImpl stockService;
 
     @MockBean
     protected CartService cartService;
@@ -128,18 +123,6 @@ public abstract class ControllerTest {
 
     @MockBean
     protected StockProvider stockProvider;
-
-    public void setUp(
-            WebApplicationContext webApplicationContext,
-            RestDocumentationContextProvider restDocumentationContextProvider
-    ) {
-        this.mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .addFilters(new CharacterEncodingFilter("UTF-8", true))
-                .apply(documentationConfiguration(restDocumentationContextProvider))
-                .apply(springSecurity())
-                .build();
-    }
 }
 
 //https://www.baeldung.com/spring-rest-docs

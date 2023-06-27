@@ -6,7 +6,9 @@ import wayc.backend.common.domain.BaseEntity;
 import wayc.backend.common.event.Events;
 import wayc.backend.order.domain.event.TookOutStockEvent;
 import wayc.backend.order.domain.event.OrderPayedEvent;
-import wayc.backend.order.domain.validator.OrderValidator;
+import wayc.backend.shop.domain.valid.ItemComparator;
+import wayc.backend.shop.domain.valid.ItemComparisonValidator;
+import wayc.backend.shop.domain.valid.OptionGroupComparator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "orders")
 @ToString
-public class Order extends BaseEntity {
+public class Order extends BaseEntity implements ItemComparator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +30,8 @@ public class Order extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderOptionGroup> orderOptionGroups = new ArrayList<>();
 
-    private Long orderingMemberId;
+    @Embedded
+    private Orderer orderer;
 
     private Long itemId;
 
@@ -55,7 +58,7 @@ public class Order extends BaseEntity {
     ) {
         this.id = id;
         this.orderOptionGroups = orderOptionGroups;
-        this.orderingMemberId = orderingMemberId;
+        this.orderer = new Orderer(orderingMemberId);
         this.itemId = itemId;
         this.name = name;
         this.count = count;
@@ -69,7 +72,7 @@ public class Order extends BaseEntity {
     }
 
     public void created() {
-        Events.raise(new OrderPayedEvent(orderingMemberId, id, payment));
+        Events.raise(new OrderPayedEvent(orderer.getMemberId(), id, payment));
         Events.raise(new TookOutStockEvent(count, extractOptionGroupIdList()));
     }
 
@@ -77,7 +80,15 @@ public class Order extends BaseEntity {
         return orderOptionGroups.stream().map(OrderOptionGroup::getId).collect(Collectors.toList());
     }
 
-    public void place(OrderValidator orderValidator){
-        orderValidator.validate(this);
+    public void place(ItemComparisonValidator<Order> itemComparisonValidator){
+        itemComparisonValidator.validate(this);
+    }
+
+    @Override
+    public List<OptionGroupComparator> getComparisonOrderOptionGroups() {
+        return orderOptionGroups
+                .stream()
+                .map(orderOptionGroup -> (OptionGroupComparator) orderOptionGroup)
+                .collect(Collectors.toList());
     }
 }

@@ -5,8 +5,8 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import wayc.backend.shop.presentation.dto.request.FindOptionIdRequest;
-import wayc.backend.shop.presentation.dto.request.FindStockRequest;
+import wayc.backend.stock.presentation.dto.request.FindOptionIdRequest;
+import wayc.backend.stock.presentation.dto.request.FindStockRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

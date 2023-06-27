@@ -26,10 +26,6 @@ public class EmailSenderDto {
         this.content = content;
     }
 
-    public void addTo(String email){
-        this.to.add(email);
-    }
-
     public SendEmailRequest toSendRequestDto(){
         Destination destination = new Destination().withToAddresses(this.to);
 

@@ -2,9 +2,7 @@ package wayc.backend.unit.application.shop;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import wayc.backend.factory.Item.dto.RegisterItemRequestFactory;
 import wayc.backend.factory.shop.ShopFactory;
 import wayc.backend.shop.application.dto.request.RegisterItemRequestDto;
@@ -27,7 +25,7 @@ public class ItemServiceTest extends UnitTest {
     @Mock
     private ItemRepository itemRepository;
 
-    @Mock
+    @Spy
     private ShopRepository shopRepository;
 
     @BeforeEach

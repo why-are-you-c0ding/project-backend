@@ -3,7 +3,7 @@ package wayc.backend.order.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.shop.domain.OptionValidator;
+import wayc.backend.shop.domain.valid.OptionValidator;
 
 import javax.persistence.*;
 

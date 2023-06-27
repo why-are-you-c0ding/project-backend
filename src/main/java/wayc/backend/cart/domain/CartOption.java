@@ -4,15 +4,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.common.domain.BaseEntity;
-import wayc.backend.shop.domain.OptionValidator;
+import wayc.backend.shop.domain.valid.OptionValidator;
 
 import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Embeddable
-public class CartOption{
+public class CartOption {
 
     private String optionName;
 

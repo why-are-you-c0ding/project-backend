@@ -14,6 +14,8 @@ import wayc.backend.shop.domain.Option;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.*;
+
 @Service
 @RequiredArgsConstructor
 public class OptionGroupProvider {
@@ -29,7 +31,7 @@ public class OptionGroupProvider {
                                 .findByIdAndStatus(id)
                                 .orElseThrow(NotExistsOptionGroupSpecificationException::new))
                 )
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     private FindOptionGroupResponseDto toOptionGroupDto(OptionGroup optionGroup) {
@@ -40,16 +42,11 @@ public class OptionGroupProvider {
                         .getOptions()
                         .stream()
                         .map(this::toOptionDto)
-                        .collect(Collectors.toList()),
-                optionGroup.getBasic()
+                        .collect(toList())
         );
     }
 
-    private FindOptionResponseDto toOptionDto(Option optionSpecification) {
-        return new FindOptionResponseDto(
-                optionSpecification.getId(),
-                optionSpecification.getName(),
-                optionSpecification.getPrice()
-        );
+    private FindOptionResponseDto toOptionDto(Option option) {
+        return new FindOptionResponseDto(option.getId(), option.getName(), option.getPrice());
     }
 }

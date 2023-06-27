@@ -1,7 +1,9 @@
 package wayc.backend.member.application.dto.request;
 
 import lombok.Getter;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import wayc.backend.member.domain.Email;
 import wayc.backend.member.domain.Member;
 

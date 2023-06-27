@@ -13,9 +13,6 @@ public interface ShopRepository extends JpaRepository <Shop, Long> {
     @Query("select s from Shop s where s.id =:shopId and s.status = 'ACTIVE'")
     Optional<Shop> findByIdAndStatus(Long shopId);
 
-    @Query("select s from Shop s where s.ownerId =:ownerId and s.status = 'ACTIVE'")
+    @Query("select s from Shop s where s.owner.memberId =:ownerId and s.status = 'ACTIVE'")
     Optional<Shop> findByOwnerIdAndStatus(Long ownerId);
-
-
-//    Slice<Item> findShopItemsByOwnerId(Long , Integer );
 }
