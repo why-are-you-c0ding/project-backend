@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import wayc.backend.shop.application.dto.response.find.*;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.command.ItemRepository;
+import wayc.backend.shop.domain.query.ItemQueryRepository;
 import wayc.backend.shop.exception.NotExistsItemException;
-import wayc.backend.shop.infrastructure.ItemQueryRepositoryImpl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class ItemProvider {
 
-    private final ItemQueryRepositoryImpl itemQueryRepository;
+    private final ItemQueryRepository itemQueryRepository;
     private final ItemRepository itemRepository;
     private final OptionGroupProvider optionGroupService;
 

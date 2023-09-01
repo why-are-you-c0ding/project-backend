@@ -26,9 +26,10 @@ public class LayerDependenciesTest {
             .layer("Application").definedBy("..application..")
             .layer("Domain").definedBy("..domain..")
             .layer("Infrastructure").definedBy("..infrastructure..")
-            .whereLayer("Presentation").mayOnlyBeAccessedByLayers("Config");
-//            .whereLayer("Service").mayOnlyBeAccessedByLayers("Controller")
-//            .whereLayer("Persistence").mayOnlyBeAccessedByLayers("Service");
+            .whereLayer("Presentation").mayOnlyBeAccessedByLayers("Config")
+//            .whereLayer("Application").mayOnlyBeAccessedByLayers("Presentation", "Application")
+//            .whereLayer("Domain").mayOnlyBeAccessedByLayers("Application", "Infrastructure")
+            .whereLayer("Infrastructure").mayNotBeAccessedByAnyLayer();
 
 }
 
