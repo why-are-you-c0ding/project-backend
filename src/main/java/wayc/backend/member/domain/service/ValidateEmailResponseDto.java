@@ -1,14 +1,14 @@
-package wayc.backend.member.presentation.dto.response;
+package wayc.backend.member.domain.service;
 
 import lombok.Getter;
 
 @Getter
-public class ValidateEmailResponse {
+public class ValidateEmailResponseDto {
 
     private final String authKey;
     private final String email;
 
-    public ValidateEmailResponse(String authKey, String email) {
+    public ValidateEmailResponseDto(String authKey, String email) {
         this.authKey = authKey;
         this.email = email;
     }

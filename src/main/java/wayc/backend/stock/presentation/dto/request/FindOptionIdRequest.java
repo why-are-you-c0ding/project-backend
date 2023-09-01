@@ -1,6 +1,7 @@
 package wayc.backend.stock.presentation.dto.request;
 
 import lombok.Getter;
+import wayc.backend.stock.application.dto.request.FindOptionIdRequestDto;
 import wayc.backend.stock.exception.CantResolveStockException;
 
 import java.util.ArrayList;
@@ -28,5 +29,9 @@ public class FindOptionIdRequest {
 
     public FindOptionIdRequest(List<Long> idList) {
         this.idList = idList;
+    }
+
+    public FindOptionIdRequestDto toServiceDto() {
+        return new FindOptionIdRequestDto(idList);
     }
 }

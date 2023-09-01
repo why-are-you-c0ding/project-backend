@@ -10,8 +10,8 @@ import wayc.backend.common.redis.RedisService;
 import wayc.backend.member.domain.Email;
 import wayc.backend.member.domain.repository.EmailRepository;
 import wayc.backend.member.domain.service.SendEmailService;
+import wayc.backend.member.domain.service.ValidateEmailResponseDto;
 import wayc.backend.member.exception.email.WrongEmailAuthKeyException;
-import wayc.backend.member.presentation.dto.response.ValidateEmailResponse;
 
 import java.time.Duration;
 
@@ -39,7 +39,7 @@ public class EmailService {
     }
 
     public void sendVerificationEmail(String receiveEmail) {
-        ValidateEmailResponse res = sendEmailService.sendVerificationEmail(receiveEmail);
+        ValidateEmailResponseDto res = sendEmailService.sendVerificationEmail(receiveEmail);
         if(redisService.hasKey(res.getEmail())){
             redisService.delete(res.getEmail());
         }

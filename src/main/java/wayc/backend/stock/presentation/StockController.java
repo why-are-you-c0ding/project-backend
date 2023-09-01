@@ -31,7 +31,7 @@ public class StockController {
 
     @GetMapping
     public ResponseEntity<FindStocksResponseDto> findStock(@GetStock FindStockRequest request){
-        FindStocksResponseDto res = stockProvider.findStock(request.getOptionIdList());
+        FindStocksResponseDto res = stockProvider.findStock(request.toServiceDto());
         return new ResponseEntity(res, OK);
     }
 }

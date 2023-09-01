@@ -3,6 +3,7 @@ package wayc.backend.integration.stock.provider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import wayc.backend.integration.IntegrationTest;
+import wayc.backend.stock.application.dto.request.FindOptionIdRequestDto;
 import wayc.backend.stock.application.dto.response.find.FindStocksResponseDto;
 import wayc.backend.stock.application.provider.StockProvider;
 import wayc.backend.stock.domain.Stock;
@@ -41,8 +42,8 @@ public class StockProviderIntegrationTest extends IntegrationTest {
 
         //when
         FindStocksResponseDto res = stockProvider.findStock(List.of(
-                new FindOptionIdRequest(List.of(1L, 2L)),
-                new FindOptionIdRequest(List.of(3L, 4L))
+                new FindOptionIdRequestDto(List.of(1L, 2L)),
+                new FindOptionIdRequestDto(List.of(3L, 4L))
         ));
 
         //then
