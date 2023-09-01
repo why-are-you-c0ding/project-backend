@@ -1,4 +1,4 @@
-package wayc.backend.config.argumentresolver;
+package wayc.backend.stock.presentation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

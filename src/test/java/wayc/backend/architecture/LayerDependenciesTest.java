@@ -1,36 +1,43 @@
 package wayc.backend.architecture;
 
-import com.tngtech.archunit.core.domain.JavaClasses;
-import com.tngtech.archunit.core.importer.ClassFileImporter;
+
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
-import com.tngtech.archunit.library.Architectures;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.junit.jupiter.api.Test;
 
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 
-@AnalyzeClasses(packages = "wayc.backend", importOptions = ImportOption.DoNotIncludeTests.class)
+@AnalyzeClasses(packages = "wayc.backend",
+        importOptions = {ImportOption.DoNotIncludeTests.class}
+)
 public class LayerDependenciesTest {
+
+
+    private static final String PRESENTATION = "Presentation";
+    private static final String APPLICATION = "Application";
+    private static final String DOMAIN = "Domain";
+    private static final String INFRA = "Infrastructure";
+
+    private static final String UTILS = "Utils";
+    private static final String Config = "Config";
 
 
 
     @ArchTest
     public static final ArchRule layeredArchitectureRule = layeredArchitecture()
-            .consideringAllDependencies()
-            .layer("Config").definedBy("..config..")
-            .layer("Presentation").definedBy("..presentation..")
-            .layer("Application").definedBy("..application..")
-            .layer("Domain").definedBy("..domain..")
-            .layer("Infrastructure").definedBy("..infrastructure..")
-            .whereLayer("Presentation").mayOnlyBeAccessedByLayers("Config")
-//            .whereLayer("Application").mayOnlyBeAccessedByLayers("Presentation", "Application")
-//            .whereLayer("Domain").mayOnlyBeAccessedByLayers("Application", "Infrastructure")
-            .whereLayer("Infrastructure").mayNotBeAccessedByAnyLayer();
-
+            .consideringOnlyDependenciesInLayers()
+            .layer(PRESENTATION).definedBy("..presentation..")
+            .layer(APPLICATION).definedBy("..application..")
+            .layer(DOMAIN).definedBy("..domain..")
+            .layer(INFRA).definedBy("..infrastructure..")
+            .whereLayer(PRESENTATION).mayNotBeAccessedByAnyLayer()
+            .whereLayer(PRESENTATION).mayOnlyAccessLayers(PRESENTATION, APPLICATION, DOMAIN)
+//            .whereLayer(APPLICATION).mayOnlyBeAccessedByLayers(PRESENTATION, APPLICATION)
+            .whereLayer(APPLICATION).mayOnlyAccessLayers(APPLICATION, DOMAIN)
+//            .whereLayer(DOMAIN).mayNotAccessAnyLayer()
+            .whereLayer(INFRA).mayOnlyAccessLayers(DOMAIN)
+            .whereLayer(INFRA).mayNotBeAccessedByAnyLayer();
 }
 
 /**
