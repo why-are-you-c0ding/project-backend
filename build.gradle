@@ -75,6 +75,10 @@ dependencies {
 	implementation 'org.redisson:redisson-spring-boot-starter:3.17.4'
 
 
+	testImplementation 'com.tngtech.archunit:archunit:1.1.0'
+
+
+
 }
 
 
