@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
 import wayc.backend.common.event.Events;
 import wayc.backend.member.domain.event.MemberRegisteredEvent;
-import wayc.backend.security.role.Role;
 
 import javax.persistence.*;
 

@@ -9,7 +9,7 @@ import wayc.backend.member.domain.event.MemberRegisteredEvent;
 import wayc.backend.shop.domain.Shop;
 import wayc.backend.shop.domain.command.ShopRepository;
 
-import static wayc.backend.security.role.Role.*;
+import static wayc.backend.member.domain.Role.*;
 
 @Component
 @RequiredArgsConstructor

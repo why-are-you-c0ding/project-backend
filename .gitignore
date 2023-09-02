@@ -45,4 +45,4 @@ log/**
 *.log
 *.dylib
 
-**/generated/**
+!**/generated/**

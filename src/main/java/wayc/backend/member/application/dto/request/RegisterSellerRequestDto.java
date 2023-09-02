@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import wayc.backend.member.domain.Member;
 
-import static wayc.backend.security.role.Role.*;
+import static wayc.backend.member.domain.Role.*;
 
 @Getter
 public class RegisterSellerRequestDto extends AbstractRegisterMemberRequestDto {

@@ -1,12 +1,13 @@
 package wayc.backend.architecture;
 
-
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
+import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
+
 
 @AnalyzeClasses(packages = "wayc.backend",
         importOptions = {ImportOption.DoNotIncludeTests.class}
@@ -33,11 +34,20 @@ public class LayerDependenciesTest {
             .whereLayer(DOMAIN).mayNotAccessAnyLayer()
             .whereLayer(INFRA).mayOnlyAccessLayers(DOMAIN)
             .whereLayer(INFRA).mayNotBeAccessedByAnyLayer();
+
+    /**
+     * 프로젠테이션은 어디서도 호출되지 않음. 프레젠테이션은 애플리케이션 계층만 의존
+     * 애플리케이션은 도메인과 애플리케이션 계층에서만 사용.
+     * 도메인은 도메인끼리만 의존. 애플리케이션과 인프라스트럭쳐에서 호출된다.
+     * 인프라스트럭쳐는 도메인만 의존.
+     */
+
+    @ArchTest
+    public static final ArchRule topLevelPackageFreeOfCyclesRule =
+            slices().matching("wayc.backend.(*)..").should().beFreeOfCycles();
+
+    /**
+     * 모든 패키지들은 패키지 순환 의존성이 없어야 한다.
+     */
 }
 
-/**
- * 프로젠테이션은 어디서도 호출되지 않음. 프레젠테이션은 애플리케이션 계층만 의존
- * 애플리케이션은 도메인과 애플리케이션 계층에서만 사용.
- * 도메인은 도메인끼리만 의존. 애플리케이션과 인프라스트럭쳐에서 호출된다.
- * 인프라스트럭쳐는 도메인만 의존.
- */

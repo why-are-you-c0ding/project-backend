@@ -2,7 +2,7 @@ package wayc.backend.factory.member.domain;
 
 import wayc.backend.member.domain.Member;
 
-import static wayc.backend.security.role.Role.*;
+import static wayc.backend.member.domain.Role.*;
 
 public class MemberFactory {
 
