@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import wayc.backend.integration.IntegrationTest;
 
 import wayc.backend.shop.domain.Item;
@@ -18,15 +19,16 @@ import wayc.backend.shop.domain.OptionGroup;
 import wayc.backend.stock.application.dto.request.FillStockInfoRequestDto;
 import wayc.backend.stock.application.dto.request.FillStockRequestDto;
 import wayc.backend.stock.application.service.StockService;
+import wayc.backend.stock.domain.service.DecreaseStockService;
 
 import wayc.backend.stock.domain.Stock;
 import wayc.backend.stock.domain.StockOption;
-import wayc.backend.stock.domain.command.StockOptionRepository;
-import wayc.backend.stock.domain.command.StockRepository;
-import wayc.backend.stock.domain.query.StockQueryRepository;
-import wayc.backend.stock.utils.OptionUtils;
+import wayc.backend.stock.domain.repository.StockOptionRepository;
+import wayc.backend.stock.domain.repository.StockRepository;
+import wayc.backend.stock.domain.repository.query.StockQueryRepository;
+import wayc.backend.stock.domain.StockFactory;
+import wayc.backend.stock.domain.service.StockServiceFacade;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -51,6 +53,9 @@ public class StockServiceIntegrationTest extends IntegrationTest {
 
     @Autowired
     private PlatformTransactionManager transactionManager;
+
+    @Autowired
+    private DecreaseStockService decreaseStockService;
 
     @Test
     void createStock(){
@@ -105,8 +110,8 @@ public class StockServiceIntegrationTest extends IntegrationTest {
 
         //when
 
-        FillStockRequestDto requestDto = OptionUtils.createNumberOfAllOptionsToFillStock(item.getOptionGroups());
-        stockService.fillStock(requestDto);
+        List<Stock> stocks = StockFactory.createNumberOfAllOptionsToFillStock(item.getOptionGroups());
+
 
         //then
         assertThat(stockRepository.findAll().size()).isEqualTo(27);
@@ -126,7 +131,7 @@ public class StockServiceIntegrationTest extends IntegrationTest {
 
         transactionTemplate.execute(status -> {
             Stock stock = stockRepository.save(new Stock(100));
-            stockOptionRepository.save(new StockOption(stock.getId(), 1L));
+            stockOptionRepository.save(new StockOption(stock, 1L));
             return null;
         });
 
@@ -138,7 +143,7 @@ public class StockServiceIntegrationTest extends IntegrationTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try{
-                    stockService.decreaseStock(1, List.of(1L));
+                    decreaseStockService.decreaseStock(1, List.of(1L));
                 }
                 finally {
                     latch.countDown();

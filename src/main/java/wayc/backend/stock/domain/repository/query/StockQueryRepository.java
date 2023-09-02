@@ -1,4 +1,4 @@
-package wayc.backend.stock.domain.query;
+package wayc.backend.stock.domain.repository.query;
 
 import wayc.backend.stock.domain.Stock;
 

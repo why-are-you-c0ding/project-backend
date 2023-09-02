@@ -19,11 +19,6 @@ public class LayerDependenciesTest {
     private static final String DOMAIN = "Domain";
     private static final String INFRA = "Infrastructure";
 
-    private static final String UTILS = "Utils";
-    private static final String Config = "Config";
-
-
-
     @ArchTest
     public static final ArchRule layeredArchitectureRule = layeredArchitecture()
             .consideringOnlyDependenciesInLayers()
@@ -33,9 +28,9 @@ public class LayerDependenciesTest {
             .layer(INFRA).definedBy("..infrastructure..")
             .whereLayer(PRESENTATION).mayNotBeAccessedByAnyLayer()
             .whereLayer(PRESENTATION).mayOnlyAccessLayers(PRESENTATION, APPLICATION, DOMAIN)
-//            .whereLayer(APPLICATION).mayOnlyBeAccessedByLayers(PRESENTATION, APPLICATION)
+            .whereLayer(APPLICATION).mayOnlyBeAccessedByLayers(PRESENTATION, APPLICATION)
             .whereLayer(APPLICATION).mayOnlyAccessLayers(APPLICATION, DOMAIN)
-//            .whereLayer(DOMAIN).mayNotAccessAnyLayer()
+            .whereLayer(DOMAIN).mayNotAccessAnyLayer()
             .whereLayer(INFRA).mayOnlyAccessLayers(DOMAIN)
             .whereLayer(INFRA).mayNotBeAccessedByAnyLayer();
 }

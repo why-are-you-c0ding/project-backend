@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import wayc.backend.stock.application.dto.request.FindOptionIdRequestDto;
 import wayc.backend.stock.application.dto.response.find.FindStockResponseDto;
 import wayc.backend.stock.application.dto.response.find.FindStocksResponseDto;
-import wayc.backend.stock.domain.query.StockQueryRepository;
+import wayc.backend.stock.domain.repository.query.StockQueryRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

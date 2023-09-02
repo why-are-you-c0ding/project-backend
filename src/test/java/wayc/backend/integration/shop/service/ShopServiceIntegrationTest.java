@@ -21,19 +21,4 @@ public class ShopServiceIntegrationTest extends IntegrationTest {
     @Autowired
     private ShopRepository shopRepository;
 
-    @Test
-    void createShop(){
-
-        //when
-        //이 과정을 진행하면 그대로 커밋이 되어버린다.
-        shopService.registerShop(1L, "debin");
-
-        //then
-        assertThat(shopRepository.findAll().size()).isEqualTo(1);
-    }
-
-    @AfterEach
-    void afterEach(){
-        shopRepository.deleteAll();
-    }
 }

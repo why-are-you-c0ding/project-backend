@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import wayc.backend.stock.application.dto.response.find.FindStocksResponseDto;
 import wayc.backend.stock.application.provider.StockProvider;
 import wayc.backend.stock.application.service.StockService;
+import wayc.backend.stock.domain.service.DecreaseStockService;
+import wayc.backend.stock.domain.service.StockServiceFacade;
 import wayc.backend.stock.presentation.dto.request.FillStockRequest;
 import wayc.backend.stock.presentation.dto.request.FindStockRequest;
 import wayc.backend.stock.presentation.dto.response.RegisterStockResponse;

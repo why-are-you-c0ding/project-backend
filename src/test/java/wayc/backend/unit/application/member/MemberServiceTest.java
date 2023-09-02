@@ -5,14 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import wayc.backend.factory.member.domain.MemberFactory;
-import wayc.backend.member.application.MemberMapper;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.domain.Member;
 import wayc.backend.member.domain.MemberValidator;
@@ -51,7 +49,7 @@ class MemberServiceTest {
 
     @BeforeEach
     void beforeEach(){
-        memberService = new MemberService(memberRepository, new MemberMapper(new MemberValidator(memberRepository), passwordEncoder, emailRepository));
+        memberService = new MemberService(memberRepository, new MemberValidator(memberRepository, emailRepository, passwordEncoder), passwordEncoder);
     }
 
     @Test

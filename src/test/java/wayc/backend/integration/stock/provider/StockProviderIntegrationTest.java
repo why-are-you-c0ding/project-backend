@@ -8,9 +8,8 @@ import wayc.backend.stock.application.dto.response.find.FindStocksResponseDto;
 import wayc.backend.stock.application.provider.StockProvider;
 import wayc.backend.stock.domain.Stock;
 import wayc.backend.stock.domain.StockOption;
-import wayc.backend.stock.domain.command.StockOptionRepository;
-import wayc.backend.stock.domain.command.StockRepository;
-import wayc.backend.stock.presentation.dto.request.FindOptionIdRequest;
+import wayc.backend.stock.domain.repository.StockOptionRepository;
+import wayc.backend.stock.domain.repository.StockRepository;
 
 import java.util.List;
 
@@ -35,10 +34,10 @@ public class StockProviderIntegrationTest extends IntegrationTest {
         Stock stock_1 = stockRepository.save(new Stock(10));
         Stock stock_2 = stockRepository.save(new Stock(10));
 
-        stockOptionRepository.save(new StockOption(stock_1.getId(), 1L));
-        stockOptionRepository.save(new StockOption(stock_1.getId(), 2L));
-        stockOptionRepository.save(new StockOption(stock_2.getId(), 3L));
-        stockOptionRepository.save(new StockOption(stock_2.getId(), 4L));
+        stockOptionRepository.save(new StockOption(stock_1, 1L));
+        stockOptionRepository.save(new StockOption(stock_1, 2L));
+        stockOptionRepository.save(new StockOption(stock_2, 3L));
+        stockOptionRepository.save(new StockOption(stock_2, 4L));
 
         //when
         FindStocksResponseDto res = stockProvider.findStock(List.of(

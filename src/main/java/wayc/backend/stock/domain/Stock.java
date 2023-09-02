@@ -23,8 +23,20 @@ public class Stock extends BaseEntity { //옵션과 Stock은 N:M 인듯
 
     private Integer quantity;
 
+    @OneToMany(mappedBy = "stock", cascade = CascadeType.PERSIST)
+    private List<StockOption> stockOptions = new ArrayList<>();
+
     public Stock(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Stock(Integer quantity, List<StockOption> stockOptions) {
+        this.quantity = quantity;
+        this.stockOptions = stockOptions;
+    }
+
+    public void addOptions(List<StockOption> stockOptions) {
+        this.stockOptions.addAll(stockOptions);
     }
 
     /**

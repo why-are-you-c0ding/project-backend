@@ -39,7 +39,6 @@ import wayc.backend.shop.application.service.ShopService;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.member.infrastructure.SendEmailServiceImpl;
 import wayc.backend.stock.application.provider.StockProvider;
-import wayc.backend.stock.application.service.StockServiceImpl;
 import wayc.backend.stock.presentation.StockController;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -93,9 +92,6 @@ public abstract class ControllerTest {
 
     @MockBean
     protected OptionGroupProvider optionGroupSpecificationService;
-
-    @MockBean
-    protected StockServiceImpl stockService;
 
     @MockBean
     protected CartService cartService;
