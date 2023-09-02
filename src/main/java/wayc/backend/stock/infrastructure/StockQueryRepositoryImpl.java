@@ -5,7 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
 import wayc.backend.stock.domain.Stock;
-import wayc.backend.stock.domain.query.StockQueryRepository;
+import wayc.backend.stock.domain.repository.query.StockQueryRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -28,11 +28,11 @@ public class StockQueryRepositoryImpl implements StockQueryRepository {
                 .select(stock)
                 .from(stockOption)
                 .join(stock)
-                .on(stockOption.stockId.eq(stock.id))
+                .on(stockOption.stock.id.eq(stock.id))
                 .where(
                         stockOption.optionId.in(optionIds)
                 )
-                .groupBy(stockOption.stockId)
+                .groupBy(stockOption.stock.id)
                 .fetchFirst();
     }
 
@@ -42,11 +42,11 @@ public class StockQueryRepositoryImpl implements StockQueryRepository {
                 .select(stock.quantity)
                 .from(stockOption)
                 .join(stock)
-                .on(stockOption.stockId.eq(stock.id))
+                .on(stockOption.stock.id.eq(stock.id))
                 .where(
                         stockOption.optionId.in(options)
                 )
-                .groupBy(stockOption.stockId)
+                .groupBy(stockOption.stock.id)
                 .fetchFirst();
     }
 }

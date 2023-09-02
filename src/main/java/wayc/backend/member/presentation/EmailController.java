@@ -20,21 +20,12 @@ public class EmailController {
     private final EmailService emailService;
 
     private final static String VERIFICATION_EMAIL_SUCCESS = "이메일 발송에 성공했습니다.";
-    private final static String VERIFICATION_SUCCESS = "검증에 성공했습니다.";
 
-    @PostMapping("/verification/email")
+    @PostMapping("/emails")
     public ResponseEntity<ValidateResponse> sendEmail(
             @RequestBody @Validated SendEmailRequest request
     ){
         emailService.sendVerificationEmail(request.getReceiveEmail());
         return ResponseEntity.ok(new ValidateResponse(VERIFICATION_EMAIL_SUCCESS));
-    }
-
-    @PostMapping("/verification/email/auth-key")
-    public ResponseEntity<ValidateResponse> verifyEmail(
-            @RequestBody @Validated ValidateEmailRequest request
-    ){
-        emailService.verifyEmail(request.getEmail(), request.getAuthKey());
-        return ResponseEntity.ok(new ValidateResponse(VERIFICATION_SUCCESS));
     }
 }

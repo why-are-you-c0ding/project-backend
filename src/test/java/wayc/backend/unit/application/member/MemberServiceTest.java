@@ -5,26 +5,23 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import wayc.backend.common.redis.RedisService;
 import wayc.backend.factory.member.domain.MemberFactory;
-import wayc.backend.member.application.MemberMapper;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.domain.Member;
 import wayc.backend.member.domain.MemberValidator;
 import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
 import wayc.backend.member.application.dto.request.RegisterSellerRequestDto;
-import wayc.backend.member.domain.Email;
-import wayc.backend.member.domain.repository.EmailRepository;
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.exception.DuplicatedLoginIdException;
 import wayc.backend.member.exception.DuplicatedNickNameException;
 import wayc.backend.member.exception.NotSamePasswordException;
-import wayc.backend.member.exception.email.NotExistsEmailException;
+import wayc.backend.member.exception.email.WrongEmailAuthKeyException;
 
 import java.util.Optional;
 
@@ -43,15 +40,14 @@ class MemberServiceTest {
     @Mock
     private MemberRepository memberRepository;
 
-    @Mock
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @Spy
-    private EmailRepository emailRepository;
+    @Mock
+    private RedisService redisService;
 
     @BeforeEach
     void beforeEach(){
-        memberService = new MemberService(memberRepository, new MemberMapper(new MemberValidator(memberRepository), passwordEncoder, emailRepository));
+        memberService = new MemberService(memberRepository, new MemberValidator(memberRepository, redisService, passwordEncoder), passwordEncoder);
     }
 
     @Test
@@ -63,8 +59,8 @@ class MemberServiceTest {
                 .willReturn(Optional.ofNullable(null));
         given(memberRepository.findByLoginIdAndStatus(any(String.class)))
                 .willReturn(Optional.ofNullable(null));
-        given(emailRepository.findByIdAndAuthKey(any(String.class), any(String.class)))
-                .willReturn(Optional.of(new Email(dto.getEmail(), dto.getAuthKey())));
+        given(redisService.get(any(String.class), any(Class.class)))
+                .willReturn(Optional.of(dto.getAuthKey()));
 
         //when
         memberService.registerMember(dto);
@@ -78,12 +74,13 @@ class MemberServiceTest {
     void successCreateSellerTest(){
         //given
         RegisterSellerRequestDto dto = createSuccessSellerDto();
+
         given(memberRepository.findByNickNameAndStatus(any(String.class)))
                 .willReturn(Optional.ofNullable(null));
         given(memberRepository.findByLoginIdAndStatus(any(String.class)))
                 .willReturn(Optional.ofNullable(null));
-        given(emailRepository.findByIdAndAuthKey(any(String.class), any(String.class)))
-                .willReturn(Optional.of(new Email(dto.getEmail(), dto.getAuthKey())));
+        given(redisService.get(any(String.class), any(Class.class)))
+                .willReturn(Optional.of(dto.getAuthKey()));
 
         //when
         memberService.registerMember(dto);
@@ -97,6 +94,8 @@ class MemberServiceTest {
     void failRegisterMemberCase1(){
         //given
         RegisterConsumerRequestDto dto = createSuccessConsumerDto();
+        given(redisService.get(any(String.class), any(Class.class)))
+                .willReturn(Optional.of(dto.getAuthKey()));
         given(memberRepository.findByNickNameAndStatus(any(String.class)))
                 .willReturn(Optional.ofNullable(MemberFactory.createConsumerSuccessCase()));
 
@@ -116,6 +115,8 @@ class MemberServiceTest {
         RegisterSellerRequestDto dto = createSuccessSellerDto();
         given(memberRepository.findByNickNameAndStatus(any(String.class)))
                 .willReturn(Optional.ofNullable(null));
+        given(redisService.get(any(String.class), any(Class.class)))
+                .willReturn(Optional.of(dto.getAuthKey()));
         given(memberRepository.findByLoginIdAndStatus(any(String.class)))
                 .willReturn(Optional.ofNullable(MemberFactory.createConsumerSuccessCase()));
 
@@ -134,13 +135,9 @@ class MemberServiceTest {
     void failRegisterMemberCase3(){
         //given
         RegisterSellerRequestDto dto = createSuccessSellerDto();
-        given(memberRepository.findByNickNameAndStatus(any(String.class)))
-                .willReturn(Optional.ofNullable(null));
-        given(memberRepository.findByLoginIdAndStatus(any(String.class)))
-                .willReturn(Optional.ofNullable(null));
-        given(emailRepository.findByIdAndAuthKey(any(String.class), any(String.class)))
-                .willReturn(Optional.ofNullable(null));
 
+        given(redisService.get(any(String.class), any(Class.class)))
+                .willReturn(Optional.of("null"));
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
@@ -148,7 +145,7 @@ class MemberServiceTest {
         });
 
         //then
-        result.isInstanceOf(NotExistsEmailException.class);
+        result.isInstanceOf(WrongEmailAuthKeyException.class);
     }
 
     @Test
@@ -156,6 +153,9 @@ class MemberServiceTest {
     void failRegisterMemberCase4(){
         //given
         RegisterSellerRequestDto dto = createFailMemberDto();
+
+        given(redisService.get(any(String.class), any(Class.class)))
+                .willReturn(Optional.of(dto.getAuthKey()));
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {

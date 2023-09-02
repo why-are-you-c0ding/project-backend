@@ -4,7 +4,6 @@ import lombok.Getter;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import wayc.backend.member.domain.Email;
 import wayc.backend.member.domain.Member;
 
 @Getter
@@ -18,9 +17,9 @@ public abstract class AbstractRegisterMemberRequestDto {
     protected String authKey;
     protected int age;
 
-    public Member toEntity(PasswordEncoder passwordEncoder, Email email){
-        return toEntitySpecifically(passwordEncoder, email);
+    public Member toEntity(PasswordEncoder passwordEncoder){
+        return toEntitySpecifically(passwordEncoder);
     }
 
-    protected abstract Member toEntitySpecifically(PasswordEncoder passwordEncoder, Email email);
+    protected abstract Member toEntitySpecifically(PasswordEncoder passwordEncoder);
 }

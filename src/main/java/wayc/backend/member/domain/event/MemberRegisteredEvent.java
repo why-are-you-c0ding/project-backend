@@ -3,7 +3,7 @@ package wayc.backend.member.domain.event;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.event.Event;
-import wayc.backend.security.role.Role;
+import wayc.backend.member.domain.Role;
 
 @Getter
 @NoArgsConstructor

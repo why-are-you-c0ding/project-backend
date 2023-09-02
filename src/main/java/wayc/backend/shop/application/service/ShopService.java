@@ -18,9 +18,4 @@ public class ShopService {
 
     private final ShopRepository shopRepository;
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public void registerShop(Long ownerId, String nickName) {
-        Shop shop = Shop.builder().ownerId(ownerId).shopName(nickName + "님의 shop").build();
-        shopRepository.save(shop);
-    }
 }

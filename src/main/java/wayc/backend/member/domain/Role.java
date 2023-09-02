@@ -1,4 +1,4 @@
-package wayc.backend.security.role;
+package wayc.backend.member.domain;
 
 public enum Role {
 

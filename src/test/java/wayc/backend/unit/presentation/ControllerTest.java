@@ -19,9 +19,7 @@ import wayc.backend.cart.presentation.CartController;
 import wayc.backend.config.WebMvcConfig;
 import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
-import wayc.backend.common.exception.ExceptionExampleController;
 import wayc.backend.member.application.EmailService;
-import wayc.backend.member.application.MemberProvider;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.presentation.EmailController;
@@ -39,8 +37,10 @@ import wayc.backend.shop.application.service.ShopService;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.member.infrastructure.SendEmailServiceImpl;
 import wayc.backend.stock.application.provider.StockProvider;
-import wayc.backend.stock.application.service.StockServiceImpl;
+import wayc.backend.stock.application.service.StockService;
 import wayc.backend.stock.presentation.StockController;
+import wayc.backend.unit.presentation.common.GlobalExceptionHandlerTest;
+//import wayc.backend.stock.presentation.StockController;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
@@ -50,7 +50,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 })
 @WebMvcTest(controllers = {
         MemberController.class,
-        ExceptionExampleController.class,
         ImageController.class,
         ItemController.class,
 //        ShopController.class,
@@ -60,7 +59,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
         EmailController.class
 })
 @MockBean(JpaMetamodelMappingContext.class) //JPA 설정을 못하므로 오류가 발생. 따라서 해당 애노테이션을 넣는다.
-@AutoConfigureRestDocs(uriScheme = "https", uriHost = "waycabvav.shop", uriPort = 443)
+@AutoConfigureRestDocs(uriScheme = "https", uriHost = "wayc.store", uriPort = 443)
 @ExtendWith(RestDocumentationExtension.class)
 public abstract class ControllerTest {
 
@@ -95,9 +94,6 @@ public abstract class ControllerTest {
     protected OptionGroupProvider optionGroupSpecificationService;
 
     @MockBean
-    protected StockServiceImpl stockService;
-
-    @MockBean
     protected CartService cartService;
 
     @MockBean
@@ -113,9 +109,6 @@ public abstract class ControllerTest {
     protected ItemProvider itemProvider;
 
     @MockBean
-    protected MemberProvider memberProvider;
-
-    @MockBean
     protected CartProvider cartProvider;
 
     @MockBean
@@ -123,6 +116,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected StockProvider stockProvider;
+
+    @MockBean
+    protected StockService stockService;
 }
 
 //https://www.baeldung.com/spring-rest-docs

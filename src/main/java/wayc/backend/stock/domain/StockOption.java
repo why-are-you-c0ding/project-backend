@@ -17,12 +17,14 @@ public class StockOption extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long stockId;
+    @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Stock stock;
 
     private Long optionId;
 
-    public StockOption(Long stockId, Long optionId) {
-        this.stockId = stockId;
+    public StockOption(Stock stock, Long optionId) {
+        this.stock = stock;
         this.optionId = optionId;
     }
 }

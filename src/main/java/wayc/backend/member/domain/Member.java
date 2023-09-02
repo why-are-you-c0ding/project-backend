@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
 import wayc.backend.common.event.Events;
 import wayc.backend.member.domain.event.MemberRegisteredEvent;
-import wayc.backend.security.role.Role;
 
 import javax.persistence.*;
 
@@ -28,9 +27,7 @@ public class Member extends BaseEntity {
 
     private int age;
 
-    @JoinColumn(name = "email_id")
-    @OneToOne(fetch = FetchType.LAZY)
-    private Email email;
+    private String email;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
@@ -38,7 +35,7 @@ public class Member extends BaseEntity {
     //추후에 멤버에서 장바구니를 추적해야하거나, 샵을 추적해야하면 아이디를 추가하자.
 
     @Builder
-    public Member(String nickName, String loginId, String password, int age, Email email, Role role) {
+    public Member(String nickName, String loginId, String password, int age, String email, Role role) {
         this.nickName = nickName;
         this.loginId = loginId;
         this.password = password;

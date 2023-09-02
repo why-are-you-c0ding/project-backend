@@ -20,13 +20,4 @@ public class ShopServiceTest extends UnitTest {
     @Mock
     private ShopRepository shopRepository;
 
-    @Test
-    void createShop(){
-
-        //when
-        shopService.registerShop(1L, "debin");
-
-        //then
-        verify(shopRepository, Mockito.times(1)).save(Mockito.any(Shop.class));
-    }
 }

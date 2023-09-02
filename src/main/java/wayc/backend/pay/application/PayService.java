@@ -23,37 +23,5 @@ public class PayService {
 
     private final PayRepository payRepository;
     private final OrderRepository orderRepository;
-
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public void createPay(Long memberId, CreatePayRequestDto dto) {
-        Order order = orderRepository.findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(dto.getOrderId(), memberId)
-                            .orElseThrow(NotExistsOrderException::new);
-
-        //TODO: 외부 결제사 연동.
-
-        Pay pay = new Pay(dto.getPay(), dto.getOrderId());
-        payRepository.save(pay);
-
-        //아래도 분리해야할 거 같은데..?!
-        order.updateOrder(OrderStatus.ONGOING);
-    }
-
-//    @Transactional(readOnly = false)
-//    public void createPays(Long memberId, List<CreatePayRequestDto> dtoList ) {
-//        List<Pay> result = dtoList
-//                .stream()
-//                .map(dto -> {
-//                    Order order = orderRepository
-//                            .findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(
-//                                    dto.getOrderId(),
-//                                    memberId
-//                            )
-//                            .orElseThrow(NotExistsOrderException::new);
-//                    order.updateOrder(OrderStatus.ONGOING);
-//                    return new Pay(dto.getPay(), dto.getOrderId());
-//                })
-//                .collect(Collectors.toList());
-//        payRepository.saveAll(result);
-//    }
 }
 

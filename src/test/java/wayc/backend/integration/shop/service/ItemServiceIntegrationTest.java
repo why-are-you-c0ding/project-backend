@@ -1,31 +1,15 @@
 package wayc.backend.integration.shop.service;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import wayc.backend.factory.Item.dto.RegisterItemRequestFactory;
-import wayc.backend.factory.shop.ShopFactory;
 import wayc.backend.integration.IntegrationTest;
-import wayc.backend.member.domain.Email;
-import wayc.backend.member.domain.Member;
-import wayc.backend.member.domain.repository.EmailRepository;
-import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.shop.application.dto.request.RegisterItemRequestDto;
-import wayc.backend.shop.application.service.ItemMapper;
 import wayc.backend.shop.application.service.ItemService;
-import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.Shop;
 import wayc.backend.shop.domain.command.ItemRepository;
 import wayc.backend.shop.domain.command.ShopRepository;
-import wayc.backend.unit.application.UnitTest;
-
-import java.util.Optional;
-
-import static org.mockito.BDDMockito.given;
 
 public class ItemServiceIntegrationTest extends IntegrationTest {
 

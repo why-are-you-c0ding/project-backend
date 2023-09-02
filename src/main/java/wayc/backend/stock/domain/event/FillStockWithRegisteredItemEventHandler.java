@@ -3,27 +3,28 @@ package wayc.backend.stock.domain.event;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.event.TransactionPhase;
-import org.springframework.transaction.event.TransactionalEventListener;
 
 import wayc.backend.shop.domain.event.ItemRegisteredEvent;
-import wayc.backend.stock.application.service.StockServiceImpl;
 
-import wayc.backend.stock.utils.OptionUtils;
+import wayc.backend.stock.domain.Stock;
+import wayc.backend.stock.domain.repository.StockRepository;
+import wayc.backend.stock.domain.StockFactory;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class FillStockWithRegisteredItemEventHandler{
+public class FillStockWithRegisteredItemEventHandler {
 
-    private final StockServiceImpl stockService;
+    private final StockRepository stockRepository;
 
-    @Async
-    @TransactionalEventListener(value = ItemRegisteredEvent.class, phase = TransactionPhase.BEFORE_COMMIT)
+    @EventListener(value = ItemRegisteredEvent.class)
     public void handle(ItemRegisteredEvent event){
         if(event != null){
-            stockService.fillStockByEvent(OptionUtils.createNumberOfAllOptionsToFillStock(event.getGroups()));
+            List<Stock> stocks = StockFactory.createNumberOfAllOptionsToFillStock(event.getGroups());
+            stockRepository.saveAll(stocks);
         }
     }
 }
