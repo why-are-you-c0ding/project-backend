@@ -3,7 +3,7 @@ package wayc.backend.pay.domain;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.transaction.event.TransactionalEventListener;
+import org.springframework.context.event.EventListener;
 
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.OrderStatus;
@@ -12,10 +12,6 @@ import wayc.backend.order.domain.event.OrderPayedEvent;
 import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.order.domain.repository.PayRepository;
 import wayc.backend.order.exception.NotExistsOrderException;
-import wayc.backend.pay.application.PayService;
-import wayc.backend.pay.application.dto.request.CreatePayRequestDto;
-
-import javax.naming.PartialResultException;
 
 @Getter
 @RequiredArgsConstructor
@@ -24,7 +20,7 @@ public class CompletePayWithCreatedOrderEventHandler {
     private final OrderRepository orderRepository;
     private final PayRepository payRepository;
 
-    @TransactionalEventListener(OrderPayedEvent.class)
+    @EventListener(OrderPayedEvent.class)
     public void handle(OrderPayedEvent event){
 
         Order order = orderRepository.findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(event.getOrderId(), event.getOrderingMemberId())

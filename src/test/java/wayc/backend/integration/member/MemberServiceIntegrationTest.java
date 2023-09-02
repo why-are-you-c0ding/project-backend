@@ -108,7 +108,7 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
     @DisplayName("이메일이 존재하지 않아서 멤버 생성을 실패한다.")
     void failRegisterMemberCase3(){
         //given
-        RegisterSellerRequestDto dto = createSuccessSellerDto();
+        RegisterSellerRequestDto dto = createMemberDto();
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
