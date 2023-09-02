@@ -28,7 +28,7 @@ public class EmailControllerTest extends ControllerTest {
         String value = mapper.writeValueAsString(req);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.post("/verification/email")
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/emails")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(value)
@@ -45,36 +45,5 @@ public class EmailControllerTest extends ControllerTest {
                                         fieldWithPath("message").type(STRING).description("이메일 발송에 성공했습니다.")
                                 )
                         ));
-    }
-
-    @Test
-    @DisplayName("이메일 키 검증  테스트")
-    void verify_email() throws Exception {
-
-        //given
-        ValidateEmailRequest req = new ValidateEmailRequest("123@gmail.com", "authkey");
-
-        String value = mapper.writeValueAsString(req);
-
-        //when
-        mockMvc.perform(RestDocumentationRequestBuilders.post("/verification/email/auth-key")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(value)
-                )
-                .andExpect(status().is2xxSuccessful())
-                .andDo(print())
-                .andDo(document("verify_email_key",
-                        getDocumentRequest(),
-                        getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("email").type(STRING).description("인증을 진행할 유저의 이메일"),
-                                fieldWithPath("authKey").type(STRING).description("이메일로 받은 인증 키")
-
-                        ),
-                        responseFields(
-                                fieldWithPath("message").type(STRING).description("검증에 성공했습니다.")
-                        )
-                ));
     }
 }

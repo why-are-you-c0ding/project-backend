@@ -2,14 +2,16 @@ package wayc.backend.stock.domain;
 
 import wayc.backend.shop.domain.Option;
 import wayc.backend.shop.domain.OptionGroup;
-import wayc.backend.stock.domain.Stock;
-import wayc.backend.stock.domain.StockOption;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+
 public class StockFactory {
+
+    private StockFactory() {}
 
     public static List<Stock> createNumberOfAllOptionsToFillStock(List<OptionGroup> optionGroups) {
         return selectOptions(optionGroups);

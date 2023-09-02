@@ -21,7 +21,6 @@ import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
 import wayc.backend.common.exception.ExceptionExampleController;
 import wayc.backend.member.application.EmailService;
-import wayc.backend.member.application.MemberProvider;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.presentation.EmailController;
@@ -39,7 +38,9 @@ import wayc.backend.shop.application.service.ShopService;
 import wayc.backend.shop.presentation.ItemController;
 import wayc.backend.member.infrastructure.SendEmailServiceImpl;
 import wayc.backend.stock.application.provider.StockProvider;
+import wayc.backend.stock.application.service.StockService;
 import wayc.backend.stock.presentation.StockController;
+//import wayc.backend.stock.presentation.StockController;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
@@ -109,9 +110,6 @@ public abstract class ControllerTest {
     protected ItemProvider itemProvider;
 
     @MockBean
-    protected MemberProvider memberProvider;
-
-    @MockBean
     protected CartProvider cartProvider;
 
     @MockBean
@@ -119,6 +117,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected StockProvider stockProvider;
+
+    @MockBean
+    protected StockService stockService;
 }
 
 //https://www.baeldung.com/spring-rest-docs

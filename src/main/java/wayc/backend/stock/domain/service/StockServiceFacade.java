@@ -1,4 +1,7 @@
 package wayc.backend.stock.domain.service;
 
-public interface StockServiceFacade extends DecreaseStockService{
+import java.util.List;
+
+public interface StockServiceFacade  {
+    void decreaseStock(Integer quantity, List<Long> optionIds);
 }

@@ -7,12 +7,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import wayc.backend.member.domain.repository.EmailRepository;
+import wayc.backend.common.redis.RedisService;
+
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.exception.DuplicatedLoginIdException;
 import wayc.backend.member.exception.DuplicatedNickNameException;
 import wayc.backend.member.exception.NotSamePasswordException;
 import wayc.backend.member.exception.email.NotExistsEmailException;
+import wayc.backend.member.exception.email.WrongEmailAuthKeyException;
 
 @Service
 @RequiredArgsConstructor
@@ -20,10 +22,15 @@ import wayc.backend.member.exception.email.NotExistsEmailException;
 public class MemberValidator {
 
     private final MemberRepository memberRepository;
-    private final EmailRepository emailRepository;
+    private final RedisService redisService;
     private final PasswordEncoder passwordEncoder;
 
     public void validate(Member member, String checkPwd, String authKey) {
+
+
+        if(wrongAuthKey(member.getEmail(), authKey)) {
+            throw new WrongEmailAuthKeyException();
+        }
 
         if(!passwordEncoder.matches(checkPwd, member.getPassword())){
             throw new NotSamePasswordException();
@@ -36,8 +43,14 @@ public class MemberValidator {
         if (memberRepository.findByLoginIdAndStatus(member.getLoginId()).isPresent()) {
             throw new DuplicatedLoginIdException();
         }
+    }
 
-        if(emailRepository.findByIdAndAuthKey(member.getEmail().getEmail(), authKey).isEmpty()){
+    private boolean wrongAuthKey(String receiveEmail, String certificationNumber) {
+        try{
+            String authKey = redisService.get(receiveEmail, String.class).get();
+            return !authKey.equals(certificationNumber);
+        }
+        catch (RuntimeException e) {
             throw new NotExistsEmailException();
         }
     }

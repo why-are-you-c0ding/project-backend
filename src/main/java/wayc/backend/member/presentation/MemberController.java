@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import wayc.backend.member.application.MemberProvider;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.presentation.dto.request.*;
 import wayc.backend.member.presentation.dto.response.RegisterMemberResponse;
@@ -17,7 +16,6 @@ import wayc.backend.member.presentation.dto.response.ValidateResponse;
 public class MemberController {
 
     private final MemberService memberService;
-    private final MemberProvider memberProvider;
 
     private final static String VERIFICATION_SUCCESS = "검증에 성공했습니다.";
 
@@ -41,7 +39,7 @@ public class MemberController {
     public ResponseEntity<ValidateResponse> verifyNickName(
             @RequestBody @Validated ValidateNickNameRequest request
     ){
-        memberProvider.validateNickName(request.getNickName());
+        memberService.validateNickName(request.getNickName());
         return ResponseEntity.ok(new ValidateResponse(VERIFICATION_SUCCESS));
     }
 
@@ -49,7 +47,7 @@ public class MemberController {
     public ResponseEntity<ValidateResponse> verifyLoginId(
             @RequestBody @Validated ValidateLoginIdRequest request
     ) {
-        memberProvider.validateLoginId(request.getLoginId());
+        memberService.validateLoginId(request.getLoginId());
         return ResponseEntity.ok(new ValidateResponse(VERIFICATION_SUCCESS));
     }
 }

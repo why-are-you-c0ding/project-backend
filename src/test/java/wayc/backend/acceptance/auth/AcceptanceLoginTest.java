@@ -14,12 +14,13 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.web.servlet.MockMvc;
 
 import org.springframework.transaction.annotation.Transactional;
+import wayc.backend.common.redis.RedisService;
 import wayc.backend.factory.member.dto.RegisterMemberRequestDtoFactory;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
-import wayc.backend.member.domain.Email;
-import wayc.backend.member.domain.repository.EmailRepository;
 import wayc.backend.security.dto.request.LoginRequestDto;
+
+import java.time.Duration;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
@@ -46,11 +47,12 @@ public class AcceptanceLoginTest {
     MemberService memberService;
 
     @Autowired
-    private EmailRepository emailRepository;
+    private RedisService redisService;
 
     @BeforeEach
     void beforeEach(){
-        emailRepository.save(new Email("123@gmail.com", "999999"));
+        redisService.set("123@gmail.com", "999999", Duration.ofSeconds(30));
+
         RegisterConsumerRequestDto dto = RegisterMemberRequestDtoFactory.createSuccessConsumerDto();
         memberService.registerMember(dto);
     }

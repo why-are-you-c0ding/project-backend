@@ -6,21 +6,21 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import wayc.backend.common.redis.RedisService;
 import wayc.backend.factory.member.domain.MemberFactory;
 import wayc.backend.factory.member.dto.RegisterMemberRequestDtoFactory;
 import wayc.backend.integration.IntegrationTest;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
 import wayc.backend.member.application.dto.request.RegisterSellerRequestDto;
-import wayc.backend.member.domain.Email;
 import wayc.backend.member.domain.Member;
-import wayc.backend.member.domain.repository.EmailRepository;
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.member.exception.DuplicatedLoginIdException;
 import wayc.backend.member.exception.DuplicatedNickNameException;
 import wayc.backend.member.exception.NotSamePasswordException;
 import wayc.backend.member.exception.email.NotExistsEmailException;
 
+import java.time.Duration;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -32,17 +32,18 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
     private MemberService memberService;
 
     @Autowired
-    private EmailRepository emailRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
-    private MemberRepository memberRepository;
+    private RedisService redisService;
 
     @Test
     @DisplayName("소비자 멤버 생성 성공 통합 테스트")
     void create_consumer(){
         //given
-        emailRepository.save(new Email("123@gmail.com", "999999"));
         RegisterConsumerRequestDto dto = RegisterMemberRequestDtoFactory.createSuccessConsumerDto();
+        redisService.set(dto.getEmail(), dto.getAuthKey(), Duration.ofSeconds(10));
+
 
         //when
         memberService.registerMember(dto);
@@ -56,9 +57,8 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
     @DisplayName("판매자 생성 성공 통합 테스트")
     void create_seller(){
         //given
-        emailRepository.save(new Email("123@gmail.com", "999999"));
         RegisterSellerRequestDto dto = RegisterMemberRequestDtoFactory.createSuccessSellerDto();
-
+        redisService.set(dto.getEmail(), dto.getAuthKey(), Duration.ofSeconds(10));
 
         //when
         memberService.registerMember(dto);
@@ -73,6 +73,7 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
     void failRegisterMemberCase1(){
         //given
         RegisterSellerRequestDto dto = createSuccessSellerDto();
+        redisService.set(dto.getEmail(), dto.getAuthKey(), Duration.ofSeconds(10));
         Member member = MemberFactory.createMemberWhenValidateNickName();
         memberRepository.save(member);
 
@@ -91,6 +92,7 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
         //given
         RegisterSellerRequestDto dto = createSuccessSellerDto();
         Member member = MemberFactory.createMemberWhenValidateLoginId();
+        redisService.set(dto.getEmail(), dto.getAuthKey(), Duration.ofSeconds(10));
         memberRepository.save(member);
 
         //when
@@ -123,6 +125,8 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
 
         //given
         RegisterSellerRequestDto dto = createFailMemberDto();
+        redisService.set(dto.getEmail(), dto.getAuthKey(), Duration.ofSeconds(10));
+
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
@@ -131,5 +135,49 @@ public class MemberServiceIntegrationTest extends IntegrationTest {
 
         //then
         result.isInstanceOf(NotSamePasswordException.class);
+    }
+
+    @Test
+    @DisplayName("중복되는 로그인 아이디가 존재하므로 예외 발생")
+    void validateLoginIdTest(){
+        //given
+        Member member = MemberFactory.createMemberWhenValidateLoginId();
+        memberRepository.save(member);
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            memberService.validateLoginId(member.getLoginId());
+        });
+
+        //then
+        result.isInstanceOf(DuplicatedLoginIdException.class);
+    }
+
+    @Test
+    @DisplayName("중복되는 닉네임이 존재하므로 예외 발생")
+    void validateNickNameTest(){
+        //given
+        Member member = MemberFactory.createMemberWhenValidateNickName();
+        memberRepository.save(member);
+
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> {
+            memberService.validateNickName(member.getNickName());
+        });
+
+        //then
+        result.isInstanceOf(DuplicatedNickNameException.class);
+    }
+
+    @Test
+    @DisplayName("중복되는 로그인 아이디가 존재하므로 예외 발생")
+    void passValidateLoginIdTest(){
+        memberService.validateLoginId("ex");
+    }
+
+    @Test
+    @DisplayName("중복되는 닉네임이 존재하므로 예외 발생")
+    void passValidateNickNameTest(){
+        memberService.validateNickName("ex");
     }
 }

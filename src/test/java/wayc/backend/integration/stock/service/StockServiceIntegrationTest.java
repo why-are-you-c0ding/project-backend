@@ -55,7 +55,7 @@ public class StockServiceIntegrationTest extends IntegrationTest {
     private PlatformTransactionManager transactionManager;
 
     @Autowired
-    private DecreaseStockService decreaseStockService;
+    private StockServiceFacade decreaseStockService;
 
     @Test
     void createStock(){
@@ -114,7 +114,7 @@ public class StockServiceIntegrationTest extends IntegrationTest {
 
 
         //then
-        assertThat(stockRepository.findAll().size()).isEqualTo(27);
+        assertThat(stocks.size()).isEqualTo(27);
     }
 
     /**

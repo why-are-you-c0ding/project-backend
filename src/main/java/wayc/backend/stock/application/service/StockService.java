@@ -3,7 +3,6 @@ package wayc.backend.stock.application.service;
 
 import lombok.RequiredArgsConstructor;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +14,7 @@ import wayc.backend.stock.domain.StockOption;
 import wayc.backend.stock.domain.repository.StockOptionRepository;
 import wayc.backend.stock.domain.repository.StockRepository;
 
-@Slf4j
+
 @Service
 @RequiredArgsConstructor
 public class StockService {

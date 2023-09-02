@@ -5,7 +5,6 @@ import lombok.Getter;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import wayc.backend.member.domain.Member;
-import wayc.backend.member.domain.Email;
 
 import static wayc.backend.security.role.Role.*;
 
@@ -24,7 +23,7 @@ public class RegisterConsumerRequestDto extends AbstractRegisterMemberRequestDto
     }
 
     @Override
-    public Member toEntitySpecifically(PasswordEncoder passwordEncoder, Email email) {
+    public Member toEntitySpecifically(PasswordEncoder passwordEncoder) {
         return Member.builder()
                 .nickName(nickName)
                 .email(email)

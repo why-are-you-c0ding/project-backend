@@ -25,7 +25,7 @@ public class StockServiceFacadeImpl implements StockServiceFacade {
 
         try {
             //몇초를 기다리고, 몇초를 점유할건지 정한다. lock 획득을 시도
-            boolean available = lock.tryLock(5, 1, TimeUnit.SECONDS);
+            boolean available = lock.tryLock(10, 1, TimeUnit.SECONDS);
 
             //lock 실패
             if (!available) {
