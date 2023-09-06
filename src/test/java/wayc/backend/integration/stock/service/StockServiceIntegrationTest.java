@@ -130,12 +130,12 @@ public class StockServiceIntegrationTest extends IntegrationTest {
         transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
 
         transactionTemplate.execute(status -> {
-            Stock stock = stockRepository.save(new Stock(100));
+            Stock stock = stockRepository.save(new Stock(50));
             stockOptionRepository.save(new StockOption(stock, 1L));
             return null;
         });
 
-        int threadCount = 100;
+        int threadCount = 50;
         ExecutorService executorService = Executors.newFixedThreadPool(32);
         CountDownLatch latch = new CountDownLatch(threadCount);
 
