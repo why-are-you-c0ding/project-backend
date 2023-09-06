@@ -19,6 +19,13 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
+      - name: Make test application.yml
+        run: |
+          cd ./src/test/resources
+          touch ./application.yml
+          echo "${{ secrets.TEST_APPLICATION_YML }}" > ./application.yml
+        shell: bash
+
       - name: Make main application.yml
         run: |
           cd ./src/main/resources
