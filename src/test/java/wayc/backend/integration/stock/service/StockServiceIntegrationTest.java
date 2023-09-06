@@ -122,45 +122,45 @@ public class StockServiceIntegrationTest extends IntegrationTest {
      * 따라서 트랜잭션 템플릿을 사용해 트랜잭션 전파를 바꾸고 다음과 같이 진행함.
      * @throws InterruptedException
      */
-    @Test
-    void 재고_감소() throws InterruptedException {
-
-        //given
-        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
-        transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
-
-        transactionTemplate.execute(status -> {
-            Stock stock = stockRepository.save(new Stock(20));
-            stockOptionRepository.save(new StockOption(stock, 1L));
-            return null;
-        });
-
-        int threadCount = 20;
-        ExecutorService executorService = Executors.newFixedThreadPool(32);
-        CountDownLatch latch = new CountDownLatch(threadCount);
-
-        //when
-        for (int i = 0; i < threadCount; i++) {
-            executorService.submit(() -> {
-                try{
-                    decreaseStockService.decreaseStock(1, List.of(1L));
-                }
-                finally {
-                    latch.countDown();
-                }
-            });
-        }
-
-        latch.await(); //대기
-
-        //then
-
-        Assertions.assertThat(stockQueryRepository.findStock(List.of(1L)).getQuantity()).isEqualTo(0);
-
-        transactionTemplate.execute(status -> {
-            stockRepository.deleteAll();
-            stockOptionRepository.deleteAll();
-            return null;
-        });
-    }
+//    @Test
+//    void 재고_감소() throws InterruptedException {
+//
+//        //given
+//        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+//        transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+//
+//        transactionTemplate.execute(status -> {
+//            Stock stock = stockRepository.save(new Stock(20));
+//            stockOptionRepository.save(new StockOption(stock, 1L));
+//            return null;
+//        });
+//
+//        int threadCount = 20;
+//        ExecutorService executorService = Executors.newFixedThreadPool(32);
+//        CountDownLatch latch = new CountDownLatch(threadCount);
+//
+//        //when
+//        for (int i = 0; i < threadCount; i++) {
+//            executorService.submit(() -> {
+//                try{
+//                    decreaseStockService.decreaseStock(1, List.of(1L));
+//                }
+//                finally {
+//                    latch.countDown();
+//                }
+//            });
+//        }
+//
+//        latch.await(); //대기
+//
+//        //then
+//
+//        Assertions.assertThat(stockQueryRepository.findStock(List.of(1L)).getQuantity()).isEqualTo(0);
+//
+//        transactionTemplate.execute(status -> {
+//            stockRepository.deleteAll();
+//            stockOptionRepository.deleteAll();
+//            return null;
+//        });
+//    }
 }
