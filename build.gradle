@@ -76,10 +76,7 @@ dependencies {
 
 
 	testImplementation 'com.tngtech.archunit:archunit-junit5:1.1.0'
-
-
-
-
+	
 }
 
 

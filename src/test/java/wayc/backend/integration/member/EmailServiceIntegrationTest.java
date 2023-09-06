@@ -22,7 +22,7 @@ public class EmailServiceIntegrationTest extends IntegrationTest {
         String email = "asb0711@gmail.com";
 
         //when
-        emailService.sendVerificationEmail(email);
+        emailService.sendVerificationEmail(email, "111222");
 
         //then
         String result = redisService.get(email, String.class).get();

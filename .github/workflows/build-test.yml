@@ -44,5 +44,4 @@ jobs:
       shell: bash
 
     - name: Build with Gradle
-      #uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1 이건 누가 공유해놓은 액션이라한다.
-      run : ./gradlew clean build #테스트만 돌릴까? 빌드도 해볼까?? 고민..
+      run : ./gradlew clean build
