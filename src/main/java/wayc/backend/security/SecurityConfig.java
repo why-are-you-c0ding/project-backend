@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .cors().configurationSource(corsConfigurationSource());
 
         http
-                .authorizeRequests()
+                .authorizeRequests().antMatchers("/health-check").permitAll()
                 .antMatchers(HttpMethod.POST,"/items").hasRole("SELLER")
                 .antMatchers(HttpMethod.GET,"/items/sellers").hasRole("SELLER")
                 .antMatchers(HttpMethod.POST, "/stocks").hasRole("SELLER")
