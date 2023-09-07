@@ -4,6 +4,7 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/server
+    overwrite: yes
 permissions:
   - object: /home/ubuntu/server/
     owner: ubuntu
