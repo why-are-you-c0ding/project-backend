@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-source ./profile.sh
-source ./switch.sh
+
+ABSPATH=$(readlink -f $0)
+ABSDIR=$(dirname $ABSPATH)
+. ${ABSDIR}/profile.sh
+. ${ABSDIR}/switch.sh
 
 IDLE_PORT=$(find_idle_port)
 

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-source ./profile.sh
+ABSPATH=$(readlink -f $0)
+ABSDIR=$(dirname $ABSPATH)
+. ${ABSDIR}/profile.sh
 
 REPOSITORY=/home/ubuntu/server
 
@@ -14,4 +16,4 @@ echo "> $JAR_NAME 실행"
 IDLE_PROFILE=$(find_idle_profile)
 
 echo "> $JAR_NAME 를 profile=$IDLE_PROFILE 로 실행합니다."
-sudo nohup java -jar -Dspring.profiles.active=$IDLE_PROFILE $JAR_PATH  > $REPOSITORY/nohup.out 2>&1 &
+sudo nohup java -jar -Dspring.profiles.active=$IDLE_PROFILE $JAR_PATH &
