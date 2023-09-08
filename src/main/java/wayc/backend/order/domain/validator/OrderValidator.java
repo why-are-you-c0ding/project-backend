@@ -3,7 +3,7 @@ package wayc.backend.order.domain.validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import wayc.backend.order.domain.Order;
+import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderOptionGroup;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.OptionGroup;
@@ -18,7 +18,7 @@ public class OrderValidator {
 
     private final ItemRepository itemRepository;
 
-    public void validate(Order order) {
+    public void validate(OrderLineItem order) {
         Item item = itemRepository.findItemByItemId(order.getItemId()).orElseThrow(NotExistsItemException::new);
 
         /**

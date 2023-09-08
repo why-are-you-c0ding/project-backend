@@ -19,7 +19,7 @@ import wayc.backend.order.application.OrderMapper;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
-import wayc.backend.order.domain.Order;
+import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.shop.domain.Item;
@@ -135,7 +135,7 @@ public class OrderServiceTest extends UnitTest {
     void updateOrder(){
 
         //given
-        Order order = OrderFactory.create(3L);
+        OrderLineItem order = OrderFactory.create(3L);
         given(itemRepository.findItemByShopOwnerIdAndItemId(Mockito.anyLong(), Mockito.anyLong()))
                 .willReturn(Optional.of(Item.builder().optionGroups(new ArrayList<>()).build()));
         given(orderRepository.findOrderByOrderIdAndItemId(Mockito.anyLong(), Mockito.anyLong()))

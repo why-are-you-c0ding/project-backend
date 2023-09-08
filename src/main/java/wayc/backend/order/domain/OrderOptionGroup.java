@@ -19,6 +19,10 @@ public class OrderOptionGroup extends BaseEntity implements OptionGroupComparato
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OrderLineItem orderLineItem;
+
     @Embedded
     private OrderOption orderOptions;
 

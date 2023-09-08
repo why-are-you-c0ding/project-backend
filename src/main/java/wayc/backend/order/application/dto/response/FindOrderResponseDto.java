@@ -3,7 +3,7 @@ package wayc.backend.order.application.dto.response;
 import lombok.Builder;
 import lombok.Getter;
 import wayc.backend.order.domain.Address;
-import wayc.backend.order.domain.Order;
+import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.shop.domain.Item;
 
@@ -44,7 +44,7 @@ public class FindOrderResponseDto {
         this.price = price;
     }
 
-    public static FindOrderResponseDto of(Order order, Item item, Integer price) {
+    public static FindOrderResponseDto of(OrderLineItem order, Item item, Integer price) {
         return FindOrderResponseDto.builder()
                 .shopId(item.getShop().getId())
                 .shopName(item.getShop().getShopName())

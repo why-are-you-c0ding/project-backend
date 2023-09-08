@@ -4,6 +4,7 @@ package wayc.backend.order.application;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.shop.domain.valid.ItemComparisonValidator;
 import wayc.backend.shop.exception.NotExistsItemException;
 import wayc.backend.shop.domain.command.ItemRepository;
@@ -12,7 +13,6 @@ import wayc.backend.order.exception.NotExistsOrderException;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
 import wayc.backend.order.domain.repository.OrderRepository;
-import wayc.backend.order.domain.Order;
 
 
 import java.util.List;
@@ -24,12 +24,12 @@ public class OrderService {
     private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
-    private final ItemComparisonValidator<Order> itemComparisonValidator;
+    private final ItemComparisonValidator<OrderLineItem> itemComparisonValidator;
 
     public OrderService(ItemRepository itemRepository,
                         OrderRepository orderRepository,
                         OrderMapper orderMapper,
-                        ItemComparisonValidator<Order> itemComparator) {
+                        ItemComparisonValidator<OrderLineItem> itemComparator) {
         this.itemRepository = itemRepository;
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
@@ -37,20 +37,20 @@ public class OrderService {
     }
 
     public void createOrder(Long memberId, List<CreateOrderRequestDto> dtoList) {
-        List<Order> orders = orderMapper.mapFrom(dtoList, memberId);
+        List<OrderLineItem> orders = orderMapper.mapFrom(dtoList, memberId);
         validOrders(orders);
         orderRepository.saveAll(orders);
         orderCreated(orders);
     }
 
-    private void validOrders(List<Order> orders) {
-        for (Order order : orders) {
+    private void validOrders(List<OrderLineItem> orders) {
+        for (OrderLineItem order : orders) {
             order.place(itemComparisonValidator);
         }
     }
 
-    private void orderCreated(List<Order> orders) {
-        for (Order order : orders) {
+    private void orderCreated(List<OrderLineItem> orders) {
+        for (OrderLineItem order : orders) {
             order.created();
         }
     }
@@ -62,7 +62,7 @@ public class OrderService {
                 .orElseThrow(NotExistsItemException::new);
 
         //아이템 아이디와 주문 번호로 찾아옴.
-        Order order = orderRepository.findOrderByOrderIdAndItemId(dto.getOrderId(), dto.getItemId())
+        OrderLineItem order = orderRepository.findOrderByOrderIdAndItemId(dto.getOrderId(), dto.getItemId())
                 .orElseThrow(NotExistsOrderException::new);
 
         order.updateOrder(dto.getOrderStatus());

@@ -11,7 +11,7 @@ import wayc.backend.integration.IntegrationTest;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
-import wayc.backend.order.domain.Order;
+import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.shop.domain.Item;
@@ -53,7 +53,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
         orderService.createOrder(1L, dtoList);
 
         //then
-        List<Order> result = orderRepository.findAll();
+        List<OrderLineItem> result = orderRepository.findAll();
         assertThat(result.size()).isEqualTo(1);
     }
 
@@ -63,7 +63,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
         //given
         Shop saveShop = shopRepository.save(ShopFactory.create());
         Item saveItem = itemRepository.save(ItemFactory.createItem(saveShop));
-        Order saveOrder = orderRepository.save(OrderFactory.create(saveItem.getId()));
+        OrderLineItem saveOrder = orderRepository.save(OrderFactory.create(saveItem.getId()));
 
 
         //when

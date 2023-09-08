@@ -12,7 +12,7 @@ import wayc.backend.order.application.dto.response.FindOrderResponseDto;
 import wayc.backend.order.application.dto.response.FindOrdersForCustomerResponseDto;
 import wayc.backend.order.application.dto.response.FindOrdersForSellerResponseDto;
 import wayc.backend.order.application.dto.response.FindPagingOrderResponseDto;
-import wayc.backend.order.domain.Order;
+import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.order.domain.repository.OrderDto;
 import wayc.backend.order.domain.repository.PayRepository;
@@ -37,7 +37,7 @@ public class OrderProvider {
 
     public FindPagingOrderResponseDto findCustomerOrders(Long memberId, Integer page) {
         PageRequest paging = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Slice<Order> pagingResult = orderRepository.findOrdersPagingByOrderingMemberId(memberId, paging);
+        Slice<OrderLineItem> pagingResult = orderRepository.findOrdersPagingByOrderingMemberId(memberId, paging);
         List<FindOrdersForCustomerResponseDto> result = pagingResult.stream()
                 .map(order -> {
                     Item item = itemRepository
@@ -53,7 +53,7 @@ public class OrderProvider {
     }
 
     public FindOrderResponseDto findOrder(Long memberId, Long orderId) {
-        Order order = orderRepository.findOrderByOrderId(orderId)
+        OrderLineItem order = orderRepository.findOrderByOrderId(orderId)
                 .orElseThrow(NotExistsOrderException::new);
         Item item = itemRepository.findItemByItemId(order.getItemId())
                 .orElseThrow(NotExistsItemException::new);

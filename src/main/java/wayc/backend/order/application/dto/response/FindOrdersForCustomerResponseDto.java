@@ -3,7 +3,7 @@ package wayc.backend.order.application.dto.response;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.order.domain.Order;
+import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.shop.domain.Item;
 
@@ -42,7 +42,7 @@ public class FindOrdersForCustomerResponseDto {
 
 
 
-    public static FindOrdersForCustomerResponseDto of(Order order, Item item, Integer price) {
+    public static FindOrdersForCustomerResponseDto of(OrderLineItem order, Item item, Integer price) {
         return FindOrdersForCustomerResponseDto
                 .builder()
                 .itemImageUrl(item.getImageUrl())

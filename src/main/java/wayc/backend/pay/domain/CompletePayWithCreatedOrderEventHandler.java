@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.event.EventListener;
 
-import wayc.backend.order.domain.Order;
+import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.order.domain.Pay;
 import wayc.backend.order.domain.event.OrderPayedEvent;
@@ -23,7 +23,7 @@ public class CompletePayWithCreatedOrderEventHandler {
     @EventListener(OrderPayedEvent.class)
     public void handle(OrderPayedEvent event){
 
-        Order order = orderRepository.findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(event.getOrderId(), event.getOrderingMemberId())
+        OrderLineItem order = orderRepository.findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(event.getOrderId(), event.getOrderingMemberId())
                 .orElseThrow(NotExistsOrderException::new);
 
         //TODO: 외부 결제사 연동.

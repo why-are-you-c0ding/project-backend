@@ -10,7 +10,7 @@ import wayc.backend.integration.IntegrationTest;
 import wayc.backend.order.application.OrderProvider;
 import wayc.backend.order.application.dto.response.FindOrderResponseDto;
 import wayc.backend.order.application.dto.response.FindPagingOrderResponseDto;
-import wayc.backend.order.domain.Order;
+import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.Pay;
 import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.order.domain.repository.PayRepository;
@@ -45,7 +45,7 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
         //given
         Shop saveShop = shopRepository.save(ShopFactory.create());
         Item saveItem = itemRepository.save(ItemFactory.createItem(saveShop));
-        Order saveOrder = orderRepository.save(OrderFactory.create(saveItem.getId()));
+        OrderLineItem saveOrder = orderRepository.save(OrderFactory.create(saveItem.getId()));
         payRepository.save(new Pay(saveOrder.getPayment(), saveOrder.getId()));
 
         //when
@@ -63,7 +63,7 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
         //given
         Shop saveShop = shopRepository.save(ShopFactory.create());
         Item saveItem = itemRepository.save(ItemFactory.createItem(saveShop));
-        Order saveOrder = orderRepository.save(OrderFactory.create(saveItem.getId()));
+        OrderLineItem saveOrder = orderRepository.save(OrderFactory.create(saveItem.getId()));
         payRepository.save(new Pay(saveOrder.getPayment(), saveOrder.getId()));
 
         //when
@@ -80,7 +80,7 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
         //given
         Shop saveShop = shopRepository.save(ShopFactory.create());
         Item saveItem = itemRepository.save(ItemFactory.createItem(saveShop));
-        Order saveOrder = orderRepository.save(OrderFactory.create(saveItem.getId()));
+        OrderLineItem saveOrder = orderRepository.save(OrderFactory.create(saveItem.getId()));
         payRepository.save(new Pay(saveOrder.getPayment(), saveOrder.getId()));
 
         //when

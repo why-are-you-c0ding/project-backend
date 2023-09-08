@@ -13,8 +13,8 @@ public class OrderFactory {
 
     private OrderFactory(){}
 
-    public static Order create(Long itemId){
-        return Order.builder()
+    public static OrderLineItem create(Long itemId){
+        return OrderLineItem.builder()
                 .itemId(itemId)
                 .orderStatus(OrderStatus.ONGOING)
                 .count(3)

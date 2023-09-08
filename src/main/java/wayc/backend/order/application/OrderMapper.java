@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionGroupRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionRequestDto;
-import wayc.backend.order.domain.Order;
+import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderOption;
 import wayc.backend.order.domain.OrderOptionGroup;
 import wayc.backend.order.domain.OrderStatus;
@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 @Component
 public class OrderMapper {
 
-    public List<Order> mapFrom(List<CreateOrderRequestDto> dto, Long memberId) {
+    public List<OrderLineItem> mapFrom(List<CreateOrderRequestDto> dto, Long memberId) {
         return dto.stream()
                 .map(orderDto ->
-                        Order.builder()
+                        OrderLineItem.builder()
                                 .itemId(orderDto.getItemId())
                                 .orderingMemberId(memberId)
                                 .name(orderDto.getName())
