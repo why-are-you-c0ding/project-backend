@@ -26,7 +26,7 @@ public class Order extends BaseEntity implements ItemComparator {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "orders_id")
+    @JoinColumn(name = "orders_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderOptionGroup> orderOptionGroups = new ArrayList<>();
 
