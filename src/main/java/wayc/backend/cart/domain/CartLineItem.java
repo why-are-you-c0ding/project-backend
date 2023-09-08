@@ -25,7 +25,7 @@ public class CartLineItem extends BaseEntity implements ItemComparator {
 
     private Long itemId;
 
-    @JoinColumn(name = "cart_id")
+    @JoinColumn(name = "cart_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     @ManyToOne(fetch = FetchType.LAZY)
     private Cart cart;
 

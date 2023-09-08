@@ -20,7 +20,7 @@ public class CartOptionGroup extends BaseEntity implements OptionGroupComparator
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "cart_line_item_id")
+    @JoinColumn(name = "cart_line_item_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     @ManyToOne(fetch = FetchType.LAZY)
     private CartLineItem cartLineItem;
 

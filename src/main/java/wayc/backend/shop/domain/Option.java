@@ -25,7 +25,7 @@ public class Option extends BaseEntity {
 
     private Integer price;
 
-    @JoinColumn(name = "option_group_id")
+    @JoinColumn(name = "option_group_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     @ManyToOne(fetch = FetchType.LAZY)
     private OptionGroup optionGroup;
 
