@@ -12,7 +12,7 @@ import wayc.backend.order.application.dto.response.FindOrderResponseDto;
 import wayc.backend.order.application.dto.response.FindPagingOrderResponseDto;
 import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.Pay;
-import wayc.backend.order.domain.repository.OrderRepository;
+import wayc.backend.order.domain.repository.OrderLineItemRepository;
 import wayc.backend.order.domain.repository.PayRepository;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.Shop;
@@ -31,7 +31,7 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
     private ItemRepository itemRepository;
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderLineItemRepository orderRepository;
 
     @Autowired
     private PayRepository payRepository;

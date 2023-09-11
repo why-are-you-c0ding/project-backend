@@ -15,11 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "orders")
-@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderLineItem extends BaseEntity implements ItemComparator {
 
     @Id
@@ -44,20 +42,16 @@ public class OrderLineItem extends BaseEntity implements ItemComparator {
     @Builder
     public OrderLineItem(Long id,
                          List<OrderOptionGroup> orderOptionGroups,
-                         Long orderingMemberId, Long itemId,
-                         String name, Integer count,
-                         Address address,
-                         OrderStatus orderStatus,
+                         Long itemId,
+                         String name,
+                         Integer count,
                          Integer payment
     ) {
         this.id = id;
         this.orderOptionGroups = orderOptionGroups;
-        this.orderer = new Orderer(orderingMemberId);
         this.itemId = itemId;
         this.name = name;
         this.count = count;
-        this.address = address;
-        this.orderStatus = orderStatus;
         this.payment = payment;
     }
 

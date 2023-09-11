@@ -17,11 +17,11 @@ import wayc.backend.factory.Item.ItemFactory;
 import wayc.backend.factory.order.OrderFactory;
 import wayc.backend.order.application.OrderMapper;
 import wayc.backend.order.application.OrderService;
-import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
+import wayc.backend.order.application.dto.request.CreateOrderLineItemRequestDto;
 import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
 import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderStatus;
-import wayc.backend.order.domain.repository.OrderRepository;
+import wayc.backend.order.domain.repository.OrderLineItemRepository;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.command.ItemRepository;
 import wayc.backend.shop.domain.valid.ItemComparisonValidator;
@@ -41,7 +41,7 @@ public class OrderServiceTest extends UnitTest {
     private ItemRepository itemRepository;
 
     @Mock
-    private OrderRepository orderRepository;
+    private OrderLineItemRepository orderRepository;
 
     private MockedStatic<Events> mockEvents;
 
@@ -63,7 +63,7 @@ public class OrderServiceTest extends UnitTest {
 
         //given
         Item item = ItemFactory.createMacBook();
-        List<CreateOrderRequestDto> dtoList = OrderFactory.createSuccessCaseMackBookDto();
+        List<CreateOrderLineItemRequestDto> dtoList = OrderFactory.createSuccessCaseMackBookDto();
         given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
 
         //when
@@ -80,7 +80,7 @@ public class OrderServiceTest extends UnitTest {
 
         //given
         Item item = ItemFactory.createMacBook();
-        List<CreateOrderRequestDto> dtoList = OrderFactory.createFailCase1CaseMackBookDto();
+        List<CreateOrderLineItemRequestDto> dtoList = OrderFactory.createFailCase1CaseMackBookDto();
         given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
 
         //when
@@ -98,7 +98,7 @@ public class OrderServiceTest extends UnitTest {
 
         //given
         Item item = ItemFactory.createMacBook();
-        List<CreateOrderRequestDto> dtoList = OrderFactory.createFailCase2CaseMackBookDto();
+        List<CreateOrderLineItemRequestDto> dtoList = OrderFactory.createFailCase2CaseMackBookDto();
         given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
 
         //when
@@ -117,7 +117,7 @@ public class OrderServiceTest extends UnitTest {
 
         //given
         Item item = ItemFactory.createMacBook();
-        List<CreateOrderRequestDto> dtoList = OrderFactory.createFailCase3CaseMackBookDto();
+        List<CreateOrderLineItemRequestDto> dtoList = OrderFactory.createFailCase3CaseMackBookDto();
         given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
 
         //when

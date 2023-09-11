@@ -13,7 +13,7 @@ import wayc.backend.order.application.dto.response.FindOrdersForCustomerResponse
 import wayc.backend.order.application.dto.response.FindOrdersForSellerResponseDto;
 import wayc.backend.order.application.dto.response.FindPagingOrderResponseDto;
 import wayc.backend.order.domain.OrderLineItem;
-import wayc.backend.order.domain.repository.OrderRepository;
+import wayc.backend.order.domain.repository.OrderLineItemRepository;
 import wayc.backend.order.domain.repository.OrderDto;
 import wayc.backend.order.domain.repository.PayRepository;
 import wayc.backend.order.exception.NotExistsOrderException;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class OrderProvider {
 
-    private final OrderRepository orderRepository;
+    private final OrderLineItemRepository orderRepository;
     private final ItemRepository itemRepository;
     private final PayRepository payRepository;
 

@@ -3,7 +3,7 @@ package wayc.backend.pay.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import wayc.backend.order.domain.repository.OrderRepository;
+import wayc.backend.order.domain.repository.OrderLineItemRepository;
 import wayc.backend.order.domain.repository.PayRepository;
 
 @RequiredArgsConstructor
@@ -11,6 +11,6 @@ import wayc.backend.order.domain.repository.PayRepository;
 public class PayService {
 
     private final PayRepository payRepository;
-    private final OrderRepository orderRepository;
+    private final OrderLineItemRepository orderRepository;
 }
 

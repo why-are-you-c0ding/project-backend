@@ -1,46 +1,51 @@
 package wayc.backend.order.application;
 
 import org.springframework.stereotype.Component;
-import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
+import wayc.backend.order.application.dto.request.CreateOrderLineItemRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionGroupRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionRequestDto;
-import wayc.backend.order.domain.OrderLineItem;
-import wayc.backend.order.domain.OrderOption;
-import wayc.backend.order.domain.OrderOptionGroup;
-import wayc.backend.order.domain.OrderStatus;
+import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
+import wayc.backend.order.domain.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class OrderMapper {
 
-    public List<OrderLineItem> mapFrom(List<CreateOrderRequestDto> dto, Long memberId) {
-        return dto.stream()
-                .map(orderDto ->
+    public Order mapFrom(CreateOrderRequestDto dto) {
+        return new Order(
+                toOrderLineItem(dto),
+                dto.toAddress(),
+                OrderStatus.BEFORE_PAY,
+                new Orderer(dto.getOrdererId())
+        );
+    }
+
+    private List<OrderLineItem> toOrderLineItem(CreateOrderRequestDto dto) {
+        return dto
+                .getOrderLineItems()
+                .stream()
+                .map(orderLineItem ->
                         OrderLineItem.builder()
-                                .itemId(orderDto.getItemId())
-                                .orderingMemberId(memberId)
-                                .name(orderDto.getName())
-                                .count(orderDto.getCount())
-                                .address(orderDto.toAddress())
-                                .orderStatus(OrderStatus.BEFORE_PAY)
-                                .payment(orderDto.getPayment())
-                                .orderOptionGroups(orderDto
-                                        .getOrderOptionGroupsDto()
-                                        .stream()
-                                        .map(orderOptionGroupDto -> toOrderOptionGroup(orderOptionGroupDto))
-                                        .collect(Collectors.toList()))
+                                .itemId(orderLineItem.getItemId())
+                                .name(orderLineItem.getName())
+                                .count(orderLineItem.getCount())
+                                .payment(orderLineItem.getPayment())
+                                .orderOptionGroups(
+                                        orderLineItem.getOrderOptionGroups()
+                                                .stream()
+                                                .map(orderOptionGroupDto -> toOrderOptionGroup(orderOptionGroupDto))
+                                                .collect(Collectors.toList()))
                                 .build()
                 )
                 .collect(Collectors.toList());
     }
 
+
     private OrderOptionGroup toOrderOptionGroup(CreateOrderOptionGroupRequestDto dto) {
-        return new OrderOptionGroup(
-                toOrderOption(dto.getOrderOptionsDto()),
-                dto.getName()
-        );
+        return new OrderOptionGroup(toOrderOption(dto.getOrderOptionsDto()), dto.getName());
     }
 
     private OrderOption toOrderOption(CreateOrderOptionRequestDto dto) {

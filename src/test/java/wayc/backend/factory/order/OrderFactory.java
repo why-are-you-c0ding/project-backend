@@ -3,7 +3,7 @@ package wayc.backend.factory.order;
 import wayc.backend.order.application.dto.request.CreateAddressRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionGroupRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionRequestDto;
-import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
+import wayc.backend.order.application.dto.request.CreateOrderLineItemRequestDto;
 import wayc.backend.order.domain.*;
 
 import java.util.List;
@@ -29,9 +29,9 @@ public class OrderFactory {
                 .build();
     }
 
-    public static List<CreateOrderRequestDto> createSuccessCaseMackBookDto(){
+    public static List<CreateOrderLineItemRequestDto> createSuccessCaseMackBookDto(){
         return List.of(
-                new CreateOrderRequestDto(
+                new CreateOrderLineItemRequestDto(
                         1L,
                         "맥북",
                         3,
@@ -52,9 +52,9 @@ public class OrderFactory {
     }
 
 
-    public static List<CreateOrderRequestDto> createFailCase1CaseMackBookDto(){
+    public static List<CreateOrderLineItemRequestDto> createFailCase1CaseMackBookDto(){
         return List.of(
-                new CreateOrderRequestDto(
+                new CreateOrderLineItemRequestDto(
                         1L,
                         "맥북",
                         3,
@@ -74,9 +74,9 @@ public class OrderFactory {
         );
     }
 
-    public static List<CreateOrderRequestDto> createFailCase2CaseMackBookDto(){
+    public static List<CreateOrderLineItemRequestDto> createFailCase2CaseMackBookDto(){
         return List.of(
-                new CreateOrderRequestDto(
+                new CreateOrderLineItemRequestDto(
                         1L,
                         "맥북1",
                         3,
@@ -96,9 +96,9 @@ public class OrderFactory {
         );
     }
 
-    public static List<CreateOrderRequestDto> createFailCase3CaseMackBookDto(){
+    public static List<CreateOrderLineItemRequestDto> createFailCase3CaseMackBookDto(){
         return List.of(
-                new CreateOrderRequestDto(
+                new CreateOrderLineItemRequestDto(
                         1L,
                         "맥북",
                         3,
@@ -118,16 +118,16 @@ public class OrderFactory {
         );
     }
 
-    public static List<CreateOrderRequestDto> createServiceDto(){
+    public static List<CreateOrderLineItemRequestDto> createServiceDto(){
         return CreateOrderRequestFactory.createSuccessCase()
                 .stream()
                 .map(dto -> dto.toServiceDto())
                 .collect(Collectors.toList());
     }
 
-    public static List<CreateOrderRequestDto> createSuccessCaseMackBookDtoWithId(Long itemId){
+    public static List<CreateOrderLineItemRequestDto> createSuccessCaseMackBookDtoWithId(Long itemId){
         return List.of(
-                new CreateOrderRequestDto(
+                new CreateOrderLineItemRequestDto(
                         itemId,
                         "맥북",
                         3,

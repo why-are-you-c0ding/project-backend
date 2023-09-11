@@ -9,7 +9,7 @@ import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderStatus;
 import wayc.backend.order.domain.Pay;
 import wayc.backend.order.domain.event.OrderPayedEvent;
-import wayc.backend.order.domain.repository.OrderRepository;
+import wayc.backend.order.domain.repository.OrderLineItemRepository;
 import wayc.backend.order.domain.repository.PayRepository;
 import wayc.backend.order.exception.NotExistsOrderException;
 
@@ -17,7 +17,7 @@ import wayc.backend.order.exception.NotExistsOrderException;
 @RequiredArgsConstructor
 public class CompletePayWithCreatedOrderEventHandler {
 
-    private final OrderRepository orderRepository;
+    private final OrderLineItemRepository orderRepository;
     private final PayRepository payRepository;
 
     @EventListener(OrderPayedEvent.class)

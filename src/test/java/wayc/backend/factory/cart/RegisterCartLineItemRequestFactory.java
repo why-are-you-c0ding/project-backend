@@ -3,10 +3,8 @@ package wayc.backend.factory.cart;
 import wayc.backend.cart.presentation.dto.request.RegisterCartLineItemRequest;
 import wayc.backend.cart.presentation.dto.request.RegisterCartOptionGroupRequest;
 import wayc.backend.cart.presentation.dto.request.RegisterCartOptionRequest;
-import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class RegisterCartLineItemRequestFactory {
 

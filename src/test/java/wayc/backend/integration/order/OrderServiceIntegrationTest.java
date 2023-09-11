@@ -9,11 +9,11 @@ import wayc.backend.factory.order.OrderFactory;
 import wayc.backend.factory.shop.ShopFactory;
 import wayc.backend.integration.IntegrationTest;
 import wayc.backend.order.application.OrderService;
-import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
+import wayc.backend.order.application.dto.request.CreateOrderLineItemRequestDto;
 import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
 import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderStatus;
-import wayc.backend.order.domain.repository.OrderRepository;
+import wayc.backend.order.domain.repository.OrderLineItemRepository;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.Shop;
 import wayc.backend.shop.domain.command.ItemRepository;
@@ -30,7 +30,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     private OrderService orderService;
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderLineItemRepository orderRepository;
 
     @Autowired
     private ShopRepository shopRepository;
@@ -47,7 +47,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
 
         //given
         Item saveItem = itemRepository.save(ItemFactory.createMacBook());
-        List<CreateOrderRequestDto> dtoList = OrderFactory.createSuccessCaseMackBookDtoWithId(saveItem.getId());
+        List<CreateOrderLineItemRequestDto> dtoList = OrderFactory.createSuccessCaseMackBookDtoWithId(saveItem.getId());
 
         //when
         orderService.createOrder(1L, dtoList);
