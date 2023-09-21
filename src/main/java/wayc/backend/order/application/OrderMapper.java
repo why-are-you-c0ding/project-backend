@@ -18,8 +18,8 @@ public class OrderMapper {
         return new Order(
                 toOrderLineItem(dto),
                 dto.toAddress(),
-                OrderStatus.BEFORE_PAY,
-                new Orderer(dto.getOrdererId())
+                new Orderer(dto.getOrdererId()),
+                dto.getTotalPayment()
         );
     }
 

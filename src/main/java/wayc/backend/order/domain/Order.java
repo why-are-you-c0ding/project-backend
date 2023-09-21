@@ -3,6 +3,10 @@ package wayc.backend.order.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.event.Events;
+import wayc.backend.order.domain.event.OrderPayedEvent;
+import wayc.backend.order.domain.event.TookOutStockEvent;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Order {
+public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,20 +28,19 @@ public class Order {
     @Embedded
     private Address address;
 
-    @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
-
     @Embedded
     private Orderer orderer;
 
-    public Order(List<OrderLineItem> orderLineItems, Address address, OrderStatus orderStatus, Orderer orderer) {
+    private Integer totalPayment;
+
+    public Order(List<OrderLineItem> orderLineItems, Address address, Orderer orderer, Integer totalPayment) {
         this.orderLineItems = orderLineItems;
         this.address = address;
-        this.orderStatus = orderStatus;
         this.orderer = orderer;
+        this.totalPayment = totalPayment;
     }
 
     public void created() {
-
+        Events.raise(new OrderPayedEvent(orderer.getMemberId(), id, totalPayment));
     }
 }

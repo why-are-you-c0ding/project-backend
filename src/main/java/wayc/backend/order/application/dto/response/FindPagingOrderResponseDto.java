@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 public class FindPagingOrderResponseDto <T> {
 
-
     private boolean finalPage;
     private List<T> orders;
 

@@ -22,10 +22,14 @@ public class CreateOrderRequest {
     @NotNull
     private CreateAddressRequest address;
 
+    private Integer totalPayment;
+
     public CreateOrderRequest(List<CreateOrderLineItemRequest> orderLineItems,
-                              CreateAddressRequest address) {
+                              CreateAddressRequest address,
+                              Integer totalPayment) {
         this.orderLineItems = orderLineItems;
         this.address = address;
+        this.totalPayment = totalPayment;
     }
 
     public CreateOrderRequestDto toServiceDto(Long ordererId){
@@ -34,7 +38,8 @@ public class CreateOrderRequest {
                         .map(itemDto -> itemDto.toServiceDto())
                         .collect(Collectors.toList()),
                 address.toServiceDto(),
-                ordererId
+                ordererId,
+                totalPayment
         );
     }
 }

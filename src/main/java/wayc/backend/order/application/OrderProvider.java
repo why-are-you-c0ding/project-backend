@@ -31,13 +31,13 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class OrderProvider {
 
-    private final OrderLineItemRepository orderRepository;
+    private final OrderLineItemRepository orderLineItemRepository;
     private final ItemRepository itemRepository;
     private final PayRepository payRepository;
 
     public FindPagingOrderResponseDto findCustomerOrders(Long memberId, Integer page) {
         PageRequest paging = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Slice<OrderLineItem> pagingResult = orderRepository.findOrdersPagingByOrderingMemberId(memberId, paging);
+        Slice<OrderLineItem> pagingResult = orderLineItemRepository.findOrdersPagingByOrderingMemberId(memberId, paging);
         List<FindOrdersForCustomerResponseDto> result = pagingResult.stream()
                 .map(order -> {
                     Item item = itemRepository
@@ -53,7 +53,7 @@ public class OrderProvider {
     }
 
     public FindOrderResponseDto findOrder(Long memberId, Long orderId) {
-        OrderLineItem order = orderRepository.findOrderByOrderId(orderId)
+        OrderLineItem order = orderLineItemRepository.findOrderLineItemById(orderId)
                 .orElseThrow(NotExistsOrderException::new);
         Item item = itemRepository.findItemByItemId(order.getItemId())
                 .orElseThrow(NotExistsItemException::new);
@@ -65,7 +65,7 @@ public class OrderProvider {
 
     public FindPagingOrderResponseDto findSellerOrders(Long memberId, Integer page) {
         PageRequest paging = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "created_at"));
-        Page<OrderDto> pagingResult = orderRepository.findOrdersPagingByOwnerId(memberId, paging);
+        Page<OrderDto> pagingResult = orderLineItemRepository.findOrdersPagingByOwnerId(memberId, paging);
         List<FindOrdersForSellerResponseDto> result = pagingResult.stream()
                 .map(dto -> FindOrdersForSellerResponseDto.of(dto))
                 .collect(Collectors.toList());

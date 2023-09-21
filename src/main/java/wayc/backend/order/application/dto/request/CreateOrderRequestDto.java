@@ -12,13 +12,16 @@ public class CreateOrderRequestDto {
     private final List<CreateOrderLineItemRequestDto> orderLineItems;
     private final CreateAddressRequestDto address;
     private final Long ordererId;
+    private final Integer totalPayment;
 
     public CreateOrderRequestDto(List<CreateOrderLineItemRequestDto> orderLineItems,
                                  CreateAddressRequestDto address,
-                                 Long ordererId) {
+                                 Long ordererId,
+                                 Integer totalPayment) {
         this.orderLineItems = orderLineItems;
         this.address = address;
         this.ordererId = ordererId;
+        this.totalPayment = totalPayment;
     }
 
     public Address toAddress(){

@@ -21,16 +21,23 @@ public class FindOrderResponseDto {
     private Integer count;
     private OrderStatus orderStatus;
     private Address address;
-
     private String shopName;
     private Long shopId;
     private Integer price;
-
-    private List<FindOrderOptionGroupResponseDto> orderOptionGroups = new ArrayList<>();
+    private List<FindOrderOptionGroupResponseDto> orderOptionGroups;
 
     @Builder
-    public FindOrderResponseDto(Long orderId, Long itemId, String itemName, String itemImageUrl, Integer count, Integer price,
-                                OrderStatus orderStatus, Address address, String shopName, Long shopId, List<FindOrderOptionGroupResponseDto> orderOptionGroups) {
+    public FindOrderResponseDto(Long orderId,
+                                Long itemId,
+                                String itemName,
+                                String itemImageUrl,
+                                Integer count,
+                                Integer price,
+                                OrderStatus orderStatus,
+                                Address address,
+                                String shopName,
+                                Long shopId,
+                                List<FindOrderOptionGroupResponseDto> orderOptionGroups) {
         this.orderId = orderId;
         this.itemId = itemId;
         this.itemName = itemName;
@@ -44,20 +51,20 @@ public class FindOrderResponseDto {
         this.price = price;
     }
 
-    public static FindOrderResponseDto of(OrderLineItem order, Item item, Integer price) {
+    public static FindOrderResponseDto of(OrderLineItem orderLineItem, Item item, Integer price) {
         return FindOrderResponseDto.builder()
                 .shopId(item.getShop().getId())
                 .shopName(item.getShop().getShopName())
-                .orderId(order.getId())
-                .itemId(order.getItemId())
-                .itemName(order.getName())
+                .orderId(orderLineItem.getId())
+                .itemId(orderLineItem.getItemId())
+                .itemName(orderLineItem.getName())
                 .itemImageUrl(item.getImageUrl())
-                .count(order.getCount())
-                .orderStatus(order.getOrderStatus())
-                .address(order.getAddress())
+                .count(orderLineItem.getCount())
+                .orderStatus(orderLineItem.getOrderStatus())
+                //.address(orderLineItem.getAddress())
                 .price(price)
                 .orderOptionGroups(
-                        order.getOrderOptionGroups()
+                        orderLineItem.getOrderOptionGroups()
                                 .stream()
                                 .map(optionGroup ->
                                         new FindOrderOptionGroupResponseDto(

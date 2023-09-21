@@ -14,7 +14,8 @@ import java.util.Optional;
 @Repository
 public interface OrderLineItemRepository extends JpaRepository<OrderLineItem, Long> {
 
-    @Query("select o from OrderLineItem o where o.orderer.memberId =:memberId and o.status = 'ACTIVE'")
+//    @Query("select o from OrderLineItem o where o.orderer.memberId =:memberId and o.status = 'ACTIVE'")
+    @Query("select o from OrderLineItem o where o.status = 'ACTIVE'")
     Slice<OrderLineItem> findOrdersPagingByOrderingMemberId(Long memberId, Pageable pageable);
 
     @Query(nativeQuery = true,
@@ -31,13 +32,13 @@ public interface OrderLineItemRepository extends JpaRepository<OrderLineItem, Lo
 
     //일대다 컬렉션 페치 조인을 하게 되면 데이터 뻥튀기가 발생하는데 이를 막기 위해 distinct 사용
     @Query("select distinct o from OrderLineItem o join fetch o.orderOptionGroups where o.id = :orderId and o.status = 'ACTIVE'")
-    Optional<OrderLineItem> findOrderByOrderId(Long orderId);
+    Optional<OrderLineItem> findOrderLineItemById(Long orderId);
 
-    @Query("select o from OrderLineItem o  where o.id = :orderId and o.orderer.memberId = :memberId and o.orderStatus = 'BEFORE_PAY' and o.status = 'ACTIVE'")
-    Optional<OrderLineItem> findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(Long orderId, Long memberId);
+//    @Query("select o from OrderLineItem o  where o.id = :orderId and o.orderer.memberId = :memberId and o.orderStatus = 'BEFORE_PAY' and o.status = 'ACTIVE'")
+//    Optional<OrderLineItem> findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(Long orderId, Long memberId);
 
-    @Query("select o from OrderLineItem o where o.id = :orderId and o.itemId = :itemId and o.status = 'ACTIVE'")
-    Optional<OrderLineItem> findOrderByOrderIdAndItemId(Long orderId, Long itemId);
+    @Query("select olt from OrderLineItem olt where olt.id = :orderLineItemId and olt.itemId = :itemId and olt.status = 'ACTIVE'")
+    Optional<OrderLineItem> findOrderByOrderIdAndItemId(Long orderLineItemId, Long itemId);
 }
 
 

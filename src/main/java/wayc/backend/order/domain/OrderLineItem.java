@@ -39,6 +39,9 @@ public class OrderLineItem extends BaseEntity implements ItemComparator {
 
     private Integer payment;
 
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
     @Builder
     public OrderLineItem(Long id,
                          List<OrderOptionGroup> orderOptionGroups,
@@ -59,18 +62,6 @@ public class OrderLineItem extends BaseEntity implements ItemComparator {
         this.orderStatus = orderStatus;
     }
 
-    public void created() {
-        Events.raise(new OrderPayedEvent(orderer.getMemberId(), id, payment));
-        Events.raise(new TookOutStockEvent(count, extractOptionGroupIdList()));
-    }
-
-    private List<Long> extractOptionGroupIdList() {
-        return orderOptionGroups.stream().map(OrderOptionGroup::getId).collect(Collectors.toList());
-    }
-
-    public void place(ItemComparisonValidator<OrderLineItem> itemComparisonValidator){
-        itemComparisonValidator.validate(this);
-    }
 
     @Override
     public List<OptionGroupComparator> getComparisonOrderOptionGroups() {

@@ -27,6 +27,7 @@ public class OrderService {
 
     private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
+    private final OrderLineItemRepository orderLineItemRepository;
     private final OrderMapper orderMapper;
     private final OrderValidator orderValidator;
 
@@ -46,7 +47,7 @@ public class OrderService {
                 .orElseThrow(NotExistsItemException::new);
 
         //아이템 아이디와 주문 번호로 찾아옴.
-        OrderLineItem order = orderRepository.findOrderByOrderIdAndItemId(dto.getOrderId(), dto.getItemId())
+        OrderLineItem order = orderLineItemRepository.findOrderByOrderIdAndItemId(dto.getOrderId(), dto.getItemId())
                 .orElseThrow(NotExistsOrderException::new);
 
         order.updateOrder(dto.getOrderStatus());
