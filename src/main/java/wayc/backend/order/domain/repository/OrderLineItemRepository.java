@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import wayc.backend.order.domain.OrderLineItem;
+import wayc.backend.order.domain.repository.query.dto.OrderDto;
 
 import java.util.Optional;
 
@@ -34,23 +35,7 @@ public interface OrderLineItemRepository extends JpaRepository<OrderLineItem, Lo
     @Query("select distinct o from OrderLineItem o join fetch o.orderOptionGroups where o.id = :orderId and o.status = 'ACTIVE'")
     Optional<OrderLineItem> findOrderLineItemById(Long orderId);
 
-//    @Query("select o from OrderLineItem o  where o.id = :orderId and o.orderer.memberId = :memberId and o.orderStatus = 'BEFORE_PAY' and o.status = 'ACTIVE'")
-//    Optional<OrderLineItem> findOrderByOrderIdAndOrderingMemberIdAndOrderStatus(Long orderId, Long memberId);
-
     @Query("select olt from OrderLineItem olt where olt.id = :orderLineItemId and olt.itemId = :itemId and olt.status = 'ACTIVE'")
-    Optional<OrderLineItem> findOrderByOrderIdAndItemId(Long orderLineItemId, Long itemId);
+    Optional<OrderLineItem> findOrderLineItemByIdAndItemId(Long orderLineItemId, Long itemId);
 }
-
-
-
-/**
- * select * from orders as o
- * join( select i.id from item i where i.shop_id =
- *                                    (select shop.id from shop where shop.owner_id =:ownerId) )
- *     as i on i.id = o.item_id
- * where o.status = 'ACTIVE' order by o.created_at desc limit :page, 10
- *
- *
- * https://www.baeldung.com/spring-data-jpa-query
- */
 

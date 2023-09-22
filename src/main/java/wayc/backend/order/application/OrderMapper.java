@@ -38,6 +38,7 @@ public class OrderMapper {
                                                 .stream()
                                                 .map(orderOptionGroupDto -> toOrderOptionGroup(orderOptionGroupDto))
                                                 .collect(Collectors.toList()))
+                                .orderLineItemStatus(OrderLineItemStatus.ORDER_ACCEPTED)
                                 .build()
                 )
                 .collect(Collectors.toList());

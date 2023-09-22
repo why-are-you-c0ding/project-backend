@@ -8,13 +8,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
-import wayc.backend.order.application.dto.response.FindOrderResponseDto;
-import wayc.backend.order.application.dto.response.FindOrdersForCustomerResponseDto;
-import wayc.backend.order.application.dto.response.FindOrdersForSellerResponseDto;
-import wayc.backend.order.application.dto.response.FindPagingOrderResponseDto;
+import wayc.backend.order.domain.repository.query.dto.FindOrderResponseDto;
+import wayc.backend.order.domain.repository.query.dto.FindOrdersForCustomerResponseDto;
+import wayc.backend.order.domain.repository.query.dto.FindOrdersForSellerResponseDto;
+import wayc.backend.order.domain.repository.query.dto.FindPagingOrderResponseDto;
 import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.repository.OrderLineItemRepository;
-import wayc.backend.order.domain.repository.OrderDto;
+import wayc.backend.order.domain.repository.query.dto.OrderDto;
+import wayc.backend.order.domain.repository.query.OrderQueryRepository;
 import wayc.backend.order.domain.repository.PayRepository;
 import wayc.backend.order.exception.NotExistsOrderException;
 import wayc.backend.order.exception.NotExistsPayException;
@@ -31,28 +32,16 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class OrderProvider {
 
+    private final OrderQueryRepository orderQueryRepository;
     private final OrderLineItemRepository orderLineItemRepository;
     private final ItemRepository itemRepository;
     private final PayRepository payRepository;
 
-    public FindPagingOrderResponseDto findCustomerOrders(Long memberId, Integer page) {
-        PageRequest paging = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Slice<OrderLineItem> pagingResult = orderLineItemRepository.findOrdersPagingByOrderingMemberId(memberId, paging);
-        List<FindOrdersForCustomerResponseDto> result = pagingResult.stream()
-                .map(order -> {
-                    Item item = itemRepository
-                            .findItemByItemId(order.getItemId())
-                            .orElseThrow(NotExistsItemException::new);  //쿼리를 쪼개니까 문제가 발생함. item이 null일 때
-                    Integer price = payRepository.findPayPriceByOrderId(order.getId())
-                            .orElseThrow(NotExistsPayException::new);
-                    return FindOrdersForCustomerResponseDto.of(order, item, price);
-                })
-                .collect(Collectors.toList());
-        ;
-        return new FindPagingOrderResponseDto(pagingResult.isLast(), result);
+    public FindPagingOrderResponseDto findCustomerOrders(Long memberId, Integer lastOrderLineItemId) {
+        return orderQueryRepository.findCustomerOrdersWithPaging(memberId, lastOrderLineItemId);
     }
 
-    public FindOrderResponseDto findOrder(Long memberId, Long orderId) {
+    public FindOrderResponseDto findDetailOrderLineItem(Long memberId, Long orderId) {
         OrderLineItem order = orderLineItemRepository.findOrderLineItemById(orderId)
                 .orElseThrow(NotExistsOrderException::new);
         Item item = itemRepository.findItemByItemId(order.getItemId())
@@ -60,7 +49,7 @@ public class OrderProvider {
         Integer price = payRepository.findPayPriceByOrderId(order.getId())
                 .orElseThrow(NotExistsPayException::new);
 
-        return FindOrderResponseDto.of(order, item, price);
+        return null;
     }
 
     public FindPagingOrderResponseDto findSellerOrders(Long memberId, Integer page) {

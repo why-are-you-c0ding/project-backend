@@ -7,12 +7,13 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import wayc.backend.common.WithMockSeller;
+import wayc.backend.factory.order.CreateOrderLineItemRequestFactory;
 import wayc.backend.factory.order.CreateOrderRequestFactory;
-import wayc.backend.factory.order.FindOrderResponseDtoFactory;
-import wayc.backend.factory.order.FindPagingOrderResponseDtoFactory;
-import wayc.backend.order.application.dto.response.FindOrderResponseDto;
-import wayc.backend.order.application.dto.response.FindPagingOrderResponseDto;
-import wayc.backend.order.domain.OrderStatus;
+import wayc.backend.factory.order.query.FindOrderResponseDtoFactory;
+import wayc.backend.factory.order.query.FindPagingOrderResponseDtoFactory;
+import wayc.backend.order.domain.OrderLineItemStatus;
+import wayc.backend.order.domain.repository.query.dto.FindOrderResponseDto;
+import wayc.backend.order.domain.repository.query.dto.FindPagingOrderResponseDto;
 import wayc.backend.order.presentation.dto.request.UpdateOrderRequest;
 import wayc.backend.order.presentation.dto.request.CreateOrderRequest;
 import wayc.backend.unit.presentation.ControllerTest;
@@ -37,7 +38,7 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void create_order() throws Exception {
         //given
-        List<CreateOrderRequest> req = CreateOrderRequestFactory.createSuccessCase();
+        CreateOrderRequest req = CreateOrderRequestFactory.createSuccessCase();
         String value = mapper.writeValueAsString(req);
 
         //when
@@ -157,7 +158,7 @@ public class OrderControllerTest extends ControllerTest {
     void show_order() throws Exception {
         //given
         FindOrderResponseDto res = FindOrderResponseDtoFactory.createSuccessCase();
-        given(orderProvider.findOrder(Mockito.any(Long.class), Mockito.any(Long.class))).willReturn(res);
+        given(orderProvider.findDetailOrderLineItem(Mockito.any(Long.class), Mockito.any(Long.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/{orderId}",3)
@@ -201,7 +202,7 @@ public class OrderControllerTest extends ControllerTest {
     @WithMockSeller
     void update_order() throws Exception {
         //given
-        UpdateOrderRequest req = new UpdateOrderRequest(2L, 3L, OrderStatus.COMPLETED);
+        UpdateOrderRequest req = new UpdateOrderRequest(2L, 3L, OrderLineItemStatus.PREPARING_FOR_DELIVERY);
         String value = mapper.writeValueAsString(req);
 
         //when

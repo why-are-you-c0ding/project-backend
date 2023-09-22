@@ -1,8 +1,10 @@
-package wayc.backend.factory.order;
+package wayc.backend.factory.order.query;
 
-import wayc.backend.order.application.dto.response.*;
 import wayc.backend.order.domain.Address;
-import wayc.backend.order.domain.OrderStatus;
+import wayc.backend.order.domain.OrderLineItemStatus;
+import wayc.backend.order.domain.repository.query.dto.FindOrderOptionGroupResponseDto;
+import wayc.backend.order.domain.repository.query.dto.FindOrderOptionResponseDto;
+import wayc.backend.order.domain.repository.query.dto.FindOrderResponseDto;
 
 import java.util.Arrays;
 
@@ -11,11 +13,11 @@ public class FindOrderResponseDtoFactory {
     public static FindOrderResponseDto createSuccessCase(){
 
         FindOrderOptionGroupResponseDto optionGroup_1 = new FindOrderOptionGroupResponseDto(
-                "ram", new FindOrderOptionResponseDto("16GB")
+                "ram", "16GB"
         );
 
         FindOrderOptionGroupResponseDto optionGroup_2 = new FindOrderOptionGroupResponseDto(
-                "ssd", new FindOrderOptionResponseDto("512GB")
+                "ssd", "512GB"
         );
 
         return  FindOrderResponseDto
@@ -25,7 +27,7 @@ public class FindOrderResponseDtoFactory {
                 .itemName("맥북")
                 .itemImageUrl("www.google.com")
                 .count(3)
-                .orderStatus(OrderStatus.ONGOING)
+                .orderStatus(OrderLineItemStatus.ORDER_ACCEPTED)
                 .address(
                         new Address("서울 중랑구 동일로 756", "999동 999호", "02020")
                 )

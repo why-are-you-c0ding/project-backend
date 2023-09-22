@@ -1,27 +1,39 @@
 package wayc.backend.factory.order;
 
-import wayc.backend.order.presentation.dto.request.CreateAddressRequest;
-import wayc.backend.order.presentation.dto.request.CreateOrderRequest;
-import wayc.backend.order.presentation.dto.request.CreateOrderOptionGroupRequest;
-import wayc.backend.order.presentation.dto.request.CreateOrderOptionRequest;
+import wayc.backend.order.presentation.dto.request.*;
+import wayc.backend.shop.domain.Item;
+import wayc.backend.shop.domain.Option;
+import wayc.backend.shop.domain.OptionGroup;
 
-
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CreateOrderRequestFactory {
 
-    public static List<CreateOrderRequest> createSuccessCase(){
+    private CreateOrderRequestFactory() {}
 
-        CreateOrderOptionRequest option1 = new CreateOrderOptionRequest("white", 1000);
-        CreateOrderOptionRequest option4 = new CreateOrderOptionRequest("large", 4000);
+    public static CreateOrderRequest createSuccessCase(){
+        List<CreateOrderLineItemRequest> orderLineItems = CreateOrderLineItemRequestFactory.createSuccessCase();
+        CreateAddressRequest address = CreateAddressRequestFactory.create();
+        return new CreateOrderRequest(orderLineItems, address, 45000);
+    }
 
-        CreateOrderOptionGroupRequest color = new CreateOrderOptionGroupRequest("color", option1);
-        CreateOrderOptionGroupRequest sizee = new CreateOrderOptionGroupRequest("sizee", option4);
+    public static CreateOrderRequest createOrderRequest(List<Item> items) {
+        CreateAddressRequest address = CreateAddressRequestFactory.create();
+        List<CreateOrderLineItemRequest> list = new ArrayList<>();
+        for (Item item : items) {
+            List<CreateOrderOptionGroupRequest> list2 = new ArrayList<>();
+            for (OptionGroup optionGroup : item.getOptionGroups()) {
+                Option option = optionGroup.getOptions().get(0);
+                CreateOrderOptionRequest optionRequest = new CreateOrderOptionRequest(option.getName(), option.getPrice());
+                list2.add(new CreateOrderOptionGroupRequest(optionGroup.getName(), optionRequest));
+            }
+            list.add(new CreateOrderLineItemRequest(item.getId(), item.getName(), 2, item.getPrice(), list2));
+        }
 
-        CreateAddressRequest address = new CreateAddressRequest("서울특별시 멋진구 멋진동", "멋진아파트 111동 111호", "01099");
-
-        return Arrays.asList(new CreateOrderRequest(1L, "멋쟁이 옷", 3, 40000,Arrays.asList(color, sizee), address));
+        return new CreateOrderRequest(list, address, 100000);
     }
 }
 

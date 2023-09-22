@@ -37,6 +37,7 @@ public class OrderService {
         orderValidator.validate(order);
         orderRepository.save(order);
         order.created();
+        order.completePay();
     }
 
 
@@ -47,7 +48,7 @@ public class OrderService {
                 .orElseThrow(NotExistsItemException::new);
 
         //아이템 아이디와 주문 번호로 찾아옴.
-        OrderLineItem order = orderLineItemRepository.findOrderByOrderIdAndItemId(dto.getOrderId(), dto.getItemId())
+        OrderLineItem order = orderLineItemRepository.findOrderLineItemByIdAndItemId(dto.getOrderId(), dto.getItemId())
                 .orElseThrow(NotExistsOrderException::new);
 
         order.updateOrder(dto.getOrderStatus());

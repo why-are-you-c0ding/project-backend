@@ -33,14 +33,23 @@ public class Order extends BaseEntity {
 
     private Integer totalPayment;
 
+    /**
+     * 주문은 불변
+     */
     public Order(List<OrderLineItem> orderLineItems, Address address, Orderer orderer, Integer totalPayment) {
         this.orderLineItems = orderLineItems;
         this.address = address;
         this.orderer = orderer;
         this.totalPayment = totalPayment;
+        orderLineItems.forEach(orderLineItem -> orderLineItem.mapOrder(this));
     }
 
     public void created() {
         Events.raise(new OrderPayedEvent(orderer.getMemberId(), id, totalPayment));
+    }
+
+    public void completePay() {
+        orderLineItems
+                .forEach(orderLineItem -> orderLineItem.updateOrder(OrderLineItemStatus.PAYMENT_COMPLETED));
     }
 }

@@ -1,7 +1,7 @@
-package wayc.backend.factory.order;
+package wayc.backend.factory.order.query;
 
-import wayc.backend.order.application.dto.response.*;
-import wayc.backend.order.domain.OrderStatus;
+import wayc.backend.order.domain.OrderLineItemStatus;
+import wayc.backend.order.domain.repository.query.dto.*;
 
 import java.util.Arrays;
 
@@ -10,8 +10,8 @@ public class FindPagingOrderResponseDtoFactory {
 
     public static FindPagingOrderResponseDto createSuccessCaseForCustomer(){
 
-        FindOrderOptionGroupResponseDto optionGroup_size = new FindOrderOptionGroupResponseDto("size", new FindOrderOptionResponseDto("Large"));
-        FindOrderOptionGroupResponseDto optionGroup_color = new FindOrderOptionGroupResponseDto("color", new FindOrderOptionResponseDto("Black"));
+        FindOrderOptionGroupResponseDto optionGroup_size = new FindOrderOptionGroupResponseDto("size", "Large");
+        FindOrderOptionGroupResponseDto optionGroup_color = new FindOrderOptionGroupResponseDto("color", "Black");
 
         FindOrdersForCustomerResponseDto order_1 = FindOrdersForCustomerResponseDto.builder()
                 .itemImageUrl("www.image.com")
@@ -23,12 +23,12 @@ public class FindPagingOrderResponseDtoFactory {
                 .price(100000)
                 .itemId(2L)
                 .orderId(4L)
-                .orderStatus(OrderStatus.ONGOING)
+                .orderStatus(OrderLineItemStatus.ORDER_ACCEPTED)
                 .build();
 
 
-        FindOrderOptionGroupResponseDto optionGroup_ram = new FindOrderOptionGroupResponseDto("Ram", new FindOrderOptionResponseDto("16GB"));
-        FindOrderOptionGroupResponseDto optionGroup_ssd = new FindOrderOptionGroupResponseDto("SSD", new FindOrderOptionResponseDto("512GB"));
+        FindOrderOptionGroupResponseDto optionGroup_ram = new FindOrderOptionGroupResponseDto("Ram", "16GB");
+        FindOrderOptionGroupResponseDto optionGroup_ssd = new FindOrderOptionGroupResponseDto("SSD", "512GB");
 
         FindOrdersForCustomerResponseDto order_2 = FindOrdersForCustomerResponseDto.builder()
                 .itemImageUrl("www.image.com")
@@ -40,7 +40,7 @@ public class FindPagingOrderResponseDtoFactory {
                 .price(20000)
                 .itemId(3L)
                 .orderId(7L)
-                .orderStatus(OrderStatus.COMPLETED)
+                .orderStatus(OrderLineItemStatus.PAYMENT_COMPLETED)
                 .build();
 
         return new FindPagingOrderResponseDto(true, Arrays.asList(order_1, order_2));
@@ -50,13 +50,13 @@ public class FindPagingOrderResponseDtoFactory {
     public static FindPagingOrderResponseDto createSuccessCaseForSeller(){
 
         FindOrdersForSellerResponseDto dto_1 =
-                new FindOrdersForSellerResponseDto("www.image.com", 1L, 2, "멋진 옷", "2022-10-19 16:03:08", 39L, OrderStatus.ONGOING, 5000);
+                new FindOrdersForSellerResponseDto("www.image.com", 1L, 2, "멋진 옷", "2022-10-19 16:03:08", 39L, OrderLineItemStatus.ORDER_ACCEPTED, 5000);
         FindOrdersForSellerResponseDto dto_2 =
-                new FindOrdersForSellerResponseDto("www.image.com", 2L, 3, "닭가슴살 패키지", "2022-10-19 16:03:08", 40L, OrderStatus.ONGOING, 4000);
+                new FindOrdersForSellerResponseDto("www.image.com", 2L, 3, "닭가슴살 패키지", "2022-10-19 16:03:08", 40L, OrderLineItemStatus.ORDER_ACCEPTED, 4000);
         FindOrdersForSellerResponseDto dto_3 =
-                new FindOrdersForSellerResponseDto("www.image.com", 3L, 4, "소시지", "2022-10-19 16:03:08", 32L, OrderStatus.ONGOING, 4000);
+                new FindOrdersForSellerResponseDto("www.image.com", 3L, 4, "소시지", "2022-10-19 16:03:08", 32L, OrderLineItemStatus.ORDER_ACCEPTED, 4000);
         FindOrdersForSellerResponseDto dto_4 =
-                new FindOrdersForSellerResponseDto("www.image.com", 4L, 1, "맥북", "2022-10-19 16:03:08", 42L, OrderStatus.COMPLETED, 100000);
+                new FindOrdersForSellerResponseDto("www.image.com", 4L, 1, "맥북", "2022-10-19 16:03:08", 42L, OrderLineItemStatus.ORDER_ACCEPTED, 100000);
 
 
         return new FindPagingOrderResponseDto(true, Arrays.asList(dto_1, dto_2, dto_3, dto_4));

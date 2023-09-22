@@ -42,13 +42,4 @@ public class OrderValidator {
          *
          */
     }
-
-    private void validateOrderOptionGroup(OptionGroup optionGroup, List<OrderOptionGroup> orderOptionGroups) {
-        for (OrderOptionGroup orderOptionGroup : orderOptionGroups) {
-            if(optionGroup.isSatisfiedBy(orderOptionGroup.convertToOptionGroupValidator())){
-               return;
-            }
-        }
-        throw new IllegalArgumentException("상품 옵션이 변경됐습니다.");
-    }
 }

@@ -1,9 +1,8 @@
-package wayc.backend.order.application.dto.response;
+package wayc.backend.order.domain.repository.query.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import wayc.backend.order.domain.OrderStatus;
-import wayc.backend.order.domain.repository.OrderDto;
+import wayc.backend.order.domain.OrderLineItemStatus;
 
 @NoArgsConstructor
 @Getter
@@ -15,7 +14,7 @@ public class FindOrdersForSellerResponseDto {
     private String itemName;
     private String createdAt;
     private Long itemId;
-    private OrderStatus orderStatus;
+    private OrderLineItemStatus orderStatus;
     private Integer price;
 
     public static FindOrdersForSellerResponseDto of(OrderDto dto){
@@ -37,7 +36,7 @@ public class FindOrdersForSellerResponseDto {
                                           String itemName,
                                           String createdAt,
                                           Long itemId,
-                                          OrderStatus orderStatus,
+                                          OrderLineItemStatus orderStatus,
                                           Integer price) {
         this.itemImageUrl = itemImageUrl;
         this.orderId = orderId;
