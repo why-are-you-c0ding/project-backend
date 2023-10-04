@@ -15,10 +15,6 @@ import java.util.Optional;
 @Repository
 public interface OrderLineItemRepository extends JpaRepository<OrderLineItem, Long> {
 
-//    @Query("select o from OrderLineItem o where o.orderer.memberId =:memberId and o.status = 'ACTIVE'")
-    @Query("select o from OrderLineItem o where o.status = 'ACTIVE'")
-    Slice<OrderLineItem> findOrdersPagingByOrderingMemberId(Long memberId, Pageable pageable);
-
     @Query(nativeQuery = true,
             countQuery = "select count(*) from orders",
             value =
@@ -31,9 +27,9 @@ public interface OrderLineItemRepository extends JpaRepository<OrderLineItem, Lo
                     " where o.status = 'ACTIVE'")
     Page<OrderDto> findOrdersPagingByOwnerId(Long ownerId, Pageable page);
 
-    //일대다 컬렉션 페치 조인을 하게 되면 데이터 뻥튀기가 발생하는데 이를 막기 위해 distinct 사용
-    @Query("select distinct o from OrderLineItem o join fetch o.orderOptionGroups where o.id = :orderId and o.status = 'ACTIVE'")
-    Optional<OrderLineItem> findOrderLineItemById(Long orderId);
+//    일대다 컬렉션 페치 조인을 하게 되면 데이터 뻥튀기가 발생하는데 이를 막기 위해 distinct 사용
+//    @Query("select distinct o from OrderLineItem o join fetch o.orderOptionGroups where o.id = :orderId and o.status = 'ACTIVE'")
+//    Optional<OrderLineItem> findOrderLineItemById(Long orderId);
 
     @Query("select olt from OrderLineItem olt where olt.id = :orderLineItemId and olt.itemId = :itemId and olt.status = 'ACTIVE'")
     Optional<OrderLineItem> findOrderLineItemByIdAndItemId(Long orderLineItemId, Long itemId);

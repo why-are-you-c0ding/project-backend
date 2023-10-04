@@ -80,7 +80,7 @@ public class OrderControllerTest extends ControllerTest {
     void show_customer_order() throws Exception {
         //given
         FindPagingOrderResponseDto res = FindPagingOrderResponseDtoFactory.createSuccessCaseForCustomer();
-        given(orderProvider.findCustomerOrders(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
+        given(orderProvider.findCustomerOrderLineItems(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/customers?page=0")
@@ -121,7 +121,7 @@ public class OrderControllerTest extends ControllerTest {
     void show_seller_order() throws Exception {
         //given
         FindPagingOrderResponseDto res = FindPagingOrderResponseDtoFactory.createSuccessCaseForSeller();
-        given(orderProvider.findSellerOrders(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
+        given(orderProvider.findSellerOrderLineItems(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/sellers?page=0")
@@ -158,7 +158,7 @@ public class OrderControllerTest extends ControllerTest {
     void show_order() throws Exception {
         //given
         FindOrderResponseDto res = FindOrderResponseDtoFactory.createSuccessCase();
-        given(orderProvider.findDetailOrderLineItem(Mockito.any(Long.class), Mockito.any(Long.class))).willReturn(res);
+        given(orderProvider.findDetailOrderLineItem(Mockito.any(Long.class))).willReturn(res);
 
         //when
         mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/{orderId}",3)

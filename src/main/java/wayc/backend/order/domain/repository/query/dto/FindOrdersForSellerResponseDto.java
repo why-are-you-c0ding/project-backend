@@ -1,54 +1,50 @@
 package wayc.backend.order.domain.repository.query.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.order.domain.OrderLineItemStatus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 public class FindOrdersForSellerResponseDto {
 
     private String itemImageUrl;
-    private Long orderId;
-    private Integer count;
+    private String shopName;
     private String itemName;
-    private String createdAt;
+    private Integer count;
+    private Long shopId;
     private Long itemId;
+    private Long orderId;
     private OrderLineItemStatus orderStatus;
     private Integer price;
+    private List<FindOrderOptionGroupResponseDto> orderOptionGroups = new ArrayList<>();
 
-    public static FindOrdersForSellerResponseDto of(OrderDto dto){
-        return new FindOrdersForSellerResponseDto(
-                dto.getItemImageUrl(),
-                dto.getOrderId(),
-                dto.getCount(),
-                dto.getItemName(),
-                dto.getCreatedAt(),
-                dto.getItemId(),
-                dto.getOrderStatus(),
-                dto.getPrice()
-        );
-    }
-
+    @Builder
+    @QueryProjection
     public FindOrdersForSellerResponseDto(String itemImageUrl,
-                                          Long orderId,
-                                          Integer count,
-                                          String itemName,
-                                          String createdAt,
-                                          Long itemId,
-                                          OrderLineItemStatus orderStatus,
-                                          Integer price) {
+                                            String shopName,
+                                            String itemName,
+                                            Integer count,
+                                            Long shopId,
+                                            Long itemId,
+                                            Long orderId,
+                                            OrderLineItemStatus orderStatus,
+                                            Integer price,
+                                            List<FindOrderOptionGroupResponseDto> orderOptionGroups) {
         this.itemImageUrl = itemImageUrl;
-        this.orderId = orderId;
-        this.count = count;
+        this.shopName = shopName;
         this.itemName = itemName;
-        this.createdAt = createdAt;
+        this.count = count;
+        this.shopId = shopId;
         this.itemId = itemId;
+        this.orderId = orderId;
         this.orderStatus = orderStatus;
         this.price = price;
-    }
-
-    public Long getItemId() {
-        return itemId;
+        this.orderOptionGroups = orderOptionGroups;
     }
 }

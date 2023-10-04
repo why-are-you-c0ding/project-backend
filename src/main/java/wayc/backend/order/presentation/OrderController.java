@@ -34,7 +34,7 @@ public class OrderController {
     @GetMapping("/orders/customers")
     public ResponseEntity<FindPagingOrderResponseDto> findCustomerOrders(@RequestParam Integer page,
                                                                          @AuthenticationPrincipal Long id){
-        FindPagingOrderResponseDto res = orderProvider.findCustomerOrders(id, page);
+        FindPagingOrderResponseDto res = orderProvider.findCustomerOrderLineItems(id, page);
         return ResponseEntity.ok(res);
     }
 
@@ -42,14 +42,14 @@ public class OrderController {
     @GetMapping("/orders/sellers")
     public ResponseEntity findSellerOrders(@RequestParam Integer page,
                                            @AuthenticationPrincipal Long id){
-        return new ResponseEntity(orderProvider.findSellerOrders(id, page), HttpStatus.OK);
+        return new ResponseEntity(orderProvider.findSellerOrderLineItems(id, page), HttpStatus.OK);
     }
 
 
     @GetMapping("/order-line-item/{orderLineItemId}")
     public ResponseEntity findOrder(@PathVariable Long orderLineItemId,
                                     @AuthenticationPrincipal Long id){
-        return new ResponseEntity(orderProvider.findDetailOrderLineItem(id, orderLineItemId) , HttpStatus.OK);
+        return new ResponseEntity(orderProvider.findDetailOrderLineItem(orderLineItemId) , HttpStatus.OK);
     }
 
     @PatchMapping

@@ -6,9 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
 import wayc.backend.order.domain.repository.query.OrderQueryRepository;
-import wayc.backend.order.domain.repository.query.dto.FindOrderOptionGroupResponseDto;
-import wayc.backend.order.domain.repository.query.dto.FindOrdersForCustomerResponseDto;
-import wayc.backend.order.domain.repository.query.dto.FindPagingOrderResponseDto;
+import wayc.backend.order.domain.repository.query.dto.*;
 
 
 import wayc.backend.utils.PagingUtils;
@@ -37,7 +35,7 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
     private final static Integer PAGE_SIZE = 10;
 
     @Override
-    public FindPagingOrderResponseDto findCustomerOrdersWithPaging(Long memberId, Integer lastOrderLineItemId) {
+    public FindPagingOrderResponseDto findCustomerOrderLineItemsWithPaging(Long memberId, Integer lastOrderLineItemId) {
         List<FindOrdersForCustomerResponseDto> result = query
                 .from(order)
                 .join(orderLineItem).on(orderLineItem.order.id.eq(order.id))
@@ -78,6 +76,95 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
             return new FindPagingOrderResponseDto(false, PagingUtils.applyPaging(result));
         }
         return new FindPagingOrderResponseDto(true, result);
+    }
+
+    @Override
+    public FindPagingOrderResponseDto findSellerOrderLineItemsWithPaging(Long memberId, Integer lastOrderLineItemId) {
+        List<FindOrdersForSellerResponseDto> result = query
+                .from(order)
+                .join(orderLineItem).on(orderLineItem.order.id.eq(order.id))
+                .join(orderOptionGroup).on(orderOptionGroup.orderLineItem.id.eq(orderLineItem.id))
+                .join(item).on(item.id.eq(orderLineItem.itemId))
+                .join(shop).on(shop.id.eq(item.shop.id))
+                .where(
+                        shop.owner.memberId.eq(memberId),
+                        orderLineItem.id.gt(lastOrderLineItemId)
+                )
+                .orderBy(orderLineItem.id.desc())
+                .limit(PAGE_SIZE + 1)
+                .transform(
+                        groupBy(orderLineItem.id).list(
+                                Projections.constructor(
+                                        FindOrdersForSellerResponseDto.class,
+                                        item.imageUrl,
+                                        shop.name,
+                                        item.name,
+                                        orderLineItem.count,
+                                        shop.id,
+                                        item.id,
+                                        order.id,
+                                        orderLineItem.orderLineItemStatus,
+                                        orderLineItem.payment,
+                                        list(
+                                                Projections.constructor(
+                                                        FindOrderOptionGroupResponseDto.class,
+                                                        orderOptionGroup.name,
+                                                        orderOptionGroup.orderOption.optionName
+                                                )
+                                        )
+                                )
+                        )
+                );
+
+        if(result.size() > PAGE_SIZE){
+            return new FindPagingOrderResponseDto(false, PagingUtils.applyPaging(result));
+        }
+        return new FindPagingOrderResponseDto(true, result);
+    }
+
+    @Override
+    public FindOrderResponseDto findDetailOrderLineItem(Long orderLineItemId) {
+        List<FindOrderOptionGroupResponseDto> optionGroups = findOrderOptionGroup(orderLineItemId);
+        FindOrderResponseDto orderLineItem = findOrderLineItem(orderLineItemId);
+        orderLineItem.setOrderOptionGroups(optionGroups);
+        return orderLineItem;
+
+    }
+
+    private FindOrderResponseDto findOrderLineItem(Long orderLineItemId) {
+        return query
+                .select(
+                        Projections.constructor(
+                                FindOrderResponseDto.class,
+                                orderLineItem.id,
+                                item.id,
+                                item.name,
+                                item.imageUrl,
+                                orderLineItem.count,
+                                orderLineItem.orderLineItemStatus,
+                                order.address,
+                                shop.name,
+                                shop.id
+                        )
+                )
+                .from(orderLineItem)
+                .join(item).on(orderLineItem.itemId.eq(item.id))
+                .join(shop).on(shop.id.eq(item.shop.id))
+                .where(orderLineItem.id.eq(orderLineItemId))
+                .fetchFirst();
+    }
+
+    private List<FindOrderOptionGroupResponseDto> findOrderOptionGroup(Long orderLineItemId) {
+        return query.select(
+                Projections.constructor(
+                        FindOrderOptionGroupResponseDto.class,
+                        orderOptionGroup.name,
+                        orderOptionGroup.orderOption.optionName
+                ))
+                .from(orderOptionGroup)
+                .join(orderLineItem).on(orderOptionGroup.orderLineItem.id.eq(orderOptionGroup.orderLineItem.id))
+                .where(orderLineItem.id.eq(orderLineItemId))
+                .fetch();
     }
 }
 

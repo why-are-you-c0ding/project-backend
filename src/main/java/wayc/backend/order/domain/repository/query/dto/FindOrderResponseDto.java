@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 public class FindOrderResponseDto {
 
-    private Long orderId;
+    private Long orderLinItemId;
     private Long itemId;
     private String itemName;
     private String itemImageUrl;
@@ -23,7 +23,7 @@ public class FindOrderResponseDto {
     private List<FindOrderOptionGroupResponseDto> orderOptionGroups;
 
     @Builder
-    public FindOrderResponseDto(Long orderId,
+    public FindOrderResponseDto(Long orderLinItemId,
                                 Long itemId,
                                 String itemName,
                                 String itemImageUrl,
@@ -32,9 +32,8 @@ public class FindOrderResponseDto {
                                 OrderLineItemStatus orderStatus,
                                 Address address,
                                 String shopName,
-                                Long shopId,
-                                List<FindOrderOptionGroupResponseDto> orderOptionGroups) {
-        this.orderId = orderId;
+                                Long shopId) {
+        this.orderLinItemId = orderLinItemId;
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemImageUrl = itemImageUrl;
@@ -43,7 +42,10 @@ public class FindOrderResponseDto {
         this.address = address;
         this.shopName = shopName;
         this.shopId = shopId;
-        this.orderOptionGroups = orderOptionGroups;
         this.price = price;
+    }
+
+    public void setOrderOptionGroups(List<FindOrderOptionGroupResponseDto> orderOptionGroups) {
+        this.orderOptionGroups = orderOptionGroups;
     }
 }
