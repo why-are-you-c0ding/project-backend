@@ -21,7 +21,9 @@ public class ItemFactory {
 
     public static Item createMacBook(){
         return Item.builder()
+                .id(1L)
                 .name("맥북")
+                .imageUrl("imageurl")
                 .category("IT")
                 .optionGroups(
                         List.of(
@@ -40,6 +42,45 @@ public class ItemFactory {
                                                 new Option("32GB", 160000)
                                         ) ,
                                         "RAM"
+                                )
+                        )
+                )
+                .build();
+    }
+
+    public static Item createWithShop(Shop shop) {
+        return Item.builder()
+                .name("맥북")
+                .price(1200000)
+                .information("info")
+                .shop(shop)
+                .imageUrl("imageurl")
+                .category("IT")
+                .optionGroups(
+                        List.of(
+                                new OptionGroup(
+                                        List.of(
+                                                new Option("256GB", 0),
+                                                new Option("512GB", 80000),
+                                                new Option("1024GB", 160000)
+                                        ) ,
+                                        "SSD"
+                                ),
+                                new OptionGroup(
+                                        List.of(
+                                                new Option("8GB", 0),
+                                                new Option("16GB", 80000),
+                                                new Option("32GB", 160000)
+                                        ) ,
+                                        "RAM"
+                                ),
+                                new OptionGroup(
+                                        List.of(
+                                                new Option("WHITE", 0),
+                                                new Option("BLACK", 0),
+                                                new Option("GREY", 0)
+                                        ) ,
+                                        "color"
                                 )
                         )
                 )

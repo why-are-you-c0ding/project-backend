@@ -4,37 +4,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.order.domain.Address;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 public class CreateOrderRequestDto {
 
-    private Long itemId;
+    private final List<CreateOrderLineItemRequestDto> orderLineItems;
+    private final CreateAddressRequestDto address;
+    private final Long ordererId;
+    private final Integer totalPayment;
 
-    private String name;
-
-    private Integer count;
-
-    private List<CreateOrderOptionGroupRequestDto> orderOptionGroupsDto = new ArrayList<>();
-
-    private CreateAddressRequestDto address;
-
-    private Integer payment;
-
-    public CreateOrderRequestDto(Long itemId,
-                                 String name,
-                                 Integer count,
-                                 List<CreateOrderOptionGroupRequestDto> orderOptionGroupsDto,
+    public CreateOrderRequestDto(List<CreateOrderLineItemRequestDto> orderLineItems,
                                  CreateAddressRequestDto address,
-                                 Integer payment) {
-        this.itemId = itemId;
-        this.name = name;
-        this.count = count;
-        this.orderOptionGroupsDto = orderOptionGroupsDto;
+                                 Long ordererId,
+                                 Integer totalPayment) {
+        this.orderLineItems = orderLineItems;
         this.address = address;
-        this.payment = payment;
+        this.ordererId = ordererId;
+        this.totalPayment = totalPayment;
     }
 
     public Address toAddress(){

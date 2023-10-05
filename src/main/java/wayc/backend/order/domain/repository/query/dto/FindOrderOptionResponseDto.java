@@ -1,4 +1,4 @@
-package wayc.backend.order.application.dto.response;
+package wayc.backend.order.domain.repository.query.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

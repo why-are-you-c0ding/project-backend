@@ -22,16 +22,6 @@ public class ItemServiceIntegrationTest extends IntegrationTest {
     @Autowired
     private ShopRepository shopRepository;
 
-
-    /**
-     * @Async는 달려도 동작한다.
-     * EventListener도 동작한다.
-     * TransactionalEventListener(AFTER COMMIT)은 통합테스트에서 동작하지 않았다.
-     * TransactionalEventListener(BEFORE COMMIT)은 통합테스트에서 동작하지 않았다.
-     *
-     * TransactionalEventListener은 동작하지 않는 것 같다.
-     *
-     */
     @Test
     void createItem(){
 

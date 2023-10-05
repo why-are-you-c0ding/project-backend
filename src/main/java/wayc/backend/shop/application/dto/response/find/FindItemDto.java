@@ -26,7 +26,7 @@ public class FindItemDto {
                 .itemId(item.getId())
                 .itemName(item.getName())
                 .shopId(item.getShop().getId())
-                .shopName(item.getShop().getShopName())
+                .shopName(item.getShop().getName())
                 .optionGroupIdList(
                         item
                                 .getOptionGroups()

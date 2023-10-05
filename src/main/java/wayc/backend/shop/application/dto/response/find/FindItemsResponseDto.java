@@ -33,7 +33,7 @@ public class FindItemsResponseDto {
         return new FindItemsResponseDto(
                 item.getId(),
                 item.getName(),
-                item.getShop().getShopName(),
+                item.getShop().getName(),
                 item.getPrice(),
                 item.getImageUrl(),
                 item.getCategory()

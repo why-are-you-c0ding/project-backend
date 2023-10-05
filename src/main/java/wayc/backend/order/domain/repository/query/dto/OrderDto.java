@@ -1,8 +1,6 @@
-package wayc.backend.order.domain.repository;
+package wayc.backend.order.domain.repository.query.dto;
 
-import wayc.backend.order.domain.OrderStatus;
-
-import java.time.LocalDateTime;
+import wayc.backend.order.domain.OrderLineItemStatus;
 
 public interface OrderDto {
     String getItemImageUrl();
@@ -11,11 +9,6 @@ public interface OrderDto {
     String getItemName();
     String getCreatedAt();
     Long getItemId();
-    OrderStatus getOrderStatus();
+    OrderLineItemStatus getOrderStatus();
     Integer getPrice();
 }
-
-/**
- *
- * 프로젝션을 사용용
- * */

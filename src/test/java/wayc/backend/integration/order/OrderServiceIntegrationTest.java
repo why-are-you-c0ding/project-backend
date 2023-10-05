@@ -5,15 +5,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import wayc.backend.factory.Item.ItemFactory;
-import wayc.backend.factory.order.OrderFactory;
+import wayc.backend.factory.order.CreateOrderRequestFactory;
+import wayc.backend.factory.order.OrderLineItemFactory;
 import wayc.backend.factory.shop.ShopFactory;
 import wayc.backend.integration.IntegrationTest;
 import wayc.backend.order.application.OrderService;
+import wayc.backend.order.application.dto.request.CreateOrderLineItemRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
-import wayc.backend.order.domain.Order;
-import wayc.backend.order.domain.OrderStatus;
-import wayc.backend.order.domain.repository.OrderRepository;
+import wayc.backend.order.domain.OrderLineItem;
+import wayc.backend.order.domain.OrderLineItemStatus;
+import wayc.backend.order.domain.repository.OrderLineItemRepository;
 import wayc.backend.shop.domain.Item;
 import wayc.backend.shop.domain.Shop;
 import wayc.backend.shop.domain.command.ItemRepository;
@@ -30,7 +32,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     private OrderService orderService;
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderLineItemRepository orderRepository;
 
     @Autowired
     private ShopRepository shopRepository;
@@ -38,22 +40,17 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
     @Autowired
     private ItemRepository itemRepository;
 
-    /**
-     * EventListener를 단순하게 사용하는 통합테스트는 일단 도메인 이벤트가 진행된다.
-     */
-
     @Test
     void createOrder() {
 
         //given
         Item saveItem = itemRepository.save(ItemFactory.createMacBook());
-        List<CreateOrderRequestDto> dtoList = OrderFactory.createSuccessCaseMackBookDtoWithId(saveItem.getId());
 
         //when
-        orderService.createOrder(1L, dtoList);
+        orderService.createOrder(CreateOrderRequestFactory.createOrderRequest(List.of(saveItem)).toServiceDto(1L));
 
         //then
-        List<Order> result = orderRepository.findAll();
+        List<OrderLineItem> result = orderRepository.findAll();
         assertThat(result.size()).isEqualTo(1);
     }
 
@@ -63,17 +60,17 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
         //given
         Shop saveShop = shopRepository.save(ShopFactory.create());
         Item saveItem = itemRepository.save(ItemFactory.createItem(saveShop));
-        Order saveOrder = orderRepository.save(OrderFactory.create(saveItem.getId()));
+        OrderLineItem saveOrder = orderRepository.save(OrderLineItemFactory.create(saveItem.getId()));
 
 
         //when
         orderService.updateOrder(saveShop.getOwner().getMemberId(), new UpdateOrderRequestDto(
                 saveOrder.getId(),
                 saveOrder.getItemId(),
-                OrderStatus.COMPLETED)
+                OrderLineItemStatus.PREPARING_FOR_DELIVERY)
         );
 
         //then
-        Assertions.assertThat(saveOrder.getOrderStatus()).isSameAs(OrderStatus.COMPLETED);
+        Assertions.assertThat(saveOrder.getOrderLineItemStatus()).isSameAs(OrderLineItemStatus.PREPARING_FOR_DELIVERY);
     }
 }

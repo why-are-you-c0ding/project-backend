@@ -20,7 +20,7 @@ public class RegisterShopWithMemberRegisteredEventHandler {
     @EventListener(MemberRegisteredEvent.class)
     public void handle(MemberRegisteredEvent event){
         if(event.getRole() == ROLE_SELLER){
-            Shop shop = Shop.builder().ownerId(event.getMemberId()).shopName(event.getMemberName() + "님의 shop").build();
+            Shop shop = Shop.builder().ownerId(event.getMemberId()).name(event.getMemberName() + "님의 shop").build();
             shopRepository.save(shop);
         }
     }

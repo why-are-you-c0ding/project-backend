@@ -21,10 +21,6 @@ public class ItemComparisonValidator <T extends ItemComparator> {
     public void validate(T compared) {
         Item item = itemRepository.findItemByItemId(compared.getItemId()).orElseThrow(NotExistsItemException::new);
 
-        /**
-         * 상품 검증 로직
-         */
-
         if(!item.getName().equals(compared.getName())){
             throw new IllegalArgumentException("상품 이름이 변경되었습니다.");
         }
@@ -32,10 +28,6 @@ public class ItemComparisonValidator <T extends ItemComparator> {
         for (OptionGroup optionGroup : item.getOptionGroups()) {
             validateOptionGroup(optionGroup, compared.getComparisonOrderOptionGroups());
         }
-
-        /**
-         * TODO 재고 검증 로직 및 감소
-         */
     }
 
 

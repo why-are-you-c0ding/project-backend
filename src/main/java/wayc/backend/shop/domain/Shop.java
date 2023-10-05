@@ -24,15 +24,15 @@ public class Shop extends BaseEntity {
     @Embedded
     private ShopOwner owner;
 
-    private String shopName;
+    private String name;
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 
     @Builder
-    public Shop(Long ownerId, String shopName) {
+    public Shop(Long ownerId, String name) {
         this.owner = new ShopOwner(ownerId);
-        this.shopName = shopName;
+        this.name = name;
         this.items = new ArrayList<>();;
     }
 

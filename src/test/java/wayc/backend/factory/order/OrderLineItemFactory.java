@@ -1,27 +1,24 @@
 package wayc.backend.factory.order;
 
-import wayc.backend.order.application.dto.request.CreateAddressRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionGroupRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionRequestDto;
-import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
+import wayc.backend.order.application.dto.request.CreateOrderLineItemRequestDto;
 import wayc.backend.order.domain.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class OrderFactory {
+public class OrderLineItemFactory {
 
-    private OrderFactory(){}
+    private OrderLineItemFactory(){}
 
-    public static Order create(Long itemId){
-        return Order.builder()
+    public static OrderLineItem create(Long itemId){
+        return OrderLineItem.builder()
                 .itemId(itemId)
-                .orderStatus(OrderStatus.ONGOING)
+                .orderLineItemStatus(OrderLineItemStatus.ORDER_ACCEPTED)
                 .count(3)
                 .name("맥북")
                 .payment(6000)
-                .orderingMemberId(1L)
-                .address(new Address("서울", "어딘가 디테일한 주소", "00000"))
                 .orderOptionGroups(List.of(
                         new OrderOptionGroup(new OrderOption("16GB", 80000), "RAM"),
                         new OrderOptionGroup(new OrderOption("512GB", 80000), "SSD")
@@ -29,12 +26,13 @@ public class OrderFactory {
                 .build();
     }
 
-    public static List<CreateOrderRequestDto> createSuccessCaseMackBookDto(){
+    public static List<CreateOrderLineItemRequestDto> createSuccessCaseMackBookDto(){
         return List.of(
-                new CreateOrderRequestDto(
+                new CreateOrderLineItemRequestDto(
                         1L,
                         "맥북",
                         3,
+                        1000000,
                         List.of(
                                 new CreateOrderOptionGroupRequestDto(
                                         "RAM",
@@ -44,20 +42,19 @@ public class OrderFactory {
                                         "SSD",
                                         new CreateOrderOptionRequestDto("512GB", 80000)
                                 )
-                        ),
-                        new CreateAddressRequestDto("major", "detail", "111111"),
-                        1000000
+                        )
                 )
         );
     }
 
 
-    public static List<CreateOrderRequestDto> createFailCase1CaseMackBookDto(){
+    public static List<CreateOrderLineItemRequestDto> createFailCase1CaseMackBookDto(){
         return List.of(
-                new CreateOrderRequestDto(
+                new CreateOrderLineItemRequestDto(
                         1L,
                         "맥북",
                         3,
+                        1000000,
                         List.of(
                                 new CreateOrderOptionGroupRequestDto(
                                         "RAM",
@@ -67,19 +64,18 @@ public class OrderFactory {
                                         "SSO",
                                         new CreateOrderOptionRequestDto("512GB", 80000)
                                 )
-                        ),
-                        new CreateAddressRequestDto("major", "detail", "111111"),
-                        1000000
+                        )
                 )
         );
     }
 
-    public static List<CreateOrderRequestDto> createFailCase2CaseMackBookDto(){
+    public static List<CreateOrderLineItemRequestDto> createFailCase2CaseMackBookDto(){
         return List.of(
-                new CreateOrderRequestDto(
+                new CreateOrderLineItemRequestDto(
                         1L,
                         "맥북1",
                         3,
+                        1000000,
                         List.of(
                                 new CreateOrderOptionGroupRequestDto(
                                         "RAM",
@@ -89,19 +85,18 @@ public class OrderFactory {
                                         "SSD",
                                         new CreateOrderOptionRequestDto("512GB", 80000)
                                 )
-                        ),
-                        new CreateAddressRequestDto("major", "detail", "111111"),
-                        1000000
+                        )
                 )
         );
     }
 
-    public static List<CreateOrderRequestDto> createFailCase3CaseMackBookDto(){
+    public static List<CreateOrderLineItemRequestDto> createFailCase3CaseMackBookDto(){
         return List.of(
-                new CreateOrderRequestDto(
+                new CreateOrderLineItemRequestDto(
                         1L,
                         "맥북",
                         3,
+                        1000000,
                         List.of(
                                 new CreateOrderOptionGroupRequestDto(
                                         "RAM",
@@ -111,26 +106,25 @@ public class OrderFactory {
                                         "SSD",
                                         new CreateOrderOptionRequestDto("512GB", 80000)
                                 )
-                        ),
-                        new CreateAddressRequestDto("major", "detail", "111111"),
-                        1000000
+                        )
                 )
         );
     }
 
-    public static List<CreateOrderRequestDto> createServiceDto(){
-        return CreateOrderRequestFactory.createSuccessCase()
+    public static List<CreateOrderLineItemRequestDto> createServiceDto(){
+        return CreateOrderLineItemRequestFactory.createSuccessCase()
                 .stream()
                 .map(dto -> dto.toServiceDto())
                 .collect(Collectors.toList());
     }
 
-    public static List<CreateOrderRequestDto> createSuccessCaseMackBookDtoWithId(Long itemId){
+    public static List<CreateOrderLineItemRequestDto> createSuccessCaseMackBookDtoWithId(Long itemId){
         return List.of(
-                new CreateOrderRequestDto(
+                new CreateOrderLineItemRequestDto(
                         itemId,
                         "맥북",
                         3,
+                        1000000,
                         List.of(
                                 new CreateOrderOptionGroupRequestDto(
                                         "RAM",
@@ -140,9 +134,7 @@ public class OrderFactory {
                                         "SSD",
                                         new CreateOrderOptionRequestDto("512GB", 80000)
                                 )
-                        ),
-                        new CreateAddressRequestDto("major", "detail", "111111"),
-                        1000000
+                        )
                 )
         );
     }

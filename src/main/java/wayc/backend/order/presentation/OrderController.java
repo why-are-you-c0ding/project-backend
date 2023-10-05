@@ -8,64 +8,55 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import wayc.backend.common.CommandSuccessResponse;
 import wayc.backend.order.application.OrderProvider;
 import wayc.backend.order.application.OrderService;
-import wayc.backend.order.application.dto.response.FindPagingOrderResponseDto;
-import wayc.backend.order.application.dto.response.UpdateOrderResponseDto;
+import wayc.backend.order.domain.repository.query.dto.FindPagingOrderResponseDto;
 
 import wayc.backend.order.presentation.dto.request.UpdateOrderRequest;
 import wayc.backend.order.presentation.dto.request.CreateOrderRequest;
 import wayc.backend.order.presentation.dto.response.CreateOrderResponse;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/orders")
 public class OrderController {
 
     private final OrderService orderService;
     private final OrderProvider orderProvider;
 
-    @PostMapping
+    @PostMapping("/orders")
     public ResponseEntity createOrder(@AuthenticationPrincipal Long memberId,
-                                      @Validated @RequestBody List<CreateOrderRequest> request){
-       orderService.createOrder(
-               memberId,
-               request
-                       .stream()
-                       .map(dto -> dto.toServiceDto())
-                       .collect(Collectors.toList())
-                );
+                                      @Validated @RequestBody CreateOrderRequest request){
+       orderService.createOrder(request.toServiceDto(memberId));
         return new ResponseEntity(new CreateOrderResponse(), HttpStatus.CREATED);
     }
 
-    @GetMapping("/customers")
-    public ResponseEntity<FindPagingOrderResponseDto> findCustomerOrders(@RequestParam Integer page,
+    @GetMapping("/order-line-items/customers")
+    public ResponseEntity<FindPagingOrderResponseDto> findCustomerOrders(@RequestParam Long lastLookUpOrderLineItemId,
                                                                          @AuthenticationPrincipal Long id){
-        FindPagingOrderResponseDto res = orderProvider.findCustomerOrders(id, page);
+        FindPagingOrderResponseDto res = orderProvider.findCustomerOrderLineItems(id, lastLookUpOrderLineItemId);
         return ResponseEntity.ok(res);
     }
 
 
-    @GetMapping("/sellers")
-    public ResponseEntity findSellerOrders(@RequestParam Integer page,
+    @GetMapping("/order-line-items/sellers")
+    public ResponseEntity findSellerOrders(@RequestParam Long lastLookUpOrderLineItemId,
                                            @AuthenticationPrincipal Long id){
-        return new ResponseEntity(orderProvider.findSellerOrders(id, page), HttpStatus.OK);
+        return new ResponseEntity(orderProvider.findSellerOrderLineItems(id, lastLookUpOrderLineItemId), HttpStatus.OK);
     }
 
 
-    @GetMapping("/{orderId}")
-    public ResponseEntity findOrder(@PathVariable Long orderId,
+    @GetMapping("/order-line-items/{orderLineItemId}")
+    public ResponseEntity findOrder(@PathVariable Long orderLineItemId,
                                     @AuthenticationPrincipal Long id){
-        return new ResponseEntity(orderProvider.findOrder(id, orderId) , HttpStatus.OK);
+        return new ResponseEntity(orderProvider.findDetailOrderLineItem(orderLineItemId) , HttpStatus.OK);
     }
 
-    @PatchMapping
+    @PatchMapping("/orders")
     public ResponseEntity updateOrder(@RequestBody UpdateOrderRequest request,
                                       @AuthenticationPrincipal Long id) {
         orderService.updateOrder(id, request.toServiceDto());
-        return ResponseEntity.ok(new UpdateOrderResponseDto());
+        return ResponseEntity.ok(new CommandSuccessResponse("주문 상품 수정을 성공했습니다."));
     }
 }

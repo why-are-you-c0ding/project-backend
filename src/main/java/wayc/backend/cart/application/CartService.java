@@ -32,10 +32,6 @@ public class CartService {
         this.itemComparisonValidator = itemComparisonValidator;
     }
 
-    public void register(Long memberId){
-        cartRepository.save(new Cart(memberId));
-    }
-
     public void registerCartLineItem(Long memberId, RegisterCartLineItemRequestDto dto){
         Cart cart = cartRepository.findByIdAndStatus(memberId).orElseThrow(NotExistsCartException::new);
         CartLineItem lineItem = cartMapper.toLineItem(dto, cart);

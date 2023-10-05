@@ -19,17 +19,25 @@ public class OrderOptionGroup extends BaseEntity implements OptionGroupComparato
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OrderLineItem orderLineItem;
+
     @Embedded
-    private OrderOption orderOptions;
+    private OrderOption orderOption;
 
     private String name;
 
     public OrderOptionGroup(OrderOption orderOption, String name) {
-        this.orderOptions = orderOption;
+        this.orderOption = orderOption;
         this.name = name;
     }
 
     public OptionGroupValidator convertToOptionGroupValidator() {
-        return new OptionGroupValidator(name, orderOptions.convertToOptionValidator());
+        return new OptionGroupValidator(name, orderOption.convertToOptionValidator());
+    }
+
+    protected void mapOrderLineItem(OrderLineItem orderLineItem) {
+        this.orderLineItem = orderLineItem;
     }
 }

@@ -8,6 +8,7 @@ import wayc.backend.order.application.dto.request.CreateAddressRequestDto;
 @NoArgsConstructor
 @Getter
 public class CreateAddressRequest {
+
     private String major;
     private String detail;
     private String zipcode;

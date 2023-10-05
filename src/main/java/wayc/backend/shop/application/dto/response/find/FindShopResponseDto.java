@@ -33,7 +33,7 @@ public class FindShopResponseDto {
         return FindShopResponseDto
                 .builder()
                 .id(shop.getId())
-                .shopName(shop.getShopName())
+                .shopName(shop.getName())
                 .items(shop.getItems())
                 .build();
     }
