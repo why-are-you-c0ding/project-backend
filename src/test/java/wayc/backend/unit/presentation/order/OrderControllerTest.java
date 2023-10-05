@@ -48,25 +48,26 @@ public class OrderControllerTest extends ControllerTest {
                         .content(value)
                 )
                 .andExpect(status().is2xxSuccessful())
-                //.andExpect(jsonPath("$.itemId").value(1))
                 .andDo(print())
                 .andDo(document("create_order",
                         getDocumentRequest(),
                         getDocumentResponse(),
                                 requestFields(
-                                        fieldWithPath("[].itemId").type(NUMBER).description("구매하는 상품 id"),
-                                        fieldWithPath("[].name").type(STRING).description("구매하는 상품 이름"),
-                                        fieldWithPath("[].count").type(NUMBER).description("구매하는 상품 개수"),
-                                        fieldWithPath("[].price").type(NUMBER).description("주문의 결제 금액"),
-                                        fieldWithPath("[].address").type(OBJECT).description("주문하는 주소"),
-                                        fieldWithPath("[].address.major").type(STRING).description("주문하는 대주소"),
-                                        fieldWithPath("[].address.detail").type(STRING).description("주문하는 상세 주소"),
-                                        subsectionWithPath("[].address.zipcode").type(STRING).description("도로명 번호"),
-                                        subsectionWithPath("[].orderOptionGroups").type(ARRAY).description("구매하는 상품 옵션 그룹"),
-                                        subsectionWithPath("[].orderOptionGroups[].name").type(STRING).description("구매하는 상품 옵션 그룹의 이름"),
-                                        subsectionWithPath("[].orderOptionGroups[].orderOption").type(OBJECT).description("구매하는 상품 옵션 그룹의 옵션들"),
-                                        subsectionWithPath("[].orderOptionGroups[].orderOption.name").type(STRING).description("구매하는 상품 옵션 그룹의 옵션 이름"),
-                                        subsectionWithPath("[].orderOptionGroups[].orderOption.price").type(NUMBER).description("구매하는 상품 옵션 그룹의 옵션 가격")                             ),
+                                        fieldWithPath("orderLineItems[].itemId").type(NUMBER).description("구매하는 상품 id"),
+                                        fieldWithPath("orderLineItems[].name").type(STRING).description("구매하는 상품 이름"),
+                                        fieldWithPath("orderLineItems[].count").type(NUMBER).description("구매하는 상품 개수"),
+                                        fieldWithPath("orderLineItems[].price").type(NUMBER).description("주문 상품의 결제 금액"),
+                                        fieldWithPath("address").type(OBJECT).description("주문하는 주소"),
+                                        fieldWithPath("address.major").type(STRING).description("주문하는 대주소"),
+                                        fieldWithPath("address.detail").type(STRING).description("주문하는 상세 주소"),
+                                        subsectionWithPath("address.zipcode").type(STRING).description("도로명 번호"),
+                                        subsectionWithPath("orderLineItems[].orderOptionGroups").type(ARRAY).description("구매하는 상품 옵션 그룹"),
+                                        subsectionWithPath("orderLineItems[].orderOptionGroups[].name").type(STRING).description("구매하는 상품 옵션 그룹의 이름"),
+                                        subsectionWithPath("orderLineItems[].orderOptionGroups[].orderOption").type(OBJECT).description("구매하는 상품 옵션 그룹의 옵션들"),
+                                        subsectionWithPath("orderLineItems[].orderOptionGroups[].orderOption.name").type(STRING).description("구매하는 상품 옵션 그룹의 옵션 이름"),
+                                        subsectionWithPath("orderLineItems[].orderOptionGroups[].orderOption.price").type(NUMBER).description("구매하는 상품 옵션 그룹의 옵션 가격"),
+                                        subsectionWithPath("totalPayment").type(NUMBER).description("총 결제 가격")
+                                ),
                                 responseFields(
                                         fieldWithPath("message").type(STRING).description("주문 생성 성공 메시지")
                                 )
@@ -80,36 +81,36 @@ public class OrderControllerTest extends ControllerTest {
     void show_customer_order() throws Exception {
         //given
         FindPagingOrderResponseDto res = FindPagingOrderResponseDtoFactory.createSuccessCaseForCustomer();
-        given(orderProvider.findCustomerOrderLineItems(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
+        given(orderProvider.findCustomerOrderLineItems(Mockito.any(Long.class), Mockito.any(Long.class))).willReturn(res);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/customers?page=0")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/order-line-items/customers?lastLookUpOrderLineItemId=0")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().is2xxSuccessful())
-                //.andExpect(jsonPath("$.itemId").value(1))
                 .andDo(print())
                 .andDo(document("show_customer_orders",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestParameters(
-                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스")
+                                parameterWithName("lastLookUpOrderLineItemId").description("이전에 조회한 주문 상품의 마지막 id")
                         ),
                         responseFields(
                                 fieldWithPath("finalPage").type(BOOLEAN).description("마지막 페이지 리스트인지"),
-                                fieldWithPath("orders").type(ARRAY).description("소비자의 주문 배열"),
-                                subsectionWithPath("orders[].itemImageUrl").type(STRING).description("주문한 상품의 이미지"),
-                                subsectionWithPath("orders[].shopName").type(STRING).description("주문한 상품의 가게 이름"),
-                                subsectionWithPath("orders[].itemName").type(STRING).description("주문한 상품의 이름"),
-                                subsectionWithPath("orders[].count").type(NUMBER).description("주문한 상품의 개수"),
-                                subsectionWithPath("orders[].price").type(NUMBER).description("주문 결제 금액"),
-                                subsectionWithPath("orders[].shopId").type(NUMBER).description("주문한 상품의 가게 id"),
-                                subsectionWithPath("orders[].itemId").type(NUMBER).description("주문한 상품의 id"),
-                                subsectionWithPath("orders[].orderId").type(NUMBER).description("주문 id"),
-                                subsectionWithPath("orders[].orderStatus").type(STRING).description("주문 진행 상태"),
-                                subsectionWithPath("orders[].orderOptionGroups[].name").type(STRING).description("주문한 상품의 옵션 그룹 이름"),
-                                subsectionWithPath("orders[].orderOptionGroups[].option").type(OBJECT).description("주문한 상품의 옵션 그룹의 옵션"),
-                                subsectionWithPath("orders[].orderOptionGroups[].option.name").type(STRING).description("주문한 상품의 옵션 그룹의 옵션 이름")
+                                fieldWithPath("orderLineItems").type(ARRAY).description("소비자의 주문 배열"),
+                                subsectionWithPath("orderLineItems[].itemImageUrl").type(STRING).description("주문한 상품의 이미지"),
+                                subsectionWithPath("orderLineItems[].itemName").type(STRING).description("주문한 상품의 이름"),
+                                subsectionWithPath("orderLineItems[].shopName").type(STRING).description("주문한 상품의 상점 이름"),
+                                subsectionWithPath("orderLineItems[].shopId").type(NUMBER).description("주문한 상품의 상점 id"),
+                                subsectionWithPath("orderLineItems[].count").type(NUMBER).description("주문한 상품의 개수"),
+                                subsectionWithPath("orderLineItems[].itemId").type(NUMBER).description("주문한 상품의 id"),
+                                subsectionWithPath("orderLineItems[].orderLineItemId").type(NUMBER).description("주문 상품 id"),
+                                subsectionWithPath("orderLineItems[].orderStatus").type(STRING).description("주문 진행 상태"),
+                                subsectionWithPath("orderLineItems[].price").type(NUMBER).description("주문 결제 금액"),
+                                subsectionWithPath("orderLineItems[].orderOptionGroups").type(ARRAY).description("구매하는 상품 옵션 그룹"),
+                                subsectionWithPath("orderLineItems[].orderOptionGroups[]").type(ARRAY).description("구매하는 상품 옵션 그룹"),
+                                subsectionWithPath("orderLineItems[].orderOptionGroups[].optionGroupName").type(STRING).description("구매하는 상품 옵션 그룹 이름"),
+                                subsectionWithPath("orderLineItems[].orderOptionGroups[].optionName").type(STRING).description("구매하는 상품 옵션 그룹에서 선택한 옵션 이름")
                                 )
                 ));
     }
@@ -121,32 +122,36 @@ public class OrderControllerTest extends ControllerTest {
     void show_seller_order() throws Exception {
         //given
         FindPagingOrderResponseDto res = FindPagingOrderResponseDtoFactory.createSuccessCaseForSeller();
-        given(orderProvider.findSellerOrderLineItems(Mockito.any(Long.class), Mockito.any(Integer.class))).willReturn(res);
+        given(orderProvider.findSellerOrderLineItems(Mockito.any(Long.class), Mockito.any(Long.class))).willReturn(res);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/sellers?page=0")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/order-line-items/sellers?lastLookUpOrderLineItemId=0")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().is2xxSuccessful())
-                //.andExpect(jsonPath("$.itemId").value(1))
                 .andDo(print())
                 .andDo(document("show_seller_orders",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestParameters(
-                                parameterWithName("page").description("가져올 페이지 리스트의 인덱스")
+                                parameterWithName("lastLookUpOrderLineItemId").description("이전에 조회한 주문 상품의 마지막 id")
                         ),
                         responseFields(
                                 fieldWithPath("finalPage").type(BOOLEAN).description("마지막 페이지 리스트인지"),
-                                fieldWithPath("orders").type(ARRAY).description("소비자의 주문 배열"),
-                                subsectionWithPath("orders[].itemImageUrl").type(STRING).description("주문한 상품의 이미지"),
-                                subsectionWithPath("orders[].itemName").type(STRING).description("주문한 상품의 이름"),
-                                subsectionWithPath("orders[].count").type(NUMBER).description("주문한 상품의 개수"),
-                                subsectionWithPath("orders[].itemId").type(NUMBER).description("주문한 상품의 id"),
-                                subsectionWithPath("orders[].orderId").type(NUMBER).description("주문 id"),
-                                subsectionWithPath("orders[].createdAt").type(STRING).description("주문 생성 날짜"),
-                                subsectionWithPath("orders[].orderStatus").type(STRING).description("주문 진행 상태"),
-                                subsectionWithPath("orders[].price").type(NUMBER).description("주문 결제 금액")
+                                fieldWithPath("orderLineItems").type(ARRAY).description("판매자의 주문 배열"),
+                                subsectionWithPath("orderLineItems[].itemImageUrl").type(STRING).description("주문한 상품의 이미지"),
+                                subsectionWithPath("orderLineItems[].itemName").type(STRING).description("주문한 상품의 이름"),
+                                subsectionWithPath("orderLineItems[].shopName").type(STRING).description("주문한 상품의 상점 이름"),
+                                subsectionWithPath("orderLineItems[].shopId").type(NUMBER).description("주문한 상품의 상점 id"),
+                                subsectionWithPath("orderLineItems[].count").type(NUMBER).description("주문한 상품의 개수"),
+                                subsectionWithPath("orderLineItems[].itemId").type(NUMBER).description("주문한 상품의 id"),
+                                subsectionWithPath("orderLineItems[].orderLineItemId").type(NUMBER).description("주문 상품 id"),
+                                subsectionWithPath("orderLineItems[].orderStatus").type(STRING).description("주문 진행 상태"),
+                                subsectionWithPath("orderLineItems[].price").type(NUMBER).description("주문 결제 금액"),
+                                subsectionWithPath("orderLineItems[].orderOptionGroups").type(ARRAY).description("구매하는 상품 옵션 그룹"),
+                                subsectionWithPath("orderLineItems[].orderOptionGroups[]").type(ARRAY).description("구매하는 상품 옵션 그룹"),
+                                subsectionWithPath("orderLineItems[].orderOptionGroups[].optionGroupName").type(STRING).description("구매하는 상품 옵션 그룹 이름"),
+                                subsectionWithPath("orderLineItems[].orderOptionGroups[].optionName").type(STRING).description("구매하는 상품 옵션 그룹에서 선택한 옵션 이름")
                         )
                 ));
     }
@@ -155,13 +160,13 @@ public class OrderControllerTest extends ControllerTest {
     @Test
     @DisplayName("주문 조회 단건 성공 컨트롤러 단위 테스트")
     @WithMockSeller
-    void show_order() throws Exception {
+    void find_order() throws Exception {
         //given
         FindOrderResponseDto res = FindOrderResponseDtoFactory.createSuccessCase();
         given(orderProvider.findDetailOrderLineItem(Mockito.any(Long.class))).willReturn(res);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/orders/{orderId}",3)
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/order-line-items/{orderId}",3)
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().is2xxSuccessful())
@@ -181,16 +186,15 @@ public class OrderControllerTest extends ControllerTest {
                                 fieldWithPath("count").type(NUMBER).description("주문한 상품의 개수"),
                                 fieldWithPath("shopId").type(NUMBER).description("주문한 상품의 가게 id"),
                                 fieldWithPath("itemId").type(NUMBER).description("주문한 상품의 id"),
-                                fieldWithPath("orderId").type(NUMBER).description("주문 id"),
+                                fieldWithPath("orderLineItemId").type(NUMBER).description("주문 상품의 id"),
                                 fieldWithPath("orderStatus").type(STRING).description("주문 진행 상태"),
-                                fieldWithPath("address.major").type(STRING).description("주문 배송지 대주소"),
-                                fieldWithPath("address.detail").type(STRING).description("주문 배송지 자세한 주소"),
-                                fieldWithPath("address.zipcode").type(STRING).description("주문 배송지 도로 번호"),
+                                fieldWithPath("majorAddress").type(STRING).description("주문 배송지 대주소"),
+                                fieldWithPath("detailAddress").type(STRING).description("주문 배송지 자세한 주소"),
+                                fieldWithPath("zipcode").type(STRING).description("주문 배송지 도로 번호"),
                                 fieldWithPath("orderOptionGroups").type(ARRAY).description("주문한 상품의 옵션 그룹"),
                                 fieldWithPath("price").type(NUMBER).description("주문 결제 금액"),
-                                subsectionWithPath("orderOptionGroups[].name").type(STRING).description("주문한 상품의 옵션 그룹 이름"),
-                                subsectionWithPath("orderOptionGroups[].option").type(OBJECT).description("주문한 상품의 옵션 그룹 옵션"),
-                                subsectionWithPath("orderOptionGroups[].option.name").type(STRING).description("주문한 상품의 옵션 그룹 옵션 이름")
+                                subsectionWithPath("orderOptionGroups[].optionGroupName").type(STRING).description("주문한 상품의 옵션 그룹 옵션"),
+                                subsectionWithPath("orderOptionGroups[].optionName").type(STRING).description("주문한 상품의 옵션 그룹에서 선택한 옵션 이름")
                         )
                 ));
     }

@@ -38,13 +38,15 @@ public class Item extends BaseEntity {
     private Integer price;
 
     @Builder
-    public Item(Shop shop,
+    public Item(Long id,
+                Shop shop,
                 List<OptionGroup> optionGroups,
                 String name,
                 String imageUrl,
                 String information,
                 String category,
                 Integer price) {
+        this.id = id;
         this.shop = shop;
         this.optionGroups = optionGroups;
         this.name = name;

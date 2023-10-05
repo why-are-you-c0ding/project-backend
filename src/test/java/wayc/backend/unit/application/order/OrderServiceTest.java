@@ -14,11 +14,15 @@ import org.mockito.Mockito;
 import org.mockito.Spy;
 import wayc.backend.common.event.Events;
 import wayc.backend.factory.Item.ItemFactory;
+import wayc.backend.factory.order.CreateAddressRequestFactory;
+import wayc.backend.factory.order.CreateOrderRequestFactory;
 import wayc.backend.factory.order.OrderLineItemFactory;
 import wayc.backend.order.application.OrderMapper;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.application.dto.request.CreateOrderLineItemRequestDto;
+import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
+import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderLineItemStatus;
 import wayc.backend.order.domain.repository.OrderLineItemRepository;
@@ -74,15 +78,13 @@ public class OrderServiceTest extends UnitTest {
 
         //given
         Item item = ItemFactory.createMacBook();
-        List<CreateOrderLineItemRequestDto> dtoList = OrderLineItemFactory.createSuccessCaseMackBookDto();
         given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
 
-        //when
-        //orderService.createOrder(1L, dtoList);
+        orderService.createOrder(CreateOrderRequestFactory.createOrderRequest(List.of(item)).toServiceDto(1L));
 
         //then
-        verify(orderRepository, Mockito.times(1)).saveAll(Mockito.any(List.class));
-        mockEvents.verify(() -> Events.raise(Mockito.any()), times(2));
+        verify(orderRepository, Mockito.times(1)).save(Mockito.any(Order.class));
+        mockEvents.verify(() -> Events.raise(Mockito.any()), times(1));
     }
 
     @Test
@@ -91,12 +93,15 @@ public class OrderServiceTest extends UnitTest {
 
         //given
         Item item = ItemFactory.createMacBook();
-        List<CreateOrderLineItemRequestDto> dtoList = OrderLineItemFactory.createFailCase1CaseMackBookDto();
+        List<CreateOrderLineItemRequestDto> orderLineItems = OrderLineItemFactory.createFailCase1CaseMackBookDto();
+        CreateOrderRequestDto request =
+                new CreateOrderRequestDto(orderLineItems, CreateAddressRequestFactory.create().toServiceDto(), 1L, 16000000);
+
         given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = Assertions.assertThatThrownBy(() -> {
-            //orderService.createOrder(1L, dtoList);
+            orderService.createOrder(request);
         });
 
         //then
@@ -109,12 +114,15 @@ public class OrderServiceTest extends UnitTest {
 
         //given
         Item item = ItemFactory.createMacBook();
-        List<CreateOrderLineItemRequestDto> dtoList = OrderLineItemFactory.createFailCase2CaseMackBookDto();
         given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
+
+        List<CreateOrderLineItemRequestDto> orderLineItems = OrderLineItemFactory.createFailCase2CaseMackBookDto();
+        CreateOrderRequestDto request =
+                new CreateOrderRequestDto(orderLineItems, CreateAddressRequestFactory.create().toServiceDto(), 1L, 16000000);
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = Assertions.assertThatThrownBy(() -> {
-            //orderService.createOrder(1L, dtoList);
+            orderService.createOrder(request);
         });
 
         //then
@@ -128,12 +136,17 @@ public class OrderServiceTest extends UnitTest {
 
         //given
         Item item = ItemFactory.createMacBook();
-        List<CreateOrderLineItemRequestDto> dtoList = OrderLineItemFactory.createFailCase3CaseMackBookDto();
+        List<CreateOrderLineItemRequestDto> orderLineItems = OrderLineItemFactory.createFailCase3CaseMackBookDto();
+
+        CreateOrderRequestDto request =
+                new CreateOrderRequestDto(orderLineItems, CreateAddressRequestFactory.create().toServiceDto(), 1L, 16000000);
+
         given(itemRepository.findItemByItemId(Mockito.anyLong())).willReturn(Optional.of(item));
+
 
         //when
         AbstractThrowableAssert<?, ? extends Throwable> result = Assertions.assertThatThrownBy(() -> {
-            //orderService.createOrder(1L, dtoList);
+            orderService.createOrder(request);
         });
 
         //then

@@ -21,7 +21,7 @@ public class FindOrdersForCustomerResponseDto {
     private Integer count;
     private Long shopId;
     private Long itemId;
-    private Long orderId;
+    private Long orderLineItemId;
     private OrderLineItemStatus orderStatus;
     private Integer price;
     private List<FindOrderOptionGroupResponseDto> orderOptionGroups = new ArrayList<>();
@@ -34,7 +34,7 @@ public class FindOrdersForCustomerResponseDto {
                                             Integer count,
                                             Long shopId,
                                             Long itemId,
-                                            Long orderId,
+                                            Long orderLineItemId,
                                             OrderLineItemStatus orderStatus,
                                             Integer price,
                                             List<FindOrderOptionGroupResponseDto> orderOptionGroups) {
@@ -44,7 +44,7 @@ public class FindOrdersForCustomerResponseDto {
         this.count = count;
         this.shopId = shopId;
         this.itemId = itemId;
-        this.orderId = orderId;
+        this.orderLineItemId = orderLineItemId;
         this.orderStatus = orderStatus;
         this.price = price;
         this.orderOptionGroups = orderOptionGroups;

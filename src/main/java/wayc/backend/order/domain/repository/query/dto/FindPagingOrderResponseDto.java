@@ -10,10 +10,10 @@ import java.util.List;
 public class FindPagingOrderResponseDto <T> {
 
     private boolean finalPage;
-    private List<T> orders;
+    private List<T> orderLineItems;
 
-    public FindPagingOrderResponseDto(boolean finalPage, List<T> orders) {
+    public FindPagingOrderResponseDto(boolean finalPage, List<T> orderLineItems) {
         this.finalPage = finalPage;
-        this.orders = orders;
+        this.orderLineItems = orderLineItems;
     }
 }

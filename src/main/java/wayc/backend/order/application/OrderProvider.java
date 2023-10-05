@@ -16,15 +16,15 @@ public class OrderProvider {
 
     private final OrderQueryRepository orderQueryRepository;
 
-    public FindPagingOrderResponseDto findCustomerOrderLineItems(Long memberId, Integer lastOrderLineItemId) {
-        return orderQueryRepository.findCustomerOrderLineItemsWithPaging(memberId, lastOrderLineItemId);
+    public FindPagingOrderResponseDto findCustomerOrderLineItems(Long memberId, Long lastLookUpOrderLineItemId) {
+        return orderQueryRepository.findCustomerOrderLineItemsWithPaging(memberId, lastLookUpOrderLineItemId);
     }
 
     public FindOrderResponseDto findDetailOrderLineItem(Long orderLineItemId) {
         return orderQueryRepository.findDetailOrderLineItem(orderLineItemId);
     }
 
-    public FindPagingOrderResponseDto findSellerOrderLineItems(Long memberId, Integer lastOrderLineItemId) {
-        return orderQueryRepository.findSellerOrderLineItemsWithPaging(memberId, lastOrderLineItemId);
+    public FindPagingOrderResponseDto findSellerOrderLineItems(Long memberId, Long lastLookUpOrderLineItemId) {
+        return orderQueryRepository.findSellerOrderLineItemsWithPaging(memberId, lastLookUpOrderLineItemId);
     }
 }

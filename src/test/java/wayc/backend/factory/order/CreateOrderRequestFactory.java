@@ -23,6 +23,7 @@ public class CreateOrderRequestFactory {
     public static CreateOrderRequest createOrderRequest(List<Item> items) {
         CreateAddressRequest address = CreateAddressRequestFactory.create();
         List<CreateOrderLineItemRequest> list = new ArrayList<>();
+
         for (Item item : items) {
             List<CreateOrderOptionGroupRequest> list2 = new ArrayList<>();
             for (OptionGroup optionGroup : item.getOptionGroups()) {

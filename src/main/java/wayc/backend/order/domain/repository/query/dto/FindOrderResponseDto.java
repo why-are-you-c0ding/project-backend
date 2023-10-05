@@ -10,36 +10,42 @@ import java.util.List;
 @Getter
 public class FindOrderResponseDto {
 
-    private Long orderLinItemId;
+    private Long orderLineItemId;
     private Long itemId;
     private String itemName;
     private String itemImageUrl;
     private Integer count;
     private OrderLineItemStatus orderStatus;
-    private Address address;
+    private String majorAddress;
+    private String detailAddress;
+    private String zipcode;
     private String shopName;
     private Long shopId;
     private Integer price;
     private List<FindOrderOptionGroupResponseDto> orderOptionGroups;
 
     @Builder
-    public FindOrderResponseDto(Long orderLinItemId,
+    public FindOrderResponseDto(Long orderLineItemId,
                                 Long itemId,
                                 String itemName,
                                 String itemImageUrl,
                                 Integer count,
                                 Integer price,
                                 OrderLineItemStatus orderStatus,
-                                Address address,
+                                String majorAddress,
+                                String detailAddress,
+                                String zipcode,
                                 String shopName,
                                 Long shopId) {
-        this.orderLinItemId = orderLinItemId;
+        this.orderLineItemId = orderLineItemId;
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemImageUrl = itemImageUrl;
         this.count = count;
         this.orderStatus = orderStatus;
-        this.address = address;
+        this.majorAddress = majorAddress;
+        this.detailAddress = detailAddress;
+        this.zipcode = zipcode;
         this.shopName = shopName;
         this.shopId = shopId;
         this.price = price;

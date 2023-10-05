@@ -1,5 +1,6 @@
 package wayc.backend.integration.order;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -39,12 +40,6 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
     private ItemRepository itemRepository;
 
     @Autowired
-    private OrderLineItemRepository orderLineItemRepository;
-
-    @Autowired
-    private PayRepository payRepository;
-
-    @Autowired
     private ShopRepository shopRepository;
 
     @Autowired
@@ -55,24 +50,20 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
 
         //given
         Shop saveShop = shopRepository.save(ShopFactory.create());
-        Item saveItem = itemRepository.save(ItemFactory.createItem(saveShop));
-        Order order = new OrderMapper().mapFrom(CreateOrderRequestFactory.createSuccessCase().toServiceDto(1L));
+        Item saveItem = itemRepository.save(ItemFactory.createWithShop(saveShop));
+        Order order = new OrderMapper().mapFrom(CreateOrderRequestFactory.createOrderRequest(List.of(saveItem)).toServiceDto(1L));
         orderRepository.save(order);
 
         //when
-        FindOrderResponseDto res = orderProvider.findDetailOrderLineItem();
+        FindOrderResponseDto res = orderProvider.findDetailOrderLineItem(order.getOrderLineItems().get(0).getId());
 
         //then
-
-        for (OrderLineItem orderLineItem : order.getOrderLineItems()) {
-
-        }
-        assertThat().isEqualTo(order.getId());
+        assertThat(res.getOrderLineItemId()).isEqualTo(order.getOrderLineItems().get(0).getId());
         assertThat(res.getItemId()).isEqualTo(saveItem.getId());
         assertThat(res.getShopId()).isEqualTo(saveShop.getId());
     }
 
-    @Rollback(value = false)
+    //@Rollback(value = false)
     @Test
     void findSellerOrders(){
 
@@ -88,15 +79,16 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
         }
 
         //when
-        FindPagingOrderResponseDto res = orderProvider.findSellerOrderLineItems(shop.getOwner().getMemberId(), 0);
+        FindPagingOrderResponseDto res = orderProvider.findSellerOrderLineItems(shop.getOwner().getMemberId(), 0L);
 
         //then
         assertThat(res.isFinalPage()).isEqualTo(true);
-        assertThat(res.getOrders().size()).isEqualTo(9);
+        assertThat(res.getOrderLineItems().size()).isEqualTo(9);
     }
 
     @Test
-    void findCustomerOrders(){
+    @DisplayName("마지막 페이지가 아닌 경우")
+    void findCustomerOrdersNotLastPage(){
 
         //given
         Shop shop = ShopFactory.create();
@@ -104,15 +96,37 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
         shop.getItems().add(macBook);
         shopRepository.save(shop);
 
-        for (long i = 1;  i < 10L ; i++) {
-            Order order = new OrderMapper().mapFrom(CreateOrderRequestFactory.createOrderRequest(List.of(macBook)).toServiceDto(i));
+        for (long i = 1;  i < 19L ; i++) {
+            Order order = new OrderMapper().mapFrom(CreateOrderRequestFactory.createOrderRequest(List.of(macBook)).toServiceDto(1L));
             orderRepository.save(order);
         }
 
         //when
-        FindPagingOrderResponseDto res = orderProvider.findCustomerOrderLineItems(1L, 0);
+        FindPagingOrderResponseDto res = orderProvider.findCustomerOrderLineItems(1L, 1L);
 
+        assertThat(res.getOrderLineItems().size()).isEqualTo(10);
+        assertThat(res.isFinalPage()).isEqualTo(false);
+    }
+
+    @Test
+    @DisplayName("마지막 페이지인 경우")
+    void findCustomerOrdersLastPage(){
+
+        //given
+        Shop shop = ShopFactory.create();
+        Item macBook = ItemFactory.createWithShop(shop);
+        shop.getItems().add(macBook);
+        shopRepository.save(shop);
+
+        for (long i = 1;  i < 11L ; i++) {
+            Order order = new OrderMapper().mapFrom(CreateOrderRequestFactory.createOrderRequest(List.of(macBook)).toServiceDto(1L));
+            orderRepository.save(order);
+        }
+
+        //when
+        FindPagingOrderResponseDto res = orderProvider.findCustomerOrderLineItems(1L, 1L);
+
+        assertThat(res.getOrderLineItems().size()).isEqualTo(10);
         assertThat(res.isFinalPage()).isEqualTo(true);
-        assertThat(res.getOrders().size()).isEqualTo(1);
     }
 }

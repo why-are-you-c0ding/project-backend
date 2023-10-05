@@ -22,7 +22,7 @@ public class FindPagingOrderResponseDtoFactory {
                 .shopId(1L)
                 .price(100000)
                 .itemId(2L)
-                .orderId(4L)
+                .orderLineItemId(4L)
                 .orderStatus(OrderLineItemStatus.ORDER_ACCEPTED)
                 .build();
 
@@ -39,7 +39,7 @@ public class FindPagingOrderResponseDtoFactory {
                 .shopId(2L)
                 .price(20000)
                 .itemId(3L)
-                .orderId(7L)
+                .orderLineItemId(7L)
                 .orderStatus(OrderLineItemStatus.PAYMENT_COMPLETED)
                 .build();
 
@@ -61,7 +61,7 @@ public class FindPagingOrderResponseDtoFactory {
                         .shopId(2L)
                         .price(20000)
                         .itemId(3L)
-                        .orderId(7L)
+                        .orderLineItemId(7L)
                         .orderStatus(OrderLineItemStatus.PAYMENT_COMPLETED)
                         .build();
 
@@ -76,7 +76,7 @@ public class FindPagingOrderResponseDtoFactory {
                         .shopId(2L)
                         .price(20000)
                         .itemId(3L)
-                        .orderId(8L)
+                        .orderLineItemId(8L)
                         .orderStatus(OrderLineItemStatus.PAYMENT_COMPLETED)
                         .build();
 

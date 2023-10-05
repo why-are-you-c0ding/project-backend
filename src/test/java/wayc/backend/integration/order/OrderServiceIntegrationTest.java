@@ -11,6 +11,7 @@ import wayc.backend.factory.shop.ShopFactory;
 import wayc.backend.integration.IntegrationTest;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.application.dto.request.CreateOrderLineItemRequestDto;
+import wayc.backend.order.application.dto.request.CreateOrderRequestDto;
 import wayc.backend.order.application.dto.request.UpdateOrderRequestDto;
 import wayc.backend.order.domain.OrderLineItem;
 import wayc.backend.order.domain.OrderLineItemStatus;
@@ -46,7 +47,7 @@ public class OrderServiceIntegrationTest extends IntegrationTest {
         Item saveItem = itemRepository.save(ItemFactory.createMacBook());
 
         //when
-        orderService.createOrder(CreateOrderRequestFactory.createSuccessCase().toServiceDto(1L));
+        orderService.createOrder(CreateOrderRequestFactory.createOrderRequest(List.of(saveItem)).toServiceDto(1L));
 
         //then
         List<OrderLineItem> result = orderRepository.findAll();

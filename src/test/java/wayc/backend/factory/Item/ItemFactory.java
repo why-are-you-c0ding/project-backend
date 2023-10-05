@@ -21,6 +21,7 @@ public class ItemFactory {
 
     public static Item createMacBook(){
         return Item.builder()
+                .id(1L)
                 .name("맥북")
                 .imageUrl("imageurl")
                 .category("IT")
@@ -72,6 +73,14 @@ public class ItemFactory {
                                                 new Option("32GB", 160000)
                                         ) ,
                                         "RAM"
+                                ),
+                                new OptionGroup(
+                                        List.of(
+                                                new Option("WHITE", 0),
+                                                new Option("BLACK", 0),
+                                                new Option("GREY", 0)
+                                        ) ,
+                                        "color"
                                 )
                         )
                 )

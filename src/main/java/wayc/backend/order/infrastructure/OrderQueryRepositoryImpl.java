@@ -32,10 +32,13 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
     }
 
 
+    private final static Integer LIMIT_SIZE = 30;
+    private final static Integer ADDITIONAL_LIMIT_SIZE = 3; //옵션 그룹은 최대 3개까지 가능.
     private final static Integer PAGE_SIZE = 10;
 
+
     @Override
-    public FindPagingOrderResponseDto findCustomerOrderLineItemsWithPaging(Long memberId, Integer lastOrderLineItemId) {
+    public FindPagingOrderResponseDto findCustomerOrderLineItemsWithPaging(Long memberId, Long lastOrderLineItemId) {
         List<FindOrdersForCustomerResponseDto> result = query
                 .from(order)
                 .join(orderLineItem).on(orderLineItem.order.id.eq(order.id))
@@ -47,7 +50,7 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
                         orderLineItem.id.gt(lastOrderLineItemId)
                 )
                 .orderBy(orderLineItem.id.desc())
-                .limit(PAGE_SIZE + 1)
+                .limit(LIMIT_SIZE + ADDITIONAL_LIMIT_SIZE)
                 .transform(
                         groupBy(orderLineItem.id).list(
                                 Projections.constructor(
@@ -58,7 +61,7 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
                                         orderLineItem.count,
                                         shop.id,
                                         item.id,
-                                        order.id,
+                                        orderLineItem.id,
                                         orderLineItem.orderLineItemStatus,
                                         orderLineItem.payment,
                                         list(
@@ -79,7 +82,7 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
     }
 
     @Override
-    public FindPagingOrderResponseDto findSellerOrderLineItemsWithPaging(Long memberId, Integer lastOrderLineItemId) {
+    public FindPagingOrderResponseDto findSellerOrderLineItemsWithPaging(Long memberId, Long lastOrderLineItemId) {
         List<FindOrdersForSellerResponseDto> result = query
                 .from(order)
                 .join(orderLineItem).on(orderLineItem.order.id.eq(order.id))
@@ -91,7 +94,7 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
                         orderLineItem.id.gt(lastOrderLineItemId)
                 )
                 .orderBy(orderLineItem.id.desc())
-                .limit(PAGE_SIZE + 1)
+                .limit(LIMIT_SIZE + ADDITIONAL_LIMIT_SIZE)
                 .transform(
                         groupBy(orderLineItem.id).list(
                                 Projections.constructor(
@@ -124,8 +127,8 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
 
     @Override
     public FindOrderResponseDto findDetailOrderLineItem(Long orderLineItemId) {
-        List<FindOrderOptionGroupResponseDto> optionGroups = findOrderOptionGroup(orderLineItemId);
         FindOrderResponseDto orderLineItem = findOrderLineItem(orderLineItemId);
+        List<FindOrderOptionGroupResponseDto> optionGroups = findOrderOptionGroup(orderLineItemId);
         orderLineItem.setOrderOptionGroups(optionGroups);
         return orderLineItem;
 
@@ -141,13 +144,17 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
                                 item.name,
                                 item.imageUrl,
                                 orderLineItem.count,
+                                orderLineItem.payment,
                                 orderLineItem.orderLineItemStatus,
-                                order.address,
+                                order.address.major,
+                                order.address.detail,
+                                order.address.zipcode,
                                 shop.name,
                                 shop.id
                         )
                 )
                 .from(orderLineItem)
+                .join(order).on(order.id.eq(orderLineItem.order.id))
                 .join(item).on(orderLineItem.itemId.eq(item.id))
                 .join(shop).on(shop.id.eq(item.shop.id))
                 .where(orderLineItem.id.eq(orderLineItemId))

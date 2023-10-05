@@ -7,6 +7,7 @@ import wayc.backend.order.domain.repository.query.dto.FindOrderOptionResponseDto
 import wayc.backend.order.domain.repository.query.dto.FindOrderResponseDto;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class FindOrderResponseDtoFactory {
 
@@ -20,23 +21,22 @@ public class FindOrderResponseDtoFactory {
                 "ssd", "512GB"
         );
 
-        return  FindOrderResponseDto
+        FindOrderResponseDto result = FindOrderResponseDto
                 .builder()
-                .orderId(1L)
+                .orderLineItemId(1L)
                 .itemId(2L)
                 .itemName("맥북")
                 .itemImageUrl("www.google.com")
                 .count(3)
                 .orderStatus(OrderLineItemStatus.ORDER_ACCEPTED)
-                .address(
-                        new Address("서울 중랑구 동일로 756", "999동 999호", "02020")
-                )
-                .orderOptionGroups(
-                        Arrays.asList(optionGroup_1, optionGroup_2)
-                )
+                .majorAddress("서울 중구 동일로 756")
+                .detailAddress("999동 999호")
+                .zipcode("02020")
                 .shopId(7L)
                 .shopName("멋쟁이들의 가게")
                 .price(10000)
                 .build();
+        result.setOrderOptionGroups(List.of(optionGroup_1, optionGroup_2));
+        return result;
     }
 }
