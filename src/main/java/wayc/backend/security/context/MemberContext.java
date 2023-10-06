@@ -8,7 +8,7 @@ import wayc.backend.member.domain.Member;
 import java.util.Collection;
 import java.util.Collections;
 
-public class MemberContext implements UserDetails{
+public class MemberContext implements UserDetails {
 
     private final Member member;
     private final SimpleGrantedAuthority authority;

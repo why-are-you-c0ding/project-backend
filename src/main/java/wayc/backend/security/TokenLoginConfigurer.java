@@ -12,7 +12,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import wayc.backend.security.filter.TokenLoginProcessingFilter;
 
-public final class TokenLoginConfigurer<H extends HttpSecurityBuilder<H>> extends AbstractAuthenticationFilterConfigurer<H, TokenLoginConfigurer<H>, TokenLoginProcessingFilter> {
+public final class TokenLoginConfigurer <H extends HttpSecurityBuilder<H>> extends AbstractAuthenticationFilterConfigurer<H, TokenLoginConfigurer<H>, TokenLoginProcessingFilter> {
 
     private AuthenticationSuccessHandler successHandler;
     private AuthenticationFailureHandler failureHandler;
