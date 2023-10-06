@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import wayc.backend.security.dto.response.LoginResponseDto;
 import wayc.backend.security.jwt.JwtProvider;
-import wayc.backend.security.token.JwtAuthenticationToken;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ import java.io.IOException;
 public class TokenAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private final ObjectMapper mapper;
-    private final JwtProvider jwtProvider;
 
     public TokenAuthenticationSuccessHandler(JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;

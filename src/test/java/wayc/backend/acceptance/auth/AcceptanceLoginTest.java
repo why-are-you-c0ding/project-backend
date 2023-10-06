@@ -18,7 +18,7 @@ import wayc.backend.common.redis.RedisService;
 import wayc.backend.factory.member.dto.RegisterMemberRequestDtoFactory;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
-import wayc.backend.security.dto.request.LoginRequestDto;
+import wayc.backend.security.local.LocalLoginRequest;
 
 import java.time.Duration;
 
@@ -60,7 +60,7 @@ public class AcceptanceLoginTest {
     @Test
     void success_login_test() throws Exception {
         //given
-        LoginRequestDto req = new LoginRequestDto("loginId", "1q2w3e4r!");
+        LocalLoginRequest req = new LocalLoginRequest("loginId", "1q2w3e4r!");
         String value = mapper.writeValueAsString(req);
 
         //when

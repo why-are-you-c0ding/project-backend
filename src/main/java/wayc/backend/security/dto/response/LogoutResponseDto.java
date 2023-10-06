@@ -9,6 +9,6 @@ public class LogoutResponseDto {
     private String message;
 
     public LogoutResponseDto() {
-        this.message = "Logout Success.";
+        this.message = "로그아웃을 성공했습니다..";
     }
 }

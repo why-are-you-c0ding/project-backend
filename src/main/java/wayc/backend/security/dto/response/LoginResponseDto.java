@@ -8,10 +8,8 @@ import lombok.NoArgsConstructor;
 public class LoginResponseDto {
 
     private String message;
-    private String jwt;
 
-    public LoginResponseDto(String message, String jwt) {
+    public LoginResponseDto(String message) {
         this.message = message;
-        this.jwt = jwt;
     }
 }

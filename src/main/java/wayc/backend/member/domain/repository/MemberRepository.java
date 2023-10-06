@@ -15,4 +15,7 @@ public interface MemberRepository extends JpaRepository <Member, Long> {
 
     @Query("select m from Member m where m.status = 'ACTIVE' and m.loginId = :loginId")
     Optional<Member> findByLoginIdAndStatus(String loginId);
+
+    @Query("select m from Member m where m.id = :id and m.status = 'ACTIVE'")
+    Optional<Member> findMemberById(Long id);
 }

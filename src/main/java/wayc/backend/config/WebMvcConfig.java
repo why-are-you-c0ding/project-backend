@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import wayc.backend.config.argumentresolver.GetStockArgumentResolver;
+import wayc.backend.common.argumentresolver.GetStockArgumentResolver;
 
 import java.util.List;
 

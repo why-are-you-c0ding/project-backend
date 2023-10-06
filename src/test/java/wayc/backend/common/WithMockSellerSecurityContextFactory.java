@@ -1,15 +1,9 @@
 package wayc.backend.common;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;
-import wayc.backend.security.token.JwtAuthenticationToken;
-
-import java.security.Principal;
-import java.util.Collections;
-import java.util.Set;
 
 import static java.util.Collections.singleton;
 
