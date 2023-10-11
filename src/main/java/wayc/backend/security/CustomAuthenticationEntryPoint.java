@@ -1,4 +1,4 @@
-package wayc.backend.security.handler;
+package wayc.backend.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;

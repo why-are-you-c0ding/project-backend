@@ -27,12 +27,11 @@ public class MemberValidator {
 
     public void validate(Member member, String checkPwd, String authKey) {
 
-
-        if(wrongAuthKey(member.getEmail(), authKey)) {
+        if(wrongAuthKey(member.getAuth().getEmail(), authKey)) {
             throw new WrongEmailAuthKeyException();
         }
 
-        if(!passwordEncoder.matches(checkPwd, member.getPassword())){
+        if(!passwordEncoder.matches(checkPwd, member.getAuth().getPassword())){
             throw new NotSamePasswordException();
         }
 

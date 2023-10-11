@@ -1,37 +1,36 @@
-package wayc.backend.security.handler;
+package wayc.backend.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import wayc.backend.security.dto.response.LoginResponseDto;
-import wayc.backend.security.jwt.JwtProvider;
+import wayc.backend.common.CommandSuccessResponse;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@RequiredArgsConstructor
+public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
-public class TokenAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+    private static final String SUCCESS_MESSAGE = "로그인을 성공했습니다.";
 
     private final ObjectMapper mapper;
-
-    public TokenAuthenticationSuccessHandler(JwtProvider jwtProvider) {
-        this.jwtProvider = jwtProvider;
-        this.mapper = new ObjectMapper();
-    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        mapper.writeValue(
-                response.getWriter(),
-                new LoginResponseDto("Login succeeded.", jwtProvider.createToken(authentication)
-                )
-        );
+        UserPrincipal userPrincipal = (UserPrincipal) authentication;
+
+        HttpSession session = request.getSession();
+        session.setAttribute("userId", userPrincipal.getId());
+        mapper.writeValue(response.getWriter(), new CommandSuccessResponse(SUCCESS_MESSAGE));
+
     }
 }

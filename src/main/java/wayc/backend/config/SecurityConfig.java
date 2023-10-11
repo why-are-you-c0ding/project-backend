@@ -1,8 +1,6 @@
 package wayc.backend.config;
 
-import com.amazonaws.services.ec2.model.CustomerGateway;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.CustomLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -10,24 +8,28 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import wayc.backend.member.domain.repository.MemberRepository;
-import wayc.backend.security.CustomLogoutHandler;
-import wayc.backend.security.CustomUserDetailsService;
-import wayc.backend.security.LogoutSuccessHandler;
+import wayc.backend.security.*;
 import wayc.backend.security.local.LocalLoginFilter;
 
 import javax.servlet.Filter;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
@@ -49,13 +51,14 @@ public class SecurityConfig {
                 .userDetailsService(customUserDetailsService())
                 .and()
                 .csrf()
-                .and()
+                .disable()
                 .formLogin()
                 .disable()
                 .httpBasic()
                 .disable()
                 .exceptionHandling()
-                .authenticationEntryPoint()
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                .accessDeniedHandler(new CustomAccessDeniedHandler(objectMapper))
                 .and()
                 .authorizeRequests()
                 .antMatchers("/",
@@ -72,10 +75,7 @@ public class SecurityConfig {
                 .antMatchers("/auth/**", "/oauth2/**", "/actuator/**", "/health-check/**")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/local/login/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and();
+                .permitAll();
 
 
         http.addFilterBefore(loginFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -86,15 +86,26 @@ public class SecurityConfig {
                 .addLogoutHandler(logoutHandler())
                 .logoutSuccessHandler(logoutSuccessHandler());
 
+        http.addFilterBefore(encodingFilter(), CsrfFilter.class);
+
         return http.build();
     }
+
 
     private Filter loginFilter() {
         LocalLoginFilter loginFilter = new LocalLoginFilter(objectMapper);
         loginFilter.setFilterProcessesUrl("/local/login");
         loginFilter.setAuthenticationManager(authenticationManager());
-        loginFilter.setAuthenticationFailureHandler();
+        loginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
+        //loginFilter.setAuthenticationFailureHandler();
         return loginFilter;
+    }
+
+    private Filter encodingFilter() {
+        CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
+        encodingFilter.setEncoding("UTF-8");
+        encodingFilter.setForceEncoding(true);
+        return encodingFilter;
     }
 
     @Bean
@@ -121,12 +132,17 @@ public class SecurityConfig {
     }
 
     @Bean
-    LogoutSuccessHandler logoutSuccessHandler() {
-        return new LogoutSuccessHandler();
+    CustomLogoutSuccessHandler logoutSuccessHandler() {
+        return new CustomLogoutSuccessHandler(objectMapper);
     }
 
     @Bean
     LogoutHandler logoutHandler() {
         return new CustomLogoutHandler();
+    }
+
+    @Bean
+    AuthenticationSuccessHandler loginSuccessHandler() {
+        return new CustomLoginSuccessHandler(objectMapper);
     }
 }
