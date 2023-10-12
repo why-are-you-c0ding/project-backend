@@ -26,11 +26,10 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication;
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         HttpSession session = request.getSession();
         session.setAttribute("userId", userPrincipal.getId());
         mapper.writeValue(response.getWriter(), new CommandSuccessResponse(SUCCESS_MESSAGE));
-
     }
 }
