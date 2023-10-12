@@ -11,7 +11,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,18 +18,14 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
-import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.security.*;
 import wayc.backend.security.local.LocalLoginFilter;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.Filter;
 import java.util.UUID;
 
@@ -70,7 +65,7 @@ public class SecurityConfig {
                 .httpBasic()
                 .disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint(objectMapper))
                 .accessDeniedHandler(new CustomAccessDeniedHandler(objectMapper))
                 .and()
                 .authorizeRequests()
@@ -90,8 +85,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/local/login/**")
                 .permitAll();
 
-
-
+        http.addFilterBefore(cookieSessionAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(loginFilter(rememberMeServices), UsernamePasswordAuthenticationFilter.class);
 
         http.logout()
@@ -103,6 +97,10 @@ public class SecurityConfig {
         http.addFilterBefore(encodingFilter(), CsrfFilter.class);
 
         return http.build();
+    }
+
+    private CookieSessionAuthenticationFilter cookieSessionAuthenticationFilter() {
+        return new CookieSessionAuthenticationFilter(customUserDetailsService());
     }
 
 

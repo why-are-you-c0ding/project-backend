@@ -18,7 +18,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        //mapper.writeValue(response.getWriter(), accessDeniedException.getCause());
         response.sendError(HttpServletResponse.SC_FORBIDDEN); //403
         response.getWriter().write(mapper.writeValueAsString(accessDeniedException));
     }
