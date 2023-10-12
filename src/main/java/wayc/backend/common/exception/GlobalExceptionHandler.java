@@ -51,19 +51,24 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
     }
 
-//    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<ApplicationExceptionResponse> runtimeException(RuntimeException e) {
-//        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "S002", INTERNAL_SERVER_ERROR);
-//        log.error(LOG_FORMAT, e.getClass().getSimpleName(), INTERNAL_SERVER_ERROR_CODE, e.getMessage());
-//        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
-//    }
-//
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ApplicationExceptionResponse> runtimeException(Exception e) {
-//        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "S001", INTERNAL_SERVER_ERROR);
-//        log.error(LOG_FORMAT, e.getClass().getSimpleName(), INTERNAL_SERVER_ERROR_CODE, e.getMessage());
-//        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
-//    }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApplicationExceptionResponse> runtimeException(RuntimeException e) {
+
+        if(e.getClass() == AccessDeniedException.class | e.getClass() == AuthenticationException.class) {
+            throw e; //시큐리티에서 처리
+        }
+
+        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "S002", INTERNAL_SERVER_ERROR);
+        log.error(LOG_FORMAT, e.getClass().getSimpleName(), INTERNAL_SERVER_ERROR_CODE, e.getMessage());
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApplicationExceptionResponse> runtimeException(Exception e) {
+        ApplicationExceptionResponse exceptionResponse = new ApplicationExceptionResponse(INTERNAL_SERVER_ERROR_CODE, "S001", INTERNAL_SERVER_ERROR);
+        log.error(LOG_FORMAT, e.getClass().getSimpleName(), INTERNAL_SERVER_ERROR_CODE, e.getMessage());
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(exceptionResponse);
+    }
 }
 
 // Error
