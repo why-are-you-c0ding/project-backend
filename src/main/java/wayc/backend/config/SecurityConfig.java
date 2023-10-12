@@ -96,7 +96,7 @@ public class SecurityConfig {
 
         http.logout()
                 .logoutUrl("/logout")
-                .deleteCookies("JESSIONID", "remember-me")
+                .deleteCookies("JSESSIONID", "remember-me")
 //                .addLogoutHandler(logoutHandler()) 디버깅해보니 4개의 핸들러가 이미 있다.
                 .logoutSuccessHandler(logoutSuccessHandler());
 

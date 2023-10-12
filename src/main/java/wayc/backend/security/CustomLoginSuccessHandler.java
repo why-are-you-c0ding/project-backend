@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import wayc.backend.common.CommandSuccessResponse;
 
@@ -25,11 +27,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-
-        HttpSession session = request.getSession();
-        session.setAttribute("userId", userPrincipal.getId());
         mapper.writeValue(response.getWriter(), new CommandSuccessResponse(SUCCESS_MESSAGE));
     }
 }
