@@ -18,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
@@ -48,14 +49,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        /**
+         * HttpSecurity에서 alwaysRememberMe가 안먹어서 직접 설정.
+         */
         String rememberMeServiceKey = UUID.randomUUID().toString();
         RememberMeServices rememberMeServices = rememberMeServices(rememberMeServiceKey);
+        AbstractRememberMeServices abstractRememberMeServices = (AbstractRememberMeServices) rememberMeServices;
+        abstractRememberMeServices.setAlwaysRemember(true);
 
         http
                 .cors()
                 .and()
                 .rememberMe()
-                .alwaysRemember(true)
                 .rememberMeServices(rememberMeServices)
                 .key(rememberMeServiceKey)
                 .and()
