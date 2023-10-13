@@ -47,9 +47,9 @@ public class ItemController {
     }
 
     @GetMapping("/sellers")
-    public ResponseEntity<FindPagingItemResponseDto> findSellerItems(@AuthenticationPrincipal Long id,
+    public ResponseEntity<FindPagingItemResponseDto> findSellerItems(@AuthenticationPrincipal UserPrincipal userPrincipal,
                                                                      @RequestParam Integer page){
-        FindPagingItemResponseDto res = itemProvider.findSellerItems(id, page);
+        FindPagingItemResponseDto res = itemProvider.findSellerItems(userPrincipal.getId(), page);
         return ResponseEntity.ok(res);
     }
 

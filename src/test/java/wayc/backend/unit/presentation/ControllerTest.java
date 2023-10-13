@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import wayc.backend.cart.application.CartProvider;
 import wayc.backend.cart.application.CartService;
 import wayc.backend.cart.presentation.CartController;
+import wayc.backend.security.AppProperties;
 import wayc.backend.config.SecurityConfig;
 import wayc.backend.config.WebMvcConfig;
 import wayc.backend.common.image.ImageController;
@@ -44,7 +45,8 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 
 @Import({
         SecurityConfig.class,
-        WebMvcConfig.class
+        WebMvcConfig.class,
+        AppProperties.class
 })
 @WebMvcTest(controllers = {
         MemberController.class,

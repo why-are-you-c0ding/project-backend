@@ -16,6 +16,7 @@ import wayc.backend.order.domain.repository.query.dto.FindPagingOrderResponseDto
 import wayc.backend.order.presentation.dto.request.UpdateOrderRequest;
 import wayc.backend.order.presentation.dto.request.CreateOrderRequest;
 import wayc.backend.order.presentation.dto.response.CreateOrderResponse;
+import wayc.backend.security.UserPrincipal;
 
 
 @RequiredArgsConstructor
@@ -26,37 +27,36 @@ public class OrderController {
     private final OrderProvider orderProvider;
 
     @PostMapping("/orders")
-    public ResponseEntity createOrder(@AuthenticationPrincipal Long memberId,
+    public ResponseEntity createOrder(@AuthenticationPrincipal UserPrincipal userPrincipal,
                                       @Validated @RequestBody CreateOrderRequest request){
-       orderService.createOrder(request.toServiceDto(memberId));
+       orderService.createOrder(request.toServiceDto(userPrincipal.getId()));
         return new ResponseEntity(new CreateOrderResponse(), HttpStatus.CREATED);
     }
 
     @GetMapping("/order-line-items/customers")
-    public ResponseEntity<FindPagingOrderResponseDto> findCustomerOrders(@RequestParam Long lastLookUpOrderLineItemId,
-                                                                         @AuthenticationPrincipal Long id){
-        FindPagingOrderResponseDto res = orderProvider.findCustomerOrderLineItems(id, lastLookUpOrderLineItemId);
+    public ResponseEntity<FindPagingOrderResponseDto> findCustomerOrders(@AuthenticationPrincipal UserPrincipal userPrincipal,
+                                                                         @RequestParam Long lastLookUpOrderLineItemId){
+        FindPagingOrderResponseDto res = orderProvider.findCustomerOrderLineItems(userPrincipal.getId(), lastLookUpOrderLineItemId);
         return ResponseEntity.ok(res);
     }
 
 
     @GetMapping("/order-line-items/sellers")
-    public ResponseEntity findSellerOrders(@RequestParam Long lastLookUpOrderLineItemId,
-                                           @AuthenticationPrincipal Long id){
-        return new ResponseEntity(orderProvider.findSellerOrderLineItems(id, lastLookUpOrderLineItemId), HttpStatus.OK);
+    public ResponseEntity findSellerOrders(@AuthenticationPrincipal UserPrincipal userPrincipal,
+                                           @RequestParam Long lastLookUpOrderLineItemId){
+        return new ResponseEntity(orderProvider.findSellerOrderLineItems(userPrincipal.getId(), lastLookUpOrderLineItemId), HttpStatus.OK);
     }
 
 
     @GetMapping("/order-line-items/{orderLineItemId}")
-    public ResponseEntity findOrder(@PathVariable Long orderLineItemId,
-                                    @AuthenticationPrincipal Long id){
+    public ResponseEntity findOrder(@PathVariable Long orderLineItemId){
         return new ResponseEntity(orderProvider.findDetailOrderLineItem(orderLineItemId) , HttpStatus.OK);
     }
 
     @PatchMapping("/orders")
-    public ResponseEntity updateOrder(@RequestBody UpdateOrderRequest request,
-                                      @AuthenticationPrincipal Long id) {
-        orderService.updateOrder(id, request.toServiceDto());
+    public ResponseEntity updateOrder(@AuthenticationPrincipal UserPrincipal userPrincipal,
+                                      @RequestBody UpdateOrderRequest request) {
+        orderService.updateOrder(userPrincipal.getId(), request.toServiceDto());
         return ResponseEntity.ok(new CommandSuccessResponse("주문 상품 수정을 성공했습니다."));
     }
 }

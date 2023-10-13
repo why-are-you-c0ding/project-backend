@@ -7,14 +7,11 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import org.springframework.web.util.UriComponentsBuilder;
-import wayc.backend.config.AppProperties;
-import wayc.backend.security.exception.UnAuthorizedRedirectUrlException;
+import wayc.backend.security.AppProperties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URI;
-
 
 
 @Component
