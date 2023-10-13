@@ -1,4 +1,4 @@
-package wayc.backend.security;
+package wayc.backend.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

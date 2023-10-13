@@ -37,7 +37,13 @@ public class Member extends BaseEntity {
     //추후에 멤버에서 장바구니를 추적해야하거나, 샵을 추적해야하면 아이디를 추가하자.
 
     @Builder
-    public Member(String nickName, String loginId, String password, int age, String email, Role role, AuthProvider authProvider) {
+    public Member(String nickName,
+                  String loginId,
+                  String password,
+                  int age,
+                  String email,
+                  Role role,
+                  AuthProvider authProvider) {
         this.nickName = nickName;
         this.loginId = loginId;
         this.auth = new Auth(email, password);

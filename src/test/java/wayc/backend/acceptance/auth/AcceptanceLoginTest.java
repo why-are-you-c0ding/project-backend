@@ -64,7 +64,7 @@ public class AcceptanceLoginTest {
         String value = mapper.writeValueAsString(req);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.post("/login")
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/local/login?remember-me=on")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(value)
@@ -78,10 +78,7 @@ public class AcceptanceLoginTest {
                                 fieldWithPath("loginId").type(STRING).description("로그인아이디"),
                                 fieldWithPath("password").type(STRING).description("비밀번호")
                         ),
-                        responseFields(
-                                fieldWithPath("jwt").type(STRING).description("JWT 토큰"),
-                                fieldWithPath("message").type(STRING).description("성공 메시지")
-                        )
+
                 ));
     }
 }

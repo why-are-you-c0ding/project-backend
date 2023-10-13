@@ -1,4 +1,4 @@
-package wayc.backend.common.argumentresolver;
+package wayc.backend.config.argumentresolver;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;

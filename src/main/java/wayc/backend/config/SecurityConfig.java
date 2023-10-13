@@ -24,7 +24,14 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import wayc.backend.member.domain.repository.MemberRepository;
 import wayc.backend.security.*;
+import wayc.backend.security.handler.CustomAccessDeniedHandler;
+import wayc.backend.security.handler.CustomAuthenticationEntryPoint;
+import wayc.backend.security.handler.CustomLoginSuccessHandler;
+import wayc.backend.security.handler.CustomLogoutSuccessHandler;
 import wayc.backend.security.local.LocalLoginFilter;
+import wayc.backend.security.oauth2.CustomOAuth2UserService;
+import wayc.backend.security.oauth2.OAuth2AuthenticationFailureHandler;
+import wayc.backend.security.oauth2.OAuth2AuthenticationSuccessHandler;
 
 import javax.servlet.Filter;
 import java.util.UUID;
@@ -36,6 +43,7 @@ public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
     private final MemberRepository memberRepository;
+    private final AppProperties appProperties;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -83,7 +91,18 @@ public class SecurityConfig {
                 .antMatchers("/auth/**", "/oauth2/**", "/actuator/**", "/health-check/**")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/local/login/**")
-                .permitAll();
+                .permitAll()
+                .and()
+                .oauth2Login()
+                .authorizationEndpoint()
+                //.authorizationRequestRepository()
+                .and()
+                .userInfoEndpoint()
+                .userService(customOAuth2UserService())
+                .and()
+                .successHandler(oAuth2AuthenticationSuccessHandler())
+                .failureHandler(oAuth2AuthenticationFailureHandler());
+
 
         http.addFilterBefore(cookieSessionAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(loginFilter(rememberMeServices), UsernamePasswordAuthenticationFilter.class);
@@ -156,5 +175,20 @@ public class SecurityConfig {
     @Bean
     AuthenticationSuccessHandler loginSuccessHandler() {
         return new CustomLoginSuccessHandler(objectMapper);
+    }
+
+    @Bean
+    CustomOAuth2UserService customOAuth2UserService(){
+        return new CustomOAuth2UserService(memberRepository);
+    }
+
+    @Bean
+    OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler(){
+        return new OAuth2AuthenticationFailureHandler(appProperties);
+    }
+
+    @Bean
+    OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler(){
+        return new OAuth2AuthenticationSuccessHandler(appProperties);
     }
 }

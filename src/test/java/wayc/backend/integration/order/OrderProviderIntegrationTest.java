@@ -118,7 +118,7 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
         shop.getItems().add(macBook);
         shopRepository.save(shop);
 
-        for (long i = 1;  i < 11L ; i++) {
+        for (long i = 1;  i < 12L ; i++) {
             Order order = new OrderMapper().mapFrom(CreateOrderRequestFactory.createOrderRequest(List.of(macBook)).toServiceDto(1L));
             orderRepository.save(order);
         }
