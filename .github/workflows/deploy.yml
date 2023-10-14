@@ -23,13 +23,13 @@ jobs:
         run: |
           cd ./src/test/resources
           touch ./application.yml
-          echo "${{ secrets.TEST_APPLICATION_YML }}" > ./application.yml
+          echo "${{ secrets.TEST_APPLICATION_YML }}" | base64 --decode > ./application.yml
         shell: bash
 
       - name: Make main application.yml
         run: |
           cd ./src/main/resources
-          echo "${{ secrets.MAIN_APPLICATION_YML }}" >> ./application.yml
+          echo "${{ secrets.MAIN_APPLICATION_YML }}" | base64 --decode >> ./application.yml
         shell: bash
 
       - name: boot Jar
