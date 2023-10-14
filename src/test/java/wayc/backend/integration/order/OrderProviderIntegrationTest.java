@@ -118,13 +118,13 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
         shop.getItems().add(macBook);
         shopRepository.save(shop);
 
-        for (long i = 1;  i < 12L ; i++) {
+        for (long i = 1;  i < 11L ; i++) {
             Order order = new OrderMapper().mapFrom(CreateOrderRequestFactory.createOrderRequest(List.of(macBook)).toServiceDto(1L));
             orderRepository.save(order);
         }
 
         //when
-        FindPagingOrderResponseDto res = orderProvider.findCustomerOrderLineItems(1L, 1L);
+        FindPagingOrderResponseDto res = orderProvider.findCustomerOrderLineItems(1L, 0L);
 
         assertThat(res.getOrderLineItems().size()).isEqualTo(10);
         assertThat(res.isFinalPage()).isEqualTo(true);
