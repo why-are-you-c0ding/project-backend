@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import wayc.backend.cart.application.CartProvider;
 import wayc.backend.cart.application.CartService;
 import wayc.backend.cart.presentation.CartController;
+import wayc.backend.security.AppProperties;
+import wayc.backend.config.SecurityConfig;
 import wayc.backend.config.WebMvcConfig;
 import wayc.backend.common.image.ImageController;
 import wayc.backend.common.image.ImageService;
@@ -28,8 +30,6 @@ import wayc.backend.order.application.OrderProvider;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.presentation.OrderController;
 import wayc.backend.pay.application.PayService;
-import wayc.backend.security.SecurityConfig;
-import wayc.backend.security.jwt.JwtProvider;
 import wayc.backend.shop.application.provider.ItemProvider;
 import wayc.backend.shop.application.provider.OptionGroupProvider;
 import wayc.backend.shop.application.service.ItemService;
@@ -39,14 +39,14 @@ import wayc.backend.member.infrastructure.SendEmailServiceImpl;
 import wayc.backend.stock.application.provider.StockProvider;
 import wayc.backend.stock.application.service.StockService;
 import wayc.backend.stock.presentation.StockController;
-import wayc.backend.unit.presentation.common.GlobalExceptionHandlerTest;
 //import wayc.backend.stock.presentation.StockController;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @Import({
         SecurityConfig.class,
-        WebMvcConfig.class
+        WebMvcConfig.class,
+        AppProperties.class
 })
 @WebMvcTest(controllers = {
         MemberController.class,
@@ -80,9 +80,6 @@ public abstract class ControllerTest {
 
     @MockBean
     protected ImageService imageService;
-
-    @MockBean
-    protected JwtProvider jwtProvider;
 
     @MockBean
     protected ItemService itemService;

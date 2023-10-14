@@ -124,7 +124,7 @@ public class OrderProviderIntegrationTest extends IntegrationTest {
         }
 
         //when
-        FindPagingOrderResponseDto res = orderProvider.findCustomerOrderLineItems(1L, 1L);
+        FindPagingOrderResponseDto res = orderProvider.findCustomerOrderLineItems(1L, 0L);
 
         assertThat(res.getOrderLineItems().size()).isEqualTo(10);
         assertThat(res.isFinalPage()).isEqualTo(true);

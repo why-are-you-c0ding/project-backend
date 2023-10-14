@@ -23,25 +23,33 @@ public class Member extends BaseEntity {
 
     private String loginId;
 
-    private String password;
-
     private int age;
 
-    private String email;
+    @Embedded
+    private Auth auth;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @Enumerated(value = EnumType.STRING)
+    private AuthProvider authProvider;
+
     //추후에 멤버에서 장바구니를 추적해야하거나, 샵을 추적해야하면 아이디를 추가하자.
 
     @Builder
-    public Member(String nickName, String loginId, String password, int age, String email, Role role) {
+    public Member(String nickName,
+                  String loginId,
+                  String password,
+                  int age,
+                  String email,
+                  Role role,
+                  AuthProvider authProvider) {
         this.nickName = nickName;
         this.loginId = loginId;
-        this.password = password;
+        this.auth = new Auth(email, password);
         this.age = age;
-        this.email = email;
         this.role = role;
+        this.authProvider = authProvider;
     }
 
     public void registered() {

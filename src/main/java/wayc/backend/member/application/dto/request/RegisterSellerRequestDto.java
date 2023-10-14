@@ -3,6 +3,7 @@ package wayc.backend.member.application.dto.request;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import wayc.backend.member.domain.AuthProvider;
 import wayc.backend.member.domain.Member;
 
 import static wayc.backend.member.domain.Role.*;
@@ -30,6 +31,7 @@ public class RegisterSellerRequestDto extends AbstractRegisterMemberRequestDto {
                 .password(passwordEncoder.encode(password))
                 .age(age)
                 .role(ROLE_SELLER)
+                .authProvider(AuthProvider.local)
                 .build();
     }
 }

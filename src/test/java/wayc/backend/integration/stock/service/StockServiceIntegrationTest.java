@@ -45,18 +45,6 @@ public class StockServiceIntegrationTest extends IntegrationTest {
     @Autowired
     private StockRepository stockRepository;
 
-    @Autowired
-    private StockOptionRepository stockOptionRepository;
-
-    @Autowired
-    private StockQueryRepository stockQueryRepository;
-
-    @Autowired
-    private PlatformTransactionManager transactionManager;
-
-    @Autowired
-    private StockServiceFacade decreaseStockService;
-
     @Test
     void createStock(){
 

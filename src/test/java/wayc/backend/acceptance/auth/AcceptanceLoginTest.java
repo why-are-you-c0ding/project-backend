@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.headers.HeaderDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -18,10 +19,11 @@ import wayc.backend.common.redis.RedisService;
 import wayc.backend.factory.member.dto.RegisterMemberRequestDtoFactory;
 import wayc.backend.member.application.MemberService;
 import wayc.backend.member.application.dto.request.RegisterConsumerRequestDto;
-import wayc.backend.security.dto.request.LoginRequestDto;
+import wayc.backend.security.local.LocalLoginRequest;
 
 import java.time.Duration;
 
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -60,11 +62,11 @@ public class AcceptanceLoginTest {
     @Test
     void success_login_test() throws Exception {
         //given
-        LoginRequestDto req = new LoginRequestDto("loginId", "1q2w3e4r!");
+        LocalLoginRequest req = new LocalLoginRequest("loginId", "1q2w3e4r!");
         String value = mapper.writeValueAsString(req);
 
         //when
-        mockMvc.perform(RestDocumentationRequestBuilders.post("/login")
+        mockMvc.perform(RestDocumentationRequestBuilders.post("/local/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(value)
@@ -79,8 +81,7 @@ public class AcceptanceLoginTest {
                                 fieldWithPath("password").type(STRING).description("비밀번호")
                         ),
                         responseFields(
-                                fieldWithPath("jwt").type(STRING).description("JWT 토큰"),
-                                fieldWithPath("message").type(STRING).description("성공 메시지")
+                                fieldWithPath("message").type(STRING).description("요청 성공 메시지")
                         )
                 ));
     }

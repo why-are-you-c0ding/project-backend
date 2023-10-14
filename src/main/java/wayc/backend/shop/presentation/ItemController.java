@@ -3,10 +3,12 @@ package wayc.backend.shop.presentation;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import wayc.backend.security.UserPrincipal;
 import wayc.backend.shop.application.provider.ItemProvider;
 import wayc.backend.shop.application.service.ItemService;
 import wayc.backend.shop.application.dto.response.find.FindItemResponseDto;
@@ -25,10 +27,11 @@ public class ItemController {
     private final ItemService itemService;
     private final ItemProvider itemProvider;
 
+    @PreAuthorize("hasRole('SELLER')")
     @PostMapping
-    public ResponseEntity registerItem(@AuthenticationPrincipal Long id,
+    public ResponseEntity registerItem(@AuthenticationPrincipal UserPrincipal userPrincipal,
                                        @Validated @RequestBody RegisterItemRequest request){
-        itemService.registerItem(id, request.toServiceDto());
+        itemService.registerItem(userPrincipal.getId(), request.toServiceDto());
         return new ResponseEntity(CREATED);
     }
 
@@ -44,9 +47,9 @@ public class ItemController {
     }
 
     @GetMapping("/sellers")
-    public ResponseEntity<FindPagingItemResponseDto> findSellerItems(@AuthenticationPrincipal Long id,
+    public ResponseEntity<FindPagingItemResponseDto> findSellerItems(@AuthenticationPrincipal UserPrincipal userPrincipal,
                                                                      @RequestParam Integer page){
-        FindPagingItemResponseDto res = itemProvider.findSellerItems(id, page);
+        FindPagingItemResponseDto res = itemProvider.findSellerItems(userPrincipal.getId(), page);
         return ResponseEntity.ok(res);
     }
 
