@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.test.web.servlet.MockMvc;
 
 import wayc.backend.cart.application.CartProvider;
@@ -116,6 +118,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected StockService stockService;
+
+    @MockBean
+    protected FindByIndexNameSessionRepository findByIndexNameSessionRepository;
 }
 
 //https://www.baeldung.com/spring-rest-docs

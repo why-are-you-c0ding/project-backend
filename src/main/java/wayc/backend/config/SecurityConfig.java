@@ -2,6 +2,7 @@ package wayc.backend.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -22,6 +24,12 @@ import org.springframework.security.web.authentication.rememberme.AbstractRememb
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.SessionRepository;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import wayc.backend.member.domain.repository.MemberRepository;
 
@@ -37,7 +45,6 @@ import wayc.backend.security.oauth2.OAuth2AuthenticationFailureHandler;
 import wayc.backend.security.oauth2.OAuth2AuthenticationSuccessHandler;
 
 import javax.servlet.Filter;
-import java.util.UUID;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -47,6 +54,8 @@ public class SecurityConfig {
     private final ObjectMapper objectMapper;
     private final MemberRepository memberRepository;
     private final AppProperties appProperties;
+    private final FindByIndexNameSessionRepository sessionRepository;
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -54,21 +63,20 @@ public class SecurityConfig {
         /**
          * HttpSecurity에서 alwaysRememberMe가 안먹어서 직접 설정.
          */
-        String rememberMeServiceKey = UUID.randomUUID().toString();
-        RememberMeServices rememberMeServices = rememberMeServices(rememberMeServiceKey);
-        AbstractRememberMeServices abstractRememberMeServices = (AbstractRememberMeServices) rememberMeServices;
-        abstractRememberMeServices.setAlwaysRemember(true);
+        RememberMeServices rememberMeServices = rememberMeServices();
+        SpringSessionRememberMeServices sessionRememberMeServices = (SpringSessionRememberMeServices) rememberMeServices;
+        sessionRememberMeServices.setAlwaysRemember(true);
 
         http
                 .cors()
                 .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices)
-                .key(rememberMeServiceKey)
                 .and()
                 .sessionManagement()
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(true)
+                .sessionRegistry(sessionRegistry())
                 .and()
                 .sessionFixation().changeSessionId()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
@@ -125,13 +133,15 @@ public class SecurityConfig {
         return http.build();
     }
 
+
+
     private CookieSessionAuthenticationFilter cookieSessionAuthenticationFilter() {
         return new CookieSessionAuthenticationFilter(customUserDetailsService());
     }
 
 
-    private RememberMeServices rememberMeServices(String key) {
-        return new PersistentTokenBasedRememberMeServices(key, customUserDetailsService(), new InMemoryTokenRepositoryImpl());
+    private RememberMeServices rememberMeServices() {
+        return new SpringSessionRememberMeServices();
     }
 
     private Filter loginFilter(RememberMeServices rememberMeServices) {
@@ -198,4 +208,14 @@ public class SecurityConfig {
     OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler(){
         return new OAuth2AuthenticationSuccessHandler(appProperties);
     }
+
+    @Bean
+    public SpringSessionBackedSessionRegistry sessionRegistry() {
+        return new SpringSessionBackedSessionRegistry(sessionRepository);
+    }
 }
+
+
+/**
+ * https://docs.spring.io/spring-session/reference/spring-security.html
+ */
