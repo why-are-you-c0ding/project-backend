@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -22,8 +23,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class CookieSessionAuthenticationFilter extends OncePerRequestFilter {
 
-    private static final String KEY = "SPRING_SECURITY_CONTEXT";
-
     private final CustomUserDetailsService customUserDetailsService;
 
     @Override
@@ -34,7 +33,7 @@ public class CookieSessionAuthenticationFilter extends OncePerRequestFilter {
         try {
             HttpSession session = request.getSession(false);
             if(session != null) {
-                Object principalObj = session.getAttribute(KEY);
+                Object principalObj = session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
                 if(principalObj != null & principalObj.getClass() == UserPrincipal.class) {
                     UserPrincipal principal = (UserPrincipal) principalObj;
                     UserDetails userDetails = customUserDetailsService.loadUserById(principal.getId());
