@@ -48,3 +48,5 @@ log/**
 *.dylib
 
 !**/generated/**
+
+**.p12
