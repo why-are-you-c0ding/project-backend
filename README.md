@@ -8,7 +8,7 @@
 * Spring Security
 * Junit, Mockito
 * Spring Rest Docs
-* AWS EC2, RDS
+* AWS EC2, RDS, Redis
 
 ## 데이터베이스 설계
 
