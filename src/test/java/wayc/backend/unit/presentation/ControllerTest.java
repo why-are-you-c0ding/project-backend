@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -31,7 +30,7 @@ import wayc.backend.member.presentation.MemberController;
 import wayc.backend.order.application.OrderProvider;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.presentation.OrderController;
-import wayc.backend.pay.application.PayService;
+import wayc.backend.payment.application.PayService;
 import wayc.backend.shop.application.provider.ItemProvider;
 import wayc.backend.shop.application.provider.OptionGroupProvider;
 import wayc.backend.shop.application.service.ItemService;

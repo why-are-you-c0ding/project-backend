@@ -6,16 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import wayc.backend.factory.order.CreateOrderRequestFactory;
 import wayc.backend.integration.IntegrationTest;
 import wayc.backend.order.application.OrderMapper;
-import wayc.backend.order.application.OrderService;
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.order.presentation.dto.request.CreateOrderRequest;
-import wayc.backend.pay.domain.PayService;
+import wayc.backend.payment.domain.PaymentService;
 
 public class PayServiceIntegrationTest extends IntegrationTest {
 
     @Autowired
-    PayService payService;
+    PaymentService payService;
 
     @Autowired
     OrderRepository orderRepository;

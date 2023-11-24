@@ -1,12 +1,10 @@
-package wayc.backend.pay.infrastructure.kakaopay.ready;
+package wayc.backend.payment.infrastructure.kakaopay.ready;
 
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 @ToString
 @Getter

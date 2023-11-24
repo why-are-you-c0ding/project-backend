@@ -1,4 +1,4 @@
-package wayc.backend.pay.infrastructure.kakaopay;
+package wayc.backend.payment.infrastructure.kakaopay;
 
 import lombok.Getter;
 import lombok.Setter;

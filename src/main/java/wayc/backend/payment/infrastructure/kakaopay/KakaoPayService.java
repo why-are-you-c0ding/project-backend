@@ -1,30 +1,27 @@
-package wayc.backend.pay.infrastructure.kakaopay;
+package wayc.backend.payment.infrastructure.kakaopay;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.order.exception.NotExistsOrderException;
-import wayc.backend.pay.domain.PayService;
-import wayc.backend.pay.infrastructure.kakaopay.approve.KakaoPayApproveApiResponse;
-import wayc.backend.pay.infrastructure.kakaopay.approve.KakaoPayApproveApiService;
-import wayc.backend.pay.infrastructure.kakaopay.ready.KakaoPayReadyApiRequest;
-import wayc.backend.pay.infrastructure.kakaopay.ready.KakaoPayReadyApiRequestFactory;
-import wayc.backend.pay.infrastructure.kakaopay.ready.KakaoPayReadyApiResponse;
-import wayc.backend.pay.infrastructure.kakaopay.ready.KakaoPayReadyApiService;
+import wayc.backend.payment.domain.PaymentRepository;
+import wayc.backend.payment.domain.PaymentService;
+import wayc.backend.payment.infrastructure.kakaopay.approve.KakaoPayApproveApiService;
+import wayc.backend.payment.infrastructure.kakaopay.ready.KakaoPayReadyApiResponse;
+import wayc.backend.payment.infrastructure.kakaopay.ready.KakaoPayReadyApiService;
 
 @Component
 @RequiredArgsConstructor
-public class KakaoPayService implements PayService {
+public class KakaoPayService implements PaymentService {
 
 
     private final OrderRepository orderRepository;
+    private final PaymentRepository payRepository;
     private final KakaoPayReadyApiService kakaoPayReadyApiService;
     private final KakaoPayApproveApiService kakaoPayApproveApiService;
+
 
     @Override
     public void pay(Long orderId) {

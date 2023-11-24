@@ -1,12 +1,11 @@
-package wayc.backend.pay.infrastructure.kakaopay.ready;
+package wayc.backend.payment.infrastructure.kakaopay.ready;
 
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.OrderLineItem;
-import wayc.backend.pay.infrastructure.kakaopay.KakaoPayProperties;
+import wayc.backend.payment.infrastructure.kakaopay.KakaoPayProperties;
 
 import java.util.List;
 import java.util.Map;

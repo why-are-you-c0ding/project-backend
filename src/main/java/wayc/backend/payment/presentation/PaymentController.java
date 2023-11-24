@@ -1,18 +1,18 @@
-package wayc.backend.pay.presentation;
+package wayc.backend.payment.presentation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import wayc.backend.pay.application.dto.response.CreatePayResponseDto;
-import wayc.backend.pay.domain.PayService;
+import wayc.backend.payment.application.dto.response.CreatePayResponseDto;
+import wayc.backend.payment.domain.PaymentService;
 
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/payment")
-public class PayController {
+public class PaymentController {
 
-    private final PayService payService;
+    private final PaymentService payService;
 
     @PostMapping
     public ResponseEntity<CreatePayResponseDto> postPay(@RequestParam Long orderId){

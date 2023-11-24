@@ -1,4 +1,4 @@
-package wayc.backend.pay.infrastructure.kakaopay.approve;
+package wayc.backend.payment.infrastructure.kakaopay.approve;
 
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package wayc.backend.pay.infrastructure.kakaopay;
+package wayc.backend.payment.infrastructure.kakaopay;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -7,14 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import wayc.backend.pay.infrastructure.kakaopay.approve.KakaoPayApproveApiRequest;
-import wayc.backend.pay.infrastructure.kakaopay.ready.KakaoPayReadyApiRequest;
+import wayc.backend.payment.infrastructure.kakaopay.ready.KakaoPayReadyApiRequest;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Map;
-
-import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
 
 @Component
 @RequiredArgsConstructor

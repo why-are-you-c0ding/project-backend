@@ -1,4 +1,4 @@
-package wayc.backend.pay.application.dto.request;
+package wayc.backend.payment.application.dto.request;
 
 import lombok.Getter;
 

@@ -1,12 +1,12 @@
-package wayc.backend.pay.infrastructure.kakaopay.ready;
+package wayc.backend.payment.infrastructure.kakaopay.ready;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import wayc.backend.order.domain.Order;
-import wayc.backend.pay.infrastructure.kakaopay.KakaoPayProperties;
-import wayc.backend.pay.infrastructure.kakaopay.KakaoPayRequestHttpEntityFactory;
+import wayc.backend.payment.infrastructure.kakaopay.KakaoPayProperties;
+import wayc.backend.payment.infrastructure.kakaopay.KakaoPayRequestHttpEntityFactory;
 
 @Component
 @RequiredArgsConstructor
