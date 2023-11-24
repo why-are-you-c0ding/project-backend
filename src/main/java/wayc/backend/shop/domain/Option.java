@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name = "option_spec")
+@Table(name = "item_option")
 @Entity
 public class Option extends BaseEntity {
 
@@ -25,7 +25,7 @@ public class Option extends BaseEntity {
 
     private Integer price;
 
-    @JoinColumn(name = "option_group_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "item_option_group_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     @ManyToOne(fetch = FetchType.LAZY)
     private OptionGroup optionGroup;
 

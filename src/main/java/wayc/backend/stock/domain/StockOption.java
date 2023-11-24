@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import org.springframework.context.annotation.Configuration;
 import wayc.backend.common.domain.BaseEntity;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class StockOption extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Stock stock;
 
+    @Column(name = "item_option_id")
     private Long optionId;
 
     public StockOption(Stock stock, Long optionId) {

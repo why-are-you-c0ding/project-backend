@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toList;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name = "option_group_spec")
+@Table(name = "item_option_group")
 @Entity
 public class OptionGroup extends BaseEntity {
 

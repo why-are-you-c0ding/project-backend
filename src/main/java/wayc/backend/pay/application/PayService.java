@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import wayc.backend.order.domain.repository.OrderLineItemRepository;
-import wayc.backend.order.domain.repository.PayRepository;
+import wayc.backend.pay.domain.PayRepository;
 
 @RequiredArgsConstructor
 @Service

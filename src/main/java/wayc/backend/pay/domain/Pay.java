@@ -1,9 +1,10 @@
-package wayc.backend.order.domain;
+package wayc.backend.pay.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.pay.infrastructure.kakaopay.KakaoPayProperties;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
