@@ -32,7 +32,7 @@ public class KakaoPayReadyApiRequestFactory {
                 .setVatAmount(null)
                 .setGreenDeposit(0)
                 .setApprovalUrl(kakaoPayProperties.getReadyApi().getApprovalUrl() + "?partner_order_id=" + order.getId())
-                .setCancelUrl(kakaoPayProperties.getReadyApi().getCancelUrl())
+                .setCancelUrl(kakaoPayProperties.getReadyApi().getCancelUrl() + "?partner_order_id=" + order.getId())
                 .setFailUrl(kakaoPayProperties.getReadyApi().getFailUrl())
                 .setAvailableCards(null)
                 .setPaymentMethodType(null)

@@ -14,6 +14,7 @@ public class KakaoPayProperties {
     private String cidSecret;
     private ReadyApi readyApi;
     private ApproveApi approveApi;
+    private FindApi findApi;
 
     @Setter
     @Getter
@@ -27,6 +28,12 @@ public class KakaoPayProperties {
     @Getter
     @Setter
     public static class ApproveApi {
+        private String apiUrl;
+    }
+
+    @Getter
+    @Setter
+    public static class FindApi {
         private String apiUrl;
     }
 }
