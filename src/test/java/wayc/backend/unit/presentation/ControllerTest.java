@@ -30,7 +30,7 @@ import wayc.backend.member.presentation.MemberController;
 import wayc.backend.order.application.OrderProvider;
 import wayc.backend.order.application.OrderService;
 import wayc.backend.order.presentation.OrderController;
-import wayc.backend.payment.application.PayService;
+import wayc.backend.payment.application.KakaoPayService;
 import wayc.backend.shop.application.provider.ItemProvider;
 import wayc.backend.shop.application.provider.OptionGroupProvider;
 import wayc.backend.shop.application.service.ItemService;
@@ -98,7 +98,7 @@ public abstract class ControllerTest {
     protected OrderService orderService;
 
     @MockBean
-    protected PayService payService;
+    protected KakaoPayService payService;
 
     @MockBean
     protected EmailService emailService;

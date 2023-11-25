@@ -29,10 +29,10 @@ public class LayerDependenciesTest {
             .layer(INFRA).definedBy("..infrastructure..")
             .whereLayer(PRESENTATION).mayNotBeAccessedByAnyLayer()
             .whereLayer(PRESENTATION).mayOnlyAccessLayers(PRESENTATION, APPLICATION, DOMAIN)
-            .whereLayer(APPLICATION).mayOnlyBeAccessedByLayers(PRESENTATION, APPLICATION)
+            .whereLayer(APPLICATION).mayOnlyBeAccessedByLayers(PRESENTATION, APPLICATION, INFRA)
             .whereLayer(APPLICATION).mayOnlyAccessLayers(APPLICATION, DOMAIN)
             .whereLayer(DOMAIN).mayNotAccessAnyLayer()
-            .whereLayer(INFRA).mayOnlyAccessLayers(DOMAIN)
+            .whereLayer(INFRA).mayOnlyAccessLayers(DOMAIN, APPLICATION)
             .whereLayer(INFRA).mayNotBeAccessedByAnyLayer();
 
     /**
