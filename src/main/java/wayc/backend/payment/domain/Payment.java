@@ -22,9 +22,12 @@ public class Payment extends BaseEntity {
 
     private Long orderId;
 
-    public Payment(Integer pay, Long orderId) {
+    private String platformTransactionId;
+
+    public Payment(Integer pay, Long orderId, String platformTransactionId) {
         this.pay = pay;
         this.orderId = orderId;
+        this.platformTransactionId = platformTransactionId;
     }
 }
 

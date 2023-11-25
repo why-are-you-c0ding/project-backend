@@ -1,23 +1,20 @@
-package wayc.backend.payment.infrastructure.kakaopay;
+package wayc.backend.payment.infrastructure.kakaopay.ready;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import wayc.backend.payment.infrastructure.kakaopay.AbstractKakaoPayRequestHttpEntityFactory;
 import wayc.backend.payment.infrastructure.kakaopay.ready.KakaoPayReadyApiRequest;
-
-import java.nio.charset.StandardCharsets;
 
 @Component
 @RequiredArgsConstructor
-public class KakaoPayRequestHttpEntityFactory {
-
+public class KakaoPayReadyApiRequestHttpEntityFactory extends AbstractKakaoPayRequestHttpEntityFactory {
 
     public HttpEntity<KakaoPayReadyApiRequest> createReadyApiRequestHttpEntity(KakaoPayReadyApiRequest request) {
-        HttpHeaders headers = makerHeader(request);
+        HttpHeaders headers = makerHeader(request.getAdminKey());
         MultiValueMap<String, String> body = makeBody(request);
         return new HttpEntity(body, headers);
     }
@@ -43,13 +40,5 @@ public class KakaoPayRequestHttpEntityFactory {
         //body.add("payment_method_type", "사용 허가할 결제 수단, 지정하지 않으면 모든 결제 수단 허용"); 필수 X
         //body.add("available_cars", "결제 수단으로써 사용 허가할 카드사를 지정해야 하는 경우 사용,"); 필수 X
         return body;
-    }
-
-    private HttpHeaders makerHeader(KakaoPayReadyApiRequest request) {
-        HttpHeaders headers = new HttpHeaders();
-        MediaType mediaType = new MediaType("application", "x-www-form-urlencoded", StandardCharsets.UTF_8);
-        headers.setContentType(mediaType);
-        headers.set("Authorization", "KakaoAK " + request.getAdminKey());
-        return headers;
     }
 }

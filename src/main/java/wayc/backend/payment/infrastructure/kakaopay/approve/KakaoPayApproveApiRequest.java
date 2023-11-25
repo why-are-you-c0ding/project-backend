@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 public class KakaoPayApproveApiRequest {
 
+    private final String adminKey;
     private final String cid;
     private final String cidSecret;
     private final String tid;
@@ -15,14 +16,16 @@ public class KakaoPayApproveApiRequest {
     private final String payload;
     private final Integer totalAmount;
 
-    private KakaoPayApproveApiRequest(String cid,
-                                     String cidSecret,
-                                     String tid,
-                                     String partnerOrderId,
-                                     String partnerUserId,
-                                     String pgToken,
-                                     String payload,
-                                     Integer totalAmount) {
+    private KakaoPayApproveApiRequest(String adminKey,
+                                      String cid,
+                                      String cidSecret,
+                                      String tid,
+                                      String partnerOrderId,
+                                      String partnerUserId,
+                                      String pgToken,
+                                      String payload,
+                                      Integer totalAmount) {
+        this.adminKey = adminKey;
         this.cid = cid;
         this.cidSecret = cidSecret;
         this.tid = tid;
@@ -39,6 +42,7 @@ public class KakaoPayApproveApiRequest {
 
     static class Builder {
 
+        private String adminKey;
         private String cid;
         private String cidSecret;
         private String tid;
@@ -47,6 +51,11 @@ public class KakaoPayApproveApiRequest {
         private String pgToken;
         private String payload;
         private Integer totalAmount;
+
+        public Builder setAdminKey(String adminKey) {
+            this.adminKey = adminKey;
+            return this;
+        }
 
         public Builder setCid(String cid) {
             this.cid = cid;
@@ -90,6 +99,7 @@ public class KakaoPayApproveApiRequest {
 
         public KakaoPayApproveApiRequest build() {
             return new KakaoPayApproveApiRequest(
+                    adminKey,
                     cid,
                     cidSecret,
                     tid,

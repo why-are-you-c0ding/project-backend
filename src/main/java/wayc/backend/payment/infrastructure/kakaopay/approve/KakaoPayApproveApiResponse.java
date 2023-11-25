@@ -4,10 +4,12 @@ package wayc.backend.payment.infrastructure.kakaopay.approve;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 @Getter
-@JsonNaming(value = PropertyNamingStrategies.LowerCamelCaseStrategy.class)
+@ToString
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class KakaoPayApproveApiResponse {
 
     private String aid;
@@ -22,8 +24,8 @@ public class KakaoPayApproveApiResponse {
     private String itemName;
     private String itemCode;
     private Integer quantity;
-    private DateTime createdAt;
-    private DateTime approvedAt;
+    private String createdAt;
+    private String approvedAt;
     private String payload;
 
     @Getter
