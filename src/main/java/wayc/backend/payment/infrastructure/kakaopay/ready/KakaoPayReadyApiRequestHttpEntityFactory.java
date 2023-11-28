@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import wayc.backend.payment.infrastructure.kakaopay.AbstractKakaoPayRequestHttpEntityFactory;
-import wayc.backend.payment.infrastructure.kakaopay.ready.KakaoPayReadyApiRequest;
+import wayc.backend.payment.domain.kakaopay.ready.KakaoPayReadyApiRequest;
 
 @Component
 @RequiredArgsConstructor

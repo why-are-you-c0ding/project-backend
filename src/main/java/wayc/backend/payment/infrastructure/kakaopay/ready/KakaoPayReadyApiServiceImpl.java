@@ -5,11 +5,15 @@ import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import wayc.backend.order.domain.Order;
-import wayc.backend.payment.infrastructure.kakaopay.KakaoPayProperties;
+import wayc.backend.payment.domain.kakaopay.ready.KakaoPayReadyApiRequest;
+import wayc.backend.payment.domain.kakaopay.ready.KakaoPayReadyApiRequestFactory;
+import wayc.backend.payment.domain.kakaopay.ready.KakaoPayReadyApiResponse;
+import wayc.backend.payment.domain.kakaopay.ready.KakaoPayReadyApiService;
+import wayc.backend.payment.domain.kakaopay.KakaoPayProperties;
 
 @Component
 @RequiredArgsConstructor
-public class KakaoPayReadyApiService {
+public class KakaoPayReadyApiServiceImpl implements KakaoPayReadyApiService {
 
     private final RestTemplate restTemplate;
     private final KakaoPayReadyApiRequestFactory kakaoPayReadyApiRequestFactory;

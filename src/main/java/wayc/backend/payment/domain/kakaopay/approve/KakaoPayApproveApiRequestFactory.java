@@ -1,4 +1,4 @@
-package wayc.backend.payment.infrastructure.kakaopay.approve;
+package wayc.backend.payment.domain.kakaopay.approve;
 
 import lombok.RequiredArgsConstructor;
 
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import wayc.backend.payment.domain.Payment;
 import wayc.backend.payment.domain.kakaopay.approve.KakaoPayApproveApiRequest;
-import wayc.backend.payment.infrastructure.kakaopay.KakaoPayProperties;
+import wayc.backend.payment.domain.kakaopay.KakaoPayProperties;
 
 @Component
 @RequiredArgsConstructor

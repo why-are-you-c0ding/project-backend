@@ -6,13 +6,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import wayc.backend.payment.domain.Payment;
 import wayc.backend.payment.domain.kakaopay.find.KakaoPayFindApiRequest;
+import wayc.backend.payment.domain.kakaopay.find.KakaoPayFindApiRequestFactory;
 import wayc.backend.payment.domain.kakaopay.find.KakaoPayFindApiResponse;
-import wayc.backend.payment.infrastructure.kakaopay.KakaoPayProperties;
-import wayc.backend.payment.infrastructure.kakaopay.ready.KakaoPayReadyApiRequest;
+import wayc.backend.payment.domain.kakaopay.find.KakaoPayFindApiService;
+import wayc.backend.payment.domain.kakaopay.KakaoPayProperties;
+import wayc.backend.payment.domain.kakaopay.ready.KakaoPayReadyApiRequest;
 
 @Component
 @RequiredArgsConstructor
-public class KakaoPayFindApiService {
+public class KakaoPayFindApiServiceImpl implements KakaoPayFindApiService {
 
     private final RestTemplate restTemplate;
     private final KakaoPayFindApiRequestFactory kakaoPayFindApiRequestFactory;

@@ -1,4 +1,4 @@
-package wayc.backend.payment.infrastructure.kakaopay.refund;
+package wayc.backend.payment.domain.kakaopay.refund;
 
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;

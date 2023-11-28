@@ -1,4 +1,7 @@
-package wayc.backend.payment.domain.kakaopay;
+package wayc.backend.payment.domain.kakaopay.approve;
 
-public class KakaoPayApproveApiService {
+import wayc.backend.payment.domain.Payment;
+
+public interface KakaoPayApproveApiService {
+    KakaoPayApproveApiResponse approve(String pgToken, Payment payment, Long userId);
 }

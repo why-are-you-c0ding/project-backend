@@ -7,8 +7,11 @@ import org.springframework.web.client.RestTemplate;
 
 
 import wayc.backend.payment.domain.Payment;
-import wayc.backend.payment.infrastructure.kakaopay.KakaoPayProperties;
-import wayc.backend.payment.infrastructure.kakaopay.ready.KakaoPayReadyApiRequest;
+import wayc.backend.payment.domain.kakaopay.approve.KakaoPayApproveApiRequest;
+import wayc.backend.payment.domain.kakaopay.approve.KakaoPayApproveApiRequestFactory;
+import wayc.backend.payment.domain.kakaopay.approve.KakaoPayApproveApiResponse;
+import wayc.backend.payment.domain.kakaopay.KakaoPayProperties;
+import wayc.backend.payment.domain.kakaopay.ready.KakaoPayReadyApiRequest;
 
 @Component
 @RequiredArgsConstructor

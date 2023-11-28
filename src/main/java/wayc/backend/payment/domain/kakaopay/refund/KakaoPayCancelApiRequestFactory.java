@@ -1,9 +1,9 @@
-package wayc.backend.payment.infrastructure.kakaopay.refund;
+package wayc.backend.payment.domain.kakaopay.refund;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import wayc.backend.payment.domain.kakaopay.refund.KakaoPayCancelApiRequest;
-import wayc.backend.payment.infrastructure.kakaopay.KakaoPayProperties;
+import wayc.backend.payment.domain.kakaopay.KakaoPayProperties;
 
 @Component
 @RequiredArgsConstructor

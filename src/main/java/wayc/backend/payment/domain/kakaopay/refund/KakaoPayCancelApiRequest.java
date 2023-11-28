@@ -1,10 +1,7 @@
-package wayc.backend.payment.infrastructure.kakaopay.refund;
+package wayc.backend.payment.domain.kakaopay.refund;
 
 
 import lombok.Getter;
-
-import java.util.List;
-import java.util.Map;
 
 @Getter
 public class KakaoPayCancelApiRequest {

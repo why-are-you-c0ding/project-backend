@@ -1,10 +1,7 @@
-package wayc.backend.payment.infrastructure.kakaopay.find;
+package wayc.backend.payment.domain.kakaopay.find;
 
 
 import lombok.Getter;
-
-import java.util.List;
-import java.util.Map;
 
 @Getter
 public class KakaoPayFindApiRequest {
