@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
 import wayc.backend.common.event.Events;
-import wayc.backend.order.domain.event.OrderPayedEvent;
-import wayc.backend.order.domain.event.TookOutStockEvent;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static wayc.backend.order.domain.OrderLineItemStatus.*;
 
 @Getter
 @Entity
@@ -45,11 +45,22 @@ public class Order extends BaseEntity {
     }
 
     public void created() {
-        Events.raise(new OrderPayedEvent(orderer.getMemberId(), id, totalPayment));
+        orderLineItems
+                .forEach(orderLineItem -> orderLineItem.updateOrder(ORDER_ACCEPTED));
     }
 
-    public void completePay() {
+    public void readyPayment() {
         orderLineItems
-                .forEach(orderLineItem -> orderLineItem.updateOrder(OrderLineItemStatus.PAYMENT_COMPLETED));
+                .forEach(orderLineItem -> orderLineItem.updateOrder(READY_FOR_PAYMENT));
+    }
+
+    public void completePayment() {
+        orderLineItems
+                .forEach(orderLineItem -> orderLineItem.updateOrder(PAYMENT_COMPLETED));
+    }
+
+    public void cancelPayment() {
+        orderLineItems
+                .forEach(orderLineItem -> orderLineItem.updateOrder(PAYMENT_CANCELED));
     }
 }

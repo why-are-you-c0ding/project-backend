@@ -3,13 +3,8 @@ package wayc.backend.payment.infrastructure.kakaopay.find;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import wayc.backend.order.domain.Order;
-import wayc.backend.order.domain.OrderLineItem;
+import wayc.backend.payment.domain.kakaopay.find.KakaoPayFindApiRequest;
 import wayc.backend.payment.infrastructure.kakaopay.KakaoPayProperties;
-import wayc.backend.payment.infrastructure.kakaopay.ready.KakaoPayReadyApiRequest;
-
-import java.util.List;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor

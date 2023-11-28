@@ -10,7 +10,6 @@ import wayc.backend.order.application.OrderMapper;
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.repository.OrderRepository;
 import wayc.backend.order.presentation.dto.request.CreateOrderRequest;
-import wayc.backend.payment.domain.PaymentService;
 
 public class PaymentServiceIntegrationTest extends IntegrationTest {
 

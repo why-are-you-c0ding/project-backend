@@ -1,14 +1,9 @@
 package wayc.backend.integration.stock.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.support.TransactionTemplate;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import wayc.backend.integration.IntegrationTest;
 
 import wayc.backend.shop.domain.Item;
@@ -19,18 +14,12 @@ import wayc.backend.shop.domain.OptionGroup;
 import wayc.backend.stock.application.dto.request.FillStockInfoRequestDto;
 import wayc.backend.stock.application.dto.request.FillStockRequestDto;
 import wayc.backend.stock.application.service.StockService;
-import wayc.backend.stock.domain.service.DecreaseStockService;
 
 import wayc.backend.stock.domain.Stock;
-import wayc.backend.stock.domain.StockOption;
-import wayc.backend.stock.domain.repository.StockOptionRepository;
 import wayc.backend.stock.domain.repository.StockRepository;
-import wayc.backend.stock.domain.repository.query.StockQueryRepository;
 import wayc.backend.stock.domain.StockFactory;
-import wayc.backend.stock.domain.service.StockServiceFacade;
 
 import java.util.List;
-import java.util.concurrent.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

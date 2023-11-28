@@ -32,12 +32,12 @@ public class OrderService {
     private final OrderValidator orderValidator;
 
 
-    public void createOrder(CreateOrderRequestDto dto) {
+    public Long createOrder(CreateOrderRequestDto dto) {
         Order order = orderMapper.mapFrom(dto);
         orderValidator.validate(order);
         orderRepository.save(order);
         order.created();
-        order.completePay();
+        return order.getId();
     }
 
 
@@ -51,6 +51,7 @@ public class OrderService {
         OrderLineItem order = orderLineItemRepository.findOrderLineItemByIdAndItemId(dto.getOrderId(), dto.getItemId())
                 .orElseThrow(NotExistsOrderException::new);
 
+        //TODO 별동
         order.updateOrder(dto.getOrderStatus());
     }
 }

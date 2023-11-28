@@ -5,11 +5,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import wayc.backend.payment.domain.Payment;
+import wayc.backend.payment.domain.kakaopay.find.KakaoPayFindApiRequest;
+import wayc.backend.payment.domain.kakaopay.find.KakaoPayFindApiResponse;
 import wayc.backend.payment.infrastructure.kakaopay.KakaoPayProperties;
-import wayc.backend.payment.infrastructure.kakaopay.approve.KakaoPayApproveApiRequest;
-import wayc.backend.payment.infrastructure.kakaopay.approve.KakaoPayApproveApiRequestFactory;
-import wayc.backend.payment.infrastructure.kakaopay.approve.KakaoPayApproveApiRequestHttpEntityFactory;
-import wayc.backend.payment.infrastructure.kakaopay.approve.KakaoPayApproveApiResponse;
 import wayc.backend.payment.infrastructure.kakaopay.ready.KakaoPayReadyApiRequest;
 
 @Component

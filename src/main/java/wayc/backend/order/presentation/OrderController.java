@@ -29,8 +29,8 @@ public class OrderController {
     @PostMapping("/orders")
     public ResponseEntity createOrder(@AuthenticationPrincipal UserPrincipal userPrincipal,
                                       @Validated @RequestBody CreateOrderRequest request){
-       orderService.createOrder(request.toServiceDto(userPrincipal.getId()));
-        return new ResponseEntity(new CreateOrderResponse(), HttpStatus.CREATED);
+        Long orderId = orderService.createOrder(request.toServiceDto(userPrincipal.getId()));
+        return new ResponseEntity(new CreateOrderResponse(orderId), HttpStatus.CREATED);
     }
 
     @GetMapping("/order-line-items/customers")

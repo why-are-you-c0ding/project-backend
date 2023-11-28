@@ -11,7 +11,6 @@ import wayc.backend.stock.domain.Stock;
 import wayc.backend.stock.domain.StockOption;
 import wayc.backend.stock.domain.repository.StockOptionRepository;
 import wayc.backend.stock.domain.repository.StockRepository;
-import wayc.backend.stock.domain.service.StockServiceFacade;
 import wayc.backend.stock.presentation.dto.request.FillStockInfoRequest;
 import wayc.backend.stock.presentation.dto.request.FillStockRequest;
 import wayc.backend.unit.application.UnitTest;

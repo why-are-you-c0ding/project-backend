@@ -2,6 +2,7 @@ package wayc.backend.order.domain;
 
 import lombok.*;
 
+import org.springframework.security.core.parameters.P;
 import wayc.backend.common.domain.BaseEntity;
 import wayc.backend.shop.domain.valid.ItemComparator;
 import wayc.backend.shop.domain.valid.OptionGroupComparator;
@@ -72,5 +73,9 @@ public class OrderLineItem extends BaseEntity implements ItemComparator {
 
     protected void mapOrder(Order order) {
         this.order = order;
+    }
+
+    public void refund() {
+        this.orderLineItemStatus = OrderLineItemStatus.REFUND;
     }
 }

@@ -2,12 +2,19 @@ package wayc.backend.payment.presentation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.RedirectStrategy;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import wayc.backend.common.CommandSuccessResponse;
 import wayc.backend.payment.application.KakaoPayService;
 import wayc.backend.payment.application.dto.response.CreatePayResponseDto;
-import wayc.backend.payment.domain.PaymentService;
 import wayc.backend.payment.exception.PaymentFailedException;
+import wayc.backend.payment.presentation.dto.request.ReadyKakaoPayPaymentRequest;
+import wayc.backend.payment.presentation.dto.request.RefundPaymentRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 
 @RequiredArgsConstructor
@@ -15,14 +22,15 @@ import wayc.backend.payment.exception.PaymentFailedException;
 @RequestMapping("/payment/kakaopay")
 public class KakaoPayController {
 
-    private final PaymentService payService;
     private final KakaoPayService kakaoPayService;
-
+    private final RedirectStrategy redirectStrategy;
 
     @PostMapping
-    public ResponseEntity<CreatePayResponseDto> postPay(@RequestParam Long orderId){
-        payService.pay(orderId);
-        return ResponseEntity.ok(new CreatePayResponseDto());
+    public void ready(@Validated @RequestBody ReadyKakaoPayPaymentRequest request,
+                      HttpServletRequest servletRequest,
+                      HttpServletResponse servletResponse) throws IOException {
+        String successRedirectUrl = kakaoPayService.ready(request.getOrderId(), request.getPayment());
+        redirectStrategy.sendRedirect(servletRequest, servletResponse, successRedirectUrl);
     }
 
     /**
@@ -43,5 +51,11 @@ public class KakaoPayController {
     @GetMapping("/approve")
     public void approve(@RequestParam("pg_token") String pgToken, @RequestParam("partner_order_id") Long partnerOrderId) {
         kakaoPayService.approve(pgToken, partnerOrderId);
+    }
+
+    @PostMapping("/refund")
+    public ResponseEntity<CommandSuccessResponse> refund(@Validated @RequestBody RefundPaymentRequest request) {
+        kakaoPayService.refund(request.getOrderLineItemId(), request.getCancellationAmount());
+        return ResponseEntity.ok(new CommandSuccessResponse("환불을 요청을 성공했습니다."));
     }
 }
