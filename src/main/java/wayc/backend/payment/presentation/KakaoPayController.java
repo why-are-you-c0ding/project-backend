@@ -7,7 +7,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import wayc.backend.common.CommandSuccessResponse;
 import wayc.backend.payment.application.KakaoPayService;
-import wayc.backend.payment.application.dto.response.CreatePayResponseDto;
 import wayc.backend.payment.exception.PaymentFailedException;
 import wayc.backend.payment.presentation.dto.request.ReadyKakaoPayPaymentRequest;
 import wayc.backend.payment.presentation.dto.request.RefundPaymentRequest;

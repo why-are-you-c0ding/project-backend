@@ -11,11 +11,12 @@ import wayc.backend.payment.domain.kakaopay.approve.KakaoPayApproveApiRequest;
 import wayc.backend.payment.domain.kakaopay.approve.KakaoPayApproveApiRequestFactory;
 import wayc.backend.payment.domain.kakaopay.approve.KakaoPayApproveApiResponse;
 import wayc.backend.payment.domain.kakaopay.KakaoPayProperties;
+import wayc.backend.payment.domain.kakaopay.approve.KakaoPayApproveApiService;
 import wayc.backend.payment.domain.kakaopay.ready.KakaoPayReadyApiRequest;
 
 @Component
 @RequiredArgsConstructor
-public class KakaoPayApproveApiService {
+public class KakaoPayApproveApiServiceImpl implements KakaoPayApproveApiService {
 
     private final RestTemplate restTemplate;
     private final KakaoPayApproveApiRequestHttpEntityFactory kakaoPayApproveApiRequestHttpEntityFactory;

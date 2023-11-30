@@ -59,8 +59,8 @@ public class KakaoPayService {
         //TODO 재고 검사를 해야하고 제고를 빼야함.
 
         Payment payment = payRepository.findByOrderId(orderId).orElseThrow(NotExistsPaymentException::new);
-        KakaoPayApproveApiResponse approveApiResponse = kakaoPayApproveApiService.approve(pgToken, payment, order.getId());
         order.completePayment();
+        KakaoPayApproveApiResponse approveApiResponse = kakaoPayApproveApiService.approve(pgToken, payment, order.getId());
     }
 
     @Transactional
