@@ -22,7 +22,7 @@ public class FindOrdersForSellerResponseDto {
     private Long itemId;
     private Long orderLineItemId;
     private OrderLineItemStatus orderStatus;
-    private Money price;
+    private Integer price;
     private List<FindOrderOptionGroupResponseDto> orderOptionGroups = new ArrayList<>();
 
     @Builder
@@ -45,7 +45,7 @@ public class FindOrdersForSellerResponseDto {
         this.itemId = itemId;
         this.orderLineItemId = orderLineItemId;
         this.orderStatus = orderStatus;
-        this.price = price;
+        this.price = price.intValue();
         this.orderOptionGroups = orderOptionGroups;
     }
 }

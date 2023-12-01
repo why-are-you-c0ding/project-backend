@@ -22,7 +22,7 @@ public class FindOrderResponseDto {
     private String zipcode;
     private String shopName;
     private Long shopId;
-    private Money price;
+    private Integer price;
     private List<FindOrderOptionGroupResponseDto> orderOptionGroups;
 
     @Builder
@@ -43,7 +43,7 @@ public class FindOrderResponseDto {
         this.itemName = itemName;
         this.itemImageUrl = itemImageUrl;
         this.count = count;
-        this.price = price;
+        this.price = price.intValue();
         this.orderStatus = orderStatus;
         this.majorAddress = majorAddress;
         this.detailAddress = detailAddress;
