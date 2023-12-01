@@ -25,7 +25,8 @@ public class CartFactory {
                 new RegisterOptionGroupRequestDto(new RegisterOptionRequestDto("16GB", 80000), "RAM"),
                 new RegisterOptionGroupRequestDto(new RegisterOptionRequestDto("512GB", 80000), "SSD")
                 ),
-                "imager.com"
+                "imager.com",
+                1200000
         );
     }
 }

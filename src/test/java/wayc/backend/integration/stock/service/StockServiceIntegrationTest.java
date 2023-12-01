@@ -82,7 +82,11 @@ public class StockServiceIntegrationTest extends IntegrationTest {
                         "color"
                 )
         );
-        Item item = Item.builder().optionGroups(optionGroups).build();
+        Item item = Item
+                .builder()
+                .price(1200000)
+                .optionGroups(optionGroups)
+                .build();
         itemRepository.save(item);
 
         //when

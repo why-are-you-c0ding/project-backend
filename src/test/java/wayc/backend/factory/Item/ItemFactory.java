@@ -25,6 +25,7 @@ public class ItemFactory {
                 .name("맥북")
                 .imageUrl("imageurl")
                 .category("IT")
+                .price(1200000)
                 .optionGroups(
                         List.of(
                                 new OptionGroup(

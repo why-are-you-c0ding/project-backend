@@ -30,6 +30,7 @@ public class CartMapper {
                                 .map(this::toCartOptionGroup)
                                 .collect(Collectors.toList())
                 )
+                .price(dto.getPrice())
                 .build();
     }
 

@@ -28,10 +28,10 @@ public class CreateOrderRequestFactory {
             List<CreateOrderOptionGroupRequest> list2 = new ArrayList<>();
             for (OptionGroup optionGroup : item.getOptionGroups()) {
                 Option option = optionGroup.getOptions().get(0);
-                CreateOrderOptionRequest optionRequest = new CreateOrderOptionRequest(option.getName(), option.getPrice());
+                CreateOrderOptionRequest optionRequest = new CreateOrderOptionRequest(option.getName(), option.getPrice().intValue());
                 list2.add(new CreateOrderOptionGroupRequest(optionGroup.getName(), optionRequest));
             }
-            list.add(new CreateOrderLineItemRequest(item.getId(), item.getName(), 2, item.getPrice(), list2));
+            list.add(new CreateOrderLineItemRequest(item.getId(), item.getName(), 2, item.getPrice().intValue(), list2));
         }
 
         return new CreateOrderRequest(list, address, 100000);

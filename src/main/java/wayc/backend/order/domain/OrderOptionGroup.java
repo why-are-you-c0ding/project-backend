@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.domain.Money;
 import wayc.backend.shop.domain.valid.OptionGroupComparator;
 import wayc.backend.shop.domain.valid.OptionGroupValidator;
 
@@ -26,6 +27,7 @@ public class OrderOptionGroup extends BaseEntity implements OptionGroupComparato
     @Embedded
     private OrderOption orderOption;
 
+    @Column(name = "order_option_group_name")
     private String name;
 
     public OrderOptionGroup(OrderOption orderOption, String name) {
@@ -39,5 +41,9 @@ public class OrderOptionGroup extends BaseEntity implements OptionGroupComparato
 
     protected void mapOrderLineItem(OrderLineItem orderLineItem) {
         this.orderLineItem = orderLineItem;
+    }
+
+    public Money calculatePrice() {
+        return orderOption.getPrice();
     }
 }

@@ -32,7 +32,7 @@ public class FindCartOptionGroupResponseDto {
                 .cartOption(
                         new FindCartOptionResponseDto(
                                 cartOptionGroup.getCartOption().getOptionName(),
-                                cartOptionGroup.getCartOption().getPrice()
+                                cartOptionGroup.getCartOption().getPrice().intValue()
                         )
                 ).build();
     }

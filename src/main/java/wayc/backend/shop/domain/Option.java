@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.domain.Money;
 import wayc.backend.shop.domain.valid.OptionValidator;
 
 import javax.persistence.*;
@@ -23,7 +24,7 @@ public class Option extends BaseEntity {
 
     private String name;
 
-    private Integer price;
+    private Money price;
 
     @JoinColumn(name = "item_option_group_id", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,7 +32,7 @@ public class Option extends BaseEntity {
 
     public Option(String name, Integer price) {
         this.name = name;
-        this.price = price;
+        this.price = Money.from(price);
     }
 
     public void add(OptionGroup optionGroup) {

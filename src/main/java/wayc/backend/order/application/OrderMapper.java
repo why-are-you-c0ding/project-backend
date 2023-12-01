@@ -1,6 +1,7 @@
 package wayc.backend.order.application;
 
 import org.springframework.stereotype.Component;
+import wayc.backend.common.domain.Money;
 import wayc.backend.order.application.dto.request.CreateOrderLineItemRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionGroupRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionRequestDto;
@@ -32,7 +33,7 @@ public class OrderMapper {
                                 .itemId(orderLineItem.getItemId())
                                 .name(orderLineItem.getName())
                                 .count(orderLineItem.getCount())
-                                .payment(orderLineItem.getPayment())
+                                .price(orderLineItem.getPayment())
                                 .orderOptionGroups(
                                         orderLineItem.getOrderOptionGroups()
                                                 .stream()
@@ -50,6 +51,6 @@ public class OrderMapper {
     }
 
     private OrderOption toOrderOption(CreateOrderOptionRequestDto dto) {
-        return new OrderOption(dto.getName(), dto.getPrice());
+        return new OrderOption(dto.getName(), Money.from(dto.getPrice()));
     }
 }

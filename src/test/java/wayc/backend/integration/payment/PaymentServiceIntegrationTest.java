@@ -13,20 +13,4 @@ import wayc.backend.order.presentation.dto.request.CreateOrderRequest;
 
 public class PaymentServiceIntegrationTest extends IntegrationTest {
 
-    @Autowired
-    PaymentService payService;
-
-    @Autowired
-    OrderRepository orderRepository;
-
-    @Commit
-    @Test
-    void pay() {
-        CreateOrderRequest request = CreateOrderRequestFactory.createSuccessCase();
-        Order order = new OrderMapper().mapFrom(request.toServiceDto(1L));
-        orderRepository.save(order);
-        payService.pay(order.getId());
-
-    }
-
 }

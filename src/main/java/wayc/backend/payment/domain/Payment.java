@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.domain.Money;
 import wayc.backend.order.domain.Order;
 import wayc.backend.order.domain.OrderLineItem;
 
@@ -20,14 +21,14 @@ public class Payment extends BaseEntity {
     @GeneratedValue
     private Long id;
 
-    private Integer pay;
+    private Money amount;
 
     private Long orderId;
 
     private String platformTransactionId;
 
-    public Payment(Integer pay, Long orderId, String platformTransactionId) {
-        this.pay = pay;
+    public Payment(Integer amount, Long orderId, String platformTransactionId) {
+        this.amount = Money.from(amount);
         this.orderId = orderId;
         this.platformTransactionId = platformTransactionId;
     }
@@ -38,7 +39,7 @@ public class Payment extends BaseEntity {
     }
 
     public void refund(OrderLineItem orderLineItem) {
-        this.pay -= orderLineItem.getPayment();
+        this.amount = amount.minus(orderLineItem.calculatePrice());
         orderLineItem.refund();
     }
 }

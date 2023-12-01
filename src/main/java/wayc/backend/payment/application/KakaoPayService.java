@@ -91,6 +91,6 @@ public class KakaoPayService {
         payment.refund(orderLineItem);
 
         //TODO 재고 복귀시켜야함
-        KakaoPayCancelApiResponse response = kakaoPayRefundApiService.refund(payment.getPlatformTransactionId(), orderLineItem.getPayment());
+        KakaoPayCancelApiResponse response = kakaoPayRefundApiService.refund(payment.getPlatformTransactionId(), orderLineItem.calculatePrice().intValue());
     }
 }

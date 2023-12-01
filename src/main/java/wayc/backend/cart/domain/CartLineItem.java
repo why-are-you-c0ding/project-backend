@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.domain.Money;
 import wayc.backend.shop.domain.valid.ItemComparator;
 import wayc.backend.shop.domain.valid.OptionGroupComparator;
 
@@ -35,6 +36,8 @@ public class CartLineItem extends BaseEntity implements ItemComparator {
 
     private String imageUrl;
 
+    private Money price;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartLineItem")
     private List<CartOptionGroup> cartOptionGroups = new ArrayList<>();
 
@@ -43,12 +46,14 @@ public class CartLineItem extends BaseEntity implements ItemComparator {
                         Cart cart,
                         String name,
                         Integer count,
+                        Integer price,
                         List<CartOptionGroup> cartOptionGroups,
                         String imageUrl) {
         this.itemId = itemId;
         this.cart = cart;
         this.name = name;
         this.count = count;
+        this.price = Money.from(price);
         this.cartOptionGroups = cartOptionGroups;
         this.imageUrl = imageUrl;
         cartOptionGroups.forEach(optionGroup -> optionGroup.addCartLineItem(this));

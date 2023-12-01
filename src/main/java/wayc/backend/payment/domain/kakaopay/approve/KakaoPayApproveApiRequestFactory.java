@@ -27,7 +27,7 @@ public class KakaoPayApproveApiRequestFactory {
                 .setPartnerUserId(String.valueOf(userId))
                 .setPgToken(pgToken)
                 .setPayload(null)
-                .setTotalAmount(payment.getPay())
+                .setTotalAmount(payment.getAmount().intValue())
                 .build();
     }
 }
