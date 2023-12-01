@@ -69,7 +69,8 @@ public class OrderControllerTest extends ControllerTest {
                                         subsectionWithPath("totalPayment").type(NUMBER).description("총 결제 가격")
                                 ),
                                 responseFields(
-                                        fieldWithPath("message").type(STRING).description("주문 생성 성공 메시지")
+                                        fieldWithPath("message").type(STRING).description("주문 생성 성공 메시지"),
+                                        fieldWithPath("orderId").type(NUMBER).description("생성한 주문 id")
                                 )
                         ));
     }

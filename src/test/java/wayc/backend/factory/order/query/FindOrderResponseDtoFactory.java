@@ -1,5 +1,6 @@
 package wayc.backend.factory.order.query;
 
+import wayc.backend.common.domain.Money;
 import wayc.backend.order.domain.Address;
 import wayc.backend.order.domain.OrderLineItemStatus;
 import wayc.backend.order.domain.repository.query.dto.FindOrderOptionGroupResponseDto;
@@ -34,7 +35,7 @@ public class FindOrderResponseDtoFactory {
                 .zipcode("02020")
                 .shopId(7L)
                 .shopName("멋쟁이들의 가게")
-                .price(10000)
+                .price(Money.from(10000))
                 .build();
         result.setOrderOptionGroups(List.of(optionGroup_1, optionGroup_2));
         return result;

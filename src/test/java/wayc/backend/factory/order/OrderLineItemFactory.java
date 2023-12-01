@@ -19,7 +19,7 @@ public class OrderLineItemFactory {
                 .orderLineItemStatus(OrderLineItemStatus.ORDER_ACCEPTED)
                 .count(3)
                 .name("맥북")
-                .price(6000)
+                .price(1200000)
                 .orderOptionGroups(List.of(
                         new OrderOptionGroup(new OrderOption("16GB", Money.from(80000)), "RAM"),
                         new OrderOptionGroup(new OrderOption("512GB", Money.from(80000)), "SSD")
@@ -97,7 +97,7 @@ public class OrderLineItemFactory {
                         1L,
                         "맥북",
                         3,
-                        1000000,
+                        1200000,
                         List.of(
                                 new CreateOrderOptionGroupRequestDto(
                                         "RAM",

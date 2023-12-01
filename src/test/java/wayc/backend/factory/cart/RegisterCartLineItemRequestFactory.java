@@ -18,7 +18,7 @@ public class RegisterCartLineItemRequestFactory {
         RegisterCartOptionGroupRequest optionGroup_2 = new RegisterCartOptionGroupRequest(option_3,"SIZEE");
         RegisterCartOptionGroupRequest optionGroup_3 = new RegisterCartOptionGroupRequest(option_2,"COLOR");
 
-        return new RegisterCartLineItemRequest(29L, "멋쟁이 옷", 2, Arrays.asList(optionGroup_1, optionGroup_2, optionGroup_3), "www.image.com");
+        return new RegisterCartLineItemRequest(29L, "멋쟁이 옷", 2, Arrays.asList(optionGroup_1, optionGroup_2, optionGroup_3), "www.image.com", 10000);
     }
 
     public static RegisterCartLineItemRequest registerMacBook(){
@@ -29,7 +29,7 @@ public class RegisterCartLineItemRequestFactory {
         RegisterCartOptionGroupRequest optionGroup_1 = new RegisterCartOptionGroupRequest(option_1,"RAM");
         RegisterCartOptionGroupRequest optionGroup_3 = new RegisterCartOptionGroupRequest(option_2,"SSD");
 
-        return new RegisterCartLineItemRequest(29L, "맥북", 1, Arrays.asList(optionGroup_1, optionGroup_3), "www.image.com");
+        return new RegisterCartLineItemRequest(29L, "맥북", 1, Arrays.asList(optionGroup_1, optionGroup_3), "www.image.com", 1200000);
     }
 
     public static RegisterCartLineItemRequest createFailCase1CaseMackBookDto(){
@@ -40,7 +40,7 @@ public class RegisterCartLineItemRequestFactory {
         RegisterCartOptionGroupRequest optionGroup_1 = new RegisterCartOptionGroupRequest(option_1,"RAM1");
         RegisterCartOptionGroupRequest optionGroup_3 = new RegisterCartOptionGroupRequest(option_2,"SSD");
 
-        return new RegisterCartLineItemRequest(29L, "맥북", 1, Arrays.asList(optionGroup_1, optionGroup_3), "www.image.com");
+        return new RegisterCartLineItemRequest(29L, "맥북", 1, Arrays.asList(optionGroup_1, optionGroup_3), "www.image.com", 120000);
     }
 
     public static RegisterCartLineItemRequest createFailCase2CaseMackBookDto() {
@@ -50,7 +50,7 @@ public class RegisterCartLineItemRequestFactory {
         RegisterCartOptionGroupRequest optionGroup_1 = new RegisterCartOptionGroupRequest(option_1,"RAM1");
         RegisterCartOptionGroupRequest optionGroup_3 = new RegisterCartOptionGroupRequest(option_2,"SSD");
 
-        return new RegisterCartLineItemRequest(29L, "맥북1", 1, Arrays.asList(optionGroup_1, optionGroup_3), "www.image.com");
+        return new RegisterCartLineItemRequest(29L, "맥북1", 1, Arrays.asList(optionGroup_1, optionGroup_3), "www.image.com", 1200000);
     }
 
     public static RegisterCartLineItemRequest createFailCase3CaseMackBookDto() {
@@ -60,6 +60,6 @@ public class RegisterCartLineItemRequestFactory {
         RegisterCartOptionGroupRequest optionGroup_1 = new RegisterCartOptionGroupRequest(option_1,"RAM1");
         RegisterCartOptionGroupRequest optionGroup_3 = new RegisterCartOptionGroupRequest(option_2,"SSD");
 
-        return new RegisterCartLineItemRequest(29L, "맥북", 1, Arrays.asList(optionGroup_1, optionGroup_3), "www.image.com");
+        return new RegisterCartLineItemRequest(29L, "맥북", 1, Arrays.asList(optionGroup_1, optionGroup_3), "www.image.com", 1200000);
     }
 }

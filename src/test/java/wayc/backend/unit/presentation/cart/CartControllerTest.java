@@ -53,6 +53,7 @@ public class CartControllerTest extends ControllerTest {
                                         fieldWithPath("count").type(NUMBER).description("장바구니에 넣은 상품 개수"),
                                         fieldWithPath("cartOptionGroups").type(ARRAY).description("장바구니에 넣은 상품의 옵션 그룹"),
                                         fieldWithPath("imageUrl").type(STRING).description("장바구니에 넣은 상품의 이미지 Url"),
+                                        fieldWithPath("price").type(NUMBER).description("장바구니에 넣은 상품의 가격"),
                                         subsectionWithPath("cartOptionGroups[].cartOption").type(OBJECT).description("장바구니에 넣은 상품의 옵션 그룹의 옵션"),
                                         subsectionWithPath("cartOptionGroups[].name").type(STRING).description("장바구니에 넣은 상품의 옵션 그룹의 이름"),
                                         subsectionWithPath("cartOptionGroups[].cartOption.name").type(STRING).description("장바구니에 넣은 상품의 옵션 그룹의 옵션 이름"),
