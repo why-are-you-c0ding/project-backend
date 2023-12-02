@@ -3,6 +3,7 @@ package wayc.backend.order.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import wayc.backend.common.domain.Money;
 import wayc.backend.shop.domain.valid.OptionValidator;
 
 import javax.persistence.*;
@@ -12,16 +13,16 @@ import javax.persistence.*;
 @Embeddable
 public class OrderOption{
 
-    private String optionName;
-    private Integer price;
+    private String name;
+    private Money price;
 
-    public OrderOption(String optionName, Integer price) {
-        this.optionName = optionName;
+    public OrderOption(String name, Money price) {
+        this.name = name;
         this.price = price;
     }
 
     public OptionValidator convertToOptionValidator() {
-        return new OptionValidator(optionName, price);
+        return new OptionValidator(name, price);
     }
 }
 

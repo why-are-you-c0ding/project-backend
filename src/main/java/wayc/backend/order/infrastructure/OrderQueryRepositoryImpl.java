@@ -63,12 +63,12 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
                                         item.id,
                                         orderLineItem.id,
                                         orderLineItem.orderLineItemStatus,
-                                        orderLineItem.payment,
+                                        orderLineItem.price,
                                         list(
                                                 Projections.constructor(
                                                         FindOrderOptionGroupResponseDto.class,
                                                         orderOptionGroup.name,
-                                                        orderOptionGroup.orderOption.optionName
+                                                        orderOptionGroup.orderOption.name
                                                 )
                                         )
                                 )
@@ -107,12 +107,12 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
                                         item.id,
                                         order.id,
                                         orderLineItem.orderLineItemStatus,
-                                        orderLineItem.payment,
+                                        orderLineItem.price,
                                         list(
                                                 Projections.constructor(
                                                         FindOrderOptionGroupResponseDto.class,
                                                         orderOptionGroup.name,
-                                                        orderOptionGroup.orderOption.optionName
+                                                        orderOptionGroup.orderOption.name
                                                 )
                                         )
                                 )
@@ -144,7 +144,7 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
                                 item.name,
                                 item.imageUrl,
                                 orderLineItem.count,
-                                orderLineItem.payment,
+                                orderLineItem.price,
                                 orderLineItem.orderLineItemStatus,
                                 order.address.major,
                                 order.address.detail,
@@ -166,7 +166,7 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository {
                 Projections.constructor(
                         FindOrderOptionGroupResponseDto.class,
                         orderOptionGroup.name,
-                        orderOptionGroup.orderOption.optionName
+                        orderOptionGroup.orderOption.name
                 ))
                 .from(orderOptionGroup)
                 .join(orderLineItem).on(orderOptionGroup.orderLineItem.id.eq(orderOptionGroup.orderLineItem.id))

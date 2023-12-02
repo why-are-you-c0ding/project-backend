@@ -3,6 +3,7 @@ package wayc.backend.shop.domain;
 import lombok.*;
 
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.domain.Money;
 import wayc.backend.common.event.Events;
 
 import wayc.backend.shop.domain.event.ItemRegisteredEvent;
@@ -35,7 +36,7 @@ public class Item extends BaseEntity {
 
     private String category;
 
-    private Integer price;
+    private Money price;
 
     @Builder
     public Item(Long id,
@@ -53,7 +54,7 @@ public class Item extends BaseEntity {
         this.imageUrl = imageUrl;
         this.information = information;
         this.category = category;
-        this.price = price;
+        this.price = Money.from(price);
         optionGroups.forEach(optionGroup ->  optionGroup.add(this));
     }
 

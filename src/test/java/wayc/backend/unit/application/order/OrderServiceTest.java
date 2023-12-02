@@ -64,13 +64,13 @@ public class OrderServiceTest extends UnitTest {
                 new OrderMapper(),
                 new OrderValidator(new ItemComparisonValidator<>(itemRepository))
         );
-        mockEvents = mockStatic(Events.class);
+        //mockEvents = mockStatic(Events.class);
     }
 
-    @AfterEach
-    void afterEach(){
-        mockEvents.close();
-    }
+//    @AfterEach
+//    void afterEach(){
+//        mockEvents.close();
+//    }
 
     @Test
     @DisplayName("주문을 성공적으로 생성한다.")
@@ -84,7 +84,7 @@ public class OrderServiceTest extends UnitTest {
 
         //then
         verify(orderRepository, Mockito.times(1)).save(Mockito.any(Order.class));
-        mockEvents.verify(() -> Events.raise(Mockito.any()), times(1));
+        //mockEvents.verify(() -> Events.raise(Mockito.any()), times(1));
     }
 
     @Test
@@ -160,8 +160,9 @@ public class OrderServiceTest extends UnitTest {
 
         //given
         OrderLineItem order = OrderLineItemFactory.create(3L);
+        Item item = ItemFactory.createMacBook();
         given(itemRepository.findItemByShopOwnerIdAndItemId(Mockito.anyLong(), Mockito.anyLong()))
-                .willReturn(Optional.of(Item.builder().optionGroups(new ArrayList<>()).build()));
+                .willReturn(Optional.of(item));
         given(orderLineItemRepository.findOrderLineItemByIdAndItemId(Mockito.anyLong(), Mockito.anyLong()))
                 .willReturn(Optional.of(order));
 

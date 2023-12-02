@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import wayc.backend.common.domain.Money;
 import wayc.backend.order.domain.OrderLineItemStatus;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class FindOrdersForCustomerResponseDto {
                                             Long itemId,
                                             Long orderLineItemId,
                                             OrderLineItemStatus orderStatus,
-                                            Integer price,
+                                            Money price,
                                             List<FindOrderOptionGroupResponseDto> orderOptionGroups) {
         this.itemImageUrl = itemImageUrl;
         this.shopName = shopName;
@@ -46,7 +47,7 @@ public class FindOrdersForCustomerResponseDto {
         this.itemId = itemId;
         this.orderLineItemId = orderLineItemId;
         this.orderStatus = orderStatus;
-        this.price = price;
+        this.price = price.intValue();
         this.orderOptionGroups = orderOptionGroups;
     }
 }

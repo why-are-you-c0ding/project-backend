@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    @Query("select o from Order o where o.id = :id and o.status = 'ACTIVE'")
+    @Query("select o from Order o join fetch o.orderLineItems where o.id = :id and o.status = 'ACTIVE'")
     Optional<Order> findOrderById(Long id);
 }

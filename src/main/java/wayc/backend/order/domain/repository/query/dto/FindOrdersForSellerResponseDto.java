@@ -4,6 +4,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import wayc.backend.common.domain.Money;
 import wayc.backend.order.domain.OrderLineItemStatus;
 
 import java.util.ArrayList;
@@ -27,15 +28,15 @@ public class FindOrdersForSellerResponseDto {
     @Builder
     @QueryProjection
     public FindOrdersForSellerResponseDto(String itemImageUrl,
-                                            String shopName,
-                                            String itemName,
-                                            Integer count,
-                                            Long shopId,
-                                            Long itemId,
-                                            Long orderLineItemId,
-                                            OrderLineItemStatus orderStatus,
-                                            Integer price,
-                                            List<FindOrderOptionGroupResponseDto> orderOptionGroups) {
+                                          String shopName,
+                                          String itemName,
+                                          Integer count,
+                                          Long shopId,
+                                          Long itemId,
+                                          Long orderLineItemId,
+                                          OrderLineItemStatus orderStatus,
+                                          Money price,
+                                          List<FindOrderOptionGroupResponseDto> orderOptionGroups) {
         this.itemImageUrl = itemImageUrl;
         this.shopName = shopName;
         this.itemName = itemName;
@@ -44,7 +45,7 @@ public class FindOrdersForSellerResponseDto {
         this.itemId = itemId;
         this.orderLineItemId = orderLineItemId;
         this.orderStatus = orderStatus;
-        this.price = price;
+        this.price = price.intValue();
         this.orderOptionGroups = orderOptionGroups;
     }
 }

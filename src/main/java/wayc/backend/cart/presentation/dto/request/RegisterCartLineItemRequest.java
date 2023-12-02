@@ -19,17 +19,24 @@ public class RegisterCartLineItemRequest {
     private String name;
     private Integer count;
     private String imageUrl;
+    private Integer price;
 
     @Valid
     @NotEmpty
     private List<RegisterCartOptionGroupRequest> cartOptionGroups = new ArrayList<>();
 
-    public RegisterCartLineItemRequest(Long itemId, String name, Integer count, List<RegisterCartOptionGroupRequest> optionGroups, String imageUrl) {
+    public RegisterCartLineItemRequest(Long itemId,
+                                       String name,
+                                       Integer count,
+                                       List<RegisterCartOptionGroupRequest> optionGroups,
+                                       String imageUrl,
+                                       Integer price) {
         this.itemId = itemId;
         this.name = name;
         this.count = count;
         this.cartOptionGroups = optionGroups;
         this.imageUrl = imageUrl;
+        this.price = price;
     }
 
     public RegisterCartLineItemRequestDto toServiceDto(){
@@ -38,6 +45,7 @@ public class RegisterCartLineItemRequest {
                 .itemId(itemId)
                 .name(name)
                 .count(count)
+                .price(price)
                 .cartOptionGroups(
                         cartOptionGroups
                                 .stream()

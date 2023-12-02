@@ -1,5 +1,6 @@
 package wayc.backend.factory.order.query;
 
+import wayc.backend.common.domain.Money;
 import wayc.backend.order.domain.OrderLineItemStatus;
 import wayc.backend.order.domain.repository.query.dto.*;
 
@@ -20,7 +21,7 @@ public class FindPagingOrderResponseDtoFactory {
                 .orderOptionGroups(Arrays.asList(optionGroup_color, optionGroup_size))
                 .count(2)
                 .shopId(1L)
-                .price(100000)
+                .price(Money.from(20000))
                 .itemId(2L)
                 .orderLineItemId(4L)
                 .orderStatus(OrderLineItemStatus.ORDER_ACCEPTED)
@@ -37,7 +38,7 @@ public class FindPagingOrderResponseDtoFactory {
                 .orderOptionGroups(Arrays.asList(optionGroup_ram, optionGroup_ssd))
                 .count(2)
                 .shopId(2L)
-                .price(20000)
+                .price(Money.from(1200000))
                 .itemId(3L)
                 .orderLineItemId(7L)
                 .orderStatus(OrderLineItemStatus.PAYMENT_COMPLETED)
@@ -59,7 +60,7 @@ public class FindPagingOrderResponseDtoFactory {
                         .orderOptionGroups(Arrays.asList(optionGroup_ram, optionGroup_ssd))
                         .count(2)
                         .shopId(2L)
-                        .price(20000)
+                        .price(Money.from(20000))
                         .itemId(3L)
                         .orderLineItemId(7L)
                         .orderStatus(OrderLineItemStatus.PAYMENT_COMPLETED)
@@ -74,7 +75,7 @@ public class FindPagingOrderResponseDtoFactory {
                         .orderOptionGroups(Arrays.asList(optionGroup_ram, optionGroup_ssd))
                         .count(2)
                         .shopId(2L)
-                        .price(20000)
+                        .price(Money.from(20000))
                         .itemId(3L)
                         .orderLineItemId(8L)
                         .orderStatus(OrderLineItemStatus.PAYMENT_COMPLETED)

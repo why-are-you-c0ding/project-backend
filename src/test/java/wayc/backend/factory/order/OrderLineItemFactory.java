@@ -1,5 +1,6 @@
 package wayc.backend.factory.order;
 
+import wayc.backend.common.domain.Money;
 import wayc.backend.order.application.dto.request.CreateOrderOptionGroupRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderOptionRequestDto;
 import wayc.backend.order.application.dto.request.CreateOrderLineItemRequestDto;
@@ -18,10 +19,10 @@ public class OrderLineItemFactory {
                 .orderLineItemStatus(OrderLineItemStatus.ORDER_ACCEPTED)
                 .count(3)
                 .name("맥북")
-                .payment(6000)
+                .price(1200000)
                 .orderOptionGroups(List.of(
-                        new OrderOptionGroup(new OrderOption("16GB", 80000), "RAM"),
-                        new OrderOptionGroup(new OrderOption("512GB", 80000), "SSD")
+                        new OrderOptionGroup(new OrderOption("16GB", Money.from(80000)), "RAM"),
+                        new OrderOptionGroup(new OrderOption("512GB", Money.from(80000)), "SSD")
                 ))
                 .build();
     }
@@ -96,7 +97,7 @@ public class OrderLineItemFactory {
                         1L,
                         "맥북",
                         3,
-                        1000000,
+                        1200000,
                         List.of(
                                 new CreateOrderOptionGroupRequestDto(
                                         "RAM",

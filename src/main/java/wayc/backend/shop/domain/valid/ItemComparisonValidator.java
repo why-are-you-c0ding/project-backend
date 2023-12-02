@@ -25,6 +25,10 @@ public class ItemComparisonValidator <T extends ItemComparator> {
             throw new IllegalArgumentException("상품 이름이 변경되었습니다.");
         }
 
+        if(!item.getPrice().equals(compared.getPrice())){
+            throw new IllegalArgumentException("상품 가격이 변경되었습니다.");
+        }
+
         for (OptionGroup optionGroup : item.getOptionGroups()) {
             validateOptionGroup(optionGroup, compared.getComparisonOrderOptionGroups());
         }

@@ -2,7 +2,9 @@ package wayc.backend.order.domain;
 
 import lombok.*;
 
+import org.springframework.security.core.parameters.P;
 import wayc.backend.common.domain.BaseEntity;
+import wayc.backend.common.domain.Money;
 import wayc.backend.shop.domain.valid.ItemComparator;
 import wayc.backend.shop.domain.valid.OptionGroupComparator;
 
@@ -33,7 +35,7 @@ public class OrderLineItem extends BaseEntity implements ItemComparator {
 
     private Integer count;
 
-    private Integer payment;
+    private Money price;
 
     @Enumerated(EnumType.STRING)
     private OrderLineItemStatus orderLineItemStatus;
@@ -43,7 +45,7 @@ public class OrderLineItem extends BaseEntity implements ItemComparator {
                          Long itemId,
                          String name,
                          Integer count,
-                         Integer payment,
+                         Integer price,
                          OrderLineItemStatus orderLineItemStatus,
                          List<OrderOptionGroup> orderOptionGroups
     ) {
@@ -51,7 +53,7 @@ public class OrderLineItem extends BaseEntity implements ItemComparator {
         this.itemId = itemId;
         this.name = name;
         this.count = count;
-        this.payment = payment;
+        this.price = Money.from(price);
         this.orderLineItemStatus = orderLineItemStatus;
         this.orderOptionGroups = orderOptionGroups;
         orderOptionGroups.forEach(orderOptionGroup -> orderOptionGroup.mapOrderLineItem(this));
@@ -60,6 +62,10 @@ public class OrderLineItem extends BaseEntity implements ItemComparator {
 
     public void updateOrder(OrderLineItemStatus orderLineItemStatus) {
         this.orderLineItemStatus = orderLineItemStatus;
+    }
+
+    public Money calculatePrice(){
+        return Money.sum(orderOptionGroups, OrderOptionGroup::calculatePrice).times(count);
     }
 
     @Override
@@ -72,5 +78,9 @@ public class OrderLineItem extends BaseEntity implements ItemComparator {
 
     protected void mapOrder(Order order) {
         this.order = order;
+    }
+
+    public void refund() {
+        this.orderLineItemStatus = OrderLineItemStatus.REFUND;
     }
 }

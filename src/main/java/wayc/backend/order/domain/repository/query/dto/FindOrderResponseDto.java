@@ -2,6 +2,7 @@ package wayc.backend.order.domain.repository.query.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import wayc.backend.common.domain.Money;
 import wayc.backend.order.domain.Address;
 import wayc.backend.order.domain.OrderLineItemStatus;
 
@@ -30,7 +31,7 @@ public class FindOrderResponseDto {
                                 String itemName,
                                 String itemImageUrl,
                                 Integer count,
-                                Integer price,
+                                Money price,
                                 OrderLineItemStatus orderStatus,
                                 String majorAddress,
                                 String detailAddress,
@@ -42,13 +43,13 @@ public class FindOrderResponseDto {
         this.itemName = itemName;
         this.itemImageUrl = itemImageUrl;
         this.count = count;
+        this.price = price.intValue();
         this.orderStatus = orderStatus;
         this.majorAddress = majorAddress;
         this.detailAddress = detailAddress;
         this.zipcode = zipcode;
         this.shopName = shopName;
         this.shopId = shopId;
-        this.price = price;
     }
 
     public void setOrderOptionGroups(List<FindOrderOptionGroupResponseDto> orderOptionGroups) {

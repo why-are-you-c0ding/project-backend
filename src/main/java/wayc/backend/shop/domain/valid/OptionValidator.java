@@ -2,16 +2,17 @@ package wayc.backend.shop.domain.valid;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import wayc.backend.common.domain.Money;
 
 @NoArgsConstructor
 @Getter
 public class OptionValidator {
 
     private String name;
-    private Integer price;
+    private Money price;
 
-    public OptionValidator(String name, Integer price) {
+    public OptionValidator(String name, Money pricer) {
         this.name = name;
-        this.price = price;
+        this.price = pricer;
     }
 }

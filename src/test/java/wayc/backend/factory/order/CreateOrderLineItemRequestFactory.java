@@ -30,7 +30,7 @@ public class CreateOrderLineItemRequestFactory {
         for (OptionGroup optionGroup : optionGroups) {
             Collections.shuffle(optionGroup.getOptions());
             Option option = optionGroup.getOptions().get(0);
-            CreateOrderOptionRequest optionRequest = new CreateOrderOptionRequest(option.getName(), option.getPrice());
+            CreateOrderOptionRequest optionRequest = new CreateOrderOptionRequest(option.getName(), option.getPrice().intValue());
             list.add(
                     new CreateOrderLineItemRequest(
 

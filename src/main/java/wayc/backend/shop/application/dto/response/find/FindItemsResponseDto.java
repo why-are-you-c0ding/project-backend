@@ -34,7 +34,7 @@ public class FindItemsResponseDto {
                 item.getId(),
                 item.getName(),
                 item.getShop().getName(),
-                item.getPrice(),
+                item.getPrice().intValue(),
                 item.getImageUrl(),
                 item.getCategory()
         );

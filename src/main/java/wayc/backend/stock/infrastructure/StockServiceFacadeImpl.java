@@ -6,7 +6,7 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
 import wayc.backend.stock.domain.service.DecreaseStockService;
-import wayc.backend.stock.domain.service.StockServiceFacade;
+import wayc.backend.stock.domain.service.StockService;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class StockServiceFacadeImpl implements StockServiceFacade {
+public class StockServiceFacadeImpl implements StockService {
 
     private final RedissonClient redissonClient;
     private final DecreaseStockService decreaseStockService;
