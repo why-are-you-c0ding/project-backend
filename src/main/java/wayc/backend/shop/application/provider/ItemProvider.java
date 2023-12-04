@@ -33,7 +33,7 @@ public class ItemProvider {
     }
 
     public FindPagingItemResponseDto findItems(Integer page) {
-        PageRequest paging = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "createdAt"));
+        PageRequest paging = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "id"));
         Slice<Item> pagingResult = itemRepository.findItemsPagingByStatus(paging);
         List<FindItemsResponseDto> result = pagingResult
                 .stream()
