@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-@Component
+//@Component
 public class CustomRedisIndexedSessionRepository extends RedisIndexedSessionRepository {
 
     public CustomRedisIndexedSessionRepository(RedisOperations<Object, Object> sessionRedisOperations) {
@@ -29,4 +29,11 @@ public class CustomRedisIndexedSessionRepository extends RedisIndexedSessionRepo
     public void setSaveMode(SaveMode saveMode) {
         super.setSaveMode(SaveMode.ON_SET_ATTRIBUTE);
     }
+
+    @Override
+    public void deleteById(String sessionId) {
+        super.deleteById(sessionId);
+    }
+
+
 }
