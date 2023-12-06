@@ -26,6 +26,6 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        mapper.writeValue(response.getWriter(), new CommandSuccessResponse(SUCCESS_MESSAGE));
+        //mapper.writeValue(response.getWriter(), new CommandSuccessResponse(SUCCESS_MESSAGE));
     }
 }
