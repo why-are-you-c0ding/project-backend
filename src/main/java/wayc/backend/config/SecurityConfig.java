@@ -54,7 +54,7 @@ public class SecurityConfig {
     private final ObjectMapper objectMapper;
     private final MemberRepository memberRepository;
     private final AppProperties appProperties;
-    //private final FindByIndexNameSessionRepository sessionRepository;
+    private final FindByIndexNameSessionRepository sessionRepository;
 
 
     @Bean
@@ -72,13 +72,13 @@ public class SecurityConfig {
                 .and()
                 .rememberMe()
                 .rememberMeServices(rememberMeServices)
-//                .and()
-//                .sessionManagement()
-//                .maximumSessions(1)
-//                .maxSessionsPreventsLogin(true)
-//                .sessionRegistry(sessionRegistry())
-//                .and()
-//                .sessionFixation().changeSessionId()
+                .and()
+                .sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+                .sessionRegistry(sessionRegistry())
+                .and()
+                .sessionFixation().changeSessionId()
                 .and()
                 .csrf()
                 .disable()
@@ -208,10 +208,10 @@ public class SecurityConfig {
         return new OAuth2AuthenticationSuccessHandler(appProperties);
     }
 
-//    @Bean
-//    public SpringSessionBackedSessionRegistry sessionRegistry() {
-//        return new SpringSessionBackedSessionRegistry(sessionRepository);
-//    }
+    @Bean
+    public SpringSessionBackedSessionRegistry sessionRegistry() {
+        return new SpringSessionBackedSessionRegistry(sessionRepository);
+    }
 }
 
 

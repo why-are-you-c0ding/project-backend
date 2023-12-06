@@ -27,6 +27,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        mapper.writeValue(response.getWriter(), new CommandSuccessResponse(SUCCESS_MESSAGE));
+        //mapper.writeValue(response.getWriter(), new CommandSuccessResponse(SUCCESS_MESSAGE));
     }
 }

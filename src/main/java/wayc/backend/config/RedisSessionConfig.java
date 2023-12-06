@@ -11,22 +11,22 @@ import org.springframework.session.data.redis.RedisSessionRepository;
 
 import java.time.Duration;
 
-@Configuration
-public class RedisSessionConfig {
-
-
-    @Bean
-    public RedisOperations<String, Object> sessionRedisOperations(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory);
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setHashKeySerializer(new StringRedisSerializer());
-        return template;
-    }
-
-    @Bean
-    public RedisSessionRepository sessionRepository(RedisOperations<String, Object> sessionRedisOperations) {
-        RedisSessionRepository redisSessionRepository = new RedisSessionRepository(sessionRedisOperations);
-        return redisSessionRepository;
-    }
-}
+//@Configuration
+//public class RedisSessionConfig {
+//
+//
+//    @Bean
+//    public RedisOperations<String, Object> sessionRedisOperations(RedisConnectionFactory redisConnectionFactory) {
+//        RedisTemplate<String, Object> template = new RedisTemplate<>();
+//        template.setConnectionFactory(redisConnectionFactory);
+//        template.setKeySerializer(new StringRedisSerializer());
+//        template.setHashKeySerializer(new StringRedisSerializer());
+//        return template;
+//    }
+//
+//    @Bean
+//    public RedisSessionRepository sessionRepository(RedisOperations<String, Object> sessionRedisOperations) {
+//        RedisSessionRepository redisSessionRepository = new RedisSessionRepository(sessionRedisOperations);
+//        return redisSessionRepository;
+//    }
+//}

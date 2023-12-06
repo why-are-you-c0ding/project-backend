@@ -9,7 +9,8 @@ import org.springframework.session.config.annotation.web.http.EnableSpringHttpSe
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 //@EnableAsync
-@EnableSpringHttpSession
+//@EnableSpringHttpSession
+@EnableRedisHttpSession
 @EnableJpaAuditing
 @SpringBootApplication
 @ConfigurationPropertiesScan
