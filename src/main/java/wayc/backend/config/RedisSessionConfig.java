@@ -1,5 +1,6 @@
 package wayc.backend.config;
 
+import org.redisson.Redisson;
 import org.redisson.api.RFuture;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.codec.Codec;
@@ -7,7 +8,9 @@ import org.redisson.client.codec.StringCodec;
 import org.redisson.client.protocol.RedisCommand;
 import org.redisson.client.protocol.RedisCommands;
 import org.redisson.command.CommandAsyncService;
+import org.redisson.spring.data.connection.RedissonClusterConnection;
 import org.redisson.spring.data.connection.RedissonConnection;
+import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
@@ -20,6 +23,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.RedisSessionRepository;
+import wayc.backend.security.oauth2.CustomOAuth2UserService;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -29,7 +33,7 @@ import java.util.Map;
 @Configuration
 public class RedisSessionConfig {
 
-    static class CustomRedisConnection extends RedissonConnection {
+    static class CustomRedisConnection extends RedissonClusterConnection {
 
         CommandAsyncService executorService;
 
@@ -58,10 +62,33 @@ public class RedisSessionConfig {
         }
     }
 
+    static class CustomRedissonConnectionFactory extends RedissonConnectionFactory {
+
+        private RedissonClient redisson;
+
+        public CustomRedissonConnectionFactory(RedissonClient redisson) {
+            super(redisson);
+            this.redisson = redisson;
+        }
+
+        @Override
+        public RedisConnection getConnection() {
+            if (redisson.getConfig().isClusterConfig()) {
+                return new CustomRedisConnection(redisson);
+            }
+            return new RedissonConnection(redisson);
+        }
+
+    }
 
     @Bean
     public RedisConnection redisConnection(RedissonClient redissonClient) {
         return new CustomRedisConnection(redissonClient);
+    }
+
+    @Bean
+    public RedissonConnectionFactory redissonConnectionFactory(RedissonClient redissonClient){
+        return new CustomRedissonConnectionFactory(redissonClient);
     }
 
     @Bean
