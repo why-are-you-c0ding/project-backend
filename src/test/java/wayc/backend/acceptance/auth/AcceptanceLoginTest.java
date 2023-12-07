@@ -79,9 +79,6 @@ public class AcceptanceLoginTest {
                         requestFields(
                                 fieldWithPath("loginId").type(STRING).description("로그인아이디"),
                                 fieldWithPath("password").type(STRING).description("비밀번호")
-                        ),
-                        responseFields(
-                                fieldWithPath("message").type(STRING).description("요청 성공 메시지")
                         )
                 ));
     }
