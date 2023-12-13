@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface OptionGroupRepository extends JpaRepository<OptionGroup, Long> {
 
     @EntityGraph(attributePaths = "options")
-    @Query("select ogs from OptionGroup ogs where ogs.item.id = :itemId and ogs.status = 'ACTIVE'")
+    @Query("select distinct ogs from OptionGroup ogs where ogs.item.id = :itemId and ogs.status = 'ACTIVE'")
     List<OptionGroup> findByItemIdAndStatus(Long itemId);
 }
