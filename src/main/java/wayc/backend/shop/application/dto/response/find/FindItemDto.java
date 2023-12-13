@@ -16,7 +16,6 @@ public class FindItemDto {
     private String itemName;
     private Long shopId;
     private String shopName;
-    private List<Long> optionGroupIdList;
     private String imageUrl;
     private String information;
     private String category;
@@ -27,13 +26,6 @@ public class FindItemDto {
                 .itemName(item.getName())
                 .shopId(item.getShop().getId())
                 .shopName(item.getShop().getName())
-                .optionGroupIdList(
-                        item
-                                .getOptionGroups()
-                                .stream()
-                                .map(optionGroup -> optionGroup.getId())
-                                .collect(Collectors.toList())
-                )
                 .imageUrl(item.getImageUrl())
                 .information(item.getInformation())
                 .category(item.getCategory())
@@ -45,7 +37,6 @@ public class FindItemDto {
                        String itemName,
                        Long shopId,
                        String shopName,
-                       List<Long> optionGroupIdList,
                        String imageUrl,
                        String information,
                        String category) {
@@ -53,7 +44,6 @@ public class FindItemDto {
         this.itemName = itemName;
         this.shopId = shopId;
         this.shopName = shopName;
-        this.optionGroupIdList = optionGroupIdList;
         this.imageUrl = imageUrl;
         this.information = information;
         this.category = category;
