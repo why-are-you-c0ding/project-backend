@@ -21,7 +21,6 @@ public class FindItemResponseDtoFactory {
                 .itemName("맥북")
                 .shopId(2L)
                 .shopName("애플 스토어")
-                .optionGroupIdList(Arrays.asList(3L, 4L))
                 .imageUrl("www.image.com")
                 .information("information")
                 .category("Electronics")
