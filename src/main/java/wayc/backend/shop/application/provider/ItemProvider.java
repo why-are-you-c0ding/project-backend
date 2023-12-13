@@ -12,7 +12,9 @@ import wayc.backend.shop.domain.command.ItemRepository;
 import wayc.backend.shop.domain.query.ItemQueryRepository;
 import wayc.backend.shop.exception.NotExistsItemException;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 
@@ -28,7 +30,7 @@ public class ItemProvider {
     public FindItemResponseDto findItem(Long itemId) {
         Item item = itemRepository.findItemByItemId(itemId).orElseThrow(NotExistsItemException::new);
         FindItemDto itemDto = FindItemDto.from(item);
-        List<FindOptionGroupResponseDto> optionGroupDto = optionGroupService.findOptionGroups(itemDto.getOptionGroupIdList());
+        List<FindOptionGroupResponseDto> optionGroupDto = optionGroupService.findOptionGroups(itemId);
         return FindItemResponseDto.of(itemDto, optionGroupDto);
     }
 

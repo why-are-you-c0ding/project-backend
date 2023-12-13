@@ -22,16 +22,11 @@ public class OptionGroupProvider {
 
     private final OptionGroupRepository optionGroupRepository;
 
-    public List<FindOptionGroupResponseDto> findOptionGroups(List<Long> optionGroupSpecificationIdList) {
-        return  optionGroupSpecificationIdList
+    public List<FindOptionGroupResponseDto> findOptionGroups(Long itemId) {
+        return optionGroupRepository.findByItemIdAndStatus(itemId)
                 .stream()
-                .map(id ->
-                        toOptionGroupDto(
-                        optionGroupRepository
-                                .findByIdAndStatus(id)
-                                .orElseThrow(NotExistsOptionGroupSpecificationException::new))
-                )
-                .collect(toList());
+                .map(optionGroup -> toOptionGroupDto(optionGroup))
+                .collect(Collectors.toList());
     }
 
     private FindOptionGroupResponseDto toOptionGroupDto(OptionGroup optionGroup) {
