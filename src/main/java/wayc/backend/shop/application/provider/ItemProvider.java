@@ -27,6 +27,13 @@ public class ItemProvider {
     private final ItemRepository itemRepository;
     private final OptionGroupProvider optionGroupService;
 
+    /**
+     * 옵션 그룹에는 상품 id를 기준으로 인덱스 생성
+     * create index item_id_idx on item_option_group(item_id)
+     *
+     * 옵션은 옵션 그룹 기준으로 인덱스 생성
+     * create index item_option_group_id_idx on item_option(item_option_group_id)
+     */
     public FindItemResponseDto findItem(Long itemId) {
         Item item = itemRepository.findItemByItemId(itemId).orElseThrow(NotExistsItemException::new);
         FindItemDto itemDto = FindItemDto.from(item);
