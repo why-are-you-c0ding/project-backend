@@ -39,7 +39,7 @@ public class FindItemResponseDto {
     }
 
     public static FindItemResponseDto of(FindItemDto itemDto,
-                                           List<FindOptionGroupResponseDto> optionGroupDto) {
+                                         List<FindOptionGroupResponseDto> optionGroupDto) {
         return FindItemResponseDto.builder()
                 .itemId(itemDto.getItemId())
                 .itemName(itemDto.getItemName())
