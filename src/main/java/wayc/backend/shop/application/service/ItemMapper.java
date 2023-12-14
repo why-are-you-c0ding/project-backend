@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class ItemMapper {
 
     public Item mapOf(RegisterItemRequestDto dto,
-                        Shop shop){
+                      Shop shop){
         Item item = Item.builder()
                 .name(dto.getItemName())
                 .shop(shop)
