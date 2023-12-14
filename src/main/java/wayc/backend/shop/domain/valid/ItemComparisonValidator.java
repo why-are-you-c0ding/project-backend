@@ -19,7 +19,7 @@ public class ItemComparisonValidator <T extends ItemComparator> {
     }
 
     public void validate(T compared) {
-        Item item = itemRepository.findItemByItemId(compared.getItemId()).orElseThrow(NotExistsItemException::new);
+        Item item = itemRepository.findItemByItemIdWithFetchJoin(compared.getItemId()).orElseThrow(NotExistsItemException::new);
 
         if(!item.getName().equals(compared.getName())){
             throw new IllegalArgumentException("상품 이름이 변경되었습니다.");
